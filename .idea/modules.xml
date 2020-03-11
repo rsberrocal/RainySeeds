@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/AA Cosas Uni-RainySeeds2.iml" filepath="$PROJECT_DIR$/AA Cosas Uni-RainySeeds2.iml" group="RainySeeds2" />
       <module fileurl="file://$PROJECT_DIR$/RainySeeds2.iml" filepath="$PROJECT_DIR$/RainySeeds2.iml" group="RainySeeds2" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="RainySeeds2/app" />
     </modules>
