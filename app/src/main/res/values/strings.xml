@@ -6,4 +6,6 @@
     <string name="eT_Password">Password</string>
     <string name="eT_Email">Email address</string>
     <string name="btnLogin">Log in</string>
+    <string name="eT_EmailRecovery">Email address</string>
+    <string name="btn_sendPassword">Send password</string>
 </resources>
