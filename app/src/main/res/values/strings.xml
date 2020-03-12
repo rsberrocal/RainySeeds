@@ -7,5 +7,9 @@
     <string name="eT_Email">Email address</string>
     <string name="btnLogin">Log in</string>
     <string name="eT_EmailRecovery">Email address</string>
-    <string name="btn_sendPassword">Send password</string>
+    <string name="btnSendPassword">Send password</string>
+    <string name="eT_EmailSignin">Email address</string>
+    <string name="eT_PasswordSignin">Password</string>
+    <string name="eT_ConfirmPassword">Password</string>
+    <string name="btnSignin">Sign in</string>
 </resources>
