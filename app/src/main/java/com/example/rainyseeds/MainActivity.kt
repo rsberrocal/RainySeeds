@@ -1,4 +1,4 @@
-package com.rainyteam.main
+package com.example.rainyseeds
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

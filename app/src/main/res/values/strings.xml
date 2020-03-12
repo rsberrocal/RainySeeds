@@ -1,3 +1,15 @@
 <resources>
-    <string name="app_name">Main</string>
+    <string name="app_name">RainySeeds</string>
+    <string name="btnGoogle">Log in with Google</string>
+    <string name="tV_PasswordRecovery">Forgot password?</string>
+    <string name="tV_Signup">New here? Sign up</string>
+    <string name="eT_Password">Password</string>
+    <string name="eT_Email">Email address</string>
+    <string name="btnLogin">Log in</string>
+    <string name="eT_EmailRecovery">Email address</string>
+    <string name="btnSendPassword">Send password</string>
+    <string name="eT_EmailSignin">Email address</string>
+    <string name="eT_PasswordSignin">Password</string>
+    <string name="eT_ConfirmPassword">Password</string>
+    <string name="btnSignin">Sign in</string>
 </resources>

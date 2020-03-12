@@ -1,4 +1,4 @@
-package com.rainyteam.main
+package com.example.rainyseeds
 
 import org.junit.Test
 

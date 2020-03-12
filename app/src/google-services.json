@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "434947029937",
+    "firebase_url": "https://rainy-seeds.firebaseio.com",
+    "project_id": "rainy-seeds",
+    "storage_bucket": "rainy-seeds.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:434947029937:android:df2ef98abc475b683e5b90",
+        "android_client_info": {
+          "package_name": "com.example.rainyseeds"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "434947029937-r2ucua7tv1j3pmt6cugr5tk39e9iu8as.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgNDs4hKVe2TxROMR7PwBUSJsTlRS4z_k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "434947029937-r2ucua7tv1j3pmt6cugr5tk39e9iu8as.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

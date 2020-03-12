@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondoInvernadero"
+    >
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/icon_shopping_cart"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="210dp"
+        ></ImageView>
+    <ImageView
+        android:layout_width="250dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginBottom="45dp"
+        android:src="@drawable/flor"></ImageView>
+
+    <ImageView
+        android:id="@+id/buttonGlass"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:layout_gravity="right|bottom"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginBottom="45dp"
+        android:src="@drawable/icon_glass"
+        android:onClick="goToWater"
+        ></ImageView>
+
+    <ImageView
+        android:id="@+id/buttonDictionary"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:layout_gravity="start|bottom"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginBottom="45dp"
+        android:src="@drawable/icon_book"
+        android:onClick="goToDictionary"
+        />
+
+    <LinearLayout
+        android:id="@+id/layoutSeeds"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_gravity="end"
+        android:layout_marginTop="25dp"
+        android:layout_marginHorizontal="20dp"
+        android:background="@drawable/rounded_button">
+        <ImageView
+            android:id="@+id/imageViewSeed"
+            android:src="@drawable/icon_golden_seed"
+            android:layout_height="35dp"
+            android:layout_width="35dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginVertical="5dp"
+            />
+        <TextView
+            android:id="@+id/textGoldenSeeds"
+            android:layout_height="40dp"
+            android:layout_width="65dp"
+            android:layout_marginVertical="5dp"
+            android:layout_gravity="center"
+            android:text="12"
+            android:textSize="25dp"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            />
+    </LinearLayout>
+
+</FrameLayout>
