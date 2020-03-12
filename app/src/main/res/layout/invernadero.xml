@@ -51,7 +51,7 @@
         android:background="@drawable/rounded_button">
         <ImageView
             android:id="@+id/imageViewSeed"
-            android:src="@drawable/icon_golden_seed"
+            android:src="@drawable/icon_seeed"
             android:layout_height="35dp"
             android:layout_width="35dp"
             android:layout_gravity="center"
