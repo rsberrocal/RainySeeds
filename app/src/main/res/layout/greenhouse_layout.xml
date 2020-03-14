@@ -26,31 +26,40 @@
 
     </ImageView>
 
-    <ImageView
-        android:id="@+id/buttonGlass"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
-        android:layout_gravity="right|bottom"
-        android:layout_marginHorizontal="30dp"
-        android:layout_marginBottom="45dp"
-        android:onClick="goToWater"
-        android:src="@drawable/icon_glass"
-        android:contentDescription="TODO">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
 
-    </ImageView>
+        >
+        <ImageView
+            android:id="@+id/buttonDictionary"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="30dp"
+            android:onClick="goToDictionary"
+            android:src="@drawable/icon_book"
+            android:contentDescription="TODO">
 
-    <ImageView
-        android:id="@+id/buttonDictionary"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
-        android:layout_gravity="start|bottom"
-        android:layout_marginHorizontal="30dp"
-        android:layout_marginBottom="45dp"
-        android:onClick="goToDictionary"
-        android:src="@drawable/icon_book"
-        android:contentDescription="TODO">
+        </ImageView>
+        <ImageView
+            android:id="@+id/buttonGlass"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginHorizontal="30dp"
+            android:layout_gravity="center"
+            android:onClick="goToWater"
+            android:src="@drawable/icon_glass"
+            android:contentDescription="TODO">
 
-    </ImageView>
+        </ImageView>
+
+
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:id="@+id/layoutSeeds"
