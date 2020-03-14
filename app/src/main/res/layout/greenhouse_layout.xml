@@ -5,14 +5,6 @@
     android:background="@drawable/fondo_invernadero"
     android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="210dp"
-        android:layout_marginTop="25dp"
-        android:src="@drawable/icon_shopping_cart">
-
-    </ImageView>
 
     <ImageView
         android:id="@+id/flor"
@@ -21,75 +13,101 @@
         android:layout_gravity="center"
         android:layout_marginHorizontal="30dp"
         android:layout_marginBottom="45dp"
-        android:src="@drawable/flor"
-        android:contentDescription="TODO">
+        android:contentDescription="TODO"
+        android:src="@drawable/flor">
 
     </ImageView>
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="210dp"
+            android:layout_gravity="center"
+            android:src="@drawable/icon_shopping_cart">
+
+        </ImageView>
+
+        <LinearLayout
+            android:id="@+id/layoutSeeds"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="15dp"
+            android:background="@drawable/rounded_button">
+
+            <ImageView
+                android:id="@+id/imageViewSeed"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:layout_marginVertical="5dp"
+                android:layout_marginLeft="10dp"
+                android:contentDescription="TODO"
+                android:src="@drawable/icon_seed" />
+
+            <TextView
+                android:id="@+id/textGoldenSeeds"
+                android:layout_width="65dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginVertical="5dp"
+                android:text="12"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="25dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_gravity="bottom"
-        android:orientation="horizontal"
+        android:background="@color/translucid_white"
+        android:orientation="horizontal">
 
-        >
         <ImageView
             android:id="@+id/buttonDictionary"
             android:layout_width="90dp"
             android:layout_height="90dp"
             android:layout_gravity="center"
-            android:layout_marginHorizontal="30dp"
+            android:layout_marginHorizontal="25dp"
+            android:contentDescription="TODO"
             android:onClick="goToDictionary"
-            android:src="@drawable/icon_book"
-            android:contentDescription="TODO">
+            android:src="@drawable/icon_book">
 
         </ImageView>
+
         <ImageView
             android:id="@+id/buttonGlass"
             android:layout_width="90dp"
             android:layout_height="90dp"
-            android:layout_marginHorizontal="30dp"
             android:layout_gravity="center"
+            android:layout_marginHorizontal="25dp"
+            android:contentDescription="TODO"
             android:onClick="goToWater"
-            android:src="@drawable/icon_glass"
-            android:contentDescription="TODO">
+            android:src="@drawable/icon_greenhouse">
+
+        </ImageView>
+
+        <ImageView
+            android:id="@+id/buttonGreenhouse"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="25dp"
+            android:contentDescription="TODO"
+            android:onClick="goToWater"
+            android:src="@drawable/icon_glass">
 
         </ImageView>
 
 
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/layoutSeeds"
-        android:layout_width="120dp"
-        android:layout_height="50dp"
-        android:layout_gravity="end"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/rounded_button">
-
-        <ImageView
-            android:id="@+id/imageViewSeed"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_gravity="center"
-            android:layout_marginVertical="5dp"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/icon_seed"
-            android:contentDescription="TODO" />
-
-        <TextView
-            android:id="@+id/textGoldenSeeds"
-            android:layout_width="65dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginVertical="5dp"
-            android:text="12"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="25dp" />
     </LinearLayout>
 
 </FrameLayout>
