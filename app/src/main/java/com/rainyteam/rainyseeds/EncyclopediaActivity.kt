@@ -2,8 +2,6 @@ package com.rainyteam.rainyseeds
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TableLayout
-import androidx.recyclerview.widget.
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 

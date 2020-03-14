@@ -16,7 +16,7 @@ class AdapterPlant (items:ArrayList<Plant>): RecyclerView.Adapter<AdapterPlant.V
         this.items = items
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.template, parent, false)
         viewHolder = ViewHolder(view)
         return viewHolder!!
@@ -32,7 +32,7 @@ class AdapterPlant (items:ArrayList<Plant>): RecyclerView.Adapter<AdapterPlant.V
 
     }
 
-    class ViewHolder(vista: View): RecyclerView.ViewHolder(){
+    class ViewHolder(vista: View): RecyclerView.ViewHolder(vista){
         var view = vista
         var nombre:TextView? = null
 
