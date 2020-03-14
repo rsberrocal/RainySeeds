@@ -45,8 +45,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|bottom"
                 android:ems="10"
-                android:inputType="textPassword"
-                android:text="@string/eT_Password" />
+                android:hint="@string/eT_Password"
+                android:inputType="textPassword"/>
 
             <EditText
                 android:id="@+id/eT_Email"
@@ -55,7 +55,7 @@
                 android:layout_gravity="center_horizontal"
                 android:ems="10"
                 android:inputType="textEmailAddress"
-                android:text="@string/eT_Email"/>
+                android:hint="@string/eT_Email"/>
         </FrameLayout>
 
         <Button

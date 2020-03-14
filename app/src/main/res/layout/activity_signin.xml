@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textEmailAddress"
-            android:text="@string/eT_EmailSignin"
+            android:hint="@string/eT_EmailSignin"
             android:layout_marginBottom="20dp"/>
 
         <EditText
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPassword"
-            android:text="@string/eT_PasswordSignin"
+            android:hint="@string/eT_PasswordSignin"
             android:layout_marginBottom="20dp"/>
 
         <EditText
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPassword"
-            android:text="@string/eT_ConfirmPassword"/>
+            android:hint="@string/eT_ConfirmPassword"/>
     </LinearLayout>
 
     <LinearLayout
