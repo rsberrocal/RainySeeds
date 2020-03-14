@@ -14,4 +14,6 @@
     <string name="tV_Signup">New here? Sign up</string>
     <string name="ErrorLogin">Fill up all fields!</string>
     <string name="ExitLogin">Successfully logged in</string>
+    <string name="ErrorPassword">Passwords do not match</string>
+    <string name="ExitSignin">Successfully signed in</string>
 </resources>

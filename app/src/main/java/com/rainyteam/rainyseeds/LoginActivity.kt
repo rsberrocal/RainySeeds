@@ -20,14 +20,19 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         val btnLogin = findViewById<View>(R.id.btnLogin) as Button
-        val regTxt = findViewById<View>(R.id.regTxt) as TextView
+        val signup = findViewById<View>(R.id.tV_Signup) as TextView
+        val forgotPass = findViewById<View>(R.id.tV_PasswordRecovery) as TextView
 
         btnLogin.setOnClickListener(View.OnClickListener {
                 view -> login()
         })
 
-        regTxt.setOnClickListener(View.OnClickListener {
+        signup.setOnClickListener(View.OnClickListener {
                 view -> register()
+        })
+
+        forgotPass.setOnClickListener(View.OnClickListener {
+                view -> passwordRecovery()
         })
     }
 
@@ -41,7 +46,6 @@ class LoginActivity : AppCompatActivity() {
         if (!email.isEmpty() && !password.isEmpty()) {
             mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, OnCompleteListener { task ->
                 if (task.isSuccessful){
-                    startActivity(Intent(this, xxxxx :: class.java))
                     Toast.makeText(this, "@string/ExitLogin", Toast.LENGTH_LONG).show()
                 } else {
                     Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
@@ -54,6 +58,11 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun register () {
-        startActivity(Intent(this, SigninActivity :: class.java))
+
+    }
+
+
+    private fun passwordRecovery () {
+
     }
 }
