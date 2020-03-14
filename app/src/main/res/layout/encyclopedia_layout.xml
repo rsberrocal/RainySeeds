@@ -1,10 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#33CC36">
+
     <LinearLayout
-        android:layout_width="360dp"
-        android:layout_height="650dp"
-        android:layout_gravity="center">
+        android:id="@+id/layoutMain"
+        android:layout_width="350dp"
+        android:layout_height="625dp"
+        android:layout_gravity="center"
+        android:background="#6C6262"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="Encyclopedia"
+            android:textColor="@color/white" />
+
+        <LinearLayout
+            android:layout_width="147dp"
+            android:layout_height="17dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp">
+
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/icon_search" />
+
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="120dp"
+                android:layout_height="18dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:selectAllOnFocus="false"
+                android:singleLine="false"
+                android:text="Search"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textSize="10sp" />
         </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewPlants"
+            android:layout_width="300dp"
+            android:layout_height="500dp"
+            android:layout_gravity="center"
+            android:scrollbars="vertical">
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </LinearLayout>
 </FrameLayout>
