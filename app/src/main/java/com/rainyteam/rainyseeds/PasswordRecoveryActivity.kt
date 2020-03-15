@@ -1,5 +1,6 @@
 package com.rainyteam.rainyseeds
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -15,17 +16,16 @@ class PasswordRecoveryActivity : AppCompatActivity() {
         setContentView(R.layout.activity_password_recovery)
 
         btnReturnLogin.setOnClickListener(View.OnClickListener {
-                view -> returntoLogin ()
+            val returnLogin = Intent(this, LoginActivity::class.java)
+            startActivity(returnLogin)
         })
 
         btnSendPass.setOnClickListener(View.OnClickListener {
                 view -> sendPassword ()
+
         })
     }
 
-    private fun returntoLogin () {
-
-    }
 
     private fun sendPassword () {
 

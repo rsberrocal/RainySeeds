@@ -1,5 +1,6 @@
 package com.rainyteam.rainyseeds
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -31,7 +32,8 @@ class SigninActivity : AppCompatActivity() {
         })
 
         btnReturnLogin.setOnClickListener(View.OnClickListener {
-                view -> returntoLogin ()
+            val returnLogin = Intent(this, LoginActivity::class.java)
+            startActivity(returnLogin)
         })
     }
 
@@ -64,10 +66,6 @@ class SigninActivity : AppCompatActivity() {
         }
 
             }
-
-    private fun returntoLogin () {
-
-    }
 
     }
 

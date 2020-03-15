@@ -28,11 +28,13 @@ class LoginActivity : AppCompatActivity() {
         })
 
         signup.setOnClickListener(View.OnClickListener {
-                view -> register()
+                val signin = Intent(this, SigninActivity::class.java)
+                startActivity(signin)
         })
 
         forgotPass.setOnClickListener(View.OnClickListener {
-                view -> passwordRecovery()
+            val passRecovery = Intent(this, PasswordRecoveryActivity::class.java)
+            startActivity(passRecovery)
         })
     }
 
@@ -57,12 +59,4 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun register () {
-
-    }
-
-
-    private fun passwordRecovery () {
-
-    }
 }
