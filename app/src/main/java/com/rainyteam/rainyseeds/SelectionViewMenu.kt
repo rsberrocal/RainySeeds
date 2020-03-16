@@ -15,4 +15,8 @@ class SelectionViewMenu : Fragment() {
     ): View {
         return inflater.inflate(R.layout.fragment_viewmenu, container, false)
     }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+    }
 }
