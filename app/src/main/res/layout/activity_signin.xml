@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/bckg_login">>
 
     <LinearLayout
         android:id="@+id/linearLayout10"
@@ -47,29 +48,38 @@
 
         <EditText
             android:id="@+id/eT_EmailSignin"
-            android:layout_width="match_parent"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textEmailAddress"
             android:hint="@string/eT_EmailSignin"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="20dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray"
+            android:layout_gravity="center"/>
 
         <EditText
             android:id="@+id/eT_PasswordSignin"
-            android:layout_width="match_parent"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPassword"
             android:hint="@string/eT_PasswordSignin"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="20dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray"
+            android:layout_gravity="center"/>
 
         <EditText
             android:id="@+id/eT_ConfirmPassword"
-            android:layout_width="match_parent"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPassword"
-            android:hint="@string/eT_ConfirmPassword"/>
+            android:hint="@string/eT_ConfirmPassword"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray"
+            android:layout_gravity="center"/>
     </LinearLayout>
 
     <LinearLayout
