@@ -17,7 +17,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        setContentView(R.layout.login_layout)
 
         val btnLogin = findViewById<View>(R.id.btnLogin) as Button
         val signup = findViewById<View>(R.id.tV_Signup) as TextView
@@ -59,8 +59,6 @@ class LoginActivity : AppCompatActivity() {
         } else {
             Toast.makeText(this, "@string/ErrorLogin", Toast.LENGTH_LONG).show()
         }
-        val principal = Intent(this, EncyclopediaActivity::class.java)
-        startActivity(principal)
     }
 
 }

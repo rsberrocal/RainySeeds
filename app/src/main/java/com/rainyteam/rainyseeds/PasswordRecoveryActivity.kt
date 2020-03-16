@@ -13,7 +13,7 @@ class PasswordRecoveryActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_password_recovery)
+        setContentView(R.layout.password_recovery_layout)
 
         btnReturnLogin.setOnClickListener(View.OnClickListener {
             val returnLogin = Intent(this, LoginActivity::class.java)
