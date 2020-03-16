@@ -49,8 +49,6 @@ class LoginActivity : AppCompatActivity() {
             mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, OnCompleteListener { task ->
                 if (task.isSuccessful){
                     Toast.makeText(this, "@string/ExitLogin", Toast.LENGTH_LONG).show()
-                    val principal = Intent(this, Plant::class.java)
-                    startActivity(principal)
                 } else {
                     Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
                 }
@@ -59,6 +57,8 @@ class LoginActivity : AppCompatActivity() {
         } else {
             Toast.makeText(this, "@string/ErrorLogin", Toast.LENGTH_LONG).show()
         }
+        val principal = Intent(this, EncyclopediaActivity::class.java)
+        startActivity(principal)
     }
 
 }
