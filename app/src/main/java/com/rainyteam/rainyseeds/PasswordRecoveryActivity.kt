@@ -20,14 +20,13 @@ class PasswordRecoveryActivity : AppCompatActivity() {
             startActivity(returnLogin)
         })
 
-        btnSendPass.setOnClickListener(View.OnClickListener {
-                view -> sendPassword ()
-
+        btnSendPass.setOnClickListener(View.OnClickListener { view ->
+            sendPassword()
         })
     }
 
 
-    private fun sendPassword () {
+    fun sendPassword() {
 
     }
 }
