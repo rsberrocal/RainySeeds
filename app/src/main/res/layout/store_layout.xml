@@ -28,6 +28,20 @@
                 android:layout_height="match_parent"
                 >
 
+                <EditText
+                    android:id="@+id/inputStoreSearch"
+                    android:layout_width="230dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    android:inputType="textCapSentences"
+                    android:hint="Search"
+                    android:ems="10"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/gray"
+                    >
+
+                </EditText>
+
             </FrameLayout>
 
             <FrameLayout
@@ -47,13 +61,14 @@
             </FrameLayout>
         </LinearLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view_store"
-            android:scrollbars="vertical"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewStore"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            >
-        </android.support.v7.widget.RecyclerView>
+            android:layout_gravity="center"
+            android:scrollbars="vertical">
+
+        </androidx.recyclerview.widget.RecyclerView>
 
     </LinearLayout>
 
