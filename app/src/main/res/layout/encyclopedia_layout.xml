@@ -57,5 +57,12 @@
             android:scrollbars="vertical">
 
         </androidx.recyclerview.widget.RecyclerView>
+
     </LinearLayout>
+    <fragment class="com.rainyteam.rainyseeds.SelectionViewMenu"
+        android:id="@+id/fragmentViewMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        />
 </FrameLayout>
