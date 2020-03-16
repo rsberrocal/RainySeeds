@@ -8,7 +8,6 @@
         android:layout_height="100dp"
         android:layout_gravity="bottom"
         android:gravity="center"
-        android:background="@color/translucid_white"
         android:orientation="horizontal">
 
 

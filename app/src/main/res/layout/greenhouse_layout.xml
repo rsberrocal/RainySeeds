@@ -24,6 +24,7 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:id="@+id/buttonStore"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginLeft="210dp"
@@ -66,8 +67,9 @@
 
     <fragment class="com.rainyteam.rainyseeds.SelectionViewMenu"
         android:id="@+id/fragmentViewMenu"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
         >
 
     </fragment>
