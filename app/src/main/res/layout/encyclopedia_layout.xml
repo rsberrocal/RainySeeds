@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#33CC36">
+    android:background="@drawable/bckg_encyclopedia">
 
     <LinearLayout
         android:id="@+id/layoutMain"
         android:layout_width="350dp"
         android:layout_height="625dp"
         android:layout_gravity="center"
-        android:background="#6C6262"
+        android:background="@drawable/book_bckg"
         android:orientation="vertical">
 
         <TextView

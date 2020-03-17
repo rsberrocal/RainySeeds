@@ -48,7 +48,7 @@ class LoginActivity : AppCompatActivity() {
         if (!email.isEmpty() && !password.isEmpty()) {
             mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, OnCompleteListener { task ->
                 if (task.isSuccessful){
-                    Toast.makeText(this, "@string/ExitLogin", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, R.string.ExitLogin, Toast.LENGTH_LONG).show()
                     val principal = Intent(this, GreenhouseActivity::class.java)
                     startActivity(principal)
                 } else {
@@ -57,8 +57,10 @@ class LoginActivity : AppCompatActivity() {
 
             })
         } else {
-            Toast.makeText(this, "@string/ErrorLogin", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, R.string.ErrorLogin, Toast.LENGTH_LONG).show()
         }
+        val principal = Intent(this, EncyclopediaActivity::class.java)
+        startActivity(principal)
     }
 
 }
