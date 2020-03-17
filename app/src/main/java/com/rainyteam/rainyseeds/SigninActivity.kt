@@ -53,16 +53,16 @@ class SigninActivity : AppCompatActivity() {
                         val user = mAuth.currentUser
                         val uid = user!!.uid
                         mDatabase.child(uid).child("Email").setValue(email)
-                        Toast.makeText(this, "@string/ExitSignin", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, R.string.ExitSignin, Toast.LENGTH_LONG).show()
                     } else {
                         Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
                     }
                 })
             } else {
-                Toast.makeText(this, "@string/ErrorPassword", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, R.string.ErrorPassword, Toast.LENGTH_LONG).show()
             }
         } else {
-            Toast.makeText(this, "@string/ErrorLogin", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, R.string.ErrorLogin, Toast.LENGTH_LONG).show()
         }
 
             }
