@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        android:shrinkColumns="*"
+        android:stretchColumns="*"
+        android:layout_marginHorizontal="20dp"
+        >
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            >
+
+            <fragment class="com.rainyteam.rainyseeds.FragmentPlantGreenhouse"
+                android:id="@+id/plantR1C1"
+                android:layout_weight="1"
+                android:layout_height="160dp"
+                android:layout_gravity="center"
+                >
+            </fragment>
+            <fragment class="com.rainyteam.rainyseeds.FragmentPlantGreenhouse"
+                android:id="@+id/plantR1C2"
+                android:layout_weight="1"
+                android:layout_height="160dp"
+                android:layout_gravity="center"
+                >
+            </fragment>
+            <fragment class="com.rainyteam.rainyseeds.FragmentPlantGreenhouse"
+                android:id="@+id/plantR1C3"
+                android:layout_weight="1"
+                android:layout_height="160dp"
+                android:layout_gravity="center"
+                >
+            </fragment>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+
+            >
+            <fragment class="com.rainyteam.rainyseeds.FragmentPlantGreenhouse"
+                android:id="@+id/plantR2C1"
+                android:layout_weight="1"
+                android:layout_height="160dp"
+                android:layout_gravity="center"
+                >
+            </fragment>
+            <fragment class="com.rainyteam.rainyseeds.FragmentPlantGreenhouse"
+                android:id="@+id/plantR2C2"
+                android:layout_weight="1"
+                android:layout_height="160dp"
+                android:layout_gravity="center"
+                >
+            </fragment>
+            <fragment class="com.rainyteam.rainyseeds.FragmentPlantGreenhouse"
+                android:id="@+id/plantR2C3"
+                android:layout_weight="1"
+                android:layout_height="160dp"
+                android:layout_gravity="center"
+                >
+            </fragment>
+
+        </TableRow>
+
+
+
+    </TableLayout>
+
+</FrameLayout>

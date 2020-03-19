@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="120dp"
+        android:layout_height="150dp"
+        android:orientation="vertical"
+        android:gravity="center"
+
+        >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="105dp"
+            android:layout_gravity="center"
+            android:src="@drawable/flor2"
+            >
+
+        </ImageView>
+
+        <TextView
+            android:id="@+id/textNamePlant"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:typeface="sans"
+            android:textSize="15dp"
+            android:text="Plant Name"
+            >
+
+        </TextView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:gravity="center"
+            >
+
+            <TextView
+                android:id="@+id/textPricePlant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="3dp"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:typeface="sans"
+                android:textSize="15dp"
+                android:text="2"
+                >
+
+            </TextView>
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/icon_seed"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="3dp"
+                >
+
+            </ImageView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>
