@@ -24,10 +24,10 @@
         <Button
             android:id="@+id/btnReturnLogin"
             android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_height="69dp"
             android:layout_marginLeft="20dp"
-             />
+            android:layout_marginTop="20dp"
+            android:background="@drawable/left_arrow" />
     </LinearLayout>
 
     <LinearLayout

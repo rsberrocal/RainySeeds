@@ -1,13 +1,17 @@
 package com.rainyteam.rainyseeds
 
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.util.Patterns
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 
@@ -33,9 +37,30 @@ class LoginActivity : AppCompatActivity() {
         })
 
         forgotPass.setOnClickListener(View.OnClickListener {
-            val passRecovery = Intent(this, PasswordRecoveryActivity::class.java)
-            startActivity(passRecovery)
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle(R.string.ForgotPass)
+            val view = layoutInflater.inflate(R.layout.dialog_forgotpass, null)
+            val email = view.findViewById<EditText>(R.id.eT_EmailFP)
+            builder.setView(view)
+            builder.setPositiveButton(R.string.Reset, DialogInterface.OnClickListener { _,  _ ->
+                forgot(email)
+            })
+            builder.setNegativeButton(R.string.Close, DialogInterface.OnClickListener { _, _ ->  })
+            builder.show()
         })
+    }
+
+
+    private fun forgot(email : EditText){
+        var emailT = email.text.toString()
+
+        mAuth.sendPasswordResetEmail(email.text.toString()).addOnCompleteListener{ task ->
+            if (task.isSuccessful) {
+                Toast.makeText(this, R.string.EmailSent, Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun login() {

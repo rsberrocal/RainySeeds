@@ -3,6 +3,7 @@ package com.rainyteam.rainyseeds
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Patterns
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -48,21 +49,27 @@ class SigninActivity : AppCompatActivity() {
 
         if (!email.isEmpty() && !password.isEmpty() && !confirmPassword.isEmpty()) {
             if (password == confirmPassword) {
-                mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, OnCompleteListener { task ->
-                    if (task.isSuccessful){
-                        val user = mAuth.currentUser
-                        val uid = user!!.uid
-                        mDatabase.child(uid).child("Email").setValue(email)
-                        Toast.makeText(this, R.string.ExitSignin, Toast.LENGTH_LONG).show()
-                        val btnSignin = Intent(this, GreenhouseActivity::class.java)
-                        startActivity(btnSignin)
-                    } else {
-                        Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
-                    }
-                })
+                if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    mAuth.createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(this, OnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                val user = mAuth.currentUser
+                                val uid = user!!.uid
+                                mDatabase.child(uid).child("Email").setValue(email)
+                                Toast.makeText(this, R.string.ExitSignin, Toast.LENGTH_LONG).show()
+                                val btnSignin = Intent(this, GreenhouseActivity::class.java)
+                                startActivity(btnSignin)
+                            } else {
+                                Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
+                            }
+                        })
+                } else {
+                    Toast.makeText(this, R.string.WrongEmail, Toast.LENGTH_LONG).show()
+                }
             } else {
                 Toast.makeText(this, R.string.ErrorPassword, Toast.LENGTH_LONG).show()
             }
+
         } else {
             Toast.makeText(this, R.string.ErrorLogin, Toast.LENGTH_LONG).show()
         }
