@@ -1,15 +1,12 @@
-package com.rainyteam.rainyseeds
+package com.rainyteam.controller
 
-import android.content.Intent
-import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.greenhouse_layout.*
-import kotlinx.android.synthetic.main.store_layout.*
+import com.rainyteam.model.Plant
 
-class StoreActivity : AppCompatActivity() {
+class EncyclopediaActivity : AppCompatActivity() {
 
     var plants: ArrayList<Plant>? = null
     var lista: RecyclerView? = null
@@ -21,8 +18,7 @@ class StoreActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.store_layout)
-
+        setContentView(R.layout.encyclopedia_layout)
         plants = ArrayList()
         plants?.add(Plant("Plant 1"));
         plants?.add(Plant("Plant 2"));
@@ -33,13 +29,6 @@ class StoreActivity : AppCompatActivity() {
         adaptador = AdapterPlant(plants!!)
         lista?.layoutManager = layoutManager
         lista?.adapter = adaptador
-
-        buttonCloseStore.setOnClickListener{
-            val intent = Intent(this, GreenhouseActivity::class.java)
-            startActivity(intent)
-        }
-
-
 
     }
 }

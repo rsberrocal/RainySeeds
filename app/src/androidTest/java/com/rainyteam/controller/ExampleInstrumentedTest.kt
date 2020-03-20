@@ -1,4 +1,4 @@
-package com.rainyteam.rainyseeds
+package com.rainyteam.controller
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

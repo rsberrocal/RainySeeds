@@ -1,4 +1,4 @@
-package com.rainyteam.rainyseeds
+package com.rainyteam.model
 
 class Plant(name: String) {
     var name: String = ""

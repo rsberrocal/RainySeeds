@@ -1,10 +1,11 @@
-package com.rainyteam.rainyseeds
+package com.rainyteam.controller
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.rainyteam.model.Plant
 import kotlinx.android.synthetic.main.template.view.*
 
 class AdapterPlant (items:ArrayList<Plant>): RecyclerView.Adapter<AdapterPlant.ViewHolder>() {
@@ -17,7 +18,7 @@ class AdapterPlant (items:ArrayList<Plant>): RecyclerView.Adapter<AdapterPlant.V
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent?.context).inflate(R.layout.template, parent, false)
+        val view = LayoutInflater.from(parent?.context).inflate(R.layout.template_greenhouse_plant, parent, false)
         viewHolder = ViewHolder(view)
         return viewHolder!!
     }

@@ -16,4 +16,9 @@
     <string name="ExitLogin">Successfully logged in</string>
     <string name="ErrorPassword">Passwords do not match</string>
     <string name="ExitSignin">Successfully signed in</string>
+    <string name="WrongEmail">Wrong email</string>
+    <string name="ForgotPass">Reset password</string>
+    <string name="Reset">Send password</string>
+    <string name="Close">Close</string>
+    <string name="EmailSent">Email sent</string>
 </resources>

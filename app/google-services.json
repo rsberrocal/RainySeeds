@@ -1,34 +1,42 @@
 {
   "project_info": {
-    "project_number": "434947029937",
-    "firebase_url": "https://rainy-seeds.firebaseio.com",
-    "project_id": "rainy-seeds",
-    "storage_bucket": "rainy-seeds.appspot.com"
+    "project_number": "777901804094",
+    "firebase_url": "https://rainy-seeds-0.firebaseio.com",
+    "project_id": "rainy-seeds-0",
+    "storage_bucket": "rainy-seeds-0.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:434947029937:android:b4825226c3045a0f3e5b90",
+        "mobilesdk_app_id": "1:777901804094:android:2b1a14e24bdb42e9bd5f6f",
         "android_client_info": {
           "package_name": "com.rainyteam.rainyseeds"
         }
       },
       "oauth_client": [
         {
-          "client_id": "434947029937-r2ucua7tv1j3pmt6cugr5tk39e9iu8as.apps.googleusercontent.com",
+          "client_id": "777901804094-fmr5asppaedpagkf11anh2cqnkm6nl68.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rainyteam.rainyseeds",
+            "certificate_hash": "bdc99ef30845aacd426e8c2893812064374c30d9"
+          }
+        },
+        {
+          "client_id": "777901804094-mop8iggopnonpo1mdn84r5f5809kp12l.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBgNDs4hKVe2TxROMR7PwBUSJsTlRS4z_k"
+          "current_key": "AIzaSyA19-Ss8OMiE-lY0buJlDuqM8cqTPkWA6E"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "434947029937-r2ucua7tv1j3pmt6cugr5tk39e9iu8as.apps.googleusercontent.com",
+              "client_id": "777901804094-mop8iggopnonpo1mdn84r5f5809kp12l.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

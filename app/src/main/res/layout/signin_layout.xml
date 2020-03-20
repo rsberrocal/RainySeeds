@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bckg_login">>
+    android:background="@drawable/bckg_login">
 
     <LinearLayout
         android:id="@+id/linearLayout10"
@@ -24,10 +24,10 @@
         <Button
             android:id="@+id/btnReturnLogin"
             android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_height="69dp"
             android:layout_marginLeft="20dp"
-             />
+            android:layout_marginTop="20dp"
+            android:background="@drawable/left_arrow" />
     </LinearLayout>
 
     <LinearLayout
