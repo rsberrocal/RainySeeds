@@ -1,12 +1,11 @@
-package com.rainyteam.rainyseeds
+package com.rainyteam.controller
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.greenhouse_layout.*
+import com.rainyteam.model.Plant
 import kotlinx.android.synthetic.main.store_layout.*
 
 class StoreActivity : AppCompatActivity() {

@@ -59,7 +59,7 @@
         </androidx.recyclerview.widget.RecyclerView>
 
     </LinearLayout>
-    <fragment class="com.rainyteam.rainyseeds.SelectionViewMenu"
+    <fragment class="com.rainyteam.controller.SelectionViewMenu"
         android:id="@+id/fragmentViewMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

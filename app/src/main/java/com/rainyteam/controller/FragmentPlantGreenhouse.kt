@@ -1,4 +1,4 @@
-package com.rainyteam.rainyseeds
+package com.rainyteam.controller
 
 import android.app.Fragment
 import android.os.Bundle

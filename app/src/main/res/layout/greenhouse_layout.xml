@@ -22,7 +22,7 @@
 
         <fragment
             android:id="@+id/fragmentPageGreenhouse"
-            class="com.rainyteam.rainyseeds.FragmentPageGreenhouse"
+            class="com.rainyteam.controller.FragmentPageGreenhouse"
             android:layout_width="300dp"
             android:layout_height="match_parent"
             android:layout_gravity="center">
@@ -89,7 +89,7 @@
 
     <fragment
         android:id="@+id/fragmentViewMenu"
-        class="com.rainyteam.rainyseeds.SelectionViewMenu"
+        class="com.rainyteam.controller.SelectionViewMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom">

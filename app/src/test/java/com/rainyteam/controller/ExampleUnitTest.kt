@@ -1,4 +1,4 @@
-package com.rainyteam.rainyseeds
+package com.rainyteam.controller
 
 import org.junit.Test
 

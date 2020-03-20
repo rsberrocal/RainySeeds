@@ -1,4 +1,4 @@
-package com.rainyteam.rainyseeds
+package com.rainyteam.controller
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

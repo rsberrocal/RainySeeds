@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.rainyteam.rainyseeds">
+    package="com.rainyteam.controller">
 
     <application
         android:allowBackup="true"
@@ -10,16 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity android:name=".PasswordRecoveryActivity"></activity>
-        <activity android:name=".SigninActivity"></activity>
-        <activity android:name=".LoginActivity">
+        <activity android:name="com.rainyteam.controller.SigninActivity"></activity>
+        <activity android:name="com.rainyteam.controller.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EncyclopediaActivity"></activity>
-        <activity android:name=".GreenhouseActivity"></activity>
-        <activity android:name=".StoreActivity"></activity>
+        <activity android:name="com.rainyteam.controller.EncyclopediaActivity"></activity>
+        <activity android:name="com.rainyteam.controller.GreenhouseActivity"></activity>
+        <activity android:name="com.rainyteam.controller.StoreActivity"></activity>
     </application>
 
 </manifest>
