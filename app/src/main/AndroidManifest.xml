@@ -9,7 +9,7 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name="com.rainyteam.rainyseeds.IntroduceWaterActivity"></activity>
+        <activity android:name=".IntroduceWaterActivity"></activity>
         <activity android:name=".SigninActivity"></activity>
         <activity android:name=".LoginActivity">
             <intent-filter>
