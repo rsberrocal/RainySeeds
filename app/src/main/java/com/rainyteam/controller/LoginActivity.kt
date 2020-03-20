@@ -14,6 +14,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
@@ -35,7 +36,7 @@ class LoginActivity : AppCompatActivity() {
         val btnLogin = findViewById<View>(R.id.btnLogin) as Button
         val signup = findViewById<View>(R.id.tV_Signup) as TextView
         val forgotPass = findViewById<View>(R.id.tV_PasswordRecovery) as TextView
-        val btnLoginGoogle = findViewById<View>(R.id.btnGoogle) as Button
+        val btnLoginGoogle = findViewById<View>(R.id.btnGoogle) as SignInButton
         mGoogleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
