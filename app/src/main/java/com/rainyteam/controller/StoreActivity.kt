@@ -5,12 +5,11 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.rainyteam.model.Plant
 import kotlinx.android.synthetic.main.store_layout.*
 
 class StoreActivity : AppCompatActivity() {
 
-    var plants: ArrayList<Plant>? = null
+    var plants: ArrayList<FragmentPlantGreenhouse>? = null
     var lista: RecyclerView? = null
     var layoutManager: RecyclerView.LayoutManager? = null
     var adaptador: AdapterPlant? = null
@@ -23,9 +22,9 @@ class StoreActivity : AppCompatActivity() {
         setContentView(R.layout.store_layout)
 
         plants = ArrayList()
-        plants?.add(Plant());
-        plants?.add(Plant());
-        plants?.add(Plant());
+        plants?.add(FragmentPlantGreenhouse());
+        plants?.add(FragmentPlantGreenhouse());
+        plants?.add(FragmentPlantGreenhouse());
 
         lista = findViewById(R.id.recyclerViewPlants)
         layoutManager = LinearLayoutManager(this)
@@ -37,8 +36,6 @@ class StoreActivity : AppCompatActivity() {
             val intent = Intent(this, GreenhouseActivity::class.java)
             startActivity(intent)
         }
-
-
 
     }
 }

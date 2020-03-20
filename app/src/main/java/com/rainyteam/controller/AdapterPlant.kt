@@ -5,12 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.rainyteam.model.Plant
 import kotlinx.android.synthetic.main.template.view.*
 
-class AdapterPlant(items: ArrayList<Plant>?): RecyclerView.Adapter<AdapterPlant.ViewHolder>() {
+class AdapterPlant(items: ArrayList<FragmentPlantGreenhouse>?): RecyclerView.Adapter<AdapterPlant.ViewHolder>() {
 
-    var items: ArrayList<Plant>? = null
+    var items: ArrayList<FragmentPlantGreenhouse>? = null
     var viewHolder: ViewHolder? = null
 
     init {

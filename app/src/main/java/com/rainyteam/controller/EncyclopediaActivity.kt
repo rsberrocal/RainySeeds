@@ -1,14 +1,15 @@
 package com.rainyteam.controller
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.rainyteam.model.Plant
+
 
 class EncyclopediaActivity : AppCompatActivity() {
 
-    var plants: ArrayList<Plant>? = null
+    var plants: ArrayList<FragmentPlantGreenhouse>? = null
     var lista: RecyclerView? = null
     var layoutManager: RecyclerView.LayoutManager? = null
     var adaptador: AdapterPlant? = null
@@ -21,10 +22,10 @@ class EncyclopediaActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.encyclopedia_layout)
 
-        plants = ArrayList<Plant>()
-        plants!!.add(Plant());
-        plants!!.add(Plant());
-        plants!!.add(Plant());
+        plants = ArrayList()
+        plants!!.add(FragmentPlantGreenhouse());
+        plants!!.add(FragmentPlantGreenhouse());
+        plants!!.add(FragmentPlantGreenhouse());
 
         lista = findViewById(R.id.recyclerViewPlants)
         layoutManager = LinearLayoutManager(this)
