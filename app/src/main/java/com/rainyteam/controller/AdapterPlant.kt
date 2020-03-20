@@ -18,7 +18,7 @@ class AdapterPlant (items:ArrayList<Plant>): RecyclerView.Adapter<AdapterPlant.V
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent?.context).inflate(R.layout.template, parent, false)
+        val view = LayoutInflater.from(parent?.context).inflate(R.layout.template_greenhouse_plant, parent, false)
         viewHolder = ViewHolder(view)
         return viewHolder!!
     }
