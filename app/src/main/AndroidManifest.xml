@@ -11,15 +11,14 @@
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity android:name=".PasswordRecoveryActivity"></activity>
         <activity android:name=".SigninActivity"></activity>
-        <activity android:name=".LoginActivity"></activity>
-        <activity android:name=".EncyclopediaActivity"></activity>
-        <activity android:name=".GreenhouseActivity">
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".EncyclopediaActivity"></activity>
+        <activity android:name=".GreenhouseActivity"></activity>
         <activity android:name=".StoreActivity"></activity>
     </application>
 
