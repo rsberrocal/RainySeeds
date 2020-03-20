@@ -39,7 +39,7 @@ class SigninActivity : AppCompatActivity() {
 
     private fun register () {
         val emailTxt = findViewById<View>(R.id.eT_EmailSignin) as EditText
-        val passwordTxt = findViewById<View>(R.id.eT_Password) as EditText
+        val passwordTxt = findViewById<View>(R.id.eT_PasswordSignin) as EditText
         val confirmPasswordTxt = findViewById<View>(R.id.eT_ConfirmPassword) as EditText
 
         var email = emailTxt.text.toString()
