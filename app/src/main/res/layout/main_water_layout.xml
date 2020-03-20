@@ -33,5 +33,12 @@
             android:layout_marginTop="100dp">
 
     </ImageView>
+    <fragment
+            android:id="@+id/fragmentViewMenu"
+            class="com.rainyteam.controller.SelectionViewMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom">
 
+    </fragment>
 </FrameLayout>
