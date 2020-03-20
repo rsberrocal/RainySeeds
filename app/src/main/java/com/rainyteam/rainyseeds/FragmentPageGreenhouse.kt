@@ -1,13 +1,12 @@
 package com.rainyteam.rainyseeds
 
-import android.app.Fragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-class FragmentPageGreenhouse : Fragment() {
-    /*
+class FragmentPageGreenhouse : androidx.fragment.app.Fragment() {
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -17,10 +16,10 @@ class FragmentPageGreenhouse : Fragment() {
 
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
     }
-    */
+
 
 
 }

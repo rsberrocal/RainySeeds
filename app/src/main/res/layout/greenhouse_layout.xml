@@ -20,14 +20,24 @@
 
         </ImageView>
 
-        <fragment
-            android:id="@+id/fragmentPageGreenhouse"
-            class="com.rainyteam.rainyseeds.FragmentPageGreenhouse"
+        <!-- activity_screen_slide.xml -->
+        <androidx.viewpager2.widget.ViewPager2
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/pager"
             android:layout_width="300dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center">
+            android:layout_height="match_parent" >
 
-        </fragment>
+            <fragment
+                android:id="@+id/fragmentPageGreenhouse"
+                class="com.rainyteam.rainyseeds.FragmentPageGreenhouse"
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center">
+
+            </fragment>
+
+        </androidx.viewpager2.widget.ViewPager2>
+
 
         <ImageView
             android:id="@+id/buttonNextPage"
