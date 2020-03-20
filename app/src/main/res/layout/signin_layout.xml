@@ -107,12 +107,6 @@
             android:layout_gravity="center"
             android:layout_marginBottom="20dp"/>
 
-        <com.google.android.gms.common.SignInButton
-            android:id="@+id/btnGoogleSignin"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"/>
-
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
