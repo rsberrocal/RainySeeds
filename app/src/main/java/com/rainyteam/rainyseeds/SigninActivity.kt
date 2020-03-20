@@ -54,6 +54,8 @@ class SigninActivity : AppCompatActivity() {
                         val uid = user!!.uid
                         mDatabase.child(uid).child("Email").setValue(email)
                         Toast.makeText(this, R.string.ExitSignin, Toast.LENGTH_LONG).show()
+                        val btnSignin = Intent(this, GreenhouseActivity::class.java)
+                        startActivity(btnSignin)
                     } else {
                         Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
                     }

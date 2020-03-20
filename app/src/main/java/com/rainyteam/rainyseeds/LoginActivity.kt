@@ -59,8 +59,6 @@ class LoginActivity : AppCompatActivity() {
         } else {
             Toast.makeText(this, R.string.ErrorLogin, Toast.LENGTH_LONG).show()
         }
-        val principal = Intent(this, EncyclopediaActivity::class.java)
-        startActivity(principal)
     }
 
 }
