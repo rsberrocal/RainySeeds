@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.rainyteam.model.Plant
 import kotlinx.android.synthetic.main.template.view.*
 
-class AdapterPlant (items:ArrayList<Plant>): RecyclerView.Adapter<AdapterPlant.ViewHolder>() {
+class AdapterPlant(items: ArrayList<Plant>?): RecyclerView.Adapter<AdapterPlant.ViewHolder>() {
 
     var items: ArrayList<Plant>? = null
     var viewHolder: ViewHolder? = null
@@ -29,7 +29,7 @@ class AdapterPlant (items:ArrayList<Plant>): RecyclerView.Adapter<AdapterPlant.V
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items?.get(position)
-        holder.nombre?.text = item?.name
+
 
     }
 

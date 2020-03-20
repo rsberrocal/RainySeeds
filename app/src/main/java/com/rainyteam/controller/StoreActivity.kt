@@ -23,9 +23,9 @@ class StoreActivity : AppCompatActivity() {
         setContentView(R.layout.store_layout)
 
         plants = ArrayList()
-        plants?.add(Plant("Plant 1"));
-        plants?.add(Plant("Plant 2"));
-        plants?.add(Plant("Plant 3"));
+        plants?.add(Plant());
+        plants?.add(Plant());
+        plants?.add(Plant());
 
         lista = findViewById(R.id.recyclerViewPlants)
         layoutManager = LinearLayoutManager(this)

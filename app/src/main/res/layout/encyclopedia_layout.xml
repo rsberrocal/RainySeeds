@@ -51,6 +51,8 @@
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewPlants"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2"
             android:layout_width="300dp"
             android:layout_height="500dp"
             android:layout_gravity="center"

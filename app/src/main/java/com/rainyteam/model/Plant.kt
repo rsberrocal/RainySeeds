@@ -1,9 +1,13 @@
 package com.rainyteam.model
 
-class Plant(name: String) {
-    var name: String = ""
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.rainyteam.controller.R
 
-    init {
-        this.name = name
+class Plant : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.template_greenhouse_plant)
+
     }
 }
