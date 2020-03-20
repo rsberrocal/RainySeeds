@@ -16,17 +16,19 @@ class EncyclopediaActivity : AppCompatActivity() {
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.encyclopedia_layout)
-        plants = ArrayList()
-        plants?.add(Plant("Plant 1"));
-        plants?.add(Plant("Plant 2"));
-        plants?.add(Plant("Plant 3"));
+
+        plants = ArrayList<Plant>()
+        plants!!.add(Plant());
+        plants!!.add(Plant());
+        plants!!.add(Plant());
 
         lista = findViewById(R.id.recyclerViewPlants)
         layoutManager = LinearLayoutManager(this)
-        adaptador = AdapterPlant(plants!!)
+        adaptador = AdapterPlant(plants)
         lista?.layoutManager = layoutManager
         lista?.adapter = adaptador
 
