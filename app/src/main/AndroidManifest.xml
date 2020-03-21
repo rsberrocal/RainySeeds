@@ -25,7 +25,12 @@
         <activity android:name=".GreenhouseActivity">
 
         </activity>
-        <activity android:name=".StoreActivity"></activity>
+        <activity android:name=".StoreActivity">
+
+        </activity>
+        <activity android:name=".MainWaterActivity">
+
+        </activity>
     </application>
 
 </manifest>
