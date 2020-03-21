@@ -99,7 +99,7 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <FrameLayout
         android:id="@+id/linearLayout4"
         android:layout_width="380dp"
         android:layout_height="50dp"
@@ -113,23 +113,25 @@
         android:layout_marginTop="1dp"
         android:layout_marginEnd="1dp"
         android:layout_marginRight="1dp"
-        android:layout_marginBottom="1dp">
+        android:layout_marginBottom="1dp"
+        android:paddingHorizontal="40dp">
 
         <TextView
             android:id="@+id/tV_PasswordRecovery"
-            android:layout_width="250dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/tV_PasswordRecovery"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black"
+            android:layout_gravity="start"/>
 
         <TextView
             android:id="@+id/tV_Signup"
-            android:layout_width="200dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
             android:text="@string/tV_Signup"
-            android:textColor="@color/black"/>
-    </LinearLayout>
+            android:textColor="@color/black"
+            android:layout_gravity="end"/>
+    </FrameLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
