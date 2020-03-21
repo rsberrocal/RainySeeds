@@ -23,7 +23,7 @@
         </ImageView>
 
         <ImageView
-            android:id="@+id/buttonGlass"
+            android:id="@+id/buttonGreenhouse"
             android:layout_width="90dp"
             android:layout_height="90dp"
             android:layout_gravity="center"
@@ -34,7 +34,7 @@
         </ImageView>
 
         <ImageView
-            android:id="@+id/buttonGreenhouse"
+            android:id="@+id/buttonGlass"
             android:layout_width="90dp"
             android:layout_height="90dp"
             android:layout_gravity="center"

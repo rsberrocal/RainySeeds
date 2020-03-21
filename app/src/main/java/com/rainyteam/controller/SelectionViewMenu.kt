@@ -1,6 +1,7 @@
 package com.rainyteam.controller
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,17 +18,25 @@ class SelectionViewMenu : androidx.fragment.app.Fragment() {
         val viewActual = inflater.inflate(R.layout.fragment_viewmenu, container, false)
 
         viewActual.buttonDictionary.setOnClickListener { view ->
-            val principal = Intent(activity, EncyclopediaActivity::class.java)
-            startActivity(principal)
+            if (activity?.javaClass?.simpleName != EncyclopediaActivity::class.simpleName) {
+                val principal = Intent(activity, EncyclopediaActivity::class.java)
+                startActivity(principal)
+            }
         }
 
         viewActual.buttonGlass.setOnClickListener { view ->
-            val principal = Intent(activity, IntroduceWaterActivity::class.java)
-            startActivity(principal)
+            println(activity?.javaClass?.simpleName)
+            if (activity?.javaClass?.simpleName != MainWaterActivity::class.simpleName) {
+                val principal = Intent(activity, MainWaterActivity::class.java)
+                startActivity(principal)
+            }
         }
         viewActual.buttonGreenhouse.setOnClickListener { view ->
-            val principal = Intent(activity, GreenhouseActivity::class.java)
-            startActivity(principal)
+            println(activity?.javaClass?.simpleName)
+            if (activity?.javaClass?.simpleName != GreenhouseActivity::class.simpleName) {
+                val principal = Intent(activity, GreenhouseActivity::class.java)
+                startActivity(principal)
+            }
         }
 
         return viewActual
@@ -36,6 +45,5 @@ class SelectionViewMenu : androidx.fragment.app.Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
     }
-
 
 }
