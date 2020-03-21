@@ -16,22 +16,26 @@
         android:padding="10dp">
 
         <ImageView
+            android:id="@+id/userIcon"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_gravity="left|center_vertical" />
+            android:layout_gravity="start|center_vertical" />
 
         <TextView
+            android:id="@+id/userName"
             android:layout_width="160dp"
             android:layout_height="40dp"
             android:layout_gravity="top|center_horizontal" />
         <TextView
+            android:id="@+id/userInfo"
             android:layout_width="160dp"
             android:layout_height="40dp"
             android:layout_gravity="bottom|center_horizontal" />
         <ImageView
+            android:id="@+id/backArrowButton"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_gravity="right|center_vertical" />
+            android:layout_gravity="end|center_vertical" />
 
     </FrameLayout>
 
