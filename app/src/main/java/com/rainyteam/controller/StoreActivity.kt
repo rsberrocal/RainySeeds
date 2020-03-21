@@ -26,7 +26,7 @@ class StoreActivity : AppCompatActivity() {
         plants?.add(FragmentPlantGreenhouse());
         plants?.add(FragmentPlantGreenhouse());
 
-        lista = findViewById(R.id.recyclerViewPlants)
+        lista = findViewById(R.id.recyclerViewStore)
         layoutManager = LinearLayoutManager(this)
         adaptador = AdapterPlant(plants!!)
         lista?.layoutManager = layoutManager
