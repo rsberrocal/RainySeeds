@@ -10,7 +10,8 @@
                 android:startColor="#bfd9df"
                 android:endColor="#40b4e7">
         </gradient>
-
+        <corners android:bottomLeftRadius="12dp"
+            android:bottomRightRadius="12dp"> </corners>
    </shape>
 </item>
 </selector>

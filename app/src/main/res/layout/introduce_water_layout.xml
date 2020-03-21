@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:background="@drawable/bckg_water_gradient"
+        android:background="@drawable/rounded_button"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="450dp"
@@ -9,30 +9,38 @@
         android:weightSum="5"
 
         >
-    <LinearLayout
+    <FrameLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:padding="10dp"
+        android:layout_gravity="center"
         android:layout_weight="1">
         <EditText
             android:id="@+id/selectText"
             android:layout_width="250dp"
             android:layout_height="match_parent"
-             />
-        <Button
-            android:background="@drawable/water_btn_bckg"
-            android:id="@+id/selectButton"
-            android:layout_marginLeft="30dp"
-            android:textColor="@color/white"
-            android:text="DRINK!!!"
-            android:textSize="25dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-           >
+            android:inputType="textEmailAddress"
+            android:hint="Introduce water"
+            android:layout_gravity="start"
+            android:textColorHint="@color/gray"
+            android:textColor="@color/black"
+            />
 
-        </Button>
-    </LinearLayout>
+        <TextView
+            android:id="@+id/selectButton"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/water_btn_bckg"
+            android:gravity="center"
+            android:layout_gravity="end|center_vertical"
+            android:text="+"
+            android:textAlignment="gravity"
+            android:textColor="@color/white"
+            android:textSize="40sp">
+
+        </TextView>
+    </FrameLayout>
 
     <Button
             android:background="@drawable/bckg_water_gradient"
@@ -41,12 +49,16 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:padding="10dp"
-            android:text="@string/_50ml"
+            android:text="50ml"
             android:textColor="@color/white"
-            android:textSize="40sp"
+            android:textSize="30sp"
             android:layout_gravity="start"
             android:textAlignment="viewStart"
-            android:drawableRight="@drawable/icon_drop">
+            android:drawableRight="@drawable/icon_drop"
+            android:paddingLeft="30dp"
+            android:paddingRight="10dp"
+            android:paddingEnd="10dp"
+            android:paddingStart="30dp">
     </Button>
     <Button
             android:background="@drawable/bckg_water_gradient"
@@ -55,12 +67,16 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:padding="10dp"
-            android:text="@string/_100ml"
+            android:text="100ml"
             android:textColor="@color/white"
-            android:textSize="40sp"
+            android:textSize="30sp"
             android:layout_gravity="start"
             android:textAlignment="viewStart"
-            android:drawableRight="@drawable/icon_glass_water">
+            android:drawableRight="@drawable/icon_glass_water"
+            android:paddingLeft="30dp"
+            android:paddingRight="10dp"
+            android:paddingEnd="10dp"
+            android:paddingStart="30dp">
     </Button>
     <Button
             android:background="@drawable/bckg_water_gradient"
@@ -69,30 +85,34 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:padding="10dp"
-            android:text="@string/_200ml"
+            android:text="200ml"
             android:textColor="@color/white"
-            android:textSize="40sp"
+            android:textSize="30sp"
             android:layout_gravity="start"
             android:textAlignment="viewStart"
-            android:drawableRight="@drawable/icon_bottle">
+            android:drawableRight="@drawable/icon_bottle"
+            android:paddingLeft="30dp"
+            android:paddingRight="10dp"
+            android:paddingEnd="10dp"
+            android:paddingStart="30dp">
     </Button>
     <Button
-            android:background="@drawable/bckg_water_gradient"
+            android:background="@drawable/bckg_water_gradient_botsiderounded"
             android:id="@+id/x300mlButton"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:text="@string/_300ml"
+            android:text="300ml"
             android:textColor="@color/white"
-            android:textSize="40sp"
+            android:textSize="30sp"
             android:layout_gravity="start"
             android:textAlignment="viewStart"
             android:drawableRight="@drawable/icon_regadera"
             android:drawableEnd="@drawable/icon_regadera"
-            android:paddingLeft="10dp"
+            android:paddingLeft="30dp"
             android:paddingRight="15dp"
             android:paddingEnd="15dp"
-            android:paddingStart="10dp">
+            android:paddingStart="30dp">
 
 
     </Button>
