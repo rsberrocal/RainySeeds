@@ -8,8 +8,9 @@
     <LinearLayout
         android:id="@+id/layoutMain"
         android:layout_width="350dp"
-        android:layout_height="625dp"
+        android:layout_height="670dp"
         android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/book_bckg"
         android:orientation="vertical">
 
@@ -17,7 +18,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="40dp"
+            android:textSize="25dp"
             android:text="Encyclopedia"
             android:textColor="@color/white" />
 
@@ -49,14 +51,15 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textSize="10sp" />
         </LinearLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewPlants"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="2"
             android:layout_width="300dp"
             android:layout_height="500dp"
             android:layout_gravity="center"
-            android:scrollbars="vertical">
+            android:scrollbars="vertical"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2">
 
         </androidx.recyclerview.widget.RecyclerView>
 
