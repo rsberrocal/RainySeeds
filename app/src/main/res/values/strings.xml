@@ -22,4 +22,8 @@
     <string name="Close">Close</string>
     <string name="EmailSent">Email sent</string>
     <string name="GoogleSigninError">Google sign in failed</string>
+    <string name="_300ml" />
+    <string name="_200ml" />
+    <string name="_100ml" />
+    <string name="_50ml" />
 </resources>

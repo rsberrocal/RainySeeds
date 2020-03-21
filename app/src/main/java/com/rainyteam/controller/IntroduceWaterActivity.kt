@@ -7,6 +7,6 @@ class IntroduceWaterActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //setContentView(R.layout.introduce_water_layout)
+        setContentView(R.layout.introduce_water_layout)
     }
 }
