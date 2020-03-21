@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.*
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
 import kotlinx.android.synthetic.main.greenhouse_layout.*
 
@@ -24,7 +25,7 @@ class GreenhouseActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val dotsIndicator = findViewById<WormDotsIndicator>(R.id.dots_indicator)
+        val dotsIndicator = findViewById<DotsIndicator>(R.id.dots_indicator)
 
         mPager = findViewById(R.id.pager)
         val pagerAdapter = PlantSlidePagerAdapter(this)
