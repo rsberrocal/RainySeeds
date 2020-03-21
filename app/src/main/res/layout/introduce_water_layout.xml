@@ -79,17 +79,22 @@
     <Button
             android:background="@drawable/bckg_water_gradient"
             android:id="@+id/x300mlButton"
-            android:layout_width="410dp"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:padding="10dp"
-
             android:text="@string/_300ml"
             android:textColor="@color/white"
             android:textSize="40sp"
             android:layout_gravity="start"
             android:textAlignment="viewStart"
-            android:drawableRight="@drawable/icon_regadera">
+            android:drawableRight="@drawable/icon_regadera"
+            android:drawableEnd="@drawable/icon_regadera"
+            android:paddingLeft="10dp"
+            android:paddingRight="15dp"
+            android:paddingEnd="15dp"
+            android:paddingStart="10dp">
+
+
     </Button>
 
 
