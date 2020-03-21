@@ -5,6 +5,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/fondo_invernadero">
 
+    <FrameLayout
+        android:layout_width="130dp"
+        android:layout_height="100dp"
+        android:layout_marginHorizontal="20dp"
+        android:background="@drawable/rounded_button"
+        android:layout_marginTop="30dp"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:text="@string/Store"
+            android:textColor="@color/black"
+            android:textSize="26dp"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            >
+        </TextView>
+    </FrameLayout>
+
     <LinearLayout
         android:id="@+id/storeLayout"
         android:orientation="vertical"
@@ -36,7 +56,7 @@
                     android:layout_height="45dp"
                     android:layout_gravity="center"
                     android:inputType="textCapSentences"
-                    android:hint="Search"
+                    android:hint="@string/Search"
                     android:ems="10"
                     android:textColor="@color/black"
                     android:textColorHint="@color/gray"
