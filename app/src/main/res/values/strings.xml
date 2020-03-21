@@ -21,4 +21,5 @@
     <string name="Reset">Send password</string>
     <string name="Close">Close</string>
     <string name="EmailSent">Email sent</string>
+    <string name="GoogleSigninError">Google sign in failed</string>
 </resources>

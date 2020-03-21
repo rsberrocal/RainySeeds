@@ -13,7 +13,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
-
 class SigninActivity : AppCompatActivity() {
 
     val mAuth = FirebaseAuth.getInstance()
@@ -35,6 +34,7 @@ class SigninActivity : AppCompatActivity() {
         btnReturnLogin.setOnClickListener(View.OnClickListener {
             val returnLogin = Intent(this, LoginActivity::class.java)
             startActivity(returnLogin)
+            finish()
         })
     }
 
@@ -59,6 +59,7 @@ class SigninActivity : AppCompatActivity() {
                                 Toast.makeText(this, R.string.ExitSignin, Toast.LENGTH_LONG).show()
                                 val btnSignin = Intent(this, GreenhouseActivity::class.java)
                                 startActivity(btnSignin)
+                                finish()
                             } else {
                                 Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
                             }
@@ -69,12 +70,9 @@ class SigninActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(this, R.string.ErrorPassword, Toast.LENGTH_LONG).show()
             }
-
         } else {
             Toast.makeText(this, R.string.ErrorLogin, Toast.LENGTH_LONG).show()
         }
-
             }
-
     }
 

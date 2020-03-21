@@ -19,7 +19,6 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 
 class LoginActivity : AppCompatActivity() {
@@ -37,11 +36,13 @@ class LoginActivity : AppCompatActivity() {
         val signup = findViewById<View>(R.id.tV_Signup) as TextView
         val forgotPass = findViewById<View>(R.id.tV_PasswordRecovery) as TextView
         val btnLoginGoogle = findViewById<View>(R.id.btnGoogle) as SignInButton
+
         mGoogleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
         mGoogleSignInClient = GoogleSignIn.getClient(this,mGoogleSignInOptions)
+
         btnLogin.setOnClickListener(View.OnClickListener {
                 view -> login()
         })
@@ -52,16 +53,16 @@ class LoginActivity : AppCompatActivity() {
         })
 
         forgotPass.setOnClickListener(View.OnClickListener {
-            val builder = AlertDialog.Builder(this)
-            builder.setTitle(R.string.ForgotPass)
+            val title = AlertDialog.Builder(this)
+            title.setTitle(R.string.ForgotPass)
             val view = layoutInflater.inflate(R.layout.dialog_forgotpass, null)
             val email = view.findViewById<EditText>(R.id.eT_EmailFP)
-            builder.setView(view)
-            builder.setPositiveButton(R.string.Reset, DialogInterface.OnClickListener { _,  _ ->
+            title.setView(view)
+            title.setPositiveButton(R.string.Reset, DialogInterface.OnClickListener { _,  _ ->
                 forgot(email)
             })
-            builder.setNegativeButton(R.string.Close, DialogInterface.OnClickListener { _, _ ->  })
-            builder.show()
+            title.setNegativeButton(R.string.Close, DialogInterface.OnClickListener { _, _ ->  })
+            title.show()
         })
 
         btnLoginGoogle.setOnClickListener(View.OnClickListener {
@@ -87,6 +88,7 @@ class LoginActivity : AppCompatActivity() {
 
         var email = emailTxt.text.toString()
         var password = passwordTxt.text.toString()
+
         if (!email.isEmpty() && !password.isEmpty()) {
             mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, OnCompleteListener { task ->
                 if (task.isSuccessful){
@@ -114,12 +116,10 @@ class LoginActivity : AppCompatActivity() {
             val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 val account  =  task.getResult(ApiException::class.java)!!
-
                 authWithGoogle(account)
             } catch (e: ApiException) {
-                Toast.makeText(this, "Google sign in failed:(", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, R.string.GoogleSigninError, Toast.LENGTH_LONG).show()
             }
-
         }
     }
 
@@ -136,5 +136,4 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
-
 }
