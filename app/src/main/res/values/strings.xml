@@ -26,4 +26,7 @@
     <string name="_200ml" />
     <string name="_100ml" />
     <string name="_50ml" />
+    <string name="Store">Store</string>
+    <string name="Search">Search</string>
+
 </resources>
