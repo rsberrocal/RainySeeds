@@ -103,6 +103,9 @@ class LoginActivity : AppCompatActivity() {
         } else {
             Toast.makeText(this, R.string.ErrorLogin, Toast.LENGTH_LONG).show()
         }
+        //TEMPORAL
+        val principal = Intent(this, GreenhouseActivity::class.java)
+        startActivity(principal)
     }
 
     private fun loginGoogle() {

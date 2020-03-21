@@ -56,7 +56,8 @@
                 android:inputType="textPassword"
                 android:textColor="@color/black"
                 android:textColorHint="@color/gray"
-                android:background="@color/translucid_white"/>
+                android:background="@color/translucid_white"
+                android:paddingLeft="10dp"/>
 
             <EditText
                 android:id="@+id/eT_Email"
@@ -68,7 +69,8 @@
                 android:hint="@string/eT_Email"
                 android:textColor="@color/black"
                 android:textColorHint="@color/gray"
-                android:background="@color/translucid_white"/>
+                android:background="@color/translucid_white"
+                android:paddingLeft="10dp"/>
         </FrameLayout>
 
         <Button
