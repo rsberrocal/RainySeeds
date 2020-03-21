@@ -35,7 +35,7 @@ class AdapterPlant(items: ArrayList<FragmentPlantGreenhouse>?) :
         val item = items?.get(position)
         holder?.btn.setOnClickListener {
             val intent = Intent(holder.view.context, EncyclopediaDetailActivity::class.java)
-            holder.view.context.zstartActivity(intent)
+            holder.view.context.startActivity(intent)
         }
     }
 
