@@ -1,13 +1,17 @@
 package com.rainyteam.controller
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.template.view.*
 
-class AdapterPlant(items: ArrayList<FragmentPlantGreenhouse>?): RecyclerView.Adapter<AdapterPlant.ViewHolder>() {
+class AdapterPlant(items: ArrayList<FragmentPlantGreenhouse>?) :
+    RecyclerView.Adapter<AdapterPlant.ViewHolder>() {
 
     var items: ArrayList<FragmentPlantGreenhouse>? = null
     var viewHolder: ViewHolder? = null
@@ -17,7 +21,8 @@ class AdapterPlant(items: ArrayList<FragmentPlantGreenhouse>?): RecyclerView.Ada
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent?.context).inflate(R.layout.template_greenhouse_plant, parent, false)
+        val view = LayoutInflater.from(parent?.context)
+            .inflate(R.layout.template_greenhouse_plant, parent, false)
         viewHolder = ViewHolder(view)
         return viewHolder!!
     }
@@ -28,13 +33,16 @@ class AdapterPlant(items: ArrayList<FragmentPlantGreenhouse>?): RecyclerView.Ada
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items?.get(position)
-
-
+        holder?.btn.setOnClickListener {
+            val intent = Intent(holder.view.context, EncyclopediaDetailActivity::class.java)
+            holder.view.context.startActivity(intent)
+        }
     }
 
-    class ViewHolder(vista: View): RecyclerView.ViewHolder(vista){
+    class ViewHolder(vista: View) : RecyclerView.ViewHolder(vista) {
         var view = vista
-        var nombre:TextView? = null
+        var nombre: TextView? = null
+        var btn = vista.findViewById(R.id.plantImage) as ImageView
 
         init {
             nombre = view.tvTemplate
