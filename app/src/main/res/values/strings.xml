@@ -28,5 +28,17 @@
     <string name="_50ml" />
     <string name="Store">Store</string>
     <string name="Search">Search</string>
+    <string name="Description">Probably the bitterest substance of the planet
+        \n Strengthens the weak or hypoactive digestive system
+        \n Helps to relieve many maldigestion symptoms
+        \n Promotes the absorption of nutrients
+    </string>
+    <string name="Uses">Used as digestive toner in the elderly
+        \n Useful for anemia with iron deficiency
+        \n Used in women with abundant menstruation
+        \n Usual aperitif before meals to prepare the stomach
+    </string>
+    <string name="Warnings">Do not take in case of heartburn or peptic ulcer
+    </string>
 
 </resources>

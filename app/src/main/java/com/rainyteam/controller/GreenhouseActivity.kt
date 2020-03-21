@@ -18,7 +18,7 @@ class GreenhouseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.greenhouse_layout)
 
-        buttonStore.setOnClickListener {
+        layoutSeeds.setOnClickListener {
             val intent = Intent(this, StoreActivity::class.java)
             startActivity(intent)
         }
@@ -26,6 +26,7 @@ class GreenhouseActivity : AppCompatActivity() {
         mPager = findViewById(R.id.pager)
         val pagerAdapter = PlantSlidePagerAdapter(this)
         mPager.adapter = pagerAdapter
+
     }
 
     private inner class PlantSlidePagerAdapter(fm: FragmentActivity) : FragmentStateAdapter(fm) {

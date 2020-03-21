@@ -4,36 +4,35 @@
     android:layout_height="match_parent">
 
     <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="450dp"
+        android:layout_width="360dp"
+        android:layout_height="240dp"
         android:shrinkColumns="*"
         android:stretchColumns="*"
-        android:layout_marginHorizontal="20dp"
         >
 
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_weight="1"
+            android:layout_width="360dp"
+            android:layout_height="120dp"
             >
 
             <fragment class="com.rainyteam.controller.FragmentPlantGreenhouse"
                 android:id="@+id/plantR1C1"
-                android:layout_weight="1"
-                android:layout_height="160dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:layout_gravity="center"
                 >
             </fragment>
             <fragment class="com.rainyteam.controller.FragmentPlantGreenhouse"
                 android:id="@+id/plantR1C2"
-                android:layout_weight="1"
-                android:layout_height="160dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:layout_gravity="center"
                 >
             </fragment>
             <fragment class="com.rainyteam.controller.FragmentPlantGreenhouse"
                 android:id="@+id/plantR1C3"
-                android:layout_weight="1"
-                android:layout_height="160dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:layout_gravity="center"
                 >
             </fragment>
@@ -41,28 +40,28 @@
         </TableRow>
 
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_weight="1"
+            android:layout_width="360dp"
+            android:layout_height="120dp"
 
             >
             <fragment class="com.rainyteam.controller.FragmentPlantGreenhouse"
                 android:id="@+id/plantR2C1"
-                android:layout_weight="1"
-                android:layout_height="160dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:layout_gravity="center"
                 >
             </fragment>
             <fragment class="com.rainyteam.controller.FragmentPlantGreenhouse"
                 android:id="@+id/plantR2C2"
-                android:layout_weight="1"
-                android:layout_height="160dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:layout_gravity="center"
                 >
             </fragment>
             <fragment class="com.rainyteam.controller.FragmentPlantGreenhouse"
                 android:id="@+id/plantR2C3"
-                android:layout_weight="1"
-                android:layout_height="160dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:layout_gravity="center"
                 >
             </fragment>
