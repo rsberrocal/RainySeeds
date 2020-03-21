@@ -18,7 +18,6 @@
             android:layout_gravity="center"
             android:layout_marginHorizontal="20dp"
             android:contentDescription="TODO"
-            android:onClick="goToDictionary"
             android:src="@drawable/icon_book">
 
         </ImageView>
@@ -30,7 +29,6 @@
             android:layout_gravity="center"
             android:layout_marginHorizontal="20dp"
             android:contentDescription="TODO"
-            android:onClick="goToWater"
             android:src="@drawable/icon_greenhouse">
 
         </ImageView>
@@ -42,7 +40,6 @@
             android:layout_gravity="center"
             android:layout_marginHorizontal="20dp"
             android:contentDescription="TODO"
-            android:onClick="goToWater"
             android:src="@drawable/icon_glass">
 
         </ImageView>
