@@ -16,6 +16,7 @@
         android:padding="10dp">
 
         <ImageView
+            android:src="@drawable/icon_user"
             android:id="@+id/userIcon"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -23,16 +24,24 @@
 
         <TextView
             android:id="@+id/userName"
+            android:text="Name"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:gravity="center"
             android:layout_width="160dp"
             android:layout_height="40dp"
             android:layout_gravity="top|center_horizontal" />
         <TextView
             android:id="@+id/userInfo"
+            android:text="Weight"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:gravity="center"
             android:layout_width="160dp"
             android:layout_height="40dp"
             android:layout_gravity="bottom|center_horizontal" />
         <ImageView
-            android:id="@+id/backArrowButton"
+            android:id="@+id/undoArrowButton"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="end|center_vertical" />
