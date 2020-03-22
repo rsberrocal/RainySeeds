@@ -73,16 +73,28 @@
             android:layout_gravity="end|center_vertical" />
 
     </FrameLayout>
+    <FrameLayout
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+        <ImageView
+            android:id="@+id/waterButton"
+            android:src="@drawable/bottle"
+            android:layout_height="440dp"
 
-    <ImageView
-        android:id="@+id/waterButton"
-        android:src="@drawable/bottle"
-        android:layout_height="440dp"
-        android:layout_width="200dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        />
-
+            android:layout_width="200dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0%"
+            android:textSize="50sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_gravity="end|center_vertical"> </TextView>
+    </FrameLayout>
     <fragment
         android:id="@+id/fragmentViewMenu"
         class="com.rainyteam.controller.SelectionViewMenu"
