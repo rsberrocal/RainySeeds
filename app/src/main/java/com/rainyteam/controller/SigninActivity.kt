@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -47,9 +48,11 @@ class SigninActivity : AppCompatActivity() {
         var password = passwordTxt.text.toString()
         var confirmPassword = confirmPasswordTxt.text.toString()
 
+        val credential = EmailAuthProvider.getCredential(email, password)
+
         if (!email.isEmpty() && !password.isEmpty() && !confirmPassword.isEmpty()) {
             if (password == confirmPassword) {
-                if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                     mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(this, OnCompleteListener { task ->
                             if (task.isSuccessful) {
@@ -57,7 +60,7 @@ class SigninActivity : AppCompatActivity() {
                                 val uid = user!!.uid
                                 mDatabase.child(uid).child("Email").setValue(email)
                                 Toast.makeText(this, R.string.ExitSignin, Toast.LENGTH_LONG).show()
-                                val btnSignin = Intent(this, GreenhouseActivity::class.java)
+                                val btnSignin = Intent(this, UserInfoActivity::class.java)
                                 startActivity(btnSignin)
                                 finish()
                             } else {

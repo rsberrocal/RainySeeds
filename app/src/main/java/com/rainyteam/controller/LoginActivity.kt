@@ -129,11 +129,19 @@ class LoginActivity : AppCompatActivity() {
     private fun authWithGoogle(acct: GoogleSignInAccount) {
         val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
         mAuth.signInWithCredential(credential).addOnCompleteListener {
+            val isNewUser: Boolean = it.getResult()!!.additionalUserInfo!!.isNewUser()
             if (it.isSuccessful) {
+                if (isNewUser) {
+                    val principal = Intent(this, UserInfoActivity::class.java)
+                    startActivity(principal)
+                    finish()
+                } else {
+                    val principal = Intent(this, GreenhouseActivity::class.java)
+                    startActivity(principal)
+                    finish()
+                }
                 Toast.makeText(this, R.string.ExitLogin, Toast.LENGTH_LONG).show()
-                val principal = Intent(this, GreenhouseActivity::class.java)
-                startActivity(principal)
-                finish()
+
             } else {
                 Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
             }
