@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="105dp"
             android:layout_gravity="center"
-            android:src="@drawable/flor2">
+            android:src="@drawable/planta_enciclopedia">
 
         </ImageView>
 

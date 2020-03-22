@@ -20,7 +20,7 @@
             android:id="@+id/btnBack"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/icon_return"
+            android:src="@drawable/left_arrow"
             android:layout_marginLeft="50dp"
             android:layout_marginTop="40dp"
             >
@@ -128,7 +128,8 @@
                 android:layout_height="20dp"
                 android:layout_marginTop="10dp"
                 android:textStyle="bold|italic"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="14dp"/>
 
             <TextView
                 android:id="@+id/textBenefitsPlant"
@@ -147,7 +148,8 @@
                 android:layout_height="20dp"
                 android:layout_marginTop="10dp"
                 android:textStyle="bold|italic"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="14dp"/>
 
             <TextView
                 android:id="@+id/textUsesPlant"
@@ -165,7 +167,8 @@
                 android:layout_height="20dp"
                 android:layout_marginTop="10dp"
                 android:textStyle="bold|italic"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="14dp"/>
 
             <TextView
                 android:id="@+id/textWarningsPlant"
