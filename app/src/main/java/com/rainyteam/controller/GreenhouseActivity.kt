@@ -25,7 +25,7 @@ class GreenhouseActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val dotsIndicator = findViewById<DotsIndicator>(R.id.dots_indicator)
+        val dotsIndicator = findViewById<WormDotsIndicator>(R.id.dots_indicator)
 
         mPager = findViewById(R.id.pager)
         val pagerAdapter = PlantSlidePagerAdapter(this)
