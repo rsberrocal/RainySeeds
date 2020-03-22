@@ -71,7 +71,7 @@
                     android:layout_marginHorizontal="20dp"
                     android:inputType="textCapSentences"
                     android:hint="@string/Search"
-                    android:ems="10"
+                    android:textSize="16dp"
                     android:textColor="@color/black"
                     android:textColorHint="@color/gray"
                     >

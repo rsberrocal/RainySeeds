@@ -17,47 +17,50 @@
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="30dp"
+            android:textAlignment="center"
             android:textSize="25dp"
             android:text="Encyclopedia"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black"
+            android:textStyle="italic"/>
 
-        <LinearLayout
-            android:layout_width="147dp"
-            android:layout_height="25dp"
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="30dp"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp">
-
+            >
             <EditText
-                android:id="@+id/editText"
-                android:layout_width="120dp"
-                android:layout_height="25dp"
-                android:layout_weight="1"
-                android:background="@null"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:selectAllOnFocus="false"
-                android:hint="Search"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textSize="15sp"
+                android:id="@+id/inputStoreSearch"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_gravity="center|left"
+                android:inputType="textCapSentences"
+                android:hint="@string/Search"
                 android:textColor="@color/black"
                 android:textColorHint="@color/gray"
-                android:paddingLeft="10dp"/>
-        </LinearLayout>
+                android:textSize="16dp"
+                />
+        </FrameLayout>
         <LinearLayout
-            android:layout_width="300dp"
-            android:layout_height="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="30dp"
             android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:gravity="center">
             <FrameLayout
                 android:layout_width="60dp"
                 android:layout_height="30dp"
                 android:layout_marginRight="5dp"
-                android:background="@drawable/rnd_btn_encyclopedia">
+                android:background="@drawable/rnd_btn_filter">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -95,8 +98,12 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewPlants"
-            android:layout_width="300dp"
-            android:layout_height="500dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="35dp"
             android:layout_gravity="center"
             android:scrollbars="vertical"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
