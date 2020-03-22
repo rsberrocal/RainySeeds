@@ -21,14 +21,13 @@
             android:layout_marginTop="40dp"
             android:textSize="25dp"
             android:text="Encyclopedia"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"/>
 
         <LinearLayout
             android:layout_width="147dp"
             android:layout_height="25dp"
             android:layout_gravity="center"
             android:layout_marginTop="20dp">
-
 
             <ImageView
                 android:id="@+id/imageView"
@@ -46,9 +45,12 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:selectAllOnFocus="false"
-                android:text="Search"
+                android:hint="Search"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray"
+                android:paddingLeft="10dp"/>
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

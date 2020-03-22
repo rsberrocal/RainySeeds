@@ -5,7 +5,7 @@
 
     <TableLayout
         android:layout_width="360dp"
-        android:layout_height="240dp"
+        android:layout_height="410dp"
         android:shrinkColumns="*"
         android:stretchColumns="*"
         >
@@ -13,6 +13,7 @@
         <TableRow
             android:layout_width="360dp"
             android:layout_height="120dp"
+            android:layout_marginTop="10dp"
             >
 
             <fragment class="com.rainyteam.controller.FragmentPlantGreenhouse"
@@ -42,7 +43,7 @@
         <TableRow
             android:layout_width="360dp"
             android:layout_height="120dp"
-
+            android:layout_marginTop="20dp"
             >
             <fragment class="com.rainyteam.controller.FragmentPlantGreenhouse"
                 android:id="@+id/plantR2C1"
@@ -60,6 +61,35 @@
             </fragment>
             <fragment class="com.rainyteam.controller.FragmentPlantGreenhouse"
                 android:id="@+id/plantR2C3"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center"
+                >
+            </fragment>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="360dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="20dp"
+            >
+            <fragment class="com.rainyteam.controller.FragmentPlantGreenhouse"
+                android:id="@+id/plantR3C1"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center"
+                >
+            </fragment>
+            <fragment class="com.rainyteam.controller.FragmentPlantGreenhouse"
+                android:id="@+id/plantR3C2"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center"
+                >
+            </fragment>
+            <fragment class="com.rainyteam.controller.FragmentPlantGreenhouse"
+                android:id="@+id/plantR3C3"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_gravity="center"
