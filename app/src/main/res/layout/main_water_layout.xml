@@ -18,30 +18,56 @@
         <ImageView
             android:src="@drawable/icon_user"
             android:id="@+id/userIcon"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_gravity="start|center_vertical" />
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginLeft="5dp"/>
 
         <TextView
             android:id="@+id/userName"
             android:text="Name"
-            android:textSize="20dp"
+            android:textSize="22dp"
             android:textColor="@color/black"
-            android:gravity="center"
             android:layout_width="160dp"
             android:layout_height="40dp"
-            android:layout_gravity="top|center_horizontal" />
-        <TextView
-            android:id="@+id/userInfo"
-            android:text="Weight"
-            android:textSize="20dp"
-            android:textColor="@color/black"
-            android:gravity="center"
+            android:layout_gravity="top|center_horizontal"
+            android:gravity="center|left"
+            android:paddingLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"/>
+        <LinearLayout
             android:layout_width="160dp"
             android:layout_height="40dp"
-            android:layout_gravity="bottom|center_horizontal" />
+            android:orientation="horizontal"
+            android:layout_marginLeft="5dp"
+            android:layout_gravity="bottom|center_horizontal">
+            <TextView
+                android:id="@+id/userAge"
+                android:text="Age"
+                android:textSize="16dp"
+                android:textColor="@color/black"
+                android:gravity="center|left"
+                android:paddingLeft="5dp"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                 />
+            <TextView
+                android:id="@+id/userWeight"
+                android:text="Weight"
+                android:textSize="16dp"
+                android:textColor="@color/black"
+                android:gravity="center|left"
+                android:paddingLeft="5dp"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                />
+        </LinearLayout>
+
         <ImageView
             android:id="@+id/undoArrowButton"
+            android:src="@drawable/back_bottle"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="end|center_vertical" />
@@ -50,15 +76,17 @@
 
     <ImageView
         android:id="@+id/waterButton"
-        android:layout_width="60dp"
-        android:layout_height="120dp"
+        android:src="@drawable/bottle"
+        android:layout_height="440dp"
+        android:layout_width="200dp"
         android:layout_gravity="center"
-        android:layout_marginTop="100dp"> </ImageView>
+        android:layout_marginTop="30dp"
+        />
 
     <fragment
         android:id="@+id/fragmentViewMenu"
         class="com.rainyteam.controller.SelectionViewMenu"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
         android:layout_gravity="bottom" />
 </FrameLayout>
