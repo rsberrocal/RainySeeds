@@ -5,7 +5,7 @@
     android:layout_gravity=""
     android:background="@drawable/rounded_button"
     android:orientation="vertical"
-    android:padding="10dp"
+    android:padding="15dp"
     android:weightSum="10">
 
     <FrameLayout
@@ -41,15 +41,23 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|top"
+            android:text="Name:"
+            android:textStyle="italic|bold"
+            android:textColor="@color/dark_gray"
+            android:textSize="25dp"> </TextView>
         <TextView
             android:id="@+id/textName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start|center_vertical"
+            android:layout_gravity="start|bottom"
             android:text="Name"
+            android:layout_marginLeft="10dp"
             android:textColor="@color/black"
-            android:textSize="35sp"> </TextView>
+            android:textSize="30sp"> </TextView>
         <ImageView
             android:id="@+id/btnName"
             android:src="@drawable/icon_pencil"
@@ -64,15 +72,23 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|top"
+            android:text="Email:"
+            android:textStyle="italic|bold"
+            android:textColor="@color/dark_gray"
+            android:textSize="25dp"> </TextView>
         <TextView
             android:id="@+id/textEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start|center_vertical"
+            android:layout_gravity="start|bottom"
             android:text="Email"
+            android:layout_marginLeft="10dp"
             android:textColor="@color/black"
-            android:textSize="35sp"> </TextView>
+            android:textSize="30sp"> </TextView>
         <ImageView
             android:id="@+id/btnEmail"
             android:src="@drawable/icon_pencil"
@@ -87,15 +103,23 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|top"
+            android:text="Weight:"
+            android:textStyle="italic|bold"
+            android:textColor="@color/dark_gray"
+            android:textSize="25dp"> </TextView>
         <TextView
             android:id="@+id/textWeight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start|center_vertical"
+            android:layout_gravity="start|bottom"
             android:text="Weight"
+            android:layout_marginLeft="10dp"
             android:textColor="@color/black"
-            android:textSize="35sp"> </TextView>
+            android:textSize="30sp"> </TextView>
         <ImageView
             android:id="@+id/btnWeight"
             android:src="@drawable/icon_pencil"
@@ -110,15 +134,23 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|top"
+            android:text="Age:"
+            android:textStyle="italic|bold"
+            android:textColor="@color/dark_gray"
+            android:textSize="25dp"> </TextView>
         <TextView
             android:id="@+id/textAge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start|center_vertical"
+            android:layout_gravity="start|bottom"
             android:text="Age"
+            android:layout_marginLeft="10dp"
             android:textColor="@color/black"
-            android:textSize="35sp"> </TextView>
+            android:textSize="30sp"> </TextView>
         <ImageView
             android:id="@+id/btnAge"
             android:src="@drawable/icon_pencil"
@@ -133,15 +165,23 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|top"
+            android:text="Height:"
+            android:textStyle="italic|bold"
+            android:textColor="@color/dark_gray"
+            android:textSize="25dp"> </TextView>
         <TextView
             android:id="@+id/textHeight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start|center_vertical"
+            android:layout_gravity="start|bottom"
             android:text="Height"
+            android:layout_marginLeft="10dp"
             android:textColor="@color/black"
-            android:textSize="35sp"> </TextView>
+            android:textSize="30sp"> </TextView>
         <ImageView
             android:id="@+id/btnHeight"
             android:src="@drawable/icon_pencil"
@@ -156,15 +196,23 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|top"
+            android:text="Sex:"
+            android:textStyle="italic|bold"
+            android:textColor="@color/dark_gray"
+            android:textSize="25dp"> </TextView>
         <TextView
             android:id="@+id/textSex"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start|center_vertical"
+            android:layout_gravity="start|bottom"
             android:text="Sex"
+            android:layout_marginLeft="10dp"
             android:textColor="@color/black"
-            android:textSize="35sp"> </TextView>
+            android:textSize="30sp"> </TextView>
         <ImageView
             android:id="@+id/btnSex"
             android:src="@drawable/icon_pencil"
@@ -183,6 +231,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="center"
+        android:layout_marginTop="20dp"
         android:text="Reset Password"
         android:textAlignment="gravity"
         android:textSize="40sp"
