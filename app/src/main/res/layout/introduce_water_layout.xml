@@ -4,6 +4,7 @@
     android:layout_height="match_parent">
     <ImageView
         android:id="@+id/falseBackButton"
+        android:background="@drawable/bckg_main_water_desenfocado"
         android:layout_width="match_parent"
         android:layout_height="match_parent"> </ImageView>
     <LinearLayout

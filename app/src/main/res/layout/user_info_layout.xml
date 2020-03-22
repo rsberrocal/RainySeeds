@@ -1,245 +1,250 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/userLayout"
-    android:layout_width="350dp"
-    android:layout_height="750dp"
-    android:layout_gravity="center"
-    android:background="@drawable/rounded_button"
-    android:orientation="vertical"
-    android:padding="25dp"
-    android:weightSum="11">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/bckg_main_water_desenfocado"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/userLayout"
+        android:layout_width="350dp"
+        android:layout_height="690dp"
+        android:layout_gravity="center"
+        android:background="@drawable/rounded_button"
+        android:orientation="vertical"
+        android:padding="25dp"
+        android:weightSum="11">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center_vertical"
-        android:layout_weight="1"
-        android:paddingHorizontal="10dp">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:paddingHorizontal="10dp">
+
+            <ImageView
+                android:id="@+id/userBackArrowButton"
+                android:src="@drawable/icon_left_arrow"
+                android:layout_width="50dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center_vertical"> </ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:text="Perfil"
+                android:textColor="@color/black"
+                android:textSize="45sp"> </TextView>
+            <ImageView
+                android:id="@+id/logoutBtn"
+                android:src="@drawable/icon_logout"
+                android:layout_width="40dp"
+                android:layout_height="60dp"
+                android:layout_gravity="end|center_vertical"> </ImageView>
+        </FrameLayout>
 
         <ImageView
-            android:id="@+id/userBackArrowButton"
-            android:src="@drawable/icon_left_arrow"
-            android:layout_width="50dp"
-            android:layout_height="60dp"
-            android:layout_gravity="center_vertical"> </ImageView>
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"> </ImageView>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center"
-            android:text="Perfil"
-            android:textColor="@color/black"
-            android:textSize="45sp"> </TextView>
-        <ImageView
-            android:id="@+id/logoutBtn"
-            android:src="@drawable/icon_logout"
-            android:layout_width="40dp"
-            android:layout_height="60dp"
-            android:layout_gravity="end|center_vertical"> </ImageView>
-    </FrameLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|top"
+                android:text="Name:"
+                android:textStyle="italic|bold"
+                android:textColor="@color/dark_gray"
+                android:textSize="20dp"> </TextView>
+            <TextView
+                android:id="@+id/textName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|bottom"
+                android:text="Name"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/black"
+                android:textSize="25sp"> </TextView>
+            <ImageView
+                android:id="@+id/btnName"
+                android:src="@drawable/icon_pencil"
+                android:background="@drawable/water_btn_bckg"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:padding="10dp"
+                android:layout_gravity="end|center_vertical"
+               > </ImageView>
+        </FrameLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|top"
+                android:text="Email:"
+                android:textStyle="italic|bold"
+                android:textColor="@color/dark_gray"
+                android:textSize="20sp"> </TextView>
+            <TextView
+                android:id="@+id/textEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|bottom"
+                android:text="Email"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/black"
+                android:textSize="25sp"> </TextView>
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3"> </ImageView>
+        </FrameLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|top"
+                android:text="Weight:"
+                android:textStyle="italic|bold"
+                android:textColor="@color/dark_gray"
+                android:textSize="20dp"> </TextView>
+            <TextView
+                android:id="@+id/textWeight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|bottom"
+                android:text="Weight"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/black"
+                android:textSize="25sp"> </TextView>
+            <ImageView
+                android:id="@+id/btnWeight"
+                android:src="@drawable/icon_pencil"
+                android:background="@drawable/water_btn_bckg"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:padding="10dp"
+                android:layout_gravity="end|center_vertical"
+                > </ImageView>
+        </FrameLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|top"
+                android:text="Age:"
+                android:textStyle="italic|bold"
+                android:textColor="@color/dark_gray"
+                android:textSize="20dp"> </TextView>
+            <TextView
+                android:id="@+id/textAge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|bottom"
+                android:text="Age"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/black"
+                android:textSize="25sp"> </TextView>
+            <ImageView
+                android:id="@+id/btnAge"
+                android:src="@drawable/icon_pencil"
+                android:background="@drawable/water_btn_bckg"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:padding="10dp"
+                android:layout_gravity="end|center_vertical"
+                > </ImageView>
+        </FrameLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|top"
+                android:text="Height:"
+                android:textStyle="italic|bold"
+                android:textColor="@color/dark_gray"
+                android:textSize="20dp"> </TextView>
+            <TextView
+                android:id="@+id/textHeight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|bottom"
+                android:text="Height"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/black"
+                android:textSize="25sp"> </TextView>
+            <ImageView
+                android:id="@+id/btnHeight"
+                android:src="@drawable/icon_pencil"
+                android:background="@drawable/water_btn_bckg"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:padding="10dp"
+                android:layout_gravity="end|center_vertical"
+                > </ImageView>
+        </FrameLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|top"
+                android:text="Sex:"
+                android:textStyle="italic|bold"
+                android:textColor="@color/dark_gray"
+                android:textSize="20dp"> </TextView>
+            <TextView
+                android:id="@+id/textSex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|bottom"
+                android:text="Sex"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/black"
+                android:textSize="25sp"> </TextView>
+            <ImageView
+                android:id="@+id/btnSex"
+                android:src="@drawable/icon_pencil"
+                android:background="@drawable/water_btn_bckg"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:padding="10dp"
+                android:layout_gravity="end|center_vertical"
+                > </ImageView>
+        </FrameLayout>
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start|top"
-            android:text="Name:"
-            android:textStyle="italic|bold"
-            android:textColor="@color/dark_gray"
-            android:textSize="20dp"> </TextView>
-        <TextView
-            android:id="@+id/textName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start|bottom"
-            android:text="Name"
-            android:layout_marginLeft="10dp"
-            android:textColor="@color/black"
-            android:textSize="25sp"> </TextView>
-        <ImageView
-            android:id="@+id/btnName"
-            android:src="@drawable/icon_pencil"
-            android:background="@drawable/water_btn_bckg"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:padding="10dp"
-            android:layout_gravity="end|center_vertical"
-           > </ImageView>
-    </FrameLayout>
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start|top"
-            android:text="Email:"
-            android:textStyle="italic|bold"
-            android:textColor="@color/dark_gray"
-            android:textSize="20sp"> </TextView>
-        <TextView
-            android:id="@+id/textEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start|bottom"
-            android:text="Email"
-            android:layout_marginLeft="10dp"
-            android:textColor="@color/black"
-            android:textSize="25sp"> </TextView>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/resetPassword"
+                android:layout_width="250dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
 
-    </FrameLayout>
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start|top"
-            android:text="Weight:"
-            android:textStyle="italic|bold"
-            android:textColor="@color/dark_gray"
-            android:textSize="20dp"> </TextView>
-        <TextView
-            android:id="@+id/textWeight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start|bottom"
-            android:text="Weight"
-            android:layout_marginLeft="10dp"
-            android:textColor="@color/black"
-            android:textSize="25sp"> </TextView>
-        <ImageView
-            android:id="@+id/btnWeight"
-            android:src="@drawable/icon_pencil"
-            android:background="@drawable/water_btn_bckg"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:padding="10dp"
-            android:layout_gravity="end|center_vertical"
-            > </ImageView>
-    </FrameLayout>
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start|top"
-            android:text="Age:"
-            android:textStyle="italic|bold"
-            android:textColor="@color/dark_gray"
-            android:textSize="20dp"> </TextView>
-        <TextView
-            android:id="@+id/textAge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start|bottom"
-            android:text="Age"
-            android:layout_marginLeft="10dp"
-            android:textColor="@color/black"
-            android:textSize="25sp"> </TextView>
-        <ImageView
-            android:id="@+id/btnAge"
-            android:src="@drawable/icon_pencil"
-            android:background="@drawable/water_btn_bckg"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:padding="10dp"
-            android:layout_gravity="end|center_vertical"
-            > </ImageView>
-    </FrameLayout>
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start|top"
-            android:text="Height:"
-            android:textStyle="italic|bold"
-            android:textColor="@color/dark_gray"
-            android:textSize="20dp"> </TextView>
-        <TextView
-            android:id="@+id/textHeight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start|bottom"
-            android:text="Height"
-            android:layout_marginLeft="10dp"
-            android:textColor="@color/black"
-            android:textSize="25sp"> </TextView>
-        <ImageView
-            android:id="@+id/btnHeight"
-            android:src="@drawable/icon_pencil"
-            android:background="@drawable/water_btn_bckg"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:padding="10dp"
-            android:layout_gravity="end|center_vertical"
-            > </ImageView>
-    </FrameLayout>
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start|top"
-            android:text="Sex:"
-            android:textStyle="italic|bold"
-            android:textColor="@color/dark_gray"
-            android:textSize="20dp"> </TextView>
-        <TextView
-            android:id="@+id/textSex"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start|bottom"
-            android:text="Sex"
-            android:layout_marginLeft="10dp"
-            android:textColor="@color/black"
-            android:textSize="25sp"> </TextView>
-        <ImageView
-            android:id="@+id/btnSex"
-            android:src="@drawable/icon_pencil"
-            android:background="@drawable/water_btn_bckg"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:padding="10dp"
-            android:layout_gravity="end|center_vertical"
-            > </ImageView>
-    </FrameLayout>
+                android:layout_marginTop="20dp"
+                android:text="Reset Password"
+                android:textAlignment="gravity"
+                android:textSize="30sp"
+                android:textColor="@color/white"
+                android:background="@drawable/water_btn_bckg"> </TextView>
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-        <TextView
-            android:id="@+id/resetPassword"
-            android:layout_width="250dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center"
-
-            android:layout_marginTop="20dp"
-            android:text="Reset Password"
-            android:textAlignment="gravity"
-            android:textSize="30sp"
-            android:textColor="@color/white"
-            android:background="@drawable/water_btn_bckg"> </TextView>
-
-    </FrameLayout>
-</LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
+</FrameLayout>
