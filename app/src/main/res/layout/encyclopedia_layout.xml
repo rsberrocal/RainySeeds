@@ -7,10 +7,12 @@
 
     <LinearLayout
         android:id="@+id/layoutMain"
-        android:layout_width="380dp"
-        android:layout_height="600dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="center|right"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="70dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="20dp"
         android:background="@drawable/book_bckg"
         android:orientation="vertical">
 
@@ -27,14 +29,7 @@
             android:layout_width="147dp"
             android:layout_height="25dp"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp">
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="17dp"
-                android:layout_height="25dp"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/icon_search" />
+            android:layout_marginTop="10dp">
 
             <EditText
                 android:id="@+id/editText"

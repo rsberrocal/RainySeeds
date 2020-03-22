@@ -3,6 +3,25 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:layout_width="360dp"
+        android:layout_height="80dp"
+        android:src="@drawable/shelf"
+        android:layout_marginTop="100dp"
+        />
+    <ImageView
+        android:layout_width="360dp"
+        android:layout_height="80dp"
+        android:src="@drawable/shelf"
+        android:layout_marginTop="240dp"
+        />
+    <ImageView
+        android:layout_width="360dp"
+        android:layout_height="80dp"
+        android:src="@drawable/shelf"
+        android:layout_marginTop="380dp"
+        />
+
     <TableLayout
         android:layout_width="360dp"
         android:layout_height="410dp"

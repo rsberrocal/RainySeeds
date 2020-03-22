@@ -23,11 +23,11 @@
 
         <Button
             android:id="@+id/btnReturnLogin"
-            android:layout_width="70dp"
-            android:layout_height="69dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/left_arrow" />
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/icon_return" />
     </LinearLayout>
 
     <LinearLayout
