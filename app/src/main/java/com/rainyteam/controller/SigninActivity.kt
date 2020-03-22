@@ -53,7 +53,8 @@ class SigninActivity : AppCompatActivity() {
         if (!email.isEmpty() && !password.isEmpty() && !confirmPassword.isEmpty()) {
             if (password == confirmPassword) {
                 if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                    mAuth.currentUser?.linkWithCredential(credential)?.addOnCompleteListener(this, OnCompleteListener { task ->
+                    mAuth.createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(this, OnCompleteListener { task ->
                             if (task.isSuccessful) {
                                 val user = mAuth.currentUser
                                 val uid = user!!.uid
