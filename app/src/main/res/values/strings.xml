@@ -40,5 +40,14 @@
     </string>
     <string name="Warnings">Do not take in case of heartburn or peptic ulcer
     </string>
+    <string name="EnyclopediaFilterAll">
+        All
+    </string>
+    <string name="EnyclopediaFilterBought">
+        Bought
+    </string>
+    <string name="EnyclopediaFilterBuy">
+        Buy
+    </string>
 
 </resources>
