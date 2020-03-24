@@ -17,7 +17,7 @@ import com.google.firebase.database.FirebaseDatabase
 class SigninActivity : AppCompatActivity() {
 
     val mAuth = FirebaseAuth.getInstance()
-    lateinit var  mDatabase : DatabaseReference
+    lateinit var mDatabase: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,8 +28,8 @@ class SigninActivity : AppCompatActivity() {
 
         mDatabase = FirebaseDatabase.getInstance().getReference("Emails")
 
-        btnSignin.setOnClickListener(View.OnClickListener {
-            view -> register ()
+        btnSignin.setOnClickListener(View.OnClickListener { view ->
+            register()
         })
 
         btnReturnLogin.setOnClickListener(View.OnClickListener {
@@ -39,7 +39,7 @@ class SigninActivity : AppCompatActivity() {
         })
     }
 
-    private fun register () {
+    private fun register() {
         val emailTxt = findViewById<View>(R.id.eT_EmailSignin) as EditText
         val passwordTxt = findViewById<View>(R.id.eT_PasswordSignin) as EditText
         val confirmPasswordTxt = findViewById<View>(R.id.eT_ConfirmPassword) as EditText
@@ -76,6 +76,6 @@ class SigninActivity : AppCompatActivity() {
         } else {
             Toast.makeText(this, R.string.ErrorLogin, Toast.LENGTH_LONG).show()
         }
-            }
     }
+}
 

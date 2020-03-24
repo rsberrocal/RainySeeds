@@ -19,7 +19,7 @@
         app:layout_constraintBottom_toTopOf="@+id/linearLayout11"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent">
 
         <Button
             android:id="@+id/btnReturnLogin"
@@ -49,42 +49,42 @@
             android:id="@+id/eT_EmailSignin"
             android:layout_width="250dp"
             android:layout_height="45dp"
-            android:ems="10"
-            android:inputType="textEmailAddress"
-            android:hint="@string/eT_EmailSignin"
-            android:layout_marginBottom="20dp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/gray"
             android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
             android:background="@color/translucid_white"
-            android:paddingLeft="10dp"/>
+            android:ems="10"
+            android:hint="@string/eT_EmailSignin"
+            android:inputType="textEmailAddress"
+            android:paddingLeft="10dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray" />
 
         <EditText
             android:id="@+id/eT_PasswordSignin"
             android:layout_width="250dp"
             android:layout_height="45dp"
-            android:ems="10"
-            android:inputType="textPassword"
-            android:hint="@string/eT_PasswordSignin"
-            android:layout_marginBottom="20dp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/gray"
             android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
             android:background="@color/translucid_white"
-            android:paddingLeft="10dp"/>
+            android:ems="10"
+            android:hint="@string/eT_PasswordSignin"
+            android:inputType="textPassword"
+            android:paddingLeft="10dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray" />
 
         <EditText
             android:id="@+id/eT_ConfirmPassword"
             android:layout_width="250dp"
             android:layout_height="45dp"
-            android:ems="10"
-            android:inputType="textPassword"
-            android:hint="@string/eT_ConfirmPassword"
-            android:textColor="@color/black"
-            android:textColorHint="@color/gray"
             android:layout_gravity="center"
             android:background="@color/translucid_white"
-            android:paddingLeft="10dp"/>
+            android:ems="10"
+            android:hint="@string/eT_ConfirmPassword"
+            android:inputType="textPassword"
+            android:paddingLeft="10dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray" />
     </LinearLayout>
 
     <LinearLayout
@@ -106,9 +106,9 @@
             android:id="@+id/btnSignin"
             android:layout_width="100dp"
             android:layout_height="50dp"
-            android:text="@string/btnSignin"
             android:layout_gravity="center"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="20dp"
+            android:text="@string/btnSignin" />
 
     </LinearLayout>
 

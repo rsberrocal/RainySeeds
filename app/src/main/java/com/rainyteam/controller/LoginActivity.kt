@@ -41,15 +41,15 @@ class LoginActivity : AppCompatActivity() {
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
-        mGoogleSignInClient = GoogleSignIn.getClient(this,mGoogleSignInOptions)
+        mGoogleSignInClient = GoogleSignIn.getClient(this, mGoogleSignInOptions)
 
         btnLogin.setOnClickListener(View.OnClickListener {
-                view -> login()
+            login()
         })
 
         signup.setOnClickListener(View.OnClickListener {
-                val signin = Intent(this, SigninActivity::class.java)
-                startActivity(signin)
+            val signin = Intent(this, SigninActivity::class.java)
+            startActivity(signin)
         })
 
         forgotPass.setOnClickListener(View.OnClickListener {
@@ -58,22 +58,21 @@ class LoginActivity : AppCompatActivity() {
             val view = layoutInflater.inflate(R.layout.dialog_forgotpass, null)
             val email = view.findViewById<EditText>(R.id.eT_EmailFP)
             title.setView(view)
-            title.setPositiveButton(R.string.Reset, DialogInterface.OnClickListener { _,  _ ->
+            title.setPositiveButton(R.string.Reset, DialogInterface.OnClickListener { _, _ ->
                 forgot(email)
             })
-            title.setNegativeButton(R.string.Close, DialogInterface.OnClickListener { _, _ ->  })
+            title.setNegativeButton(R.string.Close, DialogInterface.OnClickListener { _, _ -> })
             title.show()
         })
 
         btnLoginGoogle.setOnClickListener(View.OnClickListener {
-                view -> loginGoogle()
+            loginGoogle()
         })
     }
 
-    private fun forgot(email : EditText){
-        var emailT = email.text.toString()
+    private fun forgot(email: EditText) {
 
-        mAuth.sendPasswordResetEmail(email.text.toString()).addOnCompleteListener{ task ->
+        mAuth.sendPasswordResetEmail(email.text.toString()).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 Toast.makeText(this, R.string.EmailSent, Toast.LENGTH_SHORT).show()
             } else {
@@ -90,22 +89,20 @@ class LoginActivity : AppCompatActivity() {
         var password = passwordTxt.text.toString()
 
         if (!email.isEmpty() && !password.isEmpty()) {
-            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, OnCompleteListener { task ->
-                if (task.isSuccessful){
-                    Toast.makeText(this, R.string.ExitLogin, Toast.LENGTH_LONG).show()
-                    val principal = Intent(this, GreenhouseActivity::class.java)
-                    startActivity(principal)
-                } else {
-                    Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
-                }
+            mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, OnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Toast.makeText(this, R.string.ExitLogin, Toast.LENGTH_LONG).show()
+                        val principal = Intent(this, GreenhouseActivity::class.java)
+                        startActivity(principal)
+                    } else {
+                        Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
+                    }
 
-            })
+                })
         } else {
             Toast.makeText(this, R.string.ErrorLogin, Toast.LENGTH_LONG).show()
         }
-        //TEMPORAL
-        val principal = Intent(this, GreenhouseActivity::class.java)
-        startActivity(principal)
     }
 
     private fun loginGoogle() {
@@ -115,10 +112,10 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode == RC_SIGN_IN) {
+        if (requestCode == RC_SIGN_IN) {
             val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
-                val account  =  task.getResult(ApiException::class.java)!!
+                val account = task.getResult(ApiException::class.java)!!
                 authWithGoogle(account)
             } catch (e: ApiException) {
                 Toast.makeText(this, R.string.GoogleSigninError, Toast.LENGTH_LONG).show()
