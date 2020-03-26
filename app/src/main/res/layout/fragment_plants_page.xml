@@ -35,21 +35,21 @@
             android:layout_marginTop="10dp"
             >
 
-            <fragment class="com.rainyteam.controller.FragmentPlantGreenhouse"
+            <fragment class="com.rainyteam.views.FragmentPlantGreenhouse"
                 android:id="@+id/plantR1C1"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_gravity="center"
                 >
             </fragment>
-            <fragment class="com.rainyteam.controller.FragmentPlantGreenhouse"
+            <fragment class="com.rainyteam.views.FragmentPlantGreenhouse"
                 android:id="@+id/plantR1C2"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_gravity="center"
                 >
             </fragment>
-            <fragment class="com.rainyteam.controller.FragmentPlantGreenhouse"
+            <fragment class="com.rainyteam.views.FragmentPlantGreenhouse"
                 android:id="@+id/plantR1C3"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
@@ -64,21 +64,21 @@
             android:layout_height="120dp"
             android:layout_marginTop="20dp"
             >
-            <fragment class="com.rainyteam.controller.FragmentPlantGreenhouse"
+            <fragment class="com.rainyteam.views.FragmentPlantGreenhouse"
                 android:id="@+id/plantR2C1"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_gravity="center"
                 >
             </fragment>
-            <fragment class="com.rainyteam.controller.FragmentPlantGreenhouse"
+            <fragment class="com.rainyteam.views.FragmentPlantGreenhouse"
                 android:id="@+id/plantR2C2"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_gravity="center"
                 >
             </fragment>
-            <fragment class="com.rainyteam.controller.FragmentPlantGreenhouse"
+            <fragment class="com.rainyteam.views.FragmentPlantGreenhouse"
                 android:id="@+id/plantR2C3"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
@@ -93,21 +93,21 @@
             android:layout_height="120dp"
             android:layout_marginTop="20dp"
             >
-            <fragment class="com.rainyteam.controller.FragmentPlantGreenhouse"
+            <fragment class="com.rainyteam.views.FragmentPlantGreenhouse"
                 android:id="@+id/plantR3C1"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_gravity="center"
                 >
             </fragment>
-            <fragment class="com.rainyteam.controller.FragmentPlantGreenhouse"
+            <fragment class="com.rainyteam.views.FragmentPlantGreenhouse"
                 android:id="@+id/plantR3C2"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_gravity="center"
                 >
             </fragment>
-            <fragment class="com.rainyteam.controller.FragmentPlantGreenhouse"
+            <fragment class="com.rainyteam.views.FragmentPlantGreenhouse"
                 android:id="@+id/plantR3C3"
                 android:layout_width="120dp"
                 android:layout_height="120dp"

@@ -118,7 +118,7 @@
 
     <fragment
         android:id="@+id/fragmentViewMenu"
-        class="com.rainyteam.controller.SelectionViewMenu"
+        class="com.rainyteam.views.SelectionViewMenu"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_gravity="bottom" />

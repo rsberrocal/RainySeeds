@@ -1,10 +1,11 @@
-package com.rainyteam.controller
+package com.rainyteam.views
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.rainyteam.controller.R
 
 
 class FragmentPageGreenhouse : Fragment() {

@@ -1,4 +1,4 @@
-package com.rainyteam.controller
+package com.rainyteam.views
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +13,7 @@ import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.rainyteam.controller.R
 
 class SigninActivity : AppCompatActivity() {
 
@@ -59,7 +60,8 @@ class SigninActivity : AppCompatActivity() {
                                 val user = mAuth.currentUser
                                 val uid = user!!.uid
                                 mDatabase.child(uid).child("Email").setValue(email)
-                                Toast.makeText(this, R.string.ExitSignin, Toast.LENGTH_LONG).show()
+                                Toast.makeText(this,
+                                    R.string.ExitSignin, Toast.LENGTH_LONG).show()
                                 val btnSignin = Intent(this, UserInfoActivity::class.java)
                                 startActivity(btnSignin)
                                 finish()
@@ -68,13 +70,16 @@ class SigninActivity : AppCompatActivity() {
                             }
                         })
                 } else {
-                    Toast.makeText(this, R.string.WrongEmail, Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,
+                        R.string.WrongEmail, Toast.LENGTH_LONG).show()
                 }
             } else {
-                Toast.makeText(this, R.string.ErrorPassword, Toast.LENGTH_LONG).show()
+                Toast.makeText(this,
+                    R.string.ErrorPassword, Toast.LENGTH_LONG).show()
             }
         } else {
-            Toast.makeText(this, R.string.ErrorLogin, Toast.LENGTH_LONG).show()
+            Toast.makeText(this,
+                R.string.ErrorLogin, Toast.LENGTH_LONG).show()
         }
     }
 }

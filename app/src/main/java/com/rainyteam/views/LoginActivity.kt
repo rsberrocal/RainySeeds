@@ -1,4 +1,4 @@
-package com.rainyteam.controller
+package com.rainyteam.views
 
 import android.content.DialogInterface
 import android.content.Intent
@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.rainyteam.controller.R
 
 class LoginActivity : AppCompatActivity() {
 
@@ -74,7 +75,8 @@ class LoginActivity : AppCompatActivity() {
 
         mAuth.sendPasswordResetEmail(email.text.toString()).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                Toast.makeText(this, R.string.EmailSent, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,
+                    R.string.EmailSent, Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
             }
@@ -92,7 +94,8 @@ class LoginActivity : AppCompatActivity() {
             mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, OnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        Toast.makeText(this, R.string.ExitLogin, Toast.LENGTH_LONG).show()
+                        Toast.makeText(this,
+                            R.string.ExitLogin, Toast.LENGTH_LONG).show()
                         val principal = Intent(this, GreenhouseActivity::class.java)
                         startActivity(principal)
                     } else {
@@ -101,7 +104,8 @@ class LoginActivity : AppCompatActivity() {
 
                 })
         } else {
-            Toast.makeText(this, R.string.ErrorLogin, Toast.LENGTH_LONG).show()
+            Toast.makeText(this,
+                R.string.ErrorLogin, Toast.LENGTH_LONG).show()
         }
     }
 
@@ -118,7 +122,8 @@ class LoginActivity : AppCompatActivity() {
                 val account = task.getResult(ApiException::class.java)!!
                 authWithGoogle(account)
             } catch (e: ApiException) {
-                Toast.makeText(this, R.string.GoogleSigninError, Toast.LENGTH_LONG).show()
+                Toast.makeText(this,
+                    R.string.GoogleSigninError, Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -137,7 +142,8 @@ class LoginActivity : AppCompatActivity() {
                     startActivity(principal)
                     finish()
                 }
-                Toast.makeText(this, R.string.ExitLogin, Toast.LENGTH_LONG).show()
+                Toast.makeText(this,
+                    R.string.ExitLogin, Toast.LENGTH_LONG).show()
 
             } else {
                 Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()

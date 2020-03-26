@@ -1,10 +1,11 @@
-package com.rainyteam.controller
+package com.rainyteam.views
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.rainyteam.controller.R
 import kotlinx.android.synthetic.main.fragment_viewmenu.view.*
 
 class SelectionViewMenu : androidx.fragment.app.Fragment() {

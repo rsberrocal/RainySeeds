@@ -1,4 +1,4 @@
-package com.rainyteam.controller
+package com.rainyteam.views
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.*
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+import com.rainyteam.controller.R
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
 import kotlinx.android.synthetic.main.greenhouse_layout.*
 
@@ -37,7 +37,8 @@ class GreenhouseActivity : AppCompatActivity() {
     private inner class PlantSlidePagerAdapter(fm: FragmentActivity) : FragmentStateAdapter(fm) {
         override fun getItemCount(): Int = NUM_PAGES
 
-        override fun createFragment(position: Int): Fragment = FragmentPageGreenhouse()
+        override fun createFragment(position: Int): Fragment =
+            FragmentPageGreenhouse()
     }
 
 }

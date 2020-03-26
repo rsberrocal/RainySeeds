@@ -1,13 +1,13 @@
-package com.rainyteam.controller
+package com.rainyteam.views
 
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.rainyteam.controller.R
 import kotlinx.android.synthetic.main.template.view.*
 
 class AdapterPlant(items: ArrayList<FragmentPlantGreenhouse>?) :

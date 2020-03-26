@@ -1,8 +1,9 @@
-package com.rainyteam.controller
+package com.rainyteam.views
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.rainyteam.controller.R
 import kotlinx.android.synthetic.main.introduce_water_layout.*
 
 class IntroduceWaterActivity : AppCompatActivity() {

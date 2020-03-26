@@ -9,34 +9,34 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".IntroduceWaterActivity">
+        <activity android:name="com.rainyteam.views.IntroduceWaterActivity">
 
         </activity>
-        <activity android:name=".SigninActivity">
+        <activity android:name="com.rainyteam.views.SigninActivity">
 
         </activity>
-        <activity android:name=".LoginActivity">
+        <activity android:name="com.rainyteam.views.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EncyclopediaActivity">
+        <activity android:name="com.rainyteam.views.EncyclopediaActivity">
 
         </activity>
-        <activity android:name=".EncyclopediaDetailActivity">
+        <activity android:name="com.rainyteam.views.EncyclopediaDetailActivity">
 
         </activity>
-        <activity android:name=".GreenhouseActivity">
+        <activity android:name="com.rainyteam.views.GreenhouseActivity">
         </activity>
-        <activity android:name=".StoreActivity">
+        <activity android:name="com.rainyteam.views.StoreActivity">
 
         </activity>
-        <activity android:name=".MainWaterActivity">
+        <activity android:name="com.rainyteam.views.MainWaterActivity">
 
         </activity>
-        <activity android:name=".UserInfoActivity">
+        <activity android:name="com.rainyteam.views.UserInfoActivity">
 
         </activity>
     </application>

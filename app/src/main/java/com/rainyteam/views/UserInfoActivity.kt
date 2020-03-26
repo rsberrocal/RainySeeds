@@ -1,11 +1,10 @@
-package com.rainyteam.controller
+package com.rainyteam.views
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.introduce_water_layout.*
+import com.rainyteam.controller.R
 import kotlinx.android.synthetic.main.user_info_layout.*
 
 class UserInfoActivity : AppCompatActivity() {
