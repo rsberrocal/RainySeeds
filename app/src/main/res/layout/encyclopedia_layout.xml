@@ -13,7 +13,7 @@
         android:layout_marginBottom="70dp"
         android:layout_marginTop="30dp"
         android:layout_marginLeft="20dp"
-        android:background="@drawable/book_bckg"
+        android:background="@drawable/bckg_book"
         android:orientation="vertical">
 
         <TextView
@@ -112,7 +112,7 @@
         </androidx.recyclerview.widget.RecyclerView>
 
     </LinearLayout>
-    <fragment class="com.rainyteam.views.SelectionViewMenu"
+    <fragment class="com.rainyteam.views.FragmentViewMenu"
         android:id="@+id/fragmentViewMenu"
         android:layout_width="match_parent"
         android:layout_height="80dp"

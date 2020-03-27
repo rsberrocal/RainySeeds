@@ -3,7 +3,7 @@
     android:id="@+id/userLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bckg_main_water_desenfocado"
+    android:background="@drawable/bckg_water_unfocused"
     android:weightSum="11">
 
     <FrameLayout
@@ -31,7 +31,7 @@
             android:layout_gravity="right"
             android:layout_marginTop="15dp"
             android:layout_marginRight="20dp"
-            android:src="@drawable/cross">
+            android:src="@drawable/icon_cross">
 
         </ImageView>
 

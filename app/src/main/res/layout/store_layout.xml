@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/fondo_invernadero">
+    android:background="@drawable/bckg_greenhouse">
 
     <FrameLayout
         android:layout_width="150dp"
@@ -32,7 +32,7 @@
             android:layout_gravity="right"
             android:layout_marginTop="15dp"
             android:layout_marginRight="20dp"
-            android:src="@drawable/cross">
+            android:src="@drawable/icon_cross">
 
         </ImageView>
 

@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bckg_main_water"
+    android:background="@drawable/bckg_water"
     android:orientation="vertical">
 
     <LinearLayout
@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="end|center_vertical"
-                android:src="@drawable/back_bottle" />
+                android:src="@drawable/icon_bottle_back" />
 
         </LinearLayout>
 
@@ -118,7 +118,7 @@
 
     <fragment
         android:id="@+id/fragmentViewMenu"
-        class="com.rainyteam.views.SelectionViewMenu"
+        class="com.rainyteam.views.FragmentViewMenu"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_gravity="bottom" />

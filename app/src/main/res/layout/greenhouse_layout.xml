@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondo_invernadero"
+    android:background="@drawable/bckg_greenhouse"
     android:orientation="vertical">
 
 
@@ -79,7 +79,7 @@
 
     <fragment
         android:id="@+id/fragmentViewMenu"
-        class="com.rainyteam.views.SelectionViewMenu"
+        class="com.rainyteam.views.FragmentViewMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom">

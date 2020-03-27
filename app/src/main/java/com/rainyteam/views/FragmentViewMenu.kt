@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.rainyteam.controller.R
 import kotlinx.android.synthetic.main.fragment_viewmenu.view.*
 
-class SelectionViewMenu : androidx.fragment.app.Fragment() {
+class FragmentViewMenu : androidx.fragment.app.Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
