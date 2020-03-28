@@ -1,4 +1,4 @@
-package com.rainyteam.model
+package com.rainyteam.views
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
