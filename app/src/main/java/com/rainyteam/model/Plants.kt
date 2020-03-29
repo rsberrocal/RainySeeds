@@ -5,7 +5,8 @@ class Plants(private var name: String,
              private var benefits: String,
              private var uses: String,
              private var precautions: String,
-             private var money: Int,
+             private var moneyGenerated: Int,
+             private val priceMultiplier: Int,
              private var status: Int) {
     //Getters
     fun getName() :String {
@@ -23,8 +24,11 @@ class Plants(private var name: String,
     fun getPrecautions(): String{
         return this.precautions
     }
-    fun getMoney(): Int{
-        return this.money
+    fun getMoneyGenerated(): Int{
+        return this.moneyGenerated
+    }
+    fun getMoneyCost(): Int{
+        return this.moneyGenerated * this.priceMultiplier
     }
     fun getStatus(): Int{
         return this.status
