@@ -2,16 +2,20 @@ package com.rainyteam.controller
 
 class WaterController {
 
-    init{
+    init {
 
     }
 
-    fun drink(){
+    fun drink() {
+        //get user
 
     }
 
-    fun undrink(){
-        
+    fun undrink() {
+
     }
 
+    fun changePlantStatus() {
+
+    }
 }

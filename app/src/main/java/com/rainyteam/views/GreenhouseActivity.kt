@@ -23,7 +23,7 @@ class GreenhouseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.greenhouse_layout)
         //Con esto se consigue el main controller
-        this.mainController = intent.extras.getSerializable("MAIN_CONTROLLER") as MainController
+        this.mainController = intent.extras?.getSerializable("MAIN_CONTROLLER") as MainController
 
         layoutSeeds.setOnClickListener {
             val intent = Intent(this, StoreActivity::class.java)
