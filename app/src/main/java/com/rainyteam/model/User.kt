@@ -46,5 +46,11 @@ class User(
     fun getExercise() :Int {
         return this.exercise
     }
+    fun getGreenhousePlants() : ArrayList<String>? {
+        return null;
+    }
+    fun getEncyclopediaPlants() : ArrayList<String>? {
+        return null;
+    }
 }
 
