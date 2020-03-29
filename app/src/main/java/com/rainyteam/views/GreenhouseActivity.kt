@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.*
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.rainyteam.controller.MainController
 import com.rainyteam.controller.R
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
 import kotlinx.android.synthetic.main.greenhouse_layout.*
@@ -15,10 +16,14 @@ private const val NUM_PAGES = 5
 class GreenhouseActivity : AppCompatActivity() {
 
     private lateinit var mPager: ViewPager2
+    var mainController: MainController? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.greenhouse_layout)
+        //Con esto se consigue el main controller
+        this.mainController = intent.extras.getSerializable("MAIN_CONTROLLER") as MainController
 
         layoutSeeds.setOnClickListener {
             val intent = Intent(this, StoreActivity::class.java)

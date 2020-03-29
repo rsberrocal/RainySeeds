@@ -1,4 +1,13 @@
 package com.rainyteam.controller
 
-class MainController {
+import java.io.Serializable
+
+//Necesita ser serializable para pasarlo a traves de activitys
+class MainController : Serializable {
+
+    var waterController = WaterController()
+
+    init {
+
+    }
 }

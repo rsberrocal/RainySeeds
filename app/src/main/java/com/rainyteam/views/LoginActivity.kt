@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.rainyteam.controller.MainController
 import com.rainyteam.controller.R
 
 class LoginActivity : AppCompatActivity() {
@@ -28,10 +29,14 @@ class LoginActivity : AppCompatActivity() {
     lateinit var mGoogleSignInClient: GoogleSignInClient
     lateinit var mGoogleSignInOptions: GoogleSignInOptions
     val RC_SIGN_IN: Int = 1
-
+    var mainController: MainController? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_layout)
+
+        //Start the controllers
+        this.mainController = MainController() //Pass this main controller over the views
+
 
         val btnLogin = findViewById<View>(R.id.btnLogin) as Button
         val signup = findViewById<View>(R.id.tV_Signup) as TextView
@@ -75,8 +80,10 @@ class LoginActivity : AppCompatActivity() {
 
         mAuth.sendPasswordResetEmail(email.text.toString()).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                Toast.makeText(this,
-                    R.string.EmailSent, Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    R.string.EmailSent, Toast.LENGTH_SHORT
+                ).show()
             } else {
                 Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
             }
@@ -94,9 +101,14 @@ class LoginActivity : AppCompatActivity() {
             mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, OnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        Toast.makeText(this,
-                            R.string.ExitLogin, Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            this,
+                            R.string.ExitLogin, Toast.LENGTH_LONG
+                        ).show()
                         val principal = Intent(this, GreenhouseActivity::class.java)
+                        var bundle = Bundle()
+                        bundle.putSerializable("MAIN_CONTROLLER", this.mainController)
+                        principal.putExtras(bundle);
                         startActivity(principal)
                     } else {
                         Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
@@ -104,8 +116,10 @@ class LoginActivity : AppCompatActivity() {
 
                 })
         } else {
-            Toast.makeText(this,
-                R.string.ErrorLogin, Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                this,
+                R.string.ErrorLogin, Toast.LENGTH_LONG
+            ).show()
         }
     }
 
@@ -122,8 +136,10 @@ class LoginActivity : AppCompatActivity() {
                 val account = task.getResult(ApiException::class.java)!!
                 authWithGoogle(account)
             } catch (e: ApiException) {
-                Toast.makeText(this,
-                    R.string.GoogleSigninError, Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    this,
+                    R.string.GoogleSigninError, Toast.LENGTH_LONG
+                ).show()
             }
         }
     }
@@ -142,8 +158,10 @@ class LoginActivity : AppCompatActivity() {
                     startActivity(principal)
                     finish()
                 }
-                Toast.makeText(this,
-                    R.string.ExitLogin, Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    this,
+                    R.string.ExitLogin, Toast.LENGTH_LONG
+                ).show()
 
             } else {
                 Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
