@@ -21,6 +21,7 @@ class SigninActivity : AppCompatActivity() {
     var mAuth:FirebaseAuth? = null
     var DataInst: FirebaseDatabase? = null
     var mainController: MainController? = null
+    var mDatabase: DatabaseReference? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +30,7 @@ class SigninActivity : AppCompatActivity() {
         this.mainController = MainController()
         mAuth = mainController!!.getInstanceFirebaseAuth()
         DataInst = mainController!!.getInstanceDatabase()
-        var mDatabase = DataInst!!.getReference("Emails")
+        mDatabase = DataInst!!.getReference("Emails")
 
         val btnSignin = findViewById<View>(R.id.btnSignin) as Button
         val btnReturnLogin = findViewById<View>(R.id.btnReturnLogin) as Button
@@ -63,7 +64,7 @@ class SigninActivity : AppCompatActivity() {
                             if (task.isSuccessful) {
                                 val user = mAuth!!.currentUser
                                 val uid = user!!.uid
-                                mDatabase.child(uid).child("Email").setValue(email)
+                                mDatabase!!.child(uid).child("Email").setValue(email)
                                 Toast.makeText(this,
                                     R.string.ExitSignin, Toast.LENGTH_LONG).show()
                                 val btnSignin = Intent(this, UserInfoActivity::class.java)
