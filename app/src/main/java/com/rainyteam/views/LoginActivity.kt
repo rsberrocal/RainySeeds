@@ -25,7 +25,7 @@ import com.rainyteam.controller.R
 
 class LoginActivity : AppCompatActivity() {
 
-    val mAuth = FirebaseAuth.getInstance()
+    var mAuth:FirebaseAuth? = null
     lateinit var mGoogleSignInClient: GoogleSignInClient
     lateinit var mGoogleSignInOptions: GoogleSignInOptions
     val RC_SIGN_IN: Int = 1
@@ -36,7 +36,7 @@ class LoginActivity : AppCompatActivity() {
 
         //Start the controllers
         this.mainController = MainController() //Pass this main controller over the views
-
+        mAuth = mainController!!.getInstanceFirebaseAuth()
 
         val btnLogin = findViewById<View>(R.id.btnLogin) as Button
         val signup = findViewById<View>(R.id.tV_Signup) as TextView
@@ -78,7 +78,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun forgot(email: EditText) {
 
-        mAuth.sendPasswordResetEmail(email.text.toString()).addOnCompleteListener { task ->
+        mAuth!!.sendPasswordResetEmail(email.text.toString()).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 Toast.makeText(
                     this,
@@ -98,7 +98,7 @@ class LoginActivity : AppCompatActivity() {
         var password = passwordTxt.text.toString()
 
         if (!email.isEmpty() && !password.isEmpty()) {
-            mAuth.signInWithEmailAndPassword(email, password)
+            mAuth!!.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, OnCompleteListener { task ->
                     if (task.isSuccessful) {
                         Toast.makeText(
@@ -146,7 +146,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun authWithGoogle(acct: GoogleSignInAccount) {
         val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
-        mAuth.signInWithCredential(credential).addOnCompleteListener {
+        mAuth!!.signInWithCredential(credential).addOnCompleteListener {
             val isNewUser: Boolean = it.getResult()!!.additionalUserInfo!!.isNewUser()
             if (it.isSuccessful) {
                 if (isNewUser) {

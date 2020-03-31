@@ -13,21 +13,26 @@ import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.rainyteam.controller.MainController
 import com.rainyteam.controller.R
 
 class SigninActivity : AppCompatActivity() {
 
-    val mAuth = FirebaseAuth.getInstance()
-    lateinit var mDatabase: DatabaseReference
+    var mAuth:FirebaseAuth? = null
+    var DataInst: FirebaseDatabase? = null
+    var mainController: MainController? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.signin_layout)
 
+        this.mainController = MainController()
+        mAuth = mainController!!.getInstanceFirebaseAuth()
+        DataInst = mainController!!.getInstanceDatabase()
+        var mDatabase = DataInst!!.getReference("Emails")
+
         val btnSignin = findViewById<View>(R.id.btnSignin) as Button
         val btnReturnLogin = findViewById<View>(R.id.btnReturnLogin) as Button
-
-        mDatabase = FirebaseDatabase.getInstance().getReference("Emails")
 
         btnSignin.setOnClickListener(View.OnClickListener { view ->
             register()
@@ -49,15 +54,14 @@ class SigninActivity : AppCompatActivity() {
         var password = passwordTxt.text.toString()
         var confirmPassword = confirmPasswordTxt.text.toString()
 
-        val credential = EmailAuthProvider.getCredential(email, password)
 
         if (!email.isEmpty() && !password.isEmpty() && !confirmPassword.isEmpty()) {
             if (password == confirmPassword) {
                 if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                    mAuth.createUserWithEmailAndPassword(email, password)
+                    mAuth!!.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(this, OnCompleteListener { task ->
                             if (task.isSuccessful) {
-                                val user = mAuth.currentUser
+                                val user = mAuth!!.currentUser
                                 val uid = user!!.uid
                                 mDatabase.child(uid).child("Email").setValue(email)
                                 Toast.makeText(this,
