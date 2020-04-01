@@ -1,6 +1,7 @@
 package com.rainyteam.model
 
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
 class Connection {
@@ -15,5 +16,10 @@ class Connection {
 
     fun mDatabase(): FirebaseDatabase {    //Para leer o escribir en la base de datos
         return database
+    }
+
+    fun sendPlantBenefits():DatabaseReference{
+        var benefits = database.getReference("/Plants/Great Yellow Gentian").child("benefits")
+        return benefits
     }
 }
