@@ -18,7 +18,6 @@ class GreenhouseActivity : AppCompatActivity() {
     private lateinit var mPager: ViewPager2
     var mainController: MainController? = null
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.greenhouse_layout)
@@ -27,6 +26,7 @@ class GreenhouseActivity : AppCompatActivity() {
 
         layoutSeeds.setOnClickListener {
             val intent = Intent(this, StoreActivity::class.java)
+            intent.putExtra("MainController", this.mainController)
             startActivity(intent)
         }
 
