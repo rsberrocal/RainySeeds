@@ -1,6 +1,7 @@
 package com.rainyteam.controller
 
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.rainyteam.model.Connection
 import java.io.Serializable
@@ -21,5 +22,9 @@ class MainController : Serializable {
 
     fun getInstanceDatabase(): FirebaseDatabase {
         return connection!!.mDatabase()
+    }
+
+    fun getBenefits(): DatabaseReference {
+        return connection!!.sendPlantBenefits()
     }
 }
