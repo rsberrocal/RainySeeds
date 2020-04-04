@@ -3,22 +3,25 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/myCardView"
-    android:layout_width="120dp"
-    android:layout_height="150dp"
+    android:layout_width="100dp"
+    android:layout_height="120dp"
     app:cardCornerRadius="8dp"
-    app:cardElevation="5dp"
+    app:cardElevation="0dp"
     app:cardUseCompatPadding="true"
     app:cardPreventCornerOverlap="true"
+    app:cardBackgroundColor="@android:color/transparent"
     >
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
 
         <ImageView
             android:id="@+id/plantImage"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="100dp"
             android:src="@drawable/planta_enciclopedia"
 
             >
@@ -26,10 +29,14 @@
         <TextView
             android:id="@+id/alpha_text_view"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:text="Title"
+            android:layout_height="20dp"
+            android:text="@string/app_name"
+            android:gravity="center_horizontal"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            android:textColor="@color/black"
             >
 
         </TextView>
-    </RelativeLayout>
+    </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -19,7 +19,11 @@
 
         </activity>
         <activity android:name="com.rainyteam.views.EncyclopediaActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name="com.rainyteam.views.EncyclopediaDetailActivity">
 
@@ -28,11 +32,7 @@
 
         </activity>
         <activity android:name="com.rainyteam.views.StoreActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name="com.rainyteam.views.MainWaterActivity">
 
