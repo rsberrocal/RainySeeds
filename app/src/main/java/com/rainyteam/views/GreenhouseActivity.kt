@@ -2,6 +2,7 @@ package com.rainyteam.views
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.*
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -41,6 +42,11 @@ class GreenhouseActivity : AppCompatActivity() {
         val pagerAdapter = PlantSlidePagerAdapter(this)
         mPager.adapter = pagerAdapter
         dotsIndicator.setViewPager2(mPager)
+
+        val textSeeds: TextView = findViewById(R.id.textGoldenSeeds) as TextView
+        textSeeds.setOnClickListener {
+            textSeeds.text = this.user.wallet.toString()
+        }
 
     }
 
