@@ -45,6 +45,11 @@ class LoginActivity : AppCompatActivity() {
 
         prefs = getSharedPreferences(PREF_NAME, 0)
         val hasUser = prefs!!.getString("USER_ID", null)
+        if (hasUser != null) {
+            val principal = Intent(this, GreenhouseActivity::class.java)
+            finish()
+            startActivity(principal)
+        }
 
         val btnLogin = findViewById<View>(R.id.btnLogin) as Button
         val signup = findViewById<View>(R.id.tV_Signup) as TextView
