@@ -8,25 +8,30 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.rainyteam.controller.MainController
 import com.rainyteam.controller.R
+import com.rainyteam.model.User
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
 import kotlinx.android.synthetic.main.greenhouse_layout.*
 
-private const val NUM_PAGES = 5
+
+private val NUM_PLANTS_PAGE = 9
 
 class GreenhouseActivity : AppCompatActivity() {
-
     private lateinit var mPager: ViewPager2
-    var mainController: MainController? = null
+
+    private var numPages : Int = 1
+    private var listPlants : ArrayList<String> = ArrayList()
+    private lateinit var user : User
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.greenhouse_layout)
-        //Con esto se consigue el main controller
-        this.mainController = intent.extras?.getSerializable("MAIN_CONTROLLER") as MainController
+
+        // user =
+        //listPlants = user.getGreenhousePlants()
+        numPages = (listPlants.size + NUM_PLANTS_PAGE - 1) / NUM_PLANTS_PAGE // round up division
 
         layoutSeeds.setOnClickListener {
             val intent = Intent(this, StoreActivity::class.java)
-            intent.putExtra("MainController", this.mainController)
             startActivity(intent)
         }
 
@@ -40,7 +45,7 @@ class GreenhouseActivity : AppCompatActivity() {
     }
 
     private inner class PlantSlidePagerAdapter(fm: FragmentActivity) : FragmentStateAdapter(fm) {
-        override fun getItemCount(): Int = NUM_PAGES
+        override fun getItemCount(): Int = numPages
 
         override fun createFragment(position: Int): Fragment =
             FragmentPageGreenhouse()
