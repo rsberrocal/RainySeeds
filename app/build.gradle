@@ -40,6 +40,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
     implementation 'com.google.firebase:firebase-database:19.2.1'
     implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:4.1.2'
+    implementation 'androidx.cardview:cardview:1.0.0'
 
 }
 

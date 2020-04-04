@@ -98,16 +98,15 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewPlants"
+            xmlns:tools="http://schemas.android.com/tools"
+            tools:context=".MainActivity"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginRight="30dp"
             android:layout_marginLeft="40dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="35dp"
-            android:layout_gravity="center"
-            android:scrollbars="vertical"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="2">
+            android:layout_gravity="center">
 
         </androidx.recyclerview.widget.RecyclerView>
 

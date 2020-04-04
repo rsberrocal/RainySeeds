@@ -45,7 +45,7 @@ class AdapterPlant(items: ArrayList<FragmentPlantGreenhouse>?) :
         var btn = vista.findViewById(R.id.plantImage) as ImageView
 
         init {
-            nombre = view.tvTemplate
+           // nombre = view.tvTemplate
         }
     }
 }
