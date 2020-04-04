@@ -2,6 +2,7 @@ package com.rainyteam.views
 
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -20,34 +21,43 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
-import com.rainyteam.controller.MainController
 import com.rainyteam.controller.R
 
 class LoginActivity : AppCompatActivity() {
 
-    var mAuth:FirebaseAuth? = null
+    var mAuth: FirebaseAuth? = FirebaseAuth.getInstance()
     lateinit var mGoogleSignInClient: GoogleSignInClient
     lateinit var mGoogleSignInOptions: GoogleSignInOptions
     val RC_SIGN_IN: Int = 1
-    var mainController: MainController? = null
+
+    //shared preferences
+    val PREF_NAME = "USER"
+    var prefs: SharedPreferences? = null
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_layout)
 
         //Start the controllers
-        this.mainController = MainController() //Pass this main controller over the views
-        mAuth = mainController!!.getInstanceFirebaseAuth()
+        //this.mainController = MainController() //Pass this main controller over the views
+        //mAuth = mainController!!.getInstanceFirebaseAuth()
+
+        prefs = getSharedPreferences(PREF_NAME, 0)
+        val hasUser = prefs!!.getString("USER_ID", null)
 
         val btnLogin = findViewById<View>(R.id.btnLogin) as Button
         val signup = findViewById<View>(R.id.tV_Signup) as TextView
         val forgotPass = findViewById<View>(R.id.tV_PasswordRecovery) as TextView
         val btnLoginGoogle = findViewById<View>(R.id.btnGoogle) as SignInButton
 
+
         mGoogleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
         mGoogleSignInClient = GoogleSignIn.getClient(this, mGoogleSignInOptions)
+
 
         btnLogin.setOnClickListener(View.OnClickListener {
             login()
@@ -90,6 +100,13 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    private fun setUser(id: String) {
+
+        val editor = prefs!!.edit()
+        editor.putString("USER_ID", id)
+        editor.apply()
+    }
+
     private fun login() {
         val emailTxt = findViewById<View>(R.id.eT_Email) as EditText
         val passwordTxt = findViewById<View>(R.id.eT_Password) as EditText
@@ -105,10 +122,10 @@ class LoginActivity : AppCompatActivity() {
                             this,
                             R.string.ExitLogin, Toast.LENGTH_LONG
                         ).show()
+
+                        setUser(email)
+
                         val principal = Intent(this, GreenhouseActivity::class.java)
-                        var bundle = Bundle()
-                        bundle.putSerializable("MAIN_CONTROLLER", this.mainController)
-                        principal.putExtras(bundle);
                         startActivity(principal)
                     } else {
                         Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
@@ -149,6 +166,7 @@ class LoginActivity : AppCompatActivity() {
         mAuth!!.signInWithCredential(credential).addOnCompleteListener {
             val isNewUser: Boolean = it.getResult()!!.additionalUserInfo!!.isNewUser()
             if (it.isSuccessful) {
+                setUser(acct.email!!)
                 if (isNewUser) {
                     val principal = Intent(this, UserInfoActivity::class.java)
                     startActivity(principal)
