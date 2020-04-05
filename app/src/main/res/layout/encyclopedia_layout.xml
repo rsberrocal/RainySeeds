@@ -55,54 +55,47 @@
             android:orientation="horizontal">
 
             <RadioGroup
-                android:layout_width="30dp"
-                android:layout_height="30dp">
-
-            </RadioGroup>
-
-            <FrameLayout
-                android:id="@+id/btnAllPlants"
-                android:layout_width="60dp"
-                android:layout_height="30dp"
-                android:layout_marginRight="5dp"
-                android:background="@drawable/rnd_btn_selector">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center" >
+                <RadioButton
+                    android:id="@+id/filterAll"
+                    android:layout_width="60dp"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:layout_marginHorizontal="5dp"
+                    android:background="@drawable/rnd_btn_selector"
+                    android:button="@null"
                     android:text="@string/EnyclopediaFilterAll"
-                    android:textColor="@color/black" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/btnBoughtPlants"
-                android:layout_width="60dp"
-                android:layout_height="30dp"
-                android:layout_marginRight="5dp"
-                android:background="@drawable/rnd_btn_selector">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:textColor="@color/black"
+                    >
+                </RadioButton>
+                <RadioButton
+                    android:id="@+id/filterBought"
+                    android:layout_width="60dp"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:layout_marginHorizontal="5dp"
+                    android:background="@drawable/rnd_btn_selector"
+                    android:button="@null"
                     android:text="@string/EnyclopediaFilterBought"
-                    android:textColor="@color/black" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/btnToBuyPlants"
-                android:layout_width="60dp"
-                android:layout_height="30dp"
-                android:background="@drawable/rnd_btn_selector">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:textColor="@color/black"
+                    >
+                </RadioButton>
+                <RadioButton
+                    android:id="@+id/filterToBuy"
+                    android:layout_width="60dp"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:layout_marginHorizontal="5dp"
+                    android:background="@drawable/rnd_btn_selector"
+                    android:button="@null"
                     android:text="@string/EnyclopediaFilterToBuy"
-                    android:textColor="@color/black" />
-            </FrameLayout>
+                    android:textColor="@color/black"
+                    >
+                </RadioButton>
+            </RadioGroup>
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView xmlns:tools="http://schemas.android.com/tools"

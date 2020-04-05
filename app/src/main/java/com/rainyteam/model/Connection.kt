@@ -19,7 +19,7 @@ class Connection {
     }
 
     fun sendPlantBenefits():DatabaseReference{
-        var benefits = database.getReference("/Plants/Great Yellow Gentian").child("benefits")
+        var benefits = database.getReference("/Plants/Red").child("benefits")
         return benefits
     }
 }

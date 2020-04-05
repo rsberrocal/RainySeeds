@@ -29,17 +29,17 @@ class EncyclopediaActivity : AppCompatActivity() {
         recyclerViewAdapter = RecyclerViewAdapter(applicationContext, arrayList!!)
         recyclerView?.adapter = recyclerViewAdapter
 
-        btnAllPlants.setOnClickListener {
+        filterAll.setOnClickListener {
             arrayList = setDatainList()
             recyclerViewAdapter = RecyclerViewAdapter(applicationContext, arrayList!!)
             recyclerView?.adapter = recyclerViewAdapter
         }
-        btnBoughtPlants.setOnClickListener {
+        filterBought.setOnClickListener {
             arrayList = setBoughtPlants()
             recyclerViewAdapter = RecyclerViewAdapter(applicationContext, arrayList!!)
             recyclerView?.adapter = recyclerViewAdapter
         }
-        btnToBuyPlants.setOnClickListener {
+        filterToBuy.setOnClickListener {
             arrayList = setToBuyPlants()
             recyclerViewAdapter = RecyclerViewAdapter(applicationContext, arrayList!!)
             recyclerView?.adapter = recyclerViewAdapter
