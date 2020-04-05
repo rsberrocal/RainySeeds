@@ -9,17 +9,18 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.rainyteam.controller.R
+import com.rainyteam.model.Connection
 
 class SigninActivity : AppCompatActivity() {
 
     var mAuth:FirebaseAuth? = null
     var DataInst: FirebaseDatabase? = null
     var mDatabase: DatabaseReference? = null
+    var mainConnection: Connection? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +29,9 @@ class SigninActivity : AppCompatActivity() {
         /*mAuth = mainController!!.getInstanceFirebaseAuth()
         DataInst = mainController!!.getInstanceDatabase()
         mDatabase = DataInst!!.getReference("Emails")*/
+
+        DataInst = mainConnection!!.mDatabase()
+        mDatabase = DataInst!!.getReference("Emails")
 
         val btnSignin = findViewById<View>(R.id.btnSignin) as Button
         val btnReturnLogin = findViewById<View>(R.id.btnReturnLogin) as Button

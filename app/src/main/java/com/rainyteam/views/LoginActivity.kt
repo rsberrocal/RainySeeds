@@ -22,13 +22,15 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.rainyteam.controller.R
+import com.rainyteam.model.Connection
 
 class LoginActivity : AppCompatActivity() {
 
-    var mAuth: FirebaseAuth? = FirebaseAuth.getInstance()
+    var mAuth: FirebaseAuth? = null
     lateinit var mGoogleSignInClient: GoogleSignInClient
     lateinit var mGoogleSignInOptions: GoogleSignInOptions
     val RC_SIGN_IN: Int = 1
+    var mainConnection: Connection? = null
 
     //shared preferences
     val PREF_NAME = "USER"
@@ -42,6 +44,8 @@ class LoginActivity : AppCompatActivity() {
         //Start the controllers
         //this.mainController = MainController() //Pass this main controller over the views
         //mAuth = mainController!!.getInstanceFirebaseAuth()
+
+        mAuth = mainConnection!!.mAuth()
 
         prefs = getSharedPreferences(PREF_NAME, 0)
         val hasUser = prefs!!.getString("USER_ID", null)
