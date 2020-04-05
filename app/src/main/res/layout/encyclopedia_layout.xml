@@ -10,107 +10,118 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center|right"
-        android:layout_marginBottom="70dp"
-        android:layout_marginTop="30dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="70dp"
         android:background="@drawable/bckg_book"
         android:orientation="vertical"
         android:paddingLeft="40dp"
-        android:paddingRight="20dp"
-        >
+        android:paddingRight="20dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="40dp"
-            android:textAlignment="center"
-            android:textSize="25sp"
             android:text="Encyclopedia"
+            android:textAlignment="center"
             android:textColor="@color/black"
-            android:textStyle="italic"/>
+            android:textSize="25sp"
+            android:textStyle="italic" />
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            android:layout_marginHorizontal="20dp"
-            >
+            android:layout_marginHorizontal="20dp">
+
             <EditText
                 android:id="@+id/inputStoreSearch"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_gravity="center|left"
-                android:inputType="textCapSentences"
                 android:hint="@string/Search"
+                android:inputType="textCapSentences"
                 android:textColor="@color/black"
                 android:textColorHint="@color/gray"
-                android:textSize="16sp"
-                />
+                android:textSize="16sp" />
         </FrameLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="35dp"
-            android:orientation="horizontal"
             android:layout_gravity="center"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RadioGroup
+                android:layout_width="30dp"
+                android:layout_height="30dp">
+
+            </RadioGroup>
+
             <FrameLayout
+                android:id="@+id/btnAllPlants"
                 android:layout_width="60dp"
                 android:layout_height="30dp"
                 android:layout_marginRight="5dp"
-                android:background="@drawable/rnd_btn_filter">
+                android:background="@drawable/rnd_btn_selector">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:text="@string/EnyclopediaFilterAll"
-                    android:textColor="@color/black"
-                    android:layout_gravity="center"
-                    />
+                    android:textColor="@color/black" />
             </FrameLayout>
+
             <FrameLayout
+                android:id="@+id/btnBoughtPlants"
                 android:layout_width="60dp"
                 android:layout_height="30dp"
                 android:layout_marginRight="5dp"
-                android:background="@drawable/rnd_btn_encyclopedia">
+                android:background="@drawable/rnd_btn_selector">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/EnyclopediaFilterBought"
-                    android:textColor="@color/black"
                     android:layout_gravity="center"
-                    />
+                    android:text="@string/EnyclopediaFilterBought"
+                    android:textColor="@color/black" />
             </FrameLayout>
+
             <FrameLayout
+                android:id="@+id/btnToBuyPlants"
                 android:layout_width="60dp"
                 android:layout_height="30dp"
-                android:background="@drawable/rnd_btn_encyclopedia">
+                android:background="@drawable/rnd_btn_selector">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/EnyclopediaFilterBuy"
-                    android:textColor="@color/black"
                     android:layout_gravity="center"
-                    />
+                    android:text="@string/EnyclopediaFilterToBuy"
+                    android:textColor="@color/black" />
             </FrameLayout>
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/recyclerViewPlants"
-            xmlns:tools="http://schemas.android.com/tools"
-            tools:context=".MainActivity"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="35dp"
-            android:layout_gravity="center">
+            tools:context=".MainActivity">
 
         </androidx.recyclerview.widget.RecyclerView>
 
     </LinearLayout>
-    <fragment class="com.rainyteam.views.FragmentViewMenu"
+
+    <fragment
         android:id="@+id/fragmentViewMenu"
+        class="com.rainyteam.views.FragmentViewMenu"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:layout_gravity="bottom"
-        />
+        android:layout_gravity="bottom" />
 </FrameLayout>

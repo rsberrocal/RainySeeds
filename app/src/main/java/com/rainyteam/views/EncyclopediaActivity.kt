@@ -6,23 +6,15 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.rainyteam.controller.R
+import kotlinx.android.synthetic.main.encyclopedia_layout.*
 
 
 class EncyclopediaActivity : AppCompatActivity() {
-
-    var plants: ArrayList<FragmentPlantGreenhouse>? = null
-    var lista: RecyclerView? = null
-    var layoutManager: RecyclerView.LayoutManager? = null
-    var adaptador: AdapterPlant? = null
 
     private var recyclerView: RecyclerView? = null
     private var gridLayoutManager: GridLayoutManager? = null
     private var arrayList: ArrayList<Plant>? = null
     private var recyclerViewAdapter: RecyclerViewAdapter? = null
-
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>
-    private lateinit var viewManager: RecyclerView.LayoutManager
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,18 +28,23 @@ class EncyclopediaActivity : AppCompatActivity() {
         arrayList = setDatainList()
         recyclerViewAdapter = RecyclerViewAdapter(applicationContext, arrayList!!)
         recyclerView?.adapter = recyclerViewAdapter
-/*
-        plants = ArrayList()
-        plants!!.add(FragmentPlantGreenhouse());
-        plants!!.add(FragmentPlantGreenhouse());
-        plants!!.add(FragmentPlantGreenhouse());
 
-        lista = findViewById(R.id.recyclerViewPlants)
-        layoutManager = LinearLayoutManager(this)
-        adaptador = AdapterPlant(plants)
-        lista?.layoutManager = layoutManager
-        lista?.adapter = adaptador
-*/
+        btnAllPlants.setOnClickListener {
+            arrayList = setDatainList()
+            recyclerViewAdapter = RecyclerViewAdapter(applicationContext, arrayList!!)
+            recyclerView?.adapter = recyclerViewAdapter
+        }
+        btnBoughtPlants.setOnClickListener {
+            arrayList = setBoughtPlants()
+            recyclerViewAdapter = RecyclerViewAdapter(applicationContext, arrayList!!)
+            recyclerView?.adapter = recyclerViewAdapter
+        }
+        btnToBuyPlants.setOnClickListener {
+            arrayList = setToBuyPlants()
+            recyclerViewAdapter = RecyclerViewAdapter(applicationContext, arrayList!!)
+            recyclerView?.adapter = recyclerViewAdapter
+        }
+
     }
 
     private fun setDatainList(): ArrayList<Plant> {
@@ -57,6 +54,24 @@ class EncyclopediaActivity : AppCompatActivity() {
         items.add(Plant(R.drawable.plant_filipendula_ulmaria, "Ulmaria"))
         items.add(Plant(R.drawable.plant_gentiana_lutea, "Gentiana"))
         items.add(Plant(R.drawable.plant_peonia_lactiflora, "Peonia"))
+
+        return items
+    }
+
+    private fun setBoughtPlants(): ArrayList<Plant> {
+        var items : ArrayList<Plant> = ArrayList()
+
+        items.add(Plant(R.drawable.plant_gentiana_lutea, "Gentiana"))
+        items.add(Plant(R.drawable.plant_peonia_lactiflora, "Peonia"))
+
+        return items
+    }
+
+    private fun setToBuyPlants(): ArrayList<Plant> {
+        var items : ArrayList<Plant> = ArrayList()
+
+        items.add(Plant(R.drawable.plant_cappsicum_frutescens, "Pimienta"))
+        items.add(Plant(R.drawable.plant_filipendula_ulmaria, "Ulmaria"))
 
         return items
     }

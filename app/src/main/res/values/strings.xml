@@ -46,8 +46,8 @@
     <string name="EnyclopediaFilterBought">
         Bought
     </string>
-    <string name="EnyclopediaFilterBuy">
-        Buy
+    <string name="EnyclopediaFilterToBuy">
+        To Buy
     </string>
 
 </resources>

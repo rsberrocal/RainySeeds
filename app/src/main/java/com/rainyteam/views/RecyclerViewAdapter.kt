@@ -1,6 +1,7 @@
 package com.rainyteam.views
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,7 +28,8 @@ class RecyclerViewAdapter (var context: Context, var arrayList: ArrayList<Plant>
         holder.icons.setImageResource(plant.iconsChar!!)
         holder.alphas.text = plant.alphaChar
         holder.icons.setOnClickListener{
-            Toast.makeText(context, plant.alphaChar, Toast.LENGTH_LONG).show()
+            val intent = Intent(holder.icons.context, EncyclopediaDetailActivity::class.java)
+            holder.icons.context.startActivity(intent)
         }
     }
 
