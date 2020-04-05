@@ -23,8 +23,14 @@ class EncyclopediaDetailActivity : AppCompatActivity() {
         // plant =
 
         val textBenefits: TextView = findViewById(R.id.textBenefitsPlant)
+        mainConnection!!.getPlantBenefits().collection("Plants").document("Red").get().addOnSuccessListener {
+            document -> var plant = document.toObject(Plants::class.java)
+            if (plant != null) {
+                textBenefits.text = plant.getBenefits()
+                println(plant.getBenefits())
+            }
+        }
 
-        textBenefits.text = mainConnection!!.getPlantBenefits().collection("Plants").document("Red").get().toString()
 
         btnBack.setOnClickListener {
             val intent = Intent(this, EncyclopediaActivity::class.java)
