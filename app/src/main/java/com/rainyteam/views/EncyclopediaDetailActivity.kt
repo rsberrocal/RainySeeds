@@ -24,7 +24,7 @@ class EncyclopediaDetailActivity : AppCompatActivity() {
 
         val textBenefits: TextView = findViewById(R.id.textBenefitsPlant)
 
-        textBenefits.text = mainConnection!!.sendPlantBenefits().toString()
+        textBenefits.text = mainConnection!!.getPlantBenefits().collection("Plants").document("Red").get().toString()
 
         btnBack.setOnClickListener {
             val intent = Intent(this, EncyclopediaActivity::class.java)
