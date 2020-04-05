@@ -30,8 +30,10 @@ class SigninActivity : AppCompatActivity() {
         DataInst = mainController!!.getInstanceDatabase()
         mDatabase = DataInst!!.getReference("Emails")*/
 
+        this.mainConnection = Connection()
         DataInst = mainConnection!!.mDatabase()
         mDatabase = DataInst!!.getReference("Emails")
+        mAuth = mainConnection!!.mAuth()
 
         val btnSignin = findViewById<View>(R.id.btnSignin) as Button
         val btnReturnLogin = findViewById<View>(R.id.btnReturnLogin) as Button

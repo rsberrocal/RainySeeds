@@ -44,7 +44,7 @@ class LoginActivity : AppCompatActivity() {
         //Start the controllers
         //this.mainController = MainController() //Pass this main controller over the views
         //mAuth = mainController!!.getInstanceFirebaseAuth()
-
+        this.mainConnection = Connection()
         mAuth = mainConnection!!.mAuth()
 
         prefs = getSharedPreferences(PREF_NAME, 0)
