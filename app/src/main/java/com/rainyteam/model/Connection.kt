@@ -19,14 +19,8 @@ class Connection {
     fun mDatabase(): FirebaseDatabase {    //Para leer o escribir en la base de datos
         return database
     }
-/*
-    fun sendPlantBenefits():DatabaseReference{
-        var benefits = database.getReference("/Plants/Red").child("benefits")
-        return benefits
-    }*/
 
     fun getPlantBenefits():FirebaseFirestore{
-        var benefits = BDD
-        return benefits
+        return BDD
     }
 }
