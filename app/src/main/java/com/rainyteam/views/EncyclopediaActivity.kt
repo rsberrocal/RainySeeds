@@ -1,6 +1,7 @@
 package com.rainyteam.views
 
 import android.os.Bundle
+import android.widget.RadioButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,17 +30,23 @@ class EncyclopediaActivity : AppCompatActivity() {
         recyclerViewAdapter = RecyclerViewAdapter(applicationContext, arrayList!!)
         recyclerView?.adapter = recyclerViewAdapter
 
-        filterAll.setOnClickListener {
+        val btnFilterAll = findViewById<RadioButton>(R.id.filterAll)
+        val btnFilterBought = findViewById<RadioButton>(R.id.filterBought)
+        val btnFilterToBuy = findViewById<RadioButton>(R.id.filterToBuy)
+
+        btnFilterAll.isChecked = true
+
+        btnFilterAll.setOnClickListener {
             arrayList = setDatainList()
             recyclerViewAdapter = RecyclerViewAdapter(applicationContext, arrayList!!)
             recyclerView?.adapter = recyclerViewAdapter
         }
-        filterBought.setOnClickListener {
+        btnFilterBought.setOnClickListener {
             arrayList = setBoughtPlants()
             recyclerViewAdapter = RecyclerViewAdapter(applicationContext, arrayList!!)
             recyclerView?.adapter = recyclerViewAdapter
         }
-        filterToBuy.setOnClickListener {
+        btnFilterToBuy.setOnClickListener {
             arrayList = setToBuyPlants()
             recyclerViewAdapter = RecyclerViewAdapter(applicationContext, arrayList!!)
             recyclerView?.adapter = recyclerViewAdapter
