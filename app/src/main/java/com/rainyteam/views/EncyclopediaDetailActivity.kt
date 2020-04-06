@@ -26,7 +26,7 @@ class EncyclopediaDetailActivity : AppCompatActivity() {
         mainConnection!!.getPlantBenefits().collection("Plants").document("Red").get().addOnSuccessListener {
             document -> var plant = document.toObject(Plants::class.java)
             if (plant != null) {
-                textBenefits.text = plant.getBenefits()
+                textBenefits.text = plant.getBenefits()!!.replace("\\n", "\n")
                 println(plant.getBenefits())
             }
         }

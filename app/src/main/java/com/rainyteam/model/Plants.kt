@@ -9,14 +9,20 @@ class Plants {
     private var moneyGenerated: Int? = null
     private val priceMultiplier: Int? = null
     private var status: Int? = null
-    private var image: String? = null
 
     constructor(){
 
     }
 
-    constructor(name: String){
-
+    constructor(name: String, scientificName: String, benefits: String,uses: String,
+                precautions: String, moneyGenerated: Int, status: Int){
+        this.name = name
+        this.scientificName = scientificName
+        this.benefits = benefits
+        this.uses = uses
+        this.precautions = precautions
+        this.moneyGenerated = moneyGenerated
+        this.status = status
     }
 
     //Getters
@@ -50,10 +56,6 @@ class Plants {
 
     fun getStatus(): Int? {
         return this.status
-    }
-
-    fun getImage(): String? {
-        return this.image
     }
 
 }
