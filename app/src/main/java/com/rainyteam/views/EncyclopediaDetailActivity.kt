@@ -11,7 +11,6 @@ import kotlinx.android.synthetic.main.encyclopedia_detail_layout.*
 
 class EncyclopediaDetailActivity : AppCompatActivity() {
 
-    private lateinit var plant: Plants
     var mainConnection: Connection? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,24 +19,27 @@ class EncyclopediaDetailActivity : AppCompatActivity() {
 
         this.mainConnection = Connection()
 
-        // plant =
+
+        val textNamePlant: TextView = findViewById(R.id.plantName)
+
+        val textScientificName: TextView = findViewById(R.id.scientificName)
 
         val textBenefits: TextView = findViewById(R.id.textBenefitsPlant)
-        mainConnection!!.getPlantBenefits().collection("Plants").document("Red").get().addOnSuccessListener {
+        mainConnection!!.getPlantBenefits().collection("Plants").document("St John's Wort").get().addOnSuccessListener {
             document -> var plant = document.toObject(Plants::class.java)
             if (plant != null) {
                 textBenefits.text = plant.getBenefits()!!.replace("\\n", "\n")
-                println(plant.getBenefits())
             }
         }
 
+        val textUses: TextView = findViewById(R.id.textUsesPlant)
+
+        val textWarnings: TextView = findViewById(R.id.textWarningsPlant)
 
         btnBack.setOnClickListener {
             val intent = Intent(this, EncyclopediaActivity::class.java)
             startActivity(intent)
         }
-
-
 
     }
 
