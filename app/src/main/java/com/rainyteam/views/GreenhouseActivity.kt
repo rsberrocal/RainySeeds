@@ -33,7 +33,6 @@ class GreenhouseActivity : AppCompatActivity() {
 
         prefs = getSharedPreferences(PREF_NAME, 0)
         val user = prefs!!.getString("USER_ID", null)
-        println(user)
         // user =
         //listPlants = user.getGreenhousePlants()
         numPages = (listPlants.size + NUM_PLANTS_PAGE - 1) / NUM_PLANTS_PAGE // round up division
@@ -52,7 +51,7 @@ class GreenhouseActivity : AppCompatActivity() {
 
         val textSeeds: TextView = findViewById(R.id.textGoldenSeeds) as TextView
         textSeeds.setOnClickListener {
-            textSeeds.text = this.user.wallet.toString()
+            textSeeds.text = this.user.rainycoins.toString()
         }
 
     }

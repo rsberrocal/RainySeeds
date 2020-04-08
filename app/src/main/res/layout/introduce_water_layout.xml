@@ -53,7 +53,7 @@
         </FrameLayout>
 
         <Button
-            android:id="@+id/x50mlButton"
+            android:id="@+id/btnGota"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_gravity="start"
@@ -71,7 +71,7 @@
             android:textSize="30sp"> </Button>
 
         <Button
-            android:id="@+id/x100mlButton"
+            android:id="@+id/btnVaso"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_gravity="start"
@@ -89,7 +89,7 @@
             android:textSize="30sp"> </Button>
 
         <Button
-            android:id="@+id/x200mlButton"
+            android:id="@+id/btnBotella"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_gravity="start"
@@ -107,7 +107,7 @@
             android:textSize="30sp"> </Button>
 
         <Button
-            android:id="@+id/x300mlButton"
+            android:id="@+id/btnRegadera"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_gravity="start"
