@@ -59,20 +59,21 @@
                     android:id="@+id/plantName"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="2dp"
                     android:layout_marginBottom="10dp"
                     android:text="@string/plantName"
                     android:textColor="@color/black"
-                    android:textSize="20dp"/>
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/scientificName"
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="2dp"
                     android:text="@string/scientificName"
                     android:textColor="@color/black"
-                    android:textSize="15dp"
+                    android:textSize="13sp"
                     android:textStyle="italic" />
 
                 <FrameLayout
@@ -97,7 +98,7 @@
                             android:text="2"
                             android:textAlignment="center"
                             android:textColor="@color/black"
-                            android:textSize="15dp"
+                            android:textSize="15sp"
                             android:typeface="sans">
 
                         </TextView>

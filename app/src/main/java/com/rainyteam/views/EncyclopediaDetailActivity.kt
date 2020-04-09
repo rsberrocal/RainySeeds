@@ -46,7 +46,7 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
         textBenefits = findViewById(R.id.textBenefitsPlant)
         textUses = findViewById(R.id.textUsesPlant)
         textWarnings = findViewById(R.id.textWarningsPlant)
-        textMoney = findViewById(R.id.textPricePlant)
+        //textMoney = findViewById(R.id.textPricePlant)
 
         setPlant("St John's Wort")
 
@@ -60,12 +60,12 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
     fun setPlant(plant: String) {
         launch {
             var actualPlant = mainConnection!!.getPlant(plant)
-            textNamePlant!!.text = actualPlant?.getName()
-            textScientificName!!.text = actualPlant?.getScientificName()
-            textBenefits!!.text = actualPlant?.getBenefits()
-            textUses!!.text = actualPlant?.getUses()
-            textWarnings!!.text = actualPlant?.getPrecautions()
-            textMoney!!.text = actualPlant?.getMoneyCost().toString()
+            textNamePlant!!.text = "St John's Wort".replace("\\n", "\n")
+            textScientificName!!.text = actualPlant?.getScientificName()!!.replace("\\n", "\n")
+            textBenefits!!.text = actualPlant?.getBenefits()!!.replace("\\n", "\n")
+            textUses!!.text = actualPlant?.getUses()!!.replace("\\n", "\n")
+            textWarnings!!.text = actualPlant?.getPrecautions()!!.replace("\\n", "\n")
+            //textMoney!!.text = actualPlant?.getMoneyCost().toString()
         }
     }
 
