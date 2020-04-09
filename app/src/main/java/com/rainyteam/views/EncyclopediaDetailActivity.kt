@@ -18,13 +18,12 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
 
     var mainConnection: Connection? = null
 
-    val textNamePlant: TextView = findViewById(R.id.plantName)
-    val textScientificName: TextView = findViewById(R.id.scientificName)
-    val textBenefits: TextView = findViewById(R.id.textBenefitsPlant)
-    val textUses: TextView = findViewById(R.id.textUsesPlant)
-    val textWarnings: TextView = findViewById(R.id.textWarningsPlant)
-    val textMoney: TextView = findViewById(R.id.textPricePlant)
-
+    var textNamePlant: TextView = findViewById(R.id.plantName)
+    var textScientificName: TextView = findViewById(R.id.scientificName)
+    var textBenefits: TextView = findViewById(R.id.textBenefitsPlant)
+    var textUses: TextView = findViewById(R.id.textUsesPlant)
+    var textWarnings: TextView = findViewById(R.id.textWarningsPlant)
+    var textMoney: TextView = findViewById(R.id.textPricePlant)
 
     private var job: Job = Job()
 
@@ -41,7 +40,14 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
         setContentView(R.layout.encyclopedia_detail_layout)
 
         this.mainConnection = Connection()
-        
+
+        textNamePlant = findViewById(R.id.plantName)
+        textScientificName = findViewById(R.id.scientificName)
+        textBenefits = findViewById(R.id.textBenefitsPlant)
+        textUses = findViewById(R.id.textUsesPlant)
+        textWarnings = findViewById(R.id.textWarningsPlant)
+        textMoney = findViewById(R.id.textPricePlant)
+
         setPlant("St John's Wort")
 
         btnBack.setOnClickListener {
