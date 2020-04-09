@@ -18,6 +18,14 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
 
     var mainConnection: Connection? = null
 
+    val textNamePlant: TextView = findViewById(R.id.plantName)
+    val textScientificName: TextView = findViewById(R.id.scientificName)
+    val textBenefits: TextView = findViewById(R.id.textBenefitsPlant)
+    val textUses: TextView = findViewById(R.id.textUsesPlant)
+    val textWarnings: TextView = findViewById(R.id.textWarningsPlant)
+    val textMoney: TextView = findViewById(R.id.textPricePlant)
+
+
     private var job: Job = Job()
 
     override val coroutineContext: CoroutineContext
@@ -33,24 +41,8 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
         setContentView(R.layout.encyclopedia_detail_layout)
 
         this.mainConnection = Connection()
-
-
-        val textNamePlant: TextView = findViewById(R.id.plantName)
-
-        val textScientificName: TextView = findViewById(R.id.scientificName)
-
-        val textBenefits: TextView = findViewById(R.id.textBenefitsPlant)
-        mainConnection!!.getPlantBenefits().collection("Plants").document("St John's Wort").get()
-            .addOnSuccessListener { document ->
-                var plant = document.toObject(Plants::class.java)
-                if (plant != null) {
-                    textBenefits.text = plant.getBenefits()!!.replace("\\n", "\n")
-                }
-            }
+        
         setPlant("St John's Wort")
-        val textUses: TextView = findViewById(R.id.textUsesPlant)
-
-        val textWarnings: TextView = findViewById(R.id.textWarningsPlant)
 
         btnBack.setOnClickListener {
             val intent = Intent(this, EncyclopediaActivity::class.java)
@@ -60,10 +52,15 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
     }
 
     fun setPlant(plant: String) {
-         launch {
-            var actualPlant = mainConnection!!.getPlant(plant);
+        launch {
+            var actualPlant = mainConnection!!.getPlant(plant)
+            textNamePlant.text = actualPlant?.getName()
+            textScientificName.text = actualPlant?.getScientificName()
+            textBenefits.text = actualPlant?.getBenefits()
+            textUses.text = actualPlant?.getUses()
+            textWarnings.text = actualPlant?.getPrecautions()
+            textMoney.text = actualPlant?.getMoneyCost().toString()
         }
     }
-
 
 }

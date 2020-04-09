@@ -21,7 +21,7 @@ class GreenhouseActivity : AppCompatActivity() {
 
     private var numPages: Int = 1
     private var listPlants: ArrayList<String> = ArrayList()
-    private lateinit var user: User
+    //private lateinit var user: User
 
     //shared
     val PREF_NAME = "USER"
@@ -48,12 +48,12 @@ class GreenhouseActivity : AppCompatActivity() {
         val pagerAdapter = PlantSlidePagerAdapter(this)
         mPager.adapter = pagerAdapter
         dotsIndicator.setViewPager2(mPager)
-
+/*
         val textSeeds: TextView = findViewById(R.id.textGoldenSeeds) as TextView
         textSeeds.setOnClickListener {
             textSeeds.text = this.user.rainycoins.toString()
         }
-
+*/
     }
 
     private inner class PlantSlidePagerAdapter(fm: FragmentActivity) : FragmentStateAdapter(fm) {
