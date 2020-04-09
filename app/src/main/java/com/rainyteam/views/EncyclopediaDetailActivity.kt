@@ -60,7 +60,7 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
     }
 
     fun setPlant(plant: String) {
-        launch {
+         launch {
             var actualPlant = mainConnection!!.getPlant(plant);
         }
     }

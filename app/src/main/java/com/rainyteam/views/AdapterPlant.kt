@@ -35,6 +35,7 @@ class AdapterPlant(items: ArrayList<FragmentPlantGreenhouse>?) :
         val item = items?.get(position)
         holder?.btn.setOnClickListener {
             val intent = Intent(holder.view.context, EncyclopediaDetailActivity::class.java)
+            intent.putExtra("PLANT_ID", "St John's Wort")
             holder.view.context.startActivity(intent)
         }
     }
@@ -45,7 +46,7 @@ class AdapterPlant(items: ArrayList<FragmentPlantGreenhouse>?) :
         var btn = vista.findViewById(R.id.plantImage) as ImageView
 
         init {
-           // nombre = view.tvTemplate
+            // nombre = view.tvTemplate
         }
     }
 }
