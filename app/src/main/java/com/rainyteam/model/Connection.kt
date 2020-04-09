@@ -57,6 +57,20 @@ class Connection {
         } catch (e: Exception) {
             return null
         }
+    }
 
+    suspend fun getHistory(user: String): History? {
+        var actualHistory: History? = null
+        return try {
+            this.BDD.collection("History")
+                .document(user)
+                .get()
+                .addOnSuccessListener { document ->
+                    actualHistory = document.toObject(History::class.java)
+                }.await()
+            return actualHistory
+        } catch (e: Exception) {
+            return null
+        }
     }
 }
