@@ -18,12 +18,12 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
 
     var mainConnection: Connection? = null
 
-    var textNamePlant: TextView = findViewById(R.id.plantName)
-    var textScientificName: TextView = findViewById(R.id.scientificName)
-    var textBenefits: TextView = findViewById(R.id.textBenefitsPlant)
-    var textUses: TextView = findViewById(R.id.textUsesPlant)
-    var textWarnings: TextView = findViewById(R.id.textWarningsPlant)
-    var textMoney: TextView = findViewById(R.id.textPricePlant)
+    var textNamePlant: TextView? = null
+    var textScientificName: TextView? = null
+    var textBenefits: TextView? = null
+    var textUses: TextView? = null
+    var textWarnings: TextView? = null
+    var textMoney: TextView? = null
 
     private var job: Job = Job()
 
@@ -60,12 +60,12 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
     fun setPlant(plant: String) {
         launch {
             var actualPlant = mainConnection!!.getPlant(plant)
-            textNamePlant.text = actualPlant?.getName()
-            textScientificName.text = actualPlant?.getScientificName()
-            textBenefits.text = actualPlant?.getBenefits()
-            textUses.text = actualPlant?.getUses()
-            textWarnings.text = actualPlant?.getPrecautions()
-            textMoney.text = actualPlant?.getMoneyCost().toString()
+            textNamePlant!!.text = actualPlant?.getName()
+            textScientificName!!.text = actualPlant?.getScientificName()
+            textBenefits!!.text = actualPlant?.getBenefits()
+            textUses!!.text = actualPlant?.getUses()
+            textWarnings!!.text = actualPlant?.getPrecautions()
+            textMoney!!.text = actualPlant?.getMoneyCost().toString()
         }
     }
 
