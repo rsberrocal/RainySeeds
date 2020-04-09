@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.widget.Button
 import com.rainyteam.controller.R
 import com.rainyteam.model.Connection
+import com.rainyteam.model.History
+import com.rainyteam.model.User
 import kotlinx.android.synthetic.main.introduce_water_layout.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -14,13 +16,13 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
-class IntroduceWaterActivity : AppCompatActivity(),CoroutineScope {
+class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope {
 
     var mainConnection: Connection? = null
     //shared
     val PREF_NAME = "USER"
     var prefs: SharedPreferences? = null
-    var user:String? = ""
+    var user: String? = ""
 
     private var job: Job = Job()
 
@@ -68,7 +70,8 @@ class IntroduceWaterActivity : AppCompatActivity(),CoroutineScope {
 
     fun addWater(water: Int) {
         launch {
-            var actualUser =  mainConnection!!.getUser(user)
+            var actualHistory: History? = mainConnection!!.getHistory(user!!)
+            var actualUser: User? = mainConnection!!.getUser(user)
             println(water);
         }
     }
