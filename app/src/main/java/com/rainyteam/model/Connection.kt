@@ -43,4 +43,20 @@ class Connection {
             return null
         }
     }
+
+    suspend fun getPlant(plant: String): Plants? {
+        var actualPlant: Plants? = null
+        return try {
+            val data = this.BDD.collection("Plants")
+                .document(plant)
+                .get()
+                .addOnSuccessListener { document ->
+                    actualPlant = document.toObject(Plants::class.java)
+                }.await()
+            return actualPlant
+        } catch (e: Exception) {
+            return null
+        }
+
+    }
 }

@@ -8,10 +8,25 @@ import com.rainyteam.controller.R
 import com.rainyteam.model.Connection
 import com.rainyteam.model.Plants
 import kotlinx.android.synthetic.main.encyclopedia_detail_layout.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 
-class EncyclopediaDetailActivity : AppCompatActivity() {
+class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
 
     var mainConnection: Connection? = null
+
+    private var job: Job = Job()
+
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + job
+
+    override fun onDestroy() {
+        super.onDestroy()
+        job.cancel()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,13 +40,14 @@ class EncyclopediaDetailActivity : AppCompatActivity() {
         val textScientificName: TextView = findViewById(R.id.scientificName)
 
         val textBenefits: TextView = findViewById(R.id.textBenefitsPlant)
-        mainConnection!!.getPlantBenefits().collection("Plants").document("St John's Wort").get().addOnSuccessListener {
-            document -> var plant = document.toObject(Plants::class.java)
-            if (plant != null) {
-                textBenefits.text = plant.getBenefits()!!.replace("\\n", "\n")
+        mainConnection!!.getPlantBenefits().collection("Plants").document("St John's Wort").get()
+            .addOnSuccessListener { document ->
+                var plant = document.toObject(Plants::class.java)
+                if (plant != null) {
+                    textBenefits.text = plant.getBenefits()!!.replace("\\n", "\n")
+                }
             }
-        }
-
+        setPlant("St John's Wort")
         val textUses: TextView = findViewById(R.id.textUsesPlant)
 
         val textWarnings: TextView = findViewById(R.id.textWarningsPlant)
@@ -41,6 +57,12 @@ class EncyclopediaDetailActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+    }
+
+    fun setPlant(plant: String) {
+        launch {
+            var actualPlant = mainConnection!!.getPlant(plant);
+        }
     }
 
 
