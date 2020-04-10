@@ -72,6 +72,15 @@ class Connection {
     }
 
 
+    suspend fun getUserPlants(user:String){
+        return try {
+            /*this.BDD.collection("User-Plants")
+                .where*/
+        }catch (e: Exception){
+
+        }
+    }
+
     suspend fun getHistory(user: String): History? {
         var actualHistory: History? = null
 

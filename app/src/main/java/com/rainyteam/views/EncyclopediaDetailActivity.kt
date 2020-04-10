@@ -73,7 +73,7 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
             textUses!!.text = actualPlant?.getUses()!!.replace("\\n", "\n")
             textWarnings!!.text = actualPlant?.getPrecautions()!!.replace("\\n", "\n")
             val drawableName : String? = actualPlant.getImagePlant()
-            val resID: Int = resources.getIdentifier(drawableName, "drawable", context.packageName)
+            val resID: Int = resources.getIdentifier(drawableName, "drawable", applicationContext.packageName)
             imagePlant!!.setImageResource(resID)
             //textMoney!!.text = actualPlant?.getMoneyCost().toString()
         }
