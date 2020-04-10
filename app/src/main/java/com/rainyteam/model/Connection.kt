@@ -44,6 +44,8 @@ class Connection {
                 .get()
                 .addOnSuccessListener { document ->
                     actualPlant = document.toObject(Plants::class.java)
+                    actualPlant!!.setName(document.id)
+                    actualPlant!!.setImageName("plant_" + actualPlant!!.getScientificName().toLowerCase().replace(" ", "_"))
                 }.await()
             return actualPlant
         } catch (e: Exception) {
