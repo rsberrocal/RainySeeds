@@ -59,8 +59,26 @@ class Connection {
         }
     }
 
+    suspend fun getPlants(): MutableList<Plants>? {
+        var plants:  MutableList<Plants>? = mutableListOf()
+        return try {
+            val data = this.BDD.collection("Plants")
+                .get()
+                .addOnSuccessListener { result  ->
+                    for (document in result){
+                        plants!!.add(document.toObject(Plants::class.java))
+                    }
+                }.await()
+            return plants
+        } catch (e: Exception) {
+            return null
+        }
+    }
+
+
     suspend fun getHistory(user: String): History? {
         var actualHistory: History? = null
+
         return try {
             this.BDD.collection("History")
                 .document(user)
