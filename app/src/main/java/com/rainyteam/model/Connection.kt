@@ -7,6 +7,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
+import com.rainyteam.views.Plant
 import kotlinx.coroutines.tasks.await
 import java.lang.Exception
 
@@ -56,13 +57,16 @@ class Connection {
     }
 
     suspend fun getPlants(): MutableList<Plants>? {
-        var plants:  MutableList<Plants>? = mutableListOf()
+        var plants: MutableList<Plants>? = mutableListOf()
+        var actualPlant: Plants? = null
         return try {
             val data = this.BDD.collection("Plants")
                 .get()
-                .addOnSuccessListener { result  ->
-                    for (document in result){
-                        plants!!.add(document.toObject(Plants::class.java))
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        actualPlant = document.toObject(Plants::class.java)
+                        actualPlant!!.setName(document.id)
+                        plants!!.add(actualPlant!!)
                     }
                 }.await()
             return plants

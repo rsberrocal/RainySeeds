@@ -11,12 +11,14 @@ class Plants {
     private var status: Int? = null
     private var imagePlant: String? = null
 
-    constructor(){
+    constructor() {
 
     }
 
-    constructor(name: String, scientificName: String, benefits: String,uses: String,
-                precautions: String, moneyGenerated: Int, status: Int){
+    constructor(
+        name: String, scientificName: String, benefits: String, uses: String,
+        precautions: String, moneyGenerated: Int, status: Int
+    ) {
         this.name = name
         this.scientificName = scientificName
         this.benefits = benefits
@@ -59,8 +61,13 @@ class Plants {
     fun getStatus(): Int? {
         return this.status
     }
+
     fun getImagePlant(): String? {
         return this.imagePlant
+    }
+
+    fun setName(name: String) {
+        this.name = name
     }
 
 }
