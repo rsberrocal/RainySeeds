@@ -2,6 +2,7 @@ package com.rainyteam.views
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,10 +10,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.rainyteam.controller.R
+import com.rainyteam.model.Plants
 
-class RecyclerViewAdapter (var context: Context, var arrayList: ArrayList<Plant>) : RecyclerView.Adapter<RecyclerViewAdapter.ItemHolder>() {
-
-    private lateinit var listOfPlants: ArrayList<Plant>
+class RecyclerViewAdapter (var context: Context, var listOfPlants: MutableList<Plants>) : RecyclerView.Adapter<RecyclerViewAdapter.ItemHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
         val itemHolder = LayoutInflater.from(parent.context).inflate(R.layout.template, parent, false)
@@ -20,20 +20,24 @@ class RecyclerViewAdapter (var context: Context, var arrayList: ArrayList<Plant>
     }
 
     override fun getItemCount(): Int {
-        return arrayList.size
+        return listOfPlants.size
     }
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
-        var plant: Plant = arrayList.get(position)
-        holder.icons.setImageResource(plant.iconsChar!!)
-        holder.alphas.text = plant.alphaChar
-        holder.icons.setOnClickListener{
-            val intent = Intent(holder.icons.context, EncyclopediaDetailActivity::class.java)
-            holder.icons.context.startActivity(intent)
+        var plant: Plants = listOfPlants.get(position)
+
+        var resources: Resources = context.resources
+        var drawableName : String? = plant.getImagePlant()
+        var resID: Int = resources.getIdentifier(drawableName, "drawable", context.packageName)
+        holder.image.setImageResource(resID)
+        holder.name.text = plant.getName()
+        holder.image.setOnClickListener{
+            val intent = Intent(holder.image.context, EncyclopediaDetailActivity::class.java)
+            holder.image.context.startActivity(intent)
         }
     }
 
     class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        var icons = itemView.findViewById<ImageView>(R.id.plantImage)
-        var alphas = itemView.findViewById<TextView>(R.id.alpha_text_view)
+        var image = itemView.findViewById<ImageView>(R.id.imagePlant)
+        var name = itemView.findViewById<TextView>(R.id.namePlant)
     }
 }

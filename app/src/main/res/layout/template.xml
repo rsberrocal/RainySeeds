@@ -19,7 +19,7 @@
         android:gravity="center">
 
         <ImageView
-            android:id="@+id/plantImage"
+            android:id="@+id/imagePlant"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:src="@drawable/planta_enciclopedia"
@@ -27,7 +27,7 @@
             >
         </ImageView>
         <TextView
-            android:id="@+id/alpha_text_view"
+            android:id="@+id/namePlant"
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:text="@string/app_name"

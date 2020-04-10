@@ -17,16 +17,12 @@ class Connection {
 
     //Singleton, creem una nova instància si no hi ha cap creada anteriorment.
 
-    fun mAuth(): FirebaseAuth {    //Para la autentificación
+    fun mAuth(): FirebaseAuth {
         return mAuth
     }
 
-    fun mDatabase(): FirebaseDatabase {    //Para leer o escribir en la base de datos
+    fun mDatabase(): FirebaseDatabase {
         return database
-    }
-
-    fun getPlantBenefits(): FirebaseFirestore {
-        return BDD
     }
 
     suspend fun getUser(user: String?): User? {

@@ -9,6 +9,7 @@ class Plants {
     private var moneyGenerated: Int? = null
     private val priceMultiplier: Int? = null
     private var status: Int? = null
+    private var imagePlant: String? = null
 
     constructor(){
 
@@ -23,6 +24,7 @@ class Plants {
         this.precautions = precautions
         this.moneyGenerated = moneyGenerated
         this.status = status
+        this.imagePlant = "plant_" + scientificName.toLowerCase().replace(" ", "_")
     }
 
     //Getters
@@ -56,6 +58,9 @@ class Plants {
 
     fun getStatus(): Int? {
         return this.status
+    }
+    fun getImagePlant(): String? {
+        return this.imagePlant
     }
 
 }
