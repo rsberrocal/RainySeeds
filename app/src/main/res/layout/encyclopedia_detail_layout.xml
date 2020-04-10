@@ -39,6 +39,7 @@
                 android:layout_gravity="center">
 
                 <ImageView
+                    android:id="@+id/plantImageDetail"
                     android:src="@drawable/planta_enciclopedia"
                     android:layout_width="150dp"
                     android:layout_height="150dp"

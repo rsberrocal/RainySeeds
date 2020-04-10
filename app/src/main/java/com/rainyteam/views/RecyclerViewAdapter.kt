@@ -23,15 +23,16 @@ class RecyclerViewAdapter (var context: Context, var listOfPlants: MutableList<P
         return listOfPlants.size
     }
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
-        var plant: Plants = listOfPlants.get(position)
+        val plant: Plants = listOfPlants.get(position)
 
-        var resources: Resources = context.resources
-        var drawableName : String? = plant.getImagePlant()
-        var resID: Int = resources.getIdentifier(drawableName, "drawable", context.packageName)
+        val resources: Resources = context.resources
+        val drawableName : String? = plant.getImagePlant()
+        val resID: Int = resources.getIdentifier(drawableName, "drawable", context.packageName)
         holder.image.setImageResource(resID)
         holder.name.text = plant.getName()
         holder.image.setOnClickListener{
             val intent = Intent(holder.image.context, EncyclopediaDetailActivity::class.java)
+            intent.putExtra("idPlant", plant.getName())
             holder.image.context.startActivity(intent)
         }
     }

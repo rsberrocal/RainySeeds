@@ -1,7 +1,9 @@
 package com.rainyteam.views
 
 import android.content.Intent
+import android.content.res.Resources
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.rainyteam.controller.R
@@ -24,6 +26,7 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
     var textUses: TextView? = null
     var textWarnings: TextView? = null
     var textMoney: TextView? = null
+    var imagePlant: ImageView? = null
 
     private var job: Job = Job()
 
@@ -46,9 +49,13 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
         textBenefits = findViewById(R.id.textBenefitsPlant)
         textUses = findViewById(R.id.textUsesPlant)
         textWarnings = findViewById(R.id.textWarningsPlant)
+        imagePlant = findViewById(R.id.plantImageDetail)
         //textMoney = findViewById(R.id.textPricePlant)
 
-        setPlant("St John's Wort")
+        val idPlant: String = intent.getStringExtra("idPlant")
+
+
+        setPlant(idPlant)
 
         btnBack.setOnClickListener {
             val intent = Intent(this, EncyclopediaActivity::class.java)
@@ -60,11 +67,14 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
     fun setPlant(plant: String) {
         launch {
             var actualPlant = mainConnection!!.getPlant(plant)
-            textNamePlant!!.text = "St John's Wort".replace("\\n", "\n")
+            textNamePlant!!.text = plant.replace("\\n", "\n")
             textScientificName!!.text = actualPlant?.getScientificName()!!.replace("\\n", "\n")
             textBenefits!!.text = actualPlant?.getBenefits()!!.replace("\\n", "\n")
             textUses!!.text = actualPlant?.getUses()!!.replace("\\n", "\n")
             textWarnings!!.text = actualPlant?.getPrecautions()!!.replace("\\n", "\n")
+            val drawableName : String? = actualPlant.getImagePlant()
+            val resID: Int = resources.getIdentifier(drawableName, "drawable", context.packageName)
+            imagePlant!!.setImageResource(resID)
             //textMoney!!.text = actualPlant?.getMoneyCost().toString()
         }
     }

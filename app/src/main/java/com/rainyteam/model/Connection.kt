@@ -1,13 +1,8 @@
 package com.rainyteam.model
 
-import com.google.android.gms.tasks.Task
-import com.google.android.gms.tasks.Tasks
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
-import com.rainyteam.views.Plant
 import kotlinx.coroutines.tasks.await
 import java.lang.Exception
 
