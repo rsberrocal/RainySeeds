@@ -34,7 +34,6 @@ class AdapterPlant(items: ArrayList<FragmentPlantGreenhouse>?) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items?.get(position)
         holder?.btn.setOnClickListener {
-
             val intent = Intent(holder.view.context, EncyclopediaDetailActivity::class.java)
             intent.putExtra("PLANT_ID", "St John's Wort")
             holder.view.context.startActivity(intent)

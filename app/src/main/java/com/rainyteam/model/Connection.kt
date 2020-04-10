@@ -66,6 +66,7 @@ class Connection {
                     for (document in result) {
                         actualPlant = document.toObject(Plants::class.java)
                         actualPlant!!.setName(document.id)
+                        actualPlant!!.setImageName("plant_" + actualPlant!!.getScientificName().toLowerCase().replace(" ", "_"))
                         plants!!.add(actualPlant!!)
                     }
                 }.await()

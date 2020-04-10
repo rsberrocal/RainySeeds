@@ -30,12 +30,12 @@ class Plants {
     }
 
     //Getters
-    fun getName(): String? {
-        return this.name
+    fun getName(): String {
+        return this.name!!
     }
 
-    fun getScientificName(): String? {
-        return this.scientificName
+    fun getScientificName(): String {
+        return this.scientificName!!
     }
 
     fun getBenefits(): String? {
@@ -64,6 +64,10 @@ class Plants {
 
     fun getImagePlant(): String? {
         return this.imagePlant
+    }
+
+    fun setImageName(name: String) {
+        this.imagePlant = name
     }
 
     fun setName(name: String) {
