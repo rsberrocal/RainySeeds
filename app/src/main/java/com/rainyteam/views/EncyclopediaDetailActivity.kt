@@ -9,7 +9,6 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.rainyteam.controller.R
 import com.rainyteam.model.Connection
-import com.rainyteam.model.Plants
 import kotlinx.android.synthetic.main.encyclopedia_detail_layout.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
