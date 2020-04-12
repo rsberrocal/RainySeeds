@@ -28,8 +28,6 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
     var textMoney: TextView? = null
     var imagePlant: ImageView? = null
 
-
-
     private var job: Job = Job()
 
     override val coroutineContext: CoroutineContext
