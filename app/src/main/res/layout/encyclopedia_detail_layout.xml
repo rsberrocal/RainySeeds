@@ -40,7 +40,7 @@
 
                 <ImageView
                     android:id="@+id/plantImageDetail"
-                    android:src="@drawable/planta_enciclopedia"
+                    android:src=""
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_gravity="center"

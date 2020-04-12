@@ -1,17 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:maxWidth="120dp"
-    android:maxHeight="120dp">
+<androidx.cardview.widget.CardView
+    android:id="@+id/cardViewStore"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="120dp"
+    android:layout_height="120dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="0dp"
+    app:cardUseCompatPadding="true"
+    app:cardPreventCornerOverlap="true"
+    app:cardBackgroundColor="@android:color/transparent"
+    android:gravity="center"
+    android:padding="5dp"
+    >
 
 
     <ImageView
-        android:id="@+id/plantImage"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:src="@drawable/planta_invernadero">
+        android:id="@+id/plantGreenhouseImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="">
 
     </ImageView>
 
-</FrameLayout>
+</androidx.cardview.widget.CardView>
