@@ -1,5 +1,6 @@
 package com.rainyteam.views
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.RadioButton
 import androidx.appcompat.app.AppCompatActivity
@@ -26,6 +27,11 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope {
     private var mutableList: MutableList<Plants>? = null
     private var recyclerViewAdapter: RecyclerViewAdapter? = null
 
+    //shared
+    val PREF_NAME = "USER"
+    var prefs: SharedPreferences? = null
+    var user: String? = ""
+
     private var job: Job = Job()
 
     override val coroutineContext: CoroutineContext
@@ -42,13 +48,16 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope {
 
         this.mainConnection = Connection()
 
+        prefs = getSharedPreferences(PREF_NAME, 0)
+        this.user = prefs!!.getString("USER_ID", "")
+
         recyclerView = findViewById(R.id.recyclerViewPlants)
         gridLayoutManager =
             GridLayoutManager(applicationContext, 3, LinearLayoutManager.VERTICAL, false)
         recyclerView?.layoutManager = gridLayoutManager
         recyclerView?.setHasFixedSize(true)
         launch {
-            mutableList = mainConnection?.getPlants()
+            mutableList = mainConnection?.getAllPlants()
             recyclerViewAdapter = RecyclerViewAdapter(applicationContext, mutableList!!)
             recyclerView?.adapter = recyclerViewAdapter
         }
@@ -61,21 +70,21 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope {
 
         btnFilterAll.setOnClickListener {
             launch {
-                mutableList = mainConnection?.getPlants()
+                mutableList = mainConnection?.getAllPlants()
                 recyclerViewAdapter = RecyclerViewAdapter(applicationContext, mutableList!!)
                 recyclerView?.adapter = recyclerViewAdapter
             }
         }
         btnFilterBought.setOnClickListener {
             launch {
-                mutableList = mainConnection?.getPlants()
+                mutableList = mainConnection?.getUserPlantsAlive(user!!, false)
                 recyclerViewAdapter = RecyclerViewAdapter(applicationContext, mutableList!!)
                 recyclerView?.adapter = recyclerViewAdapter
             }
         }
         btnFilterToBuy.setOnClickListener {
             launch {
-                mutableList = mainConnection?.getPlants()
+                mutableList = mainConnection?.getDeadPlants(user!!)
                 recyclerViewAdapter = RecyclerViewAdapter(applicationContext, mutableList!!)
                 recyclerView?.adapter = recyclerViewAdapter
             }

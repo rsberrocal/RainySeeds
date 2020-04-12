@@ -10,6 +10,7 @@ class Plants {
     private val priceMultiplier: Int? = null
     private var status: Int? = null
     private var imagePlant: String? = null
+    var money: Int = 0
 
     constructor() {
 

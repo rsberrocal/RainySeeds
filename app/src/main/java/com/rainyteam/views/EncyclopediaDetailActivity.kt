@@ -1,6 +1,7 @@
 package com.rainyteam.views
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.res.Resources
 import android.os.Bundle
 import android.widget.ImageView
@@ -27,6 +28,8 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
     var textWarnings: TextView? = null
     var textMoney: TextView? = null
     var imagePlant: ImageView? = null
+
+
 
     private var job: Job = Job()
 
