@@ -75,7 +75,7 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope {
             }
         }
         btnFilterBought.setOnClickListener {
-            launch(Dispatchers.Main) {
+            launch {
                 //mutableList = mainConnection?.getUserPlantsAlive(user!!, false)
                 mutableList = mainConnection?.getAllPlants()
                 recyclerViewAdapter = RecyclerViewAdapter(applicationContext, mutableList!!)

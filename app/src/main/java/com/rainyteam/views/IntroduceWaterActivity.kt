@@ -72,6 +72,7 @@ class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope {
         launch {
             var actualHistory: History? = mainConnection!!.getHistory(user!!)
             var actualUser: User? = mainConnection!!.getUser(user)
+            
             //Pillar el maximo del usuario
             //calcular su porcentaje y añadirlo al history
             //hacer reload de la botella
