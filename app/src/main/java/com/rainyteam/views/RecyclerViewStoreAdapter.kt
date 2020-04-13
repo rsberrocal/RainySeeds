@@ -30,6 +30,7 @@ class RecyclerViewStoreAdapter (var context: Context, var listOfPlants: MutableL
         val resID: Int = resources.getIdentifier(drawableName, "drawable", context.packageName)
         holder.image.setImageResource(resID)
         holder.name.text = plant.getName()
+        holder.money.text = plant.getMoney().toString()
         holder.image.setOnClickListener{
             val intent = Intent(holder.image.context, EncyclopediaDetailActivity::class.java)
             intent.putExtra("idPlant", plant.getName())
@@ -40,5 +41,6 @@ class RecyclerViewStoreAdapter (var context: Context, var listOfPlants: MutableL
     class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         var image = itemView.findViewById<ImageView>(R.id.storePlant)
         var name = itemView.findViewById<TextView>(R.id.nameStorePlant)
+        var money = itemView.findViewById<TextView>(R.id.textPricePlant)
     }
 }
