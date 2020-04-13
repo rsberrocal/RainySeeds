@@ -21,7 +21,7 @@ class FragmentPlantGreenhouse : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.plantImage.setOnClickListener {
+        view.plantGreenhouseImage.setOnClickListener {
             val intent = Intent(view.context, EncyclopediaDetailActivity::class.java)
             view.context.startActivity(intent)
         }

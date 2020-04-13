@@ -14,5 +14,5 @@ class FragmentPageGreenhouse : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View = inflater.inflate(R.layout.fragment_plants_page, container, false)
+    ): View = inflater.inflate(R.layout.template_greenhouse_plant, container, false)
 }
