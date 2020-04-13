@@ -50,7 +50,7 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
         textUses = findViewById(R.id.textUsesPlant)
         textWarnings = findViewById(R.id.textWarningsPlant)
         imagePlant = findViewById(R.id.plantImageDetail)
-        //textMoney = findViewById(R.id.textPricePlant)
+        textMoney = findViewById(R.id.textPricePlant)
 
         val idPlant: String = intent.getStringExtra("idPlant")
 
@@ -72,10 +72,10 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
             textBenefits!!.text = actualPlant?.getBenefits()!!.replace("\\n", "\n")
             textUses!!.text = actualPlant?.getUses()!!.replace("\\n", "\n")
             textWarnings!!.text = actualPlant?.getPrecautions()!!.replace("\\n", "\n")
+            textMoney!!.text = actualPlant?.getMoney().toString()
             val drawableName : String? = actualPlant.getImagePlant()
             val resID: Int = resources.getIdentifier(drawableName, "drawable", applicationContext.packageName)
             imagePlant!!.setImageResource(resID)
-            //textMoney!!.text = actualPlant?.getMoneyCost().toString()
         }
     }
 

@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/myCardView"
     android:layout_width="100dp"
-    android:layout_height="125dp"
+    android:layout_height="135dp"
     app:cardCornerRadius="8dp"
     app:cardElevation="0dp"
     app:cardUseCompatPadding="true"
@@ -28,7 +28,7 @@
         <TextView
             android:id="@+id/namePlant"
             android:layout_width="match_parent"
-            android:layout_height="25dp"
+            android:layout_height="35dp"
             android:text="@string/app_name"
             android:gravity="center_horizontal"
             android:textAlignment="center"

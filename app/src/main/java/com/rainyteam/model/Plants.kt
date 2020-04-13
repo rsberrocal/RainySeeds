@@ -6,11 +6,10 @@ class Plants {
     private var benefits: String? = null
     private var uses: String? = null
     private var precautions: String? = null
-    private var moneyGenerated: Int? = null
-    private val priceMultiplier: Int? = null
+    private var money: Int? = null
+    private val moneyMultiplier: Int? = 1
     private var status: Int? = null
     private var imagePlant: String? = null
-    var money: Int = 0
 
     constructor() {
 
@@ -18,14 +17,14 @@ class Plants {
 
     constructor(
         name: String, scientificName: String, benefits: String, uses: String,
-        precautions: String, moneyGenerated: Int, status: Int
+        precautions: String, money: Int, status: Int
     ) {
         this.name = name
         this.scientificName = scientificName
         this.benefits = benefits
         this.uses = uses
         this.precautions = precautions
-        this.moneyGenerated = moneyGenerated
+        this.money = money
         this.status = status
         this.imagePlant = "plant_" + scientificName.toLowerCase().replace(" ", "_")
     }
@@ -51,12 +50,12 @@ class Plants {
         return this.precautions
     }
 
-    fun getMoneyGenerated(): Int? {
-        return this.moneyGenerated
+    fun getMoney(): Int? {
+        return this.money
     }
 
-    fun getMoneyCost(): Int {
-        return this.moneyGenerated!! * this.priceMultiplier!!
+    fun getMoneyGenerated(): Int {
+        return this.money!! * this.moneyMultiplier!!
     }
 
     fun getStatus(): Int? {
