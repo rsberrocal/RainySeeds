@@ -47,8 +47,6 @@ dependencies {
     /* MAS CORUTINAS */
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0'
-    /* Promises */
-    implementation 'com.shopify.promises:promises:0.0.8'
     implementation 'androidx.multidex:multidex:2.0.1'
 
 }
