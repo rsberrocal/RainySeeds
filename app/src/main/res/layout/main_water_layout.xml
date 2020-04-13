@@ -102,13 +102,14 @@
                 android:src="@drawable/bottle" />
 
             <TextView
+                android:id="@+id/waterPercent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|center_vertical"
                 android:layout_marginTop="25dp"
-                android:text="0%"
+                android:text=""
                 android:textColor="@color/black"
-                android:textSize="45dp"
+                android:textSize="45sp"
                 android:textStyle="bold">
 
             </TextView>

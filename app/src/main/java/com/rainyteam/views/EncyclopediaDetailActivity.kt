@@ -54,7 +54,6 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
 
         val idPlant: String = intent.getStringExtra("idPlant")
 
-
         setPlant(idPlant)
 
         btnBack.setOnClickListener {
