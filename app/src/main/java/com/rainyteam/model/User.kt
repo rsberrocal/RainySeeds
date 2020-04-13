@@ -13,6 +13,7 @@ class User {
     private var height: Float = 0.0f
     private var sex: String = ""
     private var exercise: Int = 0
+    private var maxWater: Float = 0.0f
     var rainycoins: Int
     var plantList: ArrayList<String>
 
@@ -66,5 +67,10 @@ class User {
     fun getEncyclopediaPlants(): ArrayList<String>? {
         return null;
     }
+
+    fun getMaxWater(): Float{
+        return maxWater
+    }
+
 }
 

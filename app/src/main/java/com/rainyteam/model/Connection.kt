@@ -189,4 +189,12 @@ class Connection : CoroutineScope {
             return null
         }
     }
+
+    suspend fun addHistory(user: String, historyToAdd: History) {
+        this.BDD.collection("History")
+            .document(user)
+            .set(historyToAdd)
+            .await()
+    }
+
 }

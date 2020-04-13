@@ -2,9 +2,12 @@ package com.rainyteam.views
 
 import android.content.Intent
 import android.content.SharedPreferences
+import android.icu.util.Calendar
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import androidx.annotation.RequiresApi
 import com.rainyteam.controller.R
 import com.rainyteam.model.Connection
 import com.rainyteam.model.History
@@ -14,6 +17,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.util.*
 import kotlin.coroutines.CoroutineContext
 
 class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope {
@@ -34,6 +38,7 @@ class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope {
         job.cancel()
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.introduce_water_layout)
@@ -68,15 +73,27 @@ class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     fun addWater(water: Int) {
         launch {
             var actualHistory: History? = mainConnection!!.getHistory(user!!)
             var actualUser: User? = mainConnection!!.getUser(user)
-            
+            var quantity: Float = (water * 100) / actualUser!!.getMaxWater()
+            var cal: Calendar = Calendar.getInstance()
+            var day = cal.get(Calendar.DAY_OF_WEEK)
+            when (day) {
+                Calendar.SUNDAY -> actualHistory!!.sunday = actualHistory.sunday + quantity
+                Calendar.MONDAY -> actualHistory!!.monday = actualHistory.monday + quantity
+                Calendar.TUESDAY -> actualHistory!!.tuesday = actualHistory.tuesday + quantity
+                Calendar.WEDNESDAY -> actualHistory!!.wednesday = actualHistory.wednesday + quantity
+                Calendar.THURSDAY -> actualHistory!!.thursday = actualHistory.thursday + quantity
+                Calendar.FRIDAY -> actualHistory!!.friday = actualHistory.friday + quantity
+                Calendar.SATURDAY -> actualHistory!!.saturday = actualHistory.saturday + quantity
+            }
+            mainConnection!!.addHistory(user!!,actualHistory!!)
             //Pillar el maximo del usuario
             //calcular su porcentaje y añadirlo al history
             //hacer reload de la botella
-            println(water);
         }
     }
 }
