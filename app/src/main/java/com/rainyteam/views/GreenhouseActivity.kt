@@ -9,33 +9,56 @@ import androidx.fragment.app.*
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.rainyteam.controller.R
+import com.rainyteam.model.Connection
+import com.rainyteam.model.Plants
 import com.rainyteam.model.User
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
 import kotlinx.android.synthetic.main.greenhouse_layout.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 
 
 private val NUM_PLANTS_PAGE = 9
 
-class GreenhouseActivity : AppCompatActivity() {
-    private lateinit var mPager: ViewPager2
+class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
 
+    var mainConnection: Connection? = null
+
+    private lateinit var mPager: ViewPager2
     private var numPages: Int = 1
-    private var listPlants: ArrayList<String> = ArrayList()
-    //private lateinit var user: User
+    private var mutableList: MutableList<Plants>? = null
 
     //shared
     val PREF_NAME = "USER"
     var prefs: SharedPreferences? = null
 
+    private var job: Job = Job()
+
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + job
+
+    override fun onDestroy() {
+        super.onDestroy()
+        job.cancel()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.greenhouse_layout)
+
+        this.mainConnection = Connection()
 
         prefs = getSharedPreferences(PREF_NAME, 0)
         val user = prefs!!.getString("USER_ID", null)
         // user =
         //listPlants = user.getGreenhousePlants()
-        numPages = (listPlants.size + NUM_PLANTS_PAGE - 1) / NUM_PLANTS_PAGE // round up division
+        launch{
+            mutableList = mainConnection?.getAllPlants()
+            numPages = (mutableList!!.size + NUM_PLANTS_PAGE - 1) / NUM_PLANTS_PAGE // round up division
+        }
 
         layoutSeeds.setOnClickListener {
             val intent = Intent(this, StoreActivity::class.java)
