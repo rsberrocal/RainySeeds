@@ -3,9 +3,12 @@ package com.rainyteam.model
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
+import com.shopify.promises.Promise
+import com.squareup.okhttp.Dispatcher
 import kotlinx.coroutines.*
 import kotlinx.coroutines.tasks.await
 import java.lang.Exception
+import java.lang.RuntimeException
 import kotlin.coroutines.CoroutineContext
 
 class Connection : CoroutineScope {
@@ -51,7 +54,7 @@ class Connection : CoroutineScope {
     suspend fun getPlant(plant: String): Plants? {
         var actualPlant: Plants? = null
         return try {
-           this.BDD.collection("Plants")
+            this.BDD.collection("Plants")
                 .document(plant)
                 .get()
                 .addOnSuccessListener { document ->
@@ -97,11 +100,16 @@ class Connection : CoroutineScope {
         }
     }
 
+    fun getUserPlantsAlive(user: String){
+        Promise<MutableList<Plants>, RuntimeException>{
 
-    suspend fun getUserPlantsAlive(user: String, isGreenhouse: Boolean): MutableList<Plants>? {
+        }
+    }
+    /*suspend fun getUserPlantsAlive(user: String, isGreenhouse: Boolean): MutableList<Plants>? {
         var plants: MutableList<Plants>? = mutableListOf()
         var actualPlant: Plants? = null
         var actualUserPlant: UserPlants? = null
+        Promise.of("Boom!")
         return try {
             this.BDD.collection("User-Plants")
                 .whereEqualTo("userId", user)
@@ -110,34 +118,39 @@ class Connection : CoroutineScope {
                 .addOnSuccessListener { result ->
                     for (document in result) {
                         actualUserPlant = document.toObject(UserPlants::class.java)
-                        actualPlant = getPlant(actualUserPlant!!.plantId)!!
-                        actualPlant!!.setName(document.id)
-                        var plantName = ""
-                        if (isGreenhouse) {
-                            plantName =
-                                "pot_" + actualPlant!!.getScientificName().toLowerCase().replace(
-                                    " ",
-                                    "_"
-                                )
-                        } else {
-                            plantName =
-                                "plant_" + actualPlant!!.getScientificName().toLowerCase().replace(
-                                    " ",
-                                    "_"
-                                )
-                        }
-                        actualPlant!!.setImageName(plantName)
-                        plants!!.add(actualPlant!!)
+                        this.BDD.collection("Plants")
+                            .document(actualUserPlant!!.plantId)
+                            .get()
+                            .addOnSuccessListener { document ->
+                                actualPlant = document.toObject(Plants::class.java)
+                                actualPlant!!.setName(document.id)
+                                var plantName = ""
+                                if (isGreenhouse) {
+                                    plantName =
+                                        "pot_" + actualPlant!!.getScientificName().toLowerCase().replace(
+                                            " ",
+                                            "_"
+                                        )
+                                } else {
+                                    plantName =
+                                        "plant_" + actualPlant!!.getScientificName().toLowerCase().replace(
+                                            " ",
+                                            "_"
+                                        )
+                                }
+                                actualPlant!!.setImageName(plantName)
+                                plants!!.add(actualPlant!!)
+                            }
                     }
                 }
                 .await()
-          // job.cancel()
+            // job.cancel()
             return plants
         } catch (e: Exception) {
             println(e.message)
             return null
         }
-    }
+    }*/
 
     suspend fun getDeadPlants(user: String): MutableList<Plants>? {
         var plants: MutableList<Plants>? = mutableListOf()
