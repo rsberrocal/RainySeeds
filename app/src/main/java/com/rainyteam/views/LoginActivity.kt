@@ -41,9 +41,6 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_layout)
 
-        //Start the controllers
-        //this.mainController = MainController() //Pass this main controller over the views
-        //mAuth = mainController!!.getInstanceFirebaseAuth()
         this.mainConnection = Connection()
         mAuth = mainConnection!!.mAuth()
 

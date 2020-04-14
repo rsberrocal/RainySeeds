@@ -37,7 +37,7 @@ class Connection : CoroutineScope {
     suspend fun getUser(user: String?): User? {
         var actualUser: User? = null
         return try {
-            val data = this.BDD.collection("Users")
+            this.BDD.collection("Users")
                 .document(user!!)
                 .get()
                 .addOnSuccessListener { document ->
@@ -76,7 +76,7 @@ class Connection : CoroutineScope {
         var plants: MutableList<Plants>? = mutableListOf()
         var actualPlant: Plants? = null
         return try {
-            val data = this.BDD.collection("Plants")
+            this.BDD.collection("Plants")
                 .get()
                 .addOnSuccessListener { result ->
                     for (document in result) {

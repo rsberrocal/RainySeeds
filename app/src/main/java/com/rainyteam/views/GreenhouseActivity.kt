@@ -12,6 +12,7 @@ import com.rainyteam.controller.R
 import com.rainyteam.model.Connection
 import com.rainyteam.model.Plants
 import com.rainyteam.model.User
+import com.rainyteam.services.MusicService
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
 import kotlinx.android.synthetic.main.greenhouse_layout.*
 import kotlinx.coroutines.CoroutineScope
@@ -36,6 +37,7 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
     var prefs: SharedPreferences? = null
 
     private var job: Job = Job()
+    private var music: Intent? = null
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
@@ -43,11 +45,15 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
     override fun onDestroy() {
         super.onDestroy()
         job.cancel()
+        stopService(music)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.greenhouse_layout)
+
+        music = Intent(this, MusicService::class.java)
+        startService(music)
 
         this.mainConnection = Connection()
 
