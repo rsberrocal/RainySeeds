@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.firebase.auth.FirebaseAuth
 import com.rainyteam.controller.R
+import com.rainyteam.services.MusicService
 import kotlinx.android.synthetic.main.user_info_layout.*
 
 class UserInfoActivity : AppCompatActivity() {
@@ -25,6 +26,8 @@ class UserInfoActivity : AppCompatActivity() {
             startActivity(intent)
         }
         logoutBtn.setOnClickListener {
+            var music = Intent(this, MusicService::class.java)
+            stopService(music)
             var edit = prefs!!.edit()
             edit.remove("USER_ID")
             edit.apply()
@@ -32,6 +35,7 @@ class UserInfoActivity : AppCompatActivity() {
             mAuth.signOut()
             finish()
             startActivity(intent)
+
         }
     }
 
