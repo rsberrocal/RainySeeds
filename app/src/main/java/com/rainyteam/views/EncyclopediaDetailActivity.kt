@@ -17,7 +17,9 @@ import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
 class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
-
+    val PREF_NAME = "USER"
+    var prefs: SharedPreferences? = null
+    var user: String? = ""
     var mainConnection: Connection? = null
 
     var textNamePlant: TextView? = null
@@ -54,8 +56,13 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
 
         val idPlant: String = intent.getStringExtra("idPlant")
 
-        setPlant(idPlant)
+        prefs = getSharedPreferences(PREF_NAME, 0)
+        this.user = prefs!!.getString("USER_ID", "")
 
+        setPlant(idPlant)
+        shopButton.setOnClickListener{
+
+        }
         btnBack.setOnClickListener {
             val intent = Intent(this, EncyclopediaActivity::class.java)
             startActivity(intent)
