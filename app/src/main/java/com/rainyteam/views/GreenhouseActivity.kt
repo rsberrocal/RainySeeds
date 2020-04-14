@@ -59,9 +59,8 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
         prefs = getSharedPreferences(PREF_NAME, 0)
         val user = prefs!!.getString("USER_ID", null)
         // user =
-        //listPlants = user.getGreenhousePlants()
-        launch{
 
+        launch{
             mutableList = mainConnection?.getAllPlants()
             numPages = (mutableList!!.size + NUM_PLANTS_PAGE - 1) / NUM_PLANTS_PAGE // round up division
         }
