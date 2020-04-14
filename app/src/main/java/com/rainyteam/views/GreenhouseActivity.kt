@@ -45,7 +45,6 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
     override fun onDestroy() {
         super.onDestroy()
         job.cancel()
-        stopService(music)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

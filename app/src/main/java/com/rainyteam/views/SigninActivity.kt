@@ -26,10 +26,6 @@ class SigninActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.signin_layout)
 
-        /*mAuth = mainController!!.getInstanceFirebaseAuth()
-        DataInst = mainController!!.getInstanceDatabase()
-        mDatabase = DataInst!!.getReference("Emails")*/
-
         this.mainConnection = Connection()
         DataInst = mainConnection!!.mDatabase()
         mDatabase = DataInst!!.getReference("Emails")

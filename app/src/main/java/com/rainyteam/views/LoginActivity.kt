@@ -133,6 +133,7 @@ class LoginActivity : AppCompatActivity() {
 
                         val principal = Intent(this, GreenhouseActivity::class.java)
                         startActivity(principal)
+                        finish()
                     } else {
                         Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
                     }
