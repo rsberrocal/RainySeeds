@@ -14,7 +14,7 @@ class User {
     private var sex: String = ""
     private var exercise: Int = 0
     private var maxWater: Float = 0.0f
-    var rainycoins: Int
+    private var rainycoins: Int
     var plantList: ArrayList<String>
 
     constructor() {
@@ -60,7 +60,12 @@ class User {
     fun getExercise(): Int {
         return this.exercise
     }
-
+    fun getRainyCoins(): Int {
+        return this.rainycoins;
+    }
+    fun setRainyCoins(coins: Int){
+        this.rainycoins = coins;
+    }
     fun getGreenhousePlants(): ArrayList<String>? {
         return null;
     }

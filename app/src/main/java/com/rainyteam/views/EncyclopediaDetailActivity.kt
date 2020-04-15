@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.rainyteam.controller.R
 import com.rainyteam.model.Connection
+import com.rainyteam.model.User
 import kotlinx.android.synthetic.main.encyclopedia_detail_layout.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -19,9 +20,8 @@ import kotlin.coroutines.CoroutineContext
 class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
     val PREF_NAME = "USER"
     var prefs: SharedPreferences? = null
-    var user: String? = ""
+    var userName: String? = ""
     var mainConnection: Connection? = null
-
     var textNamePlant: TextView? = null
     var textScientificName: TextView? = null
     var textBenefits: TextView? = null
@@ -57,7 +57,8 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
         val idPlant: String = intent.getStringExtra("idPlant")
 
         prefs = getSharedPreferences(PREF_NAME, 0)
-        this.user = prefs!!.getString("USER_ID", "")
+        this.userName = prefs!!.getString("USER_ID", "")
+
 
         setPlant(idPlant)
         shopButton.setOnClickListener{
@@ -69,7 +70,13 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
         }
 
     }
-
+    fun buyPlant(plantName: String){
+        launch{
+            var actualUser: User? = mainConnection!!.getUser(userName)
+            var actualPlant = mainConnection!!.getPlant(plantName)
+            actualUser?.setRainyCoins(actualUser.getRainyCoins() - actualPlant?.getMoney()!!)
+        }
+    }
     fun setPlant(plant: String) {
         launch {
             var actualPlant = mainConnection!!.getPlant(plant)
