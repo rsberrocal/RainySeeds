@@ -24,6 +24,7 @@ class User {
     init {
         this.rainycoins = 0
         this.plantList = ArrayList<String>()
+        this.setMaxWater()
     }
 
 
@@ -67,7 +68,15 @@ class User {
     fun getEncyclopediaPlants(): ArrayList<String>? {
         return null;
     }
-
+    fun setMaxWater(){
+        var temp: Float
+        temp = this.weight* 0.35f
+        if (this.sex == "Male"){
+            temp*=1.20f;
+        }
+        temp*=(this.exercise/10)*1.2f+1;
+        this.maxWater=temp;
+    }
     fun getMaxWater(): Float{
         return maxWater
     }
