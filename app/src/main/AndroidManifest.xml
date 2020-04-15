@@ -9,13 +9,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
+        <receiver
+            android:name="com.rainyteam.views.MyReceiver"
+            android:enabled="true"
+            android:exported="true"></receiver>
+
         <service
             android:name="com.rainyteam.services.MusicService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true"
+            android:isolatedProcess="true" />
 
-        <activity android:name="com.rainyteam.views.IntroduceWaterActivity"></activity>
-        <activity android:name="com.rainyteam.views.SigninActivity"></activity>
+        <activity android:name="com.rainyteam.views.IntroduceWaterActivity" />
+        <activity android:name="com.rainyteam.views.SigninActivity" />
         <activity android:name="com.rainyteam.views.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,12 +29,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.rainyteam.views.EncyclopediaActivity"></activity>
-        <activity android:name="com.rainyteam.views.EncyclopediaDetailActivity"></activity>
-        <activity android:name="com.rainyteam.views.GreenhouseActivity"></activity>
-        <activity android:name="com.rainyteam.views.StoreActivity"></activity>
-        <activity android:name="com.rainyteam.views.MainWaterActivity"></activity>
-        <activity android:name="com.rainyteam.views.UserInfoActivity"></activity>
+        <activity android:name="com.rainyteam.views.EncyclopediaActivity" />
+        <activity android:name="com.rainyteam.views.EncyclopediaDetailActivity" />
+        <activity android:name="com.rainyteam.views.GreenhouseActivity" />
+        <activity android:name="com.rainyteam.views.StoreActivity" />
+        <activity android:name="com.rainyteam.views.MainWaterActivity" />
+        <activity android:name="com.rainyteam.views.UserInfoActivity" />
     </application>
 
 </manifest>
