@@ -7,6 +7,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.FrameLayout
 import androidx.annotation.RequiresApi
 import com.rainyteam.controller.R
 import com.rainyteam.model.Connection
@@ -52,22 +53,22 @@ class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope {
         this.user = prefs!!.getString("USER_ID", "")
 
         //add water
-        val btnGota = findViewById(R.id.btnGota) as Button
+        val btnGota = findViewById(R.id.btnGota) as FrameLayout
         btnGota.setOnClickListener {
             addWater(50)
         }
 
-        val btnVaso = findViewById(R.id.btnVaso) as Button
+        val btnVaso = findViewById(R.id.btnVaso) as FrameLayout
         btnGota.setOnClickListener {
             addWater(100)
         }
 
-        val btnBotella = findViewById(R.id.btnBotella) as Button
+        val btnBotella = findViewById(R.id.btnBotella) as FrameLayout
         btnGota.setOnClickListener {
             addWater(200)
         }
 
-        val btnRegadera = findViewById(R.id.btnRegadera) as Button
+        val btnRegadera = findViewById(R.id.btnRegadera) as FrameLayout
         btnGota.setOnClickListener {
             addWater(300)
         }

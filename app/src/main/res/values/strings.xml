@@ -36,5 +36,8 @@
     <string name="EnyclopediaFilterAll">All</string>
     <string name="EnyclopediaFilterBought">Bought</string>
     <string name="EnyclopediaFilterToBuy">To Buy</string>
-
+    <string name="addWater1">100ml</string>
+    <string name="addWater2">200ml</string>
+    <string name="addWater3">500ml</string>
+    <string name="addWater4">1000ml</string>
 </resources>

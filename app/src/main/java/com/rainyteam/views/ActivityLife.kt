@@ -32,7 +32,7 @@ class ActivityLife : Application.ActivityLifecycleCallbacks {
     private fun send_status(status_counter: Int) {
         val intent = Intent("status")
         intent.putExtra("status", status_counter.toString())
-        LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
+        //LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
     }
 
     override fun onActivityStopped(activity: Activity?) {}

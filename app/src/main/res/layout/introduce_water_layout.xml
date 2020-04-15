@@ -2,18 +2,22 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <ImageView
         android:id="@+id/falseBackButton"
-        android:background="@drawable/bckg_water_unfocused"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"> </ImageView>
+        android:layout_height="match_parent"
+        android:background="@drawable/bckg_water_unfocused">
+
+    </ImageView>
+
     <LinearLayout
         android:id="@+id/introduceWater"
         android:layout_width="match_parent"
         android:layout_height="450dp"
-        android:layout_gravity="bottom"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="10dp"
         android:background="@drawable/rounded_button"
-
         android:orientation="vertical"
         android:weightSum="5">
 
@@ -52,82 +56,170 @@
             </TextView>
         </FrameLayout>
 
-        <Button
-            android:id="@+id/btnGota"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_gravity="start"
-            android:layout_weight="1"
-            android:background="@drawable/bckg_water_gradient"
-            android:drawableRight="@drawable/icon_drop"
-            android:padding="10dp"
-            android:paddingStart="30dp"
-            android:paddingLeft="30dp"
-            android:paddingEnd="10dp"
-            android:paddingRight="10dp"
-            android:text="50ml"
-            android:textAlignment="viewStart"
-            android:textColor="@color/white"
-            android:textSize="30sp"> </Button>
+            android:layout_gravity="center"
+            android:layout_weight="4"
+            android:background="@drawable/bckg_painted_water_1"
+            android:orientation="vertical"
+            android:weightSum="4">
 
-        <Button
-            android:id="@+id/btnVaso"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_gravity="start"
-            android:layout_weight="1"
-            android:background="@drawable/bckg_water_gradient"
-            android:drawableRight="@drawable/icon_glass_water"
-            android:padding="10dp"
-            android:paddingStart="30dp"
-            android:paddingLeft="30dp"
-            android:paddingEnd="10dp"
-            android:paddingRight="10dp"
-            android:text="100ml"
-            android:textAlignment="viewStart"
-            android:textColor="@color/white"
-            android:textSize="30sp"> </Button>
+            <FrameLayout
+                android:id="@+id/btnGota"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="start"
+                android:layout_weight="1"
 
-        <Button
-            android:id="@+id/btnBotella"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_gravity="start"
-            android:layout_weight="1"
-            android:background="@drawable/bckg_water_gradient"
-            android:drawableRight="@drawable/icon_bottle"
-            android:padding="10dp"
-            android:paddingStart="30dp"
-            android:paddingLeft="30dp"
-            android:paddingEnd="10dp"
-            android:paddingRight="10dp"
-            android:text="200ml"
-            android:textAlignment="viewStart"
-            android:textColor="@color/white"
-            android:textSize="30sp"> </Button>
+                >
 
-        <Button
-            android:id="@+id/btnRegadera"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_gravity="start"
-            android:layout_weight="1"
-            android:background="@drawable/bckg_water_gradient_botsiderounded"
-            android:drawableEnd="@drawable/icon_regadera"
-            android:drawableRight="@drawable/icon_regadera"
-            android:paddingStart="30dp"
-            android:paddingLeft="30dp"
-            android:paddingEnd="15dp"
-            android:paddingRight="15dp"
-            android:text="300ml"
-            android:textAlignment="viewStart"
-            android:textColor="@color/white"
-            android:textSize="30sp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|left"
+                    android:layout_marginLeft="50dp"
+                    android:gravity="start"
+                    android:text="@string/addWater1"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/white"
+                    android:textSize="30sp"
+                    android:textStyle="bold">
 
+                </TextView>
 
-        </Button>
+                <ImageView
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_gravity="center|right"
+                    android:layout_marginRight="30dp"
+                    android:src="@drawable/icon_drink_1">
 
+                </ImageView>
 
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="5dp"
+                    android:layout_gravity="bottom"
+                    android:paddingHorizontal="5dp"
+                    android:paddingVertical="2dp"
+                    android:scaleType="fitXY"
+                    android:src="@android:drawable/divider_horizontal_bright" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/btnVaso"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="start"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|left"
+                    android:layout_marginLeft="50dp"
+                    android:gravity="start"
+                    android:text="@string/addWater2"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/white"
+                    android:textSize="30sp"
+                    android:textStyle="bold">
+
+                </TextView>
+
+                <ImageView
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_gravity="center|right"
+                    android:layout_marginRight="30dp"
+                    android:src="@drawable/icon_glass">
+
+                </ImageView>
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="5dp"
+                    android:layout_gravity="bottom"
+                    android:paddingHorizontal="5dp"
+                    android:paddingVertical="2dp"
+                    android:scaleType="fitXY"
+                    android:src="@android:drawable/divider_horizontal_bright" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/btnBotella"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="start"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|left"
+                    android:layout_marginLeft="50dp"
+                    android:gravity="start"
+                    android:text="@string/addWater3"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/white"
+                    android:textSize="30sp"
+                    android:textStyle="bold">
+
+                </TextView>
+
+                <ImageView
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_gravity="center|right"
+                    android:layout_marginRight="30dp"
+                    android:src="@drawable/icon_drink_3">
+
+                </ImageView>
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="5dp"
+                    android:layout_gravity="bottom"
+                    android:paddingHorizontal="5dp"
+                    android:paddingVertical="2dp"
+                    android:scaleType="fitXY"
+                    android:src="@android:drawable/divider_horizontal_bright" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/btnRegadera"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="start"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|left"
+                    android:layout_marginLeft="50dp"
+                    android:gravity="start"
+                    android:text="@string/addWater4"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/white"
+                    android:textSize="30sp"
+                    android:textStyle="bold">
+
+                </TextView>
+
+                <ImageView
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_gravity="center|right"
+                    android:layout_marginRight="30dp"
+                    android:src="@drawable/icon_drink_4">
+
+                </ImageView>
+
+            </FrameLayout>
+
+        </LinearLayout>
     </LinearLayout>
 
 </FrameLayout>
