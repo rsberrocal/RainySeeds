@@ -199,9 +199,13 @@ class Connection : CoroutineScope {
     suspend fun buyPlantToUser(user: User, plantToAdd: Plants){
         var userPlant: UserPlants = UserPlants(user.getEmail(), 100, plantToAdd.getName())
         var documentName: String = user.getEmail()+"-"+plantToAdd.getName()
+        /*
         this.BDD.collection("User-Plants")
             .document(documentName)
             .set(userPlant)
+
+         */
+        user.setEmail("rainyseeds@gmail.com")
         this.BDD.collection("Users")
             .document(user.getEmail())
             .set(user)

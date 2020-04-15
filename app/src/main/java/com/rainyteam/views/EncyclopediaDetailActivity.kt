@@ -74,9 +74,11 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
         launch{
             var actualUser = mainConnection!!.getUser(userName)
             var actualPlant = mainConnection!!.getPlant(plantName)
+            print("Existo")
             actualUser?.setRainyCoins(actualUser.getRainyCoins() - actualPlant?.getMoney()!!)
             mainConnection!!.buyPlantToUser(actualUser!!, actualPlant!!)
         }
+
     }
     fun setPlant(plant: String) {
         launch {

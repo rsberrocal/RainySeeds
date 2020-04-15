@@ -66,6 +66,9 @@ class User {
     fun setRainyCoins(coins: Int){
         this.rainycoins = coins;
     }
+    fun setEmail(email: String){
+        this.email = email
+    }
     fun getGreenhousePlants(): ArrayList<String>? {
         return null;
     }
@@ -75,7 +78,7 @@ class User {
     }
     fun setMaxWater(){
         var temp: Float
-        temp = this.weight* 0.35f
+        temp = this.weight* 0.035f
         if (this.sex == "Male"){
             temp*=1.20f;
         }
