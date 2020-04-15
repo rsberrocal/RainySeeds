@@ -196,5 +196,15 @@ class Connection : CoroutineScope {
             .set(historyToAdd)
             .await()
     }
+    suspend fun buyPlantToUser(user: User, plantToAdd: Plants){
+        var userPlant: UserPlants = UserPlants(user.getEmail(), 100, plantToAdd.getName())
+        var documentName: String = user.getEmail()+"-"+plantToAdd.getName()
+        this.BDD.collection("User-Plants")
+            .document(documentName)
+            .set(userPlant)
+        this.BDD.collection("Users")
+            .document(user.getEmail())
+            .set(user)
+    }
 
 }

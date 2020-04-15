@@ -62,7 +62,7 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
 
         setPlant(idPlant)
         shopButton.setOnClickListener{
-
+        buyPlant(idPlant)
         }
         btnBack.setOnClickListener {
             val intent = Intent(this, EncyclopediaActivity::class.java)
@@ -72,9 +72,10 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
     }
     fun buyPlant(plantName: String){
         launch{
-            var actualUser: User? = mainConnection!!.getUser(userName)
+            var actualUser = mainConnection!!.getUser(userName)
             var actualPlant = mainConnection!!.getPlant(plantName)
             actualUser?.setRainyCoins(actualUser.getRainyCoins() - actualPlant?.getMoney()!!)
+            mainConnection!!.buyPlantToUser(actualUser!!, actualPlant!!)
         }
     }
     fun setPlant(plant: String) {
