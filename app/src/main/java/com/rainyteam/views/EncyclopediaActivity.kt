@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.rainyteam.controller.R
 import com.rainyteam.model.Connection
 import com.rainyteam.model.Plants
+import com.rainyteam.model.UserPlants
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -76,8 +77,11 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope {
         }
         btnFilterBought.setOnClickListener {
             launch {
-                //mutableList = mainConnection?.getUserPlantsAlive(user!!, false)
-                mutableList = mainConnection?.getAllPlants()
+                var auxList: MutableList<UserPlants>? = mainConnection?.getUserPlantsAlive(user!!)
+                mutableList = mutableListOf()
+                for (userPlant in auxList!!) {
+                    mutableList!!.add(mainConnection!!.getPlant(userPlant.plantId)!!)
+                }
                 recyclerViewAdapter = RecyclerViewAdapter(applicationContext, mutableList!!)
                 recyclerView?.adapter = recyclerViewAdapter
             }
