@@ -26,6 +26,9 @@ import com.rainyteam.controller.R
 import com.rainyteam.model.Connection
 import com.rainyteam.model.User
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlin.coroutines.CoroutineContext
 
 class LoginActivity : AppCompatActivity(), CoroutineScope {
 
@@ -36,6 +39,16 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
     var mainConnection: Connection? = null
     var mBDD: FirebaseFirestore? = null
     var mUser: User? = null
+
+    private var job: Job = Job()
+
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + job
+
+    override fun onDestroy() {
+        super.onDestroy()
+        job.cancel()
+    }
 
     //shared preferences
     val PREF_NAME = "USER"
@@ -191,7 +204,8 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
                     startActivity(principal)
                     finish()
                 } else {
-                    if (mBDD!!.collection("Users").document(email).){
+                    //if (mBDD!!.collection("Users").document(email)){
+                    if (true) {
                         val principal = Intent(this, UserInfoActivity::class.java)
                         startActivity(principal)
                         finish()
