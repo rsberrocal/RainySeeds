@@ -34,6 +34,10 @@ class Connection : CoroutineScope {
         return database
     }
 
+    fun mBDD(): FirebaseFirestore {
+        return BDD
+    }
+
     suspend fun getUser(user: String?): User? {
         var actualUser: User? = null
         return try {

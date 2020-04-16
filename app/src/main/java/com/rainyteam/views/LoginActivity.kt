@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.firestore.FirebaseFirestore
 import com.rainyteam.controller.R
 import com.rainyteam.model.Connection
 
@@ -31,6 +32,7 @@ class LoginActivity : AppCompatActivity() {
     lateinit var mGoogleSignInOptions: GoogleSignInOptions
     val RC_SIGN_IN: Int = 1
     var mainConnection: Connection? = null
+    var mBDD: FirebaseFirestore? = null
 
     //shared preferences
     val PREF_NAME = "USER"
@@ -43,6 +45,7 @@ class LoginActivity : AppCompatActivity() {
 
         this.mainConnection = Connection()
         mAuth = mainConnection!!.mAuth()
+        mBDD = mainConnection!!.mBDD()
 
         prefs = getSharedPreferences(PREF_NAME, 0)
         val hasUser = prefs!!.getString("USER_ID", null)
@@ -169,12 +172,20 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun authWithGoogle(acct: GoogleSignInAccount) {
+        val data = hashMapOf(
+            "rainyCoins" to 0
+        )
         val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
         mAuth!!.signInWithCredential(credential).addOnCompleteListener {
             val isNewUser: Boolean = it.getResult()!!.additionalUserInfo!!.isNewUser()
+            val user = FirebaseAuth.getInstance().currentUser
+            val email = user!!.email
             if (it.isSuccessful) {
                 setUser(acct.email!!)
                 if (isNewUser) {
+                    if (email != null) {
+                        mBDD!!.collection("Users").document(email).set(data)
+                    }
                     val principal = Intent(this, UserInfoActivity::class.java)
                     startActivity(principal)
                     finish()
