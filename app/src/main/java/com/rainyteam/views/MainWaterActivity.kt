@@ -1,11 +1,13 @@
 package com.rainyteam.views
 
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import com.rainyteam.controller.R
 import com.rainyteam.model.Connection
+import com.rainyteam.model.User
 import kotlinx.android.synthetic.main.main_water_layout.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -15,10 +17,15 @@ import kotlin.coroutines.CoroutineContext
 
 
 class MainWaterActivity : AppCompatActivity(), CoroutineScope {
+    val PREF_NAME = "USER"
+
+    var prefs: SharedPreferences? = null
 
     var mainConnection: Connection? = null
 
     var textWaterPercent : TextView? = null
+
+    var userName: String? = null
 
     private var job: Job = Job()
 
@@ -34,8 +41,12 @@ class MainWaterActivity : AppCompatActivity(), CoroutineScope {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_water_layout)
 
+        prefs = getSharedPreferences(PREF_NAME, 0)
+        this.userName = prefs!!.getString(PREF_NAME, "")
+
         this.mainConnection = Connection()
 
+        setUser(userName)
         this.textWaterPercent = findViewById(R.id.waterPercent)
         launch{
             //textWaterPercent!!.text = mainConnection.getUser().rainycoins
@@ -48,6 +59,15 @@ class MainWaterActivity : AppCompatActivity(), CoroutineScope {
         waterButton.setOnClickListener {
             val intent = Intent(this, IntroduceWaterActivity::class.java)
             startActivity(intent)
+        }
+    }
+    fun setUser(user: String?){
+        launch {
+            var userN  = "rainyseeds@gmail.com"
+            var actualUser = mainConnection!!.getUser(userN)
+            userNameText!!.text = actualUser?.getUsername()
+            userAge!!.text = "Age: "+actualUser?.getAge().toString()
+            userWeight!!.text = "Weight: "+actualUser?.getWeight().toString()
         }
     }
 }
