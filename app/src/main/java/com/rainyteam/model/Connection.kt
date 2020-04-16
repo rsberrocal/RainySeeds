@@ -102,9 +102,8 @@ class Connection : CoroutineScope {
         }
     }
 
-    suspend fun getUserPlantsAlive(user: String, isGreenhouse: Boolean): MutableList<Plants>? {
-        var plants: MutableList<Plants>? = mutableListOf()
-        var actualPlant: Plants? = null
+    suspend fun getUserPlantsAlive(user: String): MutableList<UserPlants>? {
+        var plants: MutableList<UserPlants>? = mutableListOf()
         var actualUserPlant: UserPlants? = null
         return try {
             this.BDD.collection("User-Plants")
@@ -114,33 +113,9 @@ class Connection : CoroutineScope {
                 .addOnSuccessListener { result ->
                     for (document in result) {
                         actualUserPlant = document.toObject(UserPlants::class.java)
-                        this.BDD.collection("Plants")
-                            .document(actualUserPlant!!.plantId)
-                            .get()
-                            .addOnSuccessListener { document ->
-                                actualPlant = document.toObject(Plants::class.java)
-                                actualPlant!!.setName(document.id)
-                                var plantName = ""
-                                if (isGreenhouse) {
-                                    plantName =
-                                        "pot_" + actualPlant!!.getScientificName().toLowerCase().replace(
-                                            " ",
-                                            "_"
-                                        )
-                                } else {
-                                    plantName =
-                                        "plant_" + actualPlant!!.getScientificName().toLowerCase().replace(
-                                            " ",
-                                            "_"
-                                        )
-                                }
-                                actualPlant!!.setImageName(plantName)
-                                plants!!.add(actualPlant!!)
-                            }
+                        plants!!.add(actualUserPlant!!);
                     }
-                }
-                .await()
-            delay(1000)
+                }.await()
             // job.cancel()
             return plants
         } catch (e: Exception) {
@@ -200,10 +175,11 @@ class Connection : CoroutineScope {
             .set(historyToAdd)
             .await()
     }
-    suspend fun buyPlantToUser(user: User, plantToAdd: Plants){
+
+    suspend fun buyPlantToUser(user: User, plantToAdd: Plants) {
         user.setEmail("rainyseeds@gmail.com")
         var userPlant: UserPlants = UserPlants(user.getEmail(), 100, plantToAdd.getName())
-        var documentName: String = user.getEmail()+"-"+plantToAdd.getName()
+        var documentName: String = user.getEmail() + "-" + plantToAdd.getName()
         this.BDD.collection("User-Plants")
             .document(documentName)
             .set(userPlant)

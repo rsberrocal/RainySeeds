@@ -24,8 +24,10 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
 import com.rainyteam.controller.R
 import com.rainyteam.model.Connection
+import com.rainyteam.model.User
+import kotlinx.coroutines.CoroutineScope
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity(), CoroutineScope {
 
     var mAuth: FirebaseAuth? = null
     lateinit var mGoogleSignInClient: GoogleSignInClient
@@ -33,6 +35,7 @@ class LoginActivity : AppCompatActivity() {
     val RC_SIGN_IN: Int = 1
     var mainConnection: Connection? = null
     var mBDD: FirebaseFirestore? = null
+    var mUser: User? = null
 
     //shared preferences
     val PREF_NAME = "USER"
@@ -178,21 +181,25 @@ class LoginActivity : AppCompatActivity() {
         val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
         mAuth!!.signInWithCredential(credential).addOnCompleteListener {
             val isNewUser: Boolean = it.getResult()!!.additionalUserInfo!!.isNewUser()
-            val user = FirebaseAuth.getInstance().currentUser
-            val email = user!!.email
             if (it.isSuccessful) {
+                val user = FirebaseAuth.getInstance().currentUser
+                val email = user!!.email.toString()
                 setUser(acct.email!!)
                 if (isNewUser) {
-                    if (email != null) {
-                        mBDD!!.collection("Users").document(email).set(data)
-                    }
+                    mBDD!!.collection("Users").document(email).set(data)
                     val principal = Intent(this, UserInfoActivity::class.java)
                     startActivity(principal)
                     finish()
                 } else {
-                    val principal = Intent(this, GreenhouseActivity::class.java)
-                    startActivity(principal)
-                    finish()
+                    if (mBDD!!.collection("Users").document(email).){
+                        val principal = Intent(this, UserInfoActivity::class.java)
+                        startActivity(principal)
+                        finish()
+                    } else {
+                        val principal = Intent(this, GreenhouseActivity::class.java)
+                        startActivity(principal)
+                        finish()
+                    }
                 }
                 Toast.makeText(
                     this,
