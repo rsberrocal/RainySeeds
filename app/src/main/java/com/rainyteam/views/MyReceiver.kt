@@ -1,6 +1,5 @@
 package com.rainyteam.views
 
-import android.R
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
