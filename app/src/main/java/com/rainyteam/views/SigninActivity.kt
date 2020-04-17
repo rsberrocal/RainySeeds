@@ -12,6 +12,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
 import com.rainyteam.controller.R
 import com.rainyteam.model.Connection
 
@@ -21,6 +22,7 @@ class SigninActivity : AppCompatActivity() {
     var DataInst: FirebaseDatabase? = null
     var mDatabase: DatabaseReference? = null
     var mainConnection: Connection? = null
+    var mBDD: FirebaseFirestore? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +32,7 @@ class SigninActivity : AppCompatActivity() {
         DataInst = mainConnection!!.mDatabase()
         mDatabase = DataInst!!.getReference("Emails")
         mAuth = mainConnection!!.mAuth()
+        mBDD = mainConnection!!.mBDD()
 
         val btnSignin = findViewById<View>(R.id.btnSignin) as Button
         val btnReturnLogin = findViewById<View>(R.id.btnReturnLogin) as Button
@@ -49,6 +52,9 @@ class SigninActivity : AppCompatActivity() {
         val emailTxt = findViewById<View>(R.id.eT_EmailSignin) as EditText
         val passwordTxt = findViewById<View>(R.id.eT_PasswordSignin) as EditText
         val confirmPasswordTxt = findViewById<View>(R.id.eT_ConfirmPassword) as EditText
+        val data = hashMapOf(
+            "rainyCoins" to 0
+        )
 
         var email = emailTxt.text.toString()
         var password = passwordTxt.text.toString()
@@ -66,6 +72,7 @@ class SigninActivity : AppCompatActivity() {
                                 mDatabase!!.child(uid).child("Email").setValue(email)
                                 Toast.makeText(this,
                                     R.string.ExitSignin, Toast.LENGTH_LONG).show()
+                                mBDD!!.collection("Users").document(email).set(data)
                                 val btnSignin = Intent(this, UserInfoActivity::class.java)
                                 startActivity(btnSignin)
                                 finish()

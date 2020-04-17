@@ -21,16 +21,34 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.firestore.FirebaseFirestore
 import com.rainyteam.controller.R
 import com.rainyteam.model.Connection
+import com.rainyteam.model.User
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlin.coroutines.CoroutineContext
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity(), CoroutineScope {
 
     var mAuth: FirebaseAuth? = null
     lateinit var mGoogleSignInClient: GoogleSignInClient
     lateinit var mGoogleSignInOptions: GoogleSignInOptions
     val RC_SIGN_IN: Int = 1
     var mainConnection: Connection? = null
+    var mBDD: FirebaseFirestore? = null
+    var mUser: User? = null
+
+    private var job: Job = Job()
+
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + job
+
+    override fun onDestroy() {
+        super.onDestroy()
+        job.cancel()
+    }
 
     //shared preferences
     val PREF_NAME = "USER"
@@ -43,6 +61,7 @@ class LoginActivity : AppCompatActivity() {
 
         this.mainConnection = Connection()
         mAuth = mainConnection!!.mAuth()
+        mBDD = mainConnection!!.mBDD()
 
         prefs = getSharedPreferences(PREF_NAME, 0)
         val hasUser = prefs!!.getString("USER_ID", null)
@@ -169,19 +188,32 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun authWithGoogle(acct: GoogleSignInAccount) {
+        val data = hashMapOf(
+            "rainyCoins" to 0
+        )
         val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
         mAuth!!.signInWithCredential(credential).addOnCompleteListener {
             val isNewUser: Boolean = it.getResult()!!.additionalUserInfo!!.isNewUser()
             if (it.isSuccessful) {
+                val user = FirebaseAuth.getInstance().currentUser
+                val email = user!!.email.toString()
                 setUser(acct.email!!)
                 if (isNewUser) {
+                    mBDD!!.collection("Users").document(email).set(data)
                     val principal = Intent(this, UserInfoActivity::class.java)
                     startActivity(principal)
                     finish()
                 } else {
-                    val principal = Intent(this, GreenhouseActivity::class.java)
-                    startActivity(principal)
-                    finish()
+                    //if (mBDD!!.collection("Users").document(email)){
+                    if (true) {
+                        val principal = Intent(this, UserInfoActivity::class.java)
+                        startActivity(principal)
+                        finish()
+                    } else {
+                        val principal = Intent(this, GreenhouseActivity::class.java)
+                        startActivity(principal)
+                        finish()
+                    }
                 }
                 Toast.makeText(
                     this,

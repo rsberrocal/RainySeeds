@@ -11,6 +11,7 @@ class ActivityLife : Application.ActivityLifecycleCallbacks {
     private val resumed = 0
     private val paused = 0
     private var currentActivity: String? = null
+    lateinit  var context: android.content.Context
 
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
         currentActivity = activity.javaClass.simpleName
@@ -32,7 +33,7 @@ class ActivityLife : Application.ActivityLifecycleCallbacks {
     private fun send_status(status_counter: Int) {
         val intent = Intent("status")
         intent.putExtra("status", status_counter.toString())
-        //LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent)
     }
 
     override fun onActivityStopped(activity: Activity?) {}
