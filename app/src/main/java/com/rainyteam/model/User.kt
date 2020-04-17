@@ -15,6 +15,7 @@ class User {
     private var exercise: Int = 0
     private var maxWater: Float = 0.0f
     private var rainycoins: Int
+    var hasInfo: Boolean = false
     var plantList: ArrayList<String>
 
     constructor() {
@@ -60,15 +61,19 @@ class User {
     fun getExercise(): Int {
         return this.exercise
     }
+
     fun getRainyCoins(): Int {
         return this.rainycoins;
     }
-    fun setRainyCoins(coins: Int){
+
+    fun setRainyCoins(coins: Int) {
         this.rainycoins = coins;
     }
-    fun setEmail(email: String){
+
+    fun setEmail(email: String) {
         this.email = email
     }
+
     fun getGreenhousePlants(): ArrayList<String>? {
         return null;
     }
@@ -76,18 +81,21 @@ class User {
     fun getEncyclopediaPlants(): ArrayList<String>? {
         return null;
     }
-    fun setMaxWater(){
+
+    fun setMaxWater() {
         var temp: Float
-        temp = this.weight* 0.035f
-        if (this.sex == "Male"){
-            temp*=1.20f;
+        temp = this.weight * 0.035f
+        if (this.sex == "Male") {
+            temp *= 1.20f;
         }
-        temp*=(this.exercise/10)*1.2f+1;
-        this.maxWater=temp;
+        temp *= (this.exercise / 10) * 1.2f + 1;
+        this.maxWater = temp;
     }
-    fun getMaxWater(): Float{
+
+    fun getMaxWater(): Float {
         return maxWater
     }
+
 
 }
 

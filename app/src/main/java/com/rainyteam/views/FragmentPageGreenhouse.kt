@@ -40,7 +40,7 @@ class FragmentPageGreenhouse : androidx.fragment.app.Fragment(), CoroutineScope 
         this.mainConnection = Connection()
 
         launch{
-            mutableList = mainConnection!!.getAllPlants()
+            mutableList = mainConnection!!.getAllPlants(null)
 
         }
 

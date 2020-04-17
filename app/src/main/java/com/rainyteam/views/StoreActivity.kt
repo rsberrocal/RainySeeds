@@ -47,7 +47,7 @@ class StoreActivity : AppCompatActivity(), CoroutineScope {
         recyclerView?.layoutManager = gridLayoutManager
         recyclerView?.setHasFixedSize(true)
         launch {
-            mutableList = mainConnection?.getAllPlants()
+            mutableList = mainConnection?.getAllPlants(null)
             recyclerViewStoreAdapter = RecyclerViewStoreAdapter(applicationContext, mutableList!!)
             recyclerView?.adapter = recyclerViewStoreAdapter
         }

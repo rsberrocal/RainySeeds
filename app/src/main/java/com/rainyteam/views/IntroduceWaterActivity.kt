@@ -78,7 +78,7 @@ class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope {
     fun addWater(water: Int) {
         launch {
             var actualHistory: History? = mainConnection!!.getHistory(user!!)
-            var actualUser: User? = mainConnection!!.getUser(user)
+            var actualUser: User? = mainConnection!!.getUser(user!!)
             var quantity: Float = (water * 100) / actualUser!!.getMaxWater()
             var cal: Calendar = Calendar.getInstance()
             var day = cal.get(Calendar.DAY_OF_WEEK)

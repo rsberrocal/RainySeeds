@@ -11,6 +11,7 @@ import com.rainyteam.controller.R
 import com.rainyteam.model.Connection
 import com.rainyteam.model.Plants
 import com.rainyteam.model.UserPlants
+import com.rainyteam.patterns.EndlessRecyclerViewScrollListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -26,6 +27,8 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope {
     private var gridLayoutManager: GridLayoutManager? = null
     private var mutableList: MutableList<Plants>? = null
     private var recyclerViewAdapter: RecyclerViewAdapter? = null
+    private var scrollListener: EndlessRecyclerViewScrollListener? = null
+    // Store a member variable for the listener
 
     //shared
     val PREF_NAME = "USER"
@@ -55,9 +58,21 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope {
         gridLayoutManager =
             GridLayoutManager(applicationContext, 3, LinearLayoutManager.VERTICAL, false)
         recyclerView?.layoutManager = gridLayoutManager
+        scrollListener = object : EndlessRecyclerViewScrollListener(gridLayoutManager) {
+            override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
+                launch {
+                    println("Testing")
+                    var aux = mutableListOf<Plants>()
+                    aux = mainConnection!!.getAllPlants(mutableList!!.last())!!
+                    //recyclerViewAdapter!!.notifyDataSetChanged()
+                    scrollListener!!.resetState()
+                }
+            }
+        }
+        recyclerView!!.addOnScrollListener(scrollListener!!)
         recyclerView?.setHasFixedSize(true)
         launch {
-            mutableList = mainConnection?.getAllPlants()
+            mutableList = mainConnection?.getAllPlants(null)
             recyclerViewAdapter = RecyclerViewAdapter(applicationContext, mutableList!!)
             recyclerView?.adapter = recyclerViewAdapter
         }
@@ -70,7 +85,7 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope {
 
         btnFilterAll.setOnClickListener {
             launch {
-                mutableList = mainConnection?.getAllPlants()
+                mutableList = mainConnection?.getAllPlants(null)
                 recyclerViewAdapter = RecyclerViewAdapter(applicationContext, mutableList!!)
                 recyclerView?.adapter = recyclerViewAdapter
             }

@@ -28,6 +28,7 @@ import com.rainyteam.model.User
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
 class LoginActivity : AppCompatActivity(), CoroutineScope {
@@ -205,14 +206,18 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
                     finish()
                 } else {
                     //if (mBDD!!.collection("Users").document(email)){
-                    if (true) {
-                        val principal = Intent(this, UserInfoActivity::class.java)
-                        startActivity(principal)
-                        finish()
-                    } else {
-                        val principal = Intent(this, GreenhouseActivity::class.java)
-                        startActivity(principal)
-                        finish()
+                    launch {
+                        var auxUser: User = mainConnection!!.getUser(email)!!
+                        //Si no tiene la informacion
+                        if (!auxUser.hasInfo) {
+                            val principal = Intent(applicationContext, UserInfoActivity::class.java)
+                            startActivity(principal)
+                            finish()
+                        } else {
+                            val principal = Intent(applicationContext, GreenhouseActivity::class.java)
+                            startActivity(principal)
+                            finish()
+                        }
                     }
                 }
                 Toast.makeText(

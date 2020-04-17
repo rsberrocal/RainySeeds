@@ -38,11 +38,11 @@ class Connection : CoroutineScope {
         return BDD
     }
 
-    suspend fun getUser(user: String?): User? {
+    suspend fun getUser(user: String): User? {
         var actualUser: User? = null
         return try {
             this.BDD.collection("Users")
-                .document(user!!)
+                .document(user)
                 .get()
                 .addOnSuccessListener { document ->
                     actualUser = document.toObject(User::class.java)
@@ -76,11 +76,15 @@ class Connection : CoroutineScope {
         }
     }
 
-    suspend fun getAllPlants(): MutableList<Plants>? {
+    suspend fun getAllPlants(startPlant: Plants?): MutableList<Plants>? {
         var plants: MutableList<Plants>? = mutableListOf()
         var actualPlant: Plants? = null
         return try {
-            this.BDD.collection("Plants")
+            var query = this.BDD.collection("Plants")
+            if (startPlant != null) {
+                query.startAfter(startPlant)
+            }
+            query.limit(12)
                 .get()
                 .addOnSuccessListener { result ->
                     for (document in result) {

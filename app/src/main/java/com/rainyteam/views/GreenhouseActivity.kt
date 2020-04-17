@@ -61,7 +61,7 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
         // user =
 
         launch{
-            mutableList = mainConnection?.getAllPlants()
+            mutableList = mainConnection?.getAllPlants(null)
             numPages = (mutableList!!.size + NUM_PLANTS_PAGE - 1) / NUM_PLANTS_PAGE // round up division
         }
 
