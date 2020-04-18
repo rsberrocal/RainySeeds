@@ -77,9 +77,9 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope {
             recyclerView?.adapter = recyclerViewAdapter
         }
 
-        val btnFilterAll = findViewById<RadioButton>(R.id.filterAll)
-        val btnFilterBought = findViewById<RadioButton>(R.id.filterBought)
-        val btnFilterToBuy = findViewById<RadioButton>(R.id.filterToBuy)
+        val btnFilterAll = findViewById(R.id.filterAll) as RadioButton
+        val btnFilterBought = findViewById(R.id.filterBought) as RadioButton
+        val btnFilterToBuy = findViewById(R.id.filterToBuy) as RadioButton
 
         btnFilterAll.isChecked = true
 
