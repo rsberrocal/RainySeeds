@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.*
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.rainyteam.controller.R
 import com.rainyteam.model.Connection
 import com.rainyteam.model.Plants
@@ -33,6 +35,7 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
     private lateinit var mPager: ViewPager2
     private var numPages: Int = 1
     private var mutableList: MutableList<UserPlants>? = null
+    var mBDD: FirebaseFirestore? = null
 
     //shared
     val PREF_NAME = "USER"
@@ -57,6 +60,16 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
         music = Intent(this, MusicService::class.java)
         startService(music)
 
+        mBDD = mainConnection!!.mBDD()
+
+        val email = FirebaseAuth.getInstance().currentUser?.email.toString()
+        launch {
+            var auxUser: User = mainConnection!!.getUser(email)!!
+            if (!auxUser.music) {
+                startService(music)
+            }
+        }
+
         this.mainConnection = Connection()
         prefs = getSharedPreferences(PREF_NAME, 0)
         this.user = prefs!!.getString("USER_ID", "")
@@ -69,11 +82,20 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
         val textSeeds: TextView = findViewById<TextView>(R.id.textGoldenSeeds)
         val switch = findViewById<Switch>(R.id.Switch)
 
+        val dataMusicOn = hashMapOf(
+            "music" to true
+        )
+        val dataMusicOff = hashMapOf(
+            "music" to false
+        )
+
         switch.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 startService(music)
+                mBDD!!.collection("Users").document(email).set(dataMusicOn)
             } else {
                 stopService(music)
+                mBDD!!.collection("Users").document(email).set(dataMusicOff)
             }
         }
 

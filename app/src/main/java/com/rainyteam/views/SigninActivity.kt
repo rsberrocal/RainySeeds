@@ -61,7 +61,8 @@ class SigninActivity : AppCompatActivity() {
             "exercise" to 0,
             "maxWater" to 0.0f,
             "rainycoins" to 0,
-            "hasInfo" to false
+            "hasInfo" to false,
+            "music" to true
         )
         val dataHistory = hashMapOf(
             "monday" to 0.0f,

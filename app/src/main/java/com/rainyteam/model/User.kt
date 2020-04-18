@@ -14,6 +14,7 @@ class User {
     private var exercise: Int = 0
     private var maxWater: Float = 0.0f
     private var rainycoins: Int
+    var music: Boolean = true
     var hasInfo: Boolean = false
     var plantList: ArrayList<String>
 
