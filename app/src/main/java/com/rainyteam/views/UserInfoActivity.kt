@@ -17,24 +17,32 @@ import kotlin.coroutines.CoroutineContext
 
 class UserInfoActivity() : AppCompatActivity(), CoroutineScope{
     val mAuth = FirebaseAuth.getInstance()
+
     var mainConnection: Connection? = null
+
     val PREF_NAME = "USER"
     var userName: String? = ""
     var prefs: SharedPreferences? = null
+
     private var job: Job = Job()
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.user_info_layout)
+
         this.mainConnection = Connection()
+
         prefs = getSharedPreferences(PREF_NAME, 0)
         this.userName = prefs!!.getString(PREF_NAME, "")
         setUser(userName)
+
         userBackArrowButton.setOnClickListener {
             val intent = Intent(this, MainWaterActivity::class.java)
             startActivity(intent)
         }
+
         logoutBtn.setOnClickListener {
             var music = Intent(this, MusicService::class.java)
             stopService(music)
@@ -50,8 +58,7 @@ class UserInfoActivity() : AppCompatActivity(), CoroutineScope{
     }
     fun setUser(user: String?){
         launch {
-            var userN  = "rainyseeds@gmail.com"
-            var actualUser = mainConnection!!.getUser(userN)
+            var actualUser = mainConnection!!.getUser(user!!)
             textName!!.text = actualUser?.getUsername()
             textAge!!.text =  actualUser?.getAge().toString()
             textWeight!!.text = actualUser?.getWeight().toString()

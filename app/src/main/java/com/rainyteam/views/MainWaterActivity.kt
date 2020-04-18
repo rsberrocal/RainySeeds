@@ -17,21 +17,18 @@ import kotlin.coroutines.CoroutineContext
 
 
 class MainWaterActivity : AppCompatActivity(), CoroutineScope {
-    val PREF_NAME = "USER"
-
-    var prefs: SharedPreferences? = null
 
     var mainConnection: Connection? = null
 
-    var textWaterPercent : TextView? = null
-
+    val PREF_NAME = "USER"
+    var prefs: SharedPreferences? = null
     var userName: String? = null
 
-    private var job: Job = Job()
+    var textWaterPercent : TextView? = null
 
+    private var job: Job = Job()
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
-
     override fun onDestroy() {
         super.onDestroy()
         job.cancel()
@@ -49,7 +46,7 @@ class MainWaterActivity : AppCompatActivity(), CoroutineScope {
         setUser(userName)
         this.textWaterPercent = findViewById(R.id.waterPercent)
         launch{
-            //textWaterPercent!!.text = mainConnection.getUser().rainycoins
+            //textWaterPercent!!.text = mainConnection.getUser(userName)
         }
 
         banner.setOnClickListener {
@@ -63,8 +60,7 @@ class MainWaterActivity : AppCompatActivity(), CoroutineScope {
     }
     fun setUser(user: String?){
         launch {
-            var userN  = "rainyseeds@gmail.com"
-            var actualUser = mainConnection!!.getUser(userN)
+            var actualUser = mainConnection!!.getUser(user!!)
             userNameText!!.text = actualUser?.getUsername()
             userAge!!.text = "Age: "+actualUser?.getAge().toString()
             userWeight!!.text = "Weight: "+actualUser?.getWeight().toString()

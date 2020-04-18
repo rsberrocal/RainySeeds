@@ -63,7 +63,7 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope {
                 launch {
                     println("Testing")
                     var aux = mutableListOf<Plants>()
-                    aux = mainConnection!!.getAllPlants(mutableList!!.last())!!
+                    //aux = mainConnection!!.getAllPlants(mutableList!!.last())!!
                     //recyclerViewAdapter!!.notifyDataSetChanged()
                     scrollListener!!.resetState()
                 }

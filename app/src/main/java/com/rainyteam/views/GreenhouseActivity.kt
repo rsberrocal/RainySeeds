@@ -12,6 +12,7 @@ import com.rainyteam.controller.R
 import com.rainyteam.model.Connection
 import com.rainyteam.model.Plants
 import com.rainyteam.model.User
+import com.rainyteam.model.UserPlants
 import com.rainyteam.services.MusicService
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
 import kotlinx.android.synthetic.main.greenhouse_layout.*
@@ -30,11 +31,12 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
 
     private lateinit var mPager: ViewPager2
     private var numPages: Int = 1
-    private var mutableList: MutableList<Plants>? = null
+    private var mutableList: MutableList<UserPlants>? = null
 
     //shared
     val PREF_NAME = "USER"
     var prefs: SharedPreferences? = null
+    var user: String? = ""
 
     private var job: Job = Job()
     private var music: Intent? = null
@@ -55,15 +57,17 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
         startService(music)
 
         this.mainConnection = Connection()
-
         prefs = getSharedPreferences(PREF_NAME, 0)
-        val user = prefs!!.getString("USER_ID", null)
-        // user =
+        this.user = prefs!!.getString("USER_ID", "")
+
+        val textSeeds: TextView = findViewById(R.id.textGoldenSeeds) as TextView
 
         launch{
-            mutableList = mainConnection?.getAllPlants(null)
+            textSeeds.text = mainConnection?.getUser(user!!)?.getRainyCoins().toString()
+            mutableList = mainConnection?.getUserPlantsAlive(user!!)
             numPages = (mutableList!!.size + NUM_PLANTS_PAGE - 1) / NUM_PLANTS_PAGE // round up division
         }
+
 
         layoutSeeds.setOnClickListener {
             val intent = Intent(this, StoreActivity::class.java)
@@ -76,12 +80,6 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
         val pagerAdapter = PlantSlidePagerAdapter(this)
         mPager.adapter = pagerAdapter
         dotsIndicator.setViewPager2(mPager)
-/*
-        val textSeeds: TextView = findViewById(R.id.textGoldenSeeds) as TextView
-        textSeeds.setOnClickListener {
-            textSeeds.text = this.user.rainycoins.toString()
-        }
-*/
     }
 
     private inner class PlantSlidePagerAdapter(fm: FragmentActivity) : FragmentStateAdapter(fm) {
