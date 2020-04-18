@@ -197,7 +197,6 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
     private fun authWithGoogle(acct: GoogleSignInAccount) {
         val dataUsers = hashMapOf(
             "username" to "",
-            "email" to "",
             "age" to 0,
             "weight" to 0,
             "height" to 0,
