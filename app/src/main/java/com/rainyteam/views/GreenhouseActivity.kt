@@ -31,7 +31,6 @@ private val NUM_PLANTS_PAGE = 9
 class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
 
     var mainConnection: Connection? = null
-
     private lateinit var mPager: ViewPager2
     private var numPages: Int = 1
     private var mutableList: MutableList<UserPlants>? = null
@@ -57,20 +56,18 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.greenhouse_layout)
 
-        music = Intent(this, MusicService::class.java)
-        startService(music)
-
+        this.mainConnection = Connection()
         mBDD = mainConnection!!.mBDD()
 
+        val switch = findViewById<Switch>(R.id.Switch)
         val email = FirebaseAuth.getInstance().currentUser?.email.toString()
         launch {
-            var auxUser: User = mainConnection!!.getUser(email)!!
-            if (!auxUser.music) {
+            if (mainConnection!!.getUser(email)!!.music) {
                 startService(music)
+                switch.isChecked = true
             }
         }
 
-        this.mainConnection = Connection()
         prefs = getSharedPreferences(PREF_NAME, 0)
         this.user = prefs!!.getString("USER_ID", "")
 
@@ -80,22 +77,14 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
         }
 
         val textSeeds: TextView = findViewById<TextView>(R.id.textGoldenSeeds)
-        val switch = findViewById<Switch>(R.id.Switch)
-
-        val dataMusicOn = hashMapOf(
-            "music" to true
-        )
-        val dataMusicOff = hashMapOf(
-            "music" to false
-        )
 
         switch.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 startService(music)
-                mBDD!!.collection("Users").document(email).set(dataMusicOn)
+                mBDD!!.collection("Users").document(email).update("music", true)
             } else {
                 stopService(music)
-                mBDD!!.collection("Users").document(email).set(dataMusicOff)
+                mBDD!!.collection("Users").document(email).update("music", false)
             }
         }
 
