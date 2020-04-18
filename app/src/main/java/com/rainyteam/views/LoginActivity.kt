@@ -126,7 +126,6 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
     }
 
     private fun setUser(id: String) {
-
         val editor = prefs!!.edit()
         editor.putString("USER_ID", id)
         editor.apply()
@@ -163,7 +162,6 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
                     } else {
                         Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
                     }
-
                 })
         } else {
             Toast.makeText(
@@ -206,7 +204,6 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
             "rainycoins" to 0,
             "hasInfo" to false,
             "music" to true
-
         )
         val dataHistory = hashMapOf(
             "monday" to 0.0f,

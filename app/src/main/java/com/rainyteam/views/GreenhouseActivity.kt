@@ -3,6 +3,7 @@ package com.rainyteam.views
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.View
 import android.widget.Switch
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -42,7 +43,6 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
     var user: String? = ""
 
     private var job: Job = Job()
-    private var music: Intent? = null
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
@@ -59,12 +59,16 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
         this.mainConnection = Connection()
         mBDD = mainConnection!!.mBDD()
 
-        val switch = findViewById<Switch>(R.id.Switch)
+        var musicService = Intent(this, MusicService::class.java)
+
+        val swMusic = findViewById<View>(R.id.swMusic) as Switch
         val email = FirebaseAuth.getInstance().currentUser?.email.toString()
         launch {
-            if (mainConnection!!.getUser(email)!!.music) {
-                startService(music)
-                switch.isChecked = true
+            var auxUser: User = mainConnection!!.getUser(email)!!
+            if (auxUser.music) {
+                startService(musicService)
+                swMusic.isChecked = true
+            } else {
             }
         }
 
@@ -78,12 +82,12 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
 
         val textSeeds: TextView = findViewById<TextView>(R.id.textGoldenSeeds)
 
-        switch.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                startService(music)
+        swMusic.setOnCheckedChangeListener { _, isChecked ->
+            if (swMusic.isChecked) {
+                startService(musicService)
                 mBDD!!.collection("Users").document(email).update("music", true)
             } else {
-                stopService(music)
+                stopService(musicService)
                 mBDD!!.collection("Users").document(email).update("music", false)
             }
         }

@@ -45,7 +45,7 @@
         android:orientation="horizontal">
 
         <Switch
-            android:id="@+id/Switch"
+            android:id="@+id/swMusic"
             android:layout_width="70dp"
             android:layout_height="35dp"
             android:layout_gravity="center|left"
