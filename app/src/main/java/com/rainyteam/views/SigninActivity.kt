@@ -77,7 +77,8 @@ class SigninActivity : AppCompatActivity() {
         var confirmPassword = confirmPasswordTxt.text.toString()
         val dataPlant = hashMapOf(
             "status" to 100,
-            "userId" to email
+            "userId" to email,
+            "plantId" to "Cactus"
         )
         //val credential = EmailAuthProvider.getCredential(email, password)
 

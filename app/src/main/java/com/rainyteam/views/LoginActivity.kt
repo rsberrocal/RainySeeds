@@ -223,7 +223,8 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
                 val email = user!!.email.toString()
                 val dataPlant = hashMapOf(
                     "status" to 100,
-                    "userId" to email
+                    "userId" to email,
+                    "plantId" to "Cactus"
                 )
                 setUser(acct.email!!)
                 if (isNewUser) {
