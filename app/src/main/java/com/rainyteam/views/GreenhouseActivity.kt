@@ -3,6 +3,7 @@ package com.rainyteam.views
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.widget.Switch
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.*
@@ -65,7 +66,16 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
             startActivity(intent)
         }
 
-        val textSeeds: TextView = findViewById(R.id.textGoldenSeeds) as TextView
+        val textSeeds: TextView = findViewById<TextView>(R.id.textGoldenSeeds)
+        val switch = findViewById<Switch>(R.id.Switch)
+
+        switch.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                startService(music)
+            } else {
+                stopService(music)
+            }
+        }
 
         launch{
             textSeeds.text = mainConnection?.getUser(user!!)?.getRainyCoins().toString()
