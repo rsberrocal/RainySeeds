@@ -39,7 +39,6 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
     val RC_SIGN_IN: Int = 1
     var mainConnection: Connection? = null
     var mBDD: FirebaseFirestore? = null
-    var mUser: User? = null
 
     private var job: Job = Job()
 
@@ -144,16 +143,23 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
             mAuth!!.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, OnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        Toast.makeText(
-                            this,
+                        Toast.makeText(this,
                             R.string.ExitLogin, Toast.LENGTH_LONG
                         ).show()
-
                         setUser(email)
-
-                        val principal = Intent(this, GreenhouseActivity::class.java)
-                        startActivity(principal)
-                        finish()
+                        launch {
+                            var auxUser: User = mainConnection!!.getUser(email)!!
+                            //Si no tiene la informacion
+                            if (!auxUser.hasInfo ) {
+                                val principal = Intent(applicationContext, UserInfoActivity::class.java)
+                                startActivity(principal)
+                                finish()
+                            } else {
+                                val principal = Intent(applicationContext, GreenhouseActivity::class.java)
+                                startActivity(principal)
+                                finish()
+                            }
+                        }
                     } else {
                         Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
                     }
@@ -189,8 +195,26 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
     }
 
     private fun authWithGoogle(acct: GoogleSignInAccount) {
-        val data = hashMapOf(
-            "rainyCoins" to 0
+        val dataUsers = hashMapOf(
+            "username" to "",
+            "email" to "",
+            "age" to 0,
+            "weight" to 0,
+            "height" to 0,
+            "sex" to "",
+            "exercise" to 0,
+            "maxWater" to 0.0f,
+            "rainycoins" to 0,
+            "hasInfo" to false
+        )
+        val dataHistory = hashMapOf(
+            "monday" to 0.0f,
+            "tuesday" to 0.0f,
+            "wednesday" to 0.0f,
+            "thursday" to 0.0f,
+            "friday" to 0.0f,
+            "saturday" to 0.0f,
+            "sunday" to 0.0f
         )
         val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
         mAuth!!.signInWithCredential(credential).addOnCompleteListener {
@@ -198,18 +222,23 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
             if (it.isSuccessful) {
                 val user = FirebaseAuth.getInstance().currentUser
                 val email = user!!.email.toString()
+                val dataPlant = hashMapOf(
+                    "status" to 100,
+                    "userId" to email
+                )
                 setUser(acct.email!!)
                 if (isNewUser) {
-                    mBDD!!.collection("Users").document(email).set(data)
+                    mBDD!!.collection("Users").document(email).set(dataUsers)
+                    mBDD!!.collection("User-Plants").document("$email-Cactus").set(dataPlant)
+                    mBDD!!.collection("History").document(email).set(dataHistory)
                     val principal = Intent(this, UserInfoActivity::class.java)
                     startActivity(principal)
                     finish()
                 } else {
-                    //if (mBDD!!.collection("Users").document(email)){
                     launch {
                         var auxUser: User = mainConnection!!.getUser(email)!!
                         //Si no tiene la informacion
-                        if (!auxUser.hasInfo) {
+                        if (!auxUser.hasInfo ) {
                             val principal = Intent(applicationContext, UserInfoActivity::class.java)
                             startActivity(principal)
                             finish()

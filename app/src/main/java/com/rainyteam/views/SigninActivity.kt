@@ -18,7 +18,7 @@ import com.rainyteam.model.Connection
 
 class SigninActivity : AppCompatActivity() {
 
-    var mAuth:FirebaseAuth? = null
+    var mAuth: FirebaseAuth? = null
     var DataInst: FirebaseDatabase? = null
     var mDatabase: DatabaseReference? = null
     var mainConnection: Connection? = null
@@ -52,14 +52,35 @@ class SigninActivity : AppCompatActivity() {
         val emailTxt = findViewById<View>(R.id.eT_EmailSignin) as EditText
         val passwordTxt = findViewById<View>(R.id.eT_PasswordSignin) as EditText
         val confirmPasswordTxt = findViewById<View>(R.id.eT_ConfirmPassword) as EditText
-        val data = hashMapOf(
-            "rainyCoins" to 0
+        val dataUsers = hashMapOf(
+            "username" to "",
+            "email" to "",
+            "age" to 0,
+            "weight" to 0,
+            "height" to 0,
+            "sex" to "",
+            "exercise" to 0,
+            "maxWater" to 0.0f,
+            "rainycoins" to 0,
+            "hasInfo" to false
         )
-
+        val dataHistory = hashMapOf(
+            "monday" to 0.0f,
+            "tuesday" to 0.0f,
+            "wednesday" to 0.0f,
+            "thursday" to 0.0f,
+            "friday" to 0.0f,
+            "saturday" to 0.0f,
+            "sunday" to 0.0f
+        )
         var email = emailTxt.text.toString()
         var password = passwordTxt.text.toString()
         var confirmPassword = confirmPasswordTxt.text.toString()
-
+        val dataPlant = hashMapOf(
+            "status" to 100,
+            "userId" to email
+        )
+        //val credential = EmailAuthProvider.getCredential(email, password)
 
         if (!email.isEmpty() && !password.isEmpty() && !confirmPassword.isEmpty()) {
             if (password == confirmPassword) {
@@ -70,27 +91,58 @@ class SigninActivity : AppCompatActivity() {
                                 val user = mAuth!!.currentUser
                                 val uid = user!!.uid
                                 mDatabase!!.child(uid).child("Email").setValue(email)
-                                Toast.makeText(this,
-                                    R.string.ExitSignin, Toast.LENGTH_LONG).show()
-                                mBDD!!.collection("Users").document(email).set(data)
+                                Toast.makeText(
+                                    this,
+                                    R.string.ExitSignin, Toast.LENGTH_LONG
+                                ).show()
+                                mBDD!!.collection("Users").document(email).set(dataUsers)
+                                mBDD!!.collection("User-Plants").document("$email-Cactus").set(dataPlant)
+                                mBDD!!.collection("History").document(email).set(dataHistory)
                                 val btnSignin = Intent(this, UserInfoActivity::class.java)
                                 startActivity(btnSignin)
                                 finish()
                             } else {
                                 Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
+
                             }
-                        })
+                        })/*
+                    //Sincronizacion de varias cuentas
+                    val prevUser = mAuth!!.currentUser
+                    mAuth!!.signInWithCredential(credential)
+                        .addOnSuccessListener { result ->
+                            val currentUser = result.user
+                            // Merge prevUser and currentUser accounts and data
+                            // ...
+                        }
+                        .addOnFailureListener {
+                            // ...
+                        }
+
+                    mAuth!!.currentUser?.linkWithCredential(credential)
+                        ?.addOnCompleteListener(this) { task ->
+                            if (task.isSuccessful) {
+                                val btnSignin = Intent(this, UserInfoActivity::class.java)
+                                startActivity(btnSignin)
+                                finish()
+                            }
+                        } */
                 } else {
-                    Toast.makeText(this,
-                        R.string.WrongEmail, Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        this,
+                        R.string.WrongEmail, Toast.LENGTH_LONG
+                    ).show()
                 }
             } else {
-                Toast.makeText(this,
-                    R.string.ErrorPassword, Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    this,
+                    R.string.ErrorPassword, Toast.LENGTH_LONG
+                ).show()
             }
         } else {
-            Toast.makeText(this,
-                R.string.ErrorLogin, Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                this,
+                R.string.ErrorLogin, Toast.LENGTH_LONG
+            ).show()
         }
     }
 }
