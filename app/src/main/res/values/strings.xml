@@ -40,4 +40,12 @@
     <string name="addWater2">200ml</string>
     <string name="addWater3">500ml</string>
     <string name="addWater4">1000ml</string>
+    <string name="Name">Name</string>
+    <string name="Age">Age</string>
+    <string name="Weight">Weight</string>
+    <string name="Height">Height</string>
+    <string name="Sex">Sex</string>
+    <string name="Exercise">Hours of exercise</string>
+    <string name="BirthDate">Birth Date</string>
+
 </resources>
