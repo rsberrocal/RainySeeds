@@ -7,7 +7,6 @@ import kotlin.collections.ArrayList as ArrayList
 class User {
     private var username: String = ""
     private var email: String = ""
-    private var password: String = ""
     private var age: Int = 0
     private var weight: Int = 0
     private var height: Float = 0.0f
@@ -36,10 +35,6 @@ class User {
 
     fun getUsername(): String {
         return this.username
-    }
-
-    fun getPassword(): String {
-        return this.password
     }
 
     fun getWeight(): Int {
