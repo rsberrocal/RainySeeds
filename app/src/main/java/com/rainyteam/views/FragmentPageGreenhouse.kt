@@ -44,6 +44,14 @@ class FragmentPageGreenhouse : androidx.fragment.app.Fragment(), CoroutineScope 
 
         }
 
+        fun newInstance(mutableList: MutableList<String>) : FragmentPageGreenhouse {
+            val args = Bundle()
+            args.putString()
+            val fragment = FragmentPageGreenhouse()
+            fragment.arguments = args
+            return fragment
+        }
+
         return viewActual
     }
 

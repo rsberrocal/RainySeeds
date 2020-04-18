@@ -60,18 +60,17 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
         prefs = getSharedPreferences(PREF_NAME, 0)
         this.user = prefs!!.getString("USER_ID", "")
 
+        layoutSeeds.setOnClickListener {
+            val intent = Intent(this, StoreActivity::class.java)
+            startActivity(intent)
+        }
+
         val textSeeds: TextView = findViewById(R.id.textGoldenSeeds) as TextView
 
         launch{
             textSeeds.text = mainConnection?.getUser(user!!)?.getRainyCoins().toString()
             mutableList = mainConnection?.getUserPlantsAlive(user!!)
             numPages = (mutableList!!.size + NUM_PLANTS_PAGE - 1) / NUM_PLANTS_PAGE // round up division
-        }
-
-
-        layoutSeeds.setOnClickListener {
-            val intent = Intent(this, StoreActivity::class.java)
-            startActivity(intent)
         }
 
         val dotsIndicator = findViewById<WormDotsIndicator>(R.id.dots_indicator)
