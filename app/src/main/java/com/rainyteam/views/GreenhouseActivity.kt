@@ -58,14 +58,13 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
         this.mainConnection = Connection()
         mBDD = mainConnection!!.mBDD()
 
-        var musicService = Intent(this, MusicService::class.java)
+        val musicService = Intent(this, MusicService::class.java)
 
         val swMusic = findViewById<View>(R.id.swMusic) as Switch
         val email = FirebaseAuth.getInstance().currentUser?.email.toString()
         launch {
             var auxUser: User = mainConnection!!.getUser(email)!!
             if (auxUser.music) {
-                startService(musicService)
                 swMusic.isChecked = true
             } else {
             }
