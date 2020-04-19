@@ -156,7 +156,6 @@ class Connection : CoroutineScope {
         }
     }
 
-
     suspend fun getHistory(user: String): History? {
         var actualHistory: History? = null
 

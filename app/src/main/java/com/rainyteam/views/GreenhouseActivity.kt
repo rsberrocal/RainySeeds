@@ -14,7 +14,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.rainyteam.controller.R
 import com.rainyteam.model.Connection
-import com.rainyteam.model.Plants
 import com.rainyteam.model.User
 import com.rainyteam.model.UserPlants
 import com.rainyteam.services.MusicService
@@ -80,7 +79,7 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
             startActivity(intent)
         }
 
-        val textSeeds: TextView = findViewById<TextView>(R.id.textGoldenSeeds)
+        val textSeeds: TextView = findViewById(R.id.textGoldenSeeds) as TextView
 
         swMusic.setOnCheckedChangeListener { _, isChecked ->
             if (swMusic.isChecked) {
@@ -110,7 +109,7 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
         override fun getItemCount(): Int = numPages
 
         override fun createFragment(position: Int): Fragment =
-            FragmentPageGreenhouse()
+            FragmentPageGreenhouse(position)
     }
 
 }

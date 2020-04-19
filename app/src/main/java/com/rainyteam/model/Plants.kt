@@ -26,7 +26,6 @@ class Plants {
         this.precautions = precautions
         this.money = money
         this.status = status
-        this.imagePlant = "plant_" + scientificName.toLowerCase().replace(" ", "_")
     }
 
     //Getters
@@ -63,7 +62,12 @@ class Plants {
     }
 
     fun getImagePlant(): String? {
-        return this.imagePlant
+        return imagePlant
+    }
+
+    //provisional
+    fun getPotImagePlant(): String? {
+        return "pot_" + scientificName!!.toLowerCase().replace(" ", "_")
     }
 
     fun setImageName(name: String) {
