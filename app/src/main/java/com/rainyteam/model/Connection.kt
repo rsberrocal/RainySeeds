@@ -46,6 +46,7 @@ class Connection : CoroutineScope {
                 .get()
                 .addOnSuccessListener { document ->
                     actualUser = document.toObject(User::class.java)
+                    actualUser!!.setEmail(document.id)
                 }.await()
             return actualUser
         } catch (e: Exception) {
@@ -181,7 +182,7 @@ class Connection : CoroutineScope {
 
     suspend fun buyPlantToUser(user: User, plantToAdd: Plants) {
         user.setEmail("rainyseeds@gmail.com")
-        var userPlant: UserPlants = UserPlants(user.getEmail(), 100, plantToAdd.getName())
+        var userPlant: UserPlants = UserPlants(plantToAdd.getName(), 100, user.getEmail())
         var documentName: String = user.getEmail() + "-" + plantToAdd.getName()
         this.BDD.collection("User-Plants")
             .document(documentName)

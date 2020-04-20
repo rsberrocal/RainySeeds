@@ -61,14 +61,7 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
         val musicService = Intent(this, MusicService::class.java)
 
         val swMusic = findViewById<View>(R.id.swMusic) as Switch
-        val email = FirebaseAuth.getInstance().currentUser?.email.toString()
-        launch {
-            var auxUser: User = mainConnection!!.getUser(email)!!
-            if (auxUser.music) {
-                swMusic.isChecked = true
-            } else {
-            }
-        }
+        //val email = FirebaseAuth.getInstance().currentUser?.email.toString()
 
         prefs = getSharedPreferences(PREF_NAME, 0)
         this.user = prefs!!.getString("USER_ID", "")
@@ -83,15 +76,19 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
         swMusic.setOnCheckedChangeListener { _, isChecked ->
             if (swMusic.isChecked) {
                 startService(musicService)
-                mBDD!!.collection("Users").document(email).update("music", true)
+                mBDD!!.collection("Users").document(user!!).update("music", true)
             } else {
                 stopService(musicService)
-                mBDD!!.collection("Users").document(email).update("music", false)
+                mBDD!!.collection("Users").document(user!!).update("music", false)
             }
         }
 
         launch{
-            textSeeds.text = mainConnection?.getUser(user!!)?.getRainyCoins().toString()
+            var auxUser: User = mainConnection!!.getUser(user!!)!!
+            if (auxUser.music) {
+                swMusic.isChecked = true
+            }
+            textSeeds.text = auxUser.getRainyCoins().toString()
             mutableList = mainConnection?.getUserPlantsAlive(user!!)
             numPages = (mutableList!!.size + NUM_PLANTS_PAGE - 1) / NUM_PLANTS_PAGE // round up division
         }

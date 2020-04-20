@@ -31,7 +31,7 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope {
     // Store a member variable for the listener
 
     //shared
-    val PREF_NAME = "USER"
+    val PREF_NAME = "USER_ID"
     var prefs: SharedPreferences? = null
     var user: String? = ""
 

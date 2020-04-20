@@ -50,11 +50,13 @@ class FragmentPageGreenhouse(
 
         this.mainConnection = Connection()
         prefs = context?.getSharedPreferences(PREF_NAME, 0)
-        this.user = prefs!!.getString(PREF_NAME, "")
+        this.user = prefs!!.getString("USER_ID", "")
 
         launch {
             //mutableList = mainConnection!!.getAllPlants(null)
-            mutableList = user?.let { mainConnection!!.getUserPlantsAlive(it) }
+            mutableList = user?.let {
+                mainConnection!!.getUserPlantsAlive(it)
+            }
 
             //val drawableName1 : String? = mutableList!![pos*9].getPotImagePlant()
             val auxPlant : Plants? = mainConnection!!.getPlant(mutableList!![pos*9].plantId)

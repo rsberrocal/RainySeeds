@@ -24,11 +24,12 @@ class MainWaterActivity : AppCompatActivity(), CoroutineScope {
     var prefs: SharedPreferences? = null
     var userName: String? = null
 
-    var textWaterPercent : TextView? = null
+    var textWaterPercent: TextView? = null
 
     private var job: Job = Job()
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
+
     override fun onDestroy() {
         super.onDestroy()
         job.cancel()
@@ -39,13 +40,13 @@ class MainWaterActivity : AppCompatActivity(), CoroutineScope {
         setContentView(R.layout.main_water_layout)
 
         prefs = getSharedPreferences(PREF_NAME, 0)
-        this.userName = prefs!!.getString(PREF_NAME, "")
+        this.userName = prefs!!.getString("USER_ID", "")
 
         this.mainConnection = Connection()
 
         setUser(userName)
         this.textWaterPercent = findViewById(R.id.waterPercent)
-        launch{
+        launch {
             //textWaterPercent!!.text = mainConnection.getUser(userName)
         }
 
@@ -58,12 +59,13 @@ class MainWaterActivity : AppCompatActivity(), CoroutineScope {
             startActivity(intent)
         }
     }
-    fun setUser(user: String?){
+
+    fun setUser(user: String?) {
         launch {
             var actualUser = mainConnection!!.getUser(user!!)
             userNameText!!.text = actualUser?.getUsername()
-            userAge!!.text = "Age: "+actualUser?.getAge().toString()
-            userWeight!!.text = "Weight: "+actualUser?.getWeight().toString()
+            userAge!!.text = "Age: " + actualUser?.getAge().toString()
+            userWeight!!.text = "Weight: " + actualUser?.getWeight().toString()
         }
     }
 }
