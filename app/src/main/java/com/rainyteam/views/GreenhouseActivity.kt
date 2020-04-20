@@ -90,7 +90,8 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
             }
             textSeeds.text = auxUser.getRainyCoins().toString()
             mutableList = mainConnection?.getUserPlantsAlive(user!!)
-            numPages = (mutableList!!.size + NUM_PLANTS_PAGE - 1) / NUM_PLANTS_PAGE // round up division
+            //numPages = (mutableList!!.size + NUM_PLANTS_PAGE - 1) / NUM_PLANTS_PAGE // round up division
+            numPages = Math.ceil(mutableList!!.size.toDouble() / NUM_PLANTS_PAGE.toDouble()).toInt()
         }
 
         val dotsIndicator = findViewById<WormDotsIndicator>(R.id.dots_indicator)
