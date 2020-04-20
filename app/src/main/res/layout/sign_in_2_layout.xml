@@ -81,12 +81,14 @@
                 android:ems="10">
 
                 <RadioGroup
+                    android:id="@+id/sexOption"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:orientation="horizontal">
 
                     <RadioButton
+                        android:id="@+id/maleOption"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:buttonTint="@color/gray"
@@ -94,6 +96,7 @@
                         android:textColor="@color/gray"
                         android:textSize="15sp" />
                     <RadioButton
+                        android:id="@+id/femaleOption"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:buttonTint="@color/gray"
@@ -102,6 +105,7 @@
                         android:textSize="15sp"
                         android:layout_marginHorizontal="5dp"/>
                     <RadioButton
+                        android:id="@+id/otherOption"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:buttonTint="@color/gray"

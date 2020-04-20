@@ -69,7 +69,21 @@ class User {
     fun setEmail(email: String) {
         this.email = email
     }
-
+    fun setName(name: String){
+        this.username = name
+    }
+    fun setHeight(height: Float){
+        this.height = height
+    }
+    fun setWeight(weight: Int){
+        this.weight = weight
+    }
+    fun setSex(sex: String){
+        this.sex = sex
+    }
+    fun setExercise(exercise: Int){
+        this.exercise = exercise
+    }
     fun getGreenhousePlants(): ArrayList<String>? {
         return null;
     }
