@@ -28,7 +28,7 @@ class FragmentPageGreenhouse(
     var prefs: SharedPreferences? = null
     var user: String? = ""
 
-    private var mutableList: MutableList<Plants>? = null
+    private var mutableList: MutableList<UserPlants>? = null
     val pos: Int = position;
 
     private var job: Job = Job()
@@ -53,13 +53,15 @@ class FragmentPageGreenhouse(
         this.user = prefs!!.getString(PREF_NAME, "")
 
         launch {
-            mutableList = mainConnection!!.getAllPlants(null)
-            //mutableList = user?.let { mainConnection!!.getUserPlantsAlive(it) }
+            //mutableList = mainConnection!!.getAllPlants(null)
+            mutableList = user?.let { mainConnection!!.getUserPlantsAlive(it) }
 
-            val drawableName1 : String? = mutableList!![pos*9].getPotImagePlant()
+            //val drawableName1 : String? = mutableList!![pos*9].getPotImagePlant()
+            val auxPlant : Plants? = mainConnection!!.getPlant(mutableList!![pos*9].plantId)
+            val drawableName1 : String? = auxPlant!!.getPotImagePlant()
             val resID1: Int = resources.getIdentifier(drawableName1, "drawable", context?.packageName)
             plantR1C1!!.setImageResource(resID1)
-
+/*
             val drawableName2 : String? = mutableList!![pos*9+1].getPotImagePlant()
             val resID2: Int = resources.getIdentifier(drawableName2, "drawable", context?.packageName)
             plantR1C2!!.setImageResource(resID2)
@@ -67,7 +69,7 @@ class FragmentPageGreenhouse(
             val drawableName3 : String? = mutableList!![pos*9+2].getPotImagePlant()
             val resID3: Int = resources.getIdentifier(drawableName3, "drawable", context?.packageName)
             plantR1C3!!.setImageResource(resID3)
-
+*/
         }
 
         return viewActual
