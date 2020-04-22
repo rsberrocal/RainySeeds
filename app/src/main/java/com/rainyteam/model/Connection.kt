@@ -129,13 +129,33 @@ class Connection : CoroutineScope {
         }
     }
 
+    suspend fun getCountUserPlantsAlive(user: String): Int {
+        var count = 0
+        return try {
+            this.BDD.collection("User-Plants")
+                .whereEqualTo("userId", user)
+                .whereGreaterThan("status", 0)
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        count++
+                    }
+                }.await()
+            // job.cancel()
+            return count
+        } catch (e: Exception) {
+            println(e.message)
+            return 0
+        }
+    }
+
     suspend fun getDeadPlants(user: String): MutableList<Plants>? {
         var plants: MutableList<Plants>? = mutableListOf()
         var actualPlant: Plants? = null
         return try {
             this.BDD.collection("User-Plants")
                 .whereEqualTo("userId", user)
-                .whereLessThan("status", 0)
+                .whereLessThanOrEqualTo("status", 0)
                 .get()
                 .addOnSuccessListener { result ->
                     for (document in result) {
@@ -154,6 +174,28 @@ class Connection : CoroutineScope {
             return plants
         } catch (e: Exception) {
             return null
+
+        }
+    }
+
+    suspend fun getCountDeadPlants(user: String): Int {
+        var count = 0
+        var actualPlant: Plants? = null
+        return try {
+            this.BDD.collection("User-Plants")
+                .whereEqualTo("userId", user)
+                .whereLessThanOrEqualTo("status", 0)
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        count++
+                    }
+                }
+                .await()
+            return count
+        } catch (e: Exception) {
+            return 0
+
         }
     }
 
