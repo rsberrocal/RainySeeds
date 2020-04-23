@@ -113,7 +113,7 @@ class Connection : CoroutineScope {
         return try {
             this.BDD.collection("User-Plants")
                 .whereEqualTo("userId", user)
-                .whereGreaterThan("status", 0)
+                .whereGreaterThanOrEqualTo("status", 0)
                 .get()
                 .addOnSuccessListener { result ->
                     for (document in result) {
@@ -134,7 +134,7 @@ class Connection : CoroutineScope {
         return try {
             this.BDD.collection("User-Plants")
                 .whereEqualTo("userId", user)
-                .whereGreaterThan("status", 0)
+                .whereGreaterThanOrEqualTo("status", 0)
                 .get()
                 .addOnSuccessListener { result ->
                     for (document in result) {
@@ -155,7 +155,7 @@ class Connection : CoroutineScope {
         return try {
             this.BDD.collection("User-Plants")
                 .whereEqualTo("userId", user)
-                .whereLessThanOrEqualTo("status", 0)
+                .whereLessThan("status", 0)
                 .get()
                 .addOnSuccessListener { result ->
                     for (document in result) {
@@ -184,7 +184,7 @@ class Connection : CoroutineScope {
         return try {
             this.BDD.collection("User-Plants")
                 .whereEqualTo("userId", user)
-                .whereLessThanOrEqualTo("status", 0)
+                .whereLessThan("status", 0)
                 .get()
                 .addOnSuccessListener { result ->
                     for (document in result) {
