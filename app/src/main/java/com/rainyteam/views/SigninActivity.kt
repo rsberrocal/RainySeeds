@@ -99,7 +99,7 @@ class SigninActivity : AppCompatActivity() {
                                 mBDD!!.collection("Users").document(email).set(dataUsers)
                                 mBDD!!.collection("User-Plants").document("$email-Cactus").set(dataPlant)
                                 mBDD!!.collection("History").document(email).set(dataHistory)
-                                val btnSignin = Intent(this, UserInfoActivity::class.java)
+                                val btnSignin = Intent(this, SignIn2Activity::class.java)
                                 startActivity(btnSignin)
                                 finish()
                             } else {

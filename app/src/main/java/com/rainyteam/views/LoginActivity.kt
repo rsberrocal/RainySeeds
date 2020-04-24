@@ -150,7 +150,7 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
                             var auxUser: User = mainConnection!!.getUser(email)!!
                             //Si no tiene la informacion
                             if (!auxUser.hasInfo ) {
-                                val principal = Intent(applicationContext, UserInfoActivity::class.java)
+                                val principal = Intent(applicationContext, SignIn2Activity::class.java)
                                 startActivity(principal)
                                 finish()
                             } else {
@@ -230,7 +230,7 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
                     mBDD!!.collection("Users").document(email).set(dataUsers)
                     mBDD!!.collection("User-Plants").document("$email-Cactus").set(dataPlant)
                     mBDD!!.collection("History").document(email).set(dataHistory)
-                    val principal = Intent(this, UserInfoActivity::class.java)
+                    val principal = Intent(this, SignIn2Activity::class.java)
                     startActivity(principal)
                     finish()
                 } else {
@@ -238,7 +238,7 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
                         var auxUser: User = mainConnection!!.getUser(email)!!
                         //Si no tiene la informacion
                         if (!auxUser.hasInfo ) {
-                            val principal = Intent(applicationContext, UserInfoActivity::class.java)
+                            val principal = Intent(applicationContext, SignIn2Activity::class.java)
                             startActivity(principal)
                             finish()
                         } else {

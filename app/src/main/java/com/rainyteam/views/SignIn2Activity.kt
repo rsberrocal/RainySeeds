@@ -39,10 +39,10 @@ class SignIn2Activity : AppCompatActivity(), CoroutineScope {
                 actualUser!!.setHeight(inputHeight.text.toString().toFloat())
                 actualUser!!.setExercise(inputHoursExercise.text.toString().toInt())
                 actualUser!!.setSex(sexOption.checkedRadioButtonId.toString())
+                //hasInfo = true
             }
             val intent = Intent(this, GreenhouseActivity::class.java)
             startActivity(intent)
         }
-
     }
 }
