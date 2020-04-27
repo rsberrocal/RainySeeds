@@ -17,6 +17,7 @@ import com.rainyteam.model.Connection
 import com.rainyteam.model.User
 import com.rainyteam.model.UserPlants
 import com.rainyteam.services.MusicService
+import com.rainyteam.services.TimerService
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
 import kotlinx.android.synthetic.main.greenhouse_layout.*
 import kotlinx.coroutines.CoroutineScope
@@ -59,6 +60,8 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
         mBDD = mainConnection!!.mBDD()
 
         val musicService = Intent(this, MusicService::class.java)
+        val timerService = Intent(this, TimerService::class.java)
+        startService(timerService)
 
         val swMusic = findViewById<View>(R.id.swMusic) as Switch
         //val email = FirebaseAuth.getInstance().currentUser?.email.toString()
