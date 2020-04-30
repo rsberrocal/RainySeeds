@@ -16,22 +16,34 @@ import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
 class SignIn2Activity : AppCompatActivity(), CoroutineScope {
+
     var mainConnection: Connection? = null
+
     //shared
     val PREF_NAME = "USER"
     var prefs: SharedPreferences? = null
     var user: String? = ""
+
     private var job: Job = Job()
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
+
+    override fun onDestroy() {
+        super.onDestroy()
+        job.cancel()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.sign_in_2_layout)
+
         this.mainConnection = Connection()
+
         prefs = getSharedPreferences(PREF_NAME, 0)
         this.user = prefs!!.getString("USER_ID", "")
-        banner.setOnClickListener {
+
+        btnSignin.setOnClickListener {
             launch {
                 var actualUser: User? = mainConnection!!.getUser(user!!)
                 actualUser!!.setName(inputUsername.text.toString())
