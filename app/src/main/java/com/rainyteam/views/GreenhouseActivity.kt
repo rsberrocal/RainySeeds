@@ -64,7 +64,6 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
         startService(timerService)
 
         val swMusic = findViewById<View>(R.id.swMusic) as Switch
-        //val email = FirebaseAuth.getInstance().currentUser?.email.toString()
 
         prefs = getSharedPreferences(PREF_NAME, 0)
         this.user = prefs!!.getString("USER_ID", "")
@@ -86,6 +85,9 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
             }
         }
 
+        mPager = findViewById(R.id.pager)
+        val pagerAdapter = PlantSlidePagerAdapter(this)
+
         launch{
             var auxUser: User = mainConnection!!.getUser(user!!)!!
             if (auxUser.music) {
@@ -93,16 +95,16 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
             }
             textSeeds.text = auxUser.getRainyCoins().toString()
             mutableList = mainConnection?.getUserPlantsAlive(user!!)
-            //numPages = (mutableList!!.size + NUM_PLANTS_PAGE - 1) / NUM_PLANTS_PAGE // round up division
-            numPages = Math.ceil(mutableList!!.size.toDouble() / NUM_PLANTS_PAGE.toDouble()).toInt()
+            numPages = Math.ceil(mutableList!!.size.toDouble() / NUM_PLANTS_PAGE.toDouble()).toInt() // round up division
+
+            val dotsIndicator = findViewById<WormDotsIndicator>(R.id.dots_indicator)
+
+
+            mPager.adapter = pagerAdapter
+            dotsIndicator.setViewPager2(mPager)
+
         }
 
-        val dotsIndicator = findViewById<WormDotsIndicator>(R.id.dots_indicator)
-
-        mPager = findViewById(R.id.pager)
-        val pagerAdapter = PlantSlidePagerAdapter(this)
-        mPager.adapter = pagerAdapter
-        dotsIndicator.setViewPager2(mPager)
     }
 
     private inner class PlantSlidePagerAdapter(fm: FragmentActivity) : FragmentStateAdapter(fm) {
