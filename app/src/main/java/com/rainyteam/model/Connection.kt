@@ -1,8 +1,12 @@
 package com.rainyteam.model
 
+import android.util.Log
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.model.mutation.MutationBatch
 import kotlinx.coroutines.*
 import kotlinx.coroutines.tasks.await
 import java.lang.Exception
@@ -107,22 +111,135 @@ class Connection : CoroutineScope {
         }
     }
 
-    suspend fun getUserPlantsAlive(user: String): MutableList<UserPlants>? {
-        var plants: MutableList<UserPlants>? = mutableListOf()
-        var actualUserPlant: UserPlants? = null
-        return try {
+    suspend fun getUserPlantsDead(user: String): MutableList<Plants>? {
+        var resultPlants: MutableList<Plants>? = mutableListOf()
+        var actualUserPlant: UserPlants
+        try {
             this.BDD.collection("User-Plants")
                 .whereEqualTo("userId", user)
-                .whereGreaterThanOrEqualTo("status", 0)
+                .whereEqualTo("status", -1)
+                .orderBy("plant_id")
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        launch(coroutineContext) {
+                            actualUserPlant = document.toObject(UserPlants::class.java)
+                            var plant = async {
+                                getPlant(actualUserPlant.plantId)!!
+                            }.await()
+                            plant.setStatus(actualUserPlant.status)
+                            resultPlants!!.add(plant)
+                        }
+                        //this.getPlant()
+                    }
+                }.await() // job.cancel()
+            return resultPlants
+        } catch (e: Exception) {
+            println(e.message)
+            return null
+        }
+    }
+
+    suspend fun getUserPlantsWither(user: String): MutableList<Plants>? {
+        var resultPlants: MutableList<Plants>? = mutableListOf()
+        var actualUserPlant: UserPlants
+        try {
+            this.BDD.collection("User-Plants")
+                .whereEqualTo("userId", user)
+                .whereEqualTo("status", 0)
+                .orderBy("plant_id")
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        launch(coroutineContext) {
+                            actualUserPlant = document.toObject(UserPlants::class.java)
+                            var plant = async {
+                                getPlant(actualUserPlant.plantId)!!
+                            }.await()
+                            plant.setStatus(actualUserPlant.status)
+                            resultPlants!!.add(plant)
+                        }
+                        //this.getPlant()
+                    }
+                }.await() // job.cancel()
+            return resultPlants
+        } catch (e: Exception) {
+            println(e.message)
+            return null
+        }
+    }
+
+    suspend fun getAllPlants(user: String): MutableList<Plants>? {
+        var resultPlants: MutableList<UserPlants>? = mutableListOf()
+        var userPlants: MutableList<String>? = mutableListOf()
+        var boughtPlants: MutableList<Plants>? = mutableListOf()
+        var buyPlants: MutableList<Plants>? = mutableListOf()
+        try {
+            launch(coroutineContext) {
+                userPlants = async { getUserPlantsId(user) }.await()
+            }
+            this.BDD.collection("Plants")
+                .get()
+                .addOnSuccessListener { result ->
+                    for(document in result){
+                        val actualPlant = document.toObject(Plants::class.java)!!
+                        if (userPlants!!.contains(document.id)){
+                            boughtPlants!!.add(actualPlant)
+                        }else{
+                            buyPlants!!.add(actualPlant)
+                        }
+                    }
+                }.await()
+            return buyPlants?.let { boughtPlants!!.plus(it).toMutableList() }
+        } catch (e: Exception) {
+            Log.d("CONNECTION", e.message)
+            return null
+        }
+    }
+
+    suspend fun getUserPlantsId(user: String): MutableList<String>? {
+        var resultPlants: MutableList<String>? = mutableListOf()
+        var actualUserPlant: UserPlants
+        try {
+            this.BDD.collection("User-Plants")
+                .whereEqualTo("userId", user)
                 .get()
                 .addOnSuccessListener { result ->
                     for (document in result) {
                         actualUserPlant = document.toObject(UserPlants::class.java)
-                        plants!!.add(actualUserPlant!!);
+                        resultPlants!!.add(actualUserPlant.plantId)
                     }
-                }.await()
-            // job.cancel()
-            return plants
+                }.await() // job.cancel()
+            return resultPlants
+        } catch (e: Exception) {
+            println(e.message)
+            return null
+        }
+    }
+
+    suspend fun getUserPlantsAlive(user: String): MutableList<Plants>? {
+        var resultPlants: MutableList<Plants>? = mutableListOf()
+        var actualUserPlant: UserPlants
+        try {
+            this.BDD.collection("User-Plants")
+                .whereEqualTo("userId", user)
+                .whereGreaterThan("status", 0)
+                .orderBy("plant_id")
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        launch(coroutineContext) {
+                            actualUserPlant = document.toObject(UserPlants::class.java)
+                            var plant = async {
+                                getPlant(actualUserPlant.plantId)!!
+                            }.await()
+                            plant.setStatus(actualUserPlant.status)
+                            resultPlants!!.add(plant)
+                        }
+                        //this.getPlant()
+                    }
+                }.await() // job.cancel()
+            return resultPlants
         } catch (e: Exception) {
             println(e.message)
             return null
