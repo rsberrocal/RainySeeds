@@ -6,11 +6,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import com.rainyteam.controller.R
 import com.rainyteam.model.Connection
 import com.rainyteam.model.Plants
-import com.rainyteam.model.UserPlants
 import kotlinx.android.synthetic.main.fragment_plants_page.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -29,7 +27,7 @@ class FragmentPageGreenhouse(
     var prefs: SharedPreferences? = null
     var user: String? = ""
 
-    private var mutableList: MutableList<UserPlants>? = null
+    private var mutableList: MutableList<Plants>? = null
     val pos: Int = position;
 
     private var job: Job = Job()
@@ -58,7 +56,7 @@ class FragmentPageGreenhouse(
                 mainConnection!!.getUserPlantsAlive(it)
             }
             if (mutableList!!.size > pos * 9) {
-                val auxPlant1: Plants? = mainConnection!!.getPlant(mutableList!![pos * 9].plantId)
+                val auxPlant1: Plants? = mainConnection!!.getPlant(mutableList!![pos * 9].getScientificName())
                 val drawableName1: String? = auxPlant1!!.getPotImagePlant()
                 val resID1: Int =
                     resources.getIdentifier(drawableName1, "drawable", context?.packageName)
@@ -71,7 +69,7 @@ class FragmentPageGreenhouse(
             }
             if (mutableList!!.size > pos * 9 + 1) {
                 val auxPlant2: Plants? =
-                    mainConnection!!.getPlant(mutableList!![(pos * 9) + 1].plantId)
+                    mainConnection!!.getPlant(mutableList!![(pos * 9) + 1].getScientificName())
                 val drawableName2: String? = auxPlant2!!.getPotImagePlant()
                 val resID2: Int =
                     resources.getIdentifier(drawableName2, "drawable", context?.packageName)
@@ -84,7 +82,7 @@ class FragmentPageGreenhouse(
             }
             if (mutableList!!.size > pos * 9 + 2) {
                 val auxPlant3: Plants? =
-                    mainConnection!!.getPlant(mutableList!![(pos * 9) + 2].plantId)
+                    mainConnection!!.getPlant(mutableList!![(pos * 9) + 2].getScientificName())
                 val drawableName3: String? = auxPlant3!!.getPotImagePlant()
                 val resID3: Int =
                     resources.getIdentifier(drawableName3, "drawable", context?.packageName)
@@ -97,7 +95,7 @@ class FragmentPageGreenhouse(
             }
             if (mutableList!!.size > pos * 9 + 3) {
                 val auxPlant4: Plants? =
-                    mainConnection!!.getPlant(mutableList!![(pos * 9) + 3].plantId)
+                    mainConnection!!.getPlant(mutableList!![(pos * 9) + 3].getScientificName())
                 val drawableName4: String? = auxPlant4!!.getPotImagePlant()
                 val resID4: Int =
                     resources.getIdentifier(drawableName4, "drawable", context?.packageName)
@@ -110,7 +108,7 @@ class FragmentPageGreenhouse(
             }
             if (mutableList!!.size > pos * 9 + 4) {
                 val auxPlant5: Plants? =
-                    mainConnection!!.getPlant(mutableList!![(pos * 9) + 4].plantId)
+                    mainConnection!!.getPlant(mutableList!![(pos * 9) + 4].getScientificName())
                 val drawableName5: String? = auxPlant5!!.getPotImagePlant()
                 val resID5: Int =
                     resources.getIdentifier(drawableName5, "drawable", context?.packageName)
@@ -123,7 +121,7 @@ class FragmentPageGreenhouse(
             }
             if (mutableList!!.size > pos * 9 + 5) {
                 val auxPlant6: Plants? =
-                    mainConnection!!.getPlant(mutableList!![(pos * 9) + 5].plantId)
+                    mainConnection!!.getPlant(mutableList!![(pos * 9) + 5].getScientificName())
                 val drawableName6: String? = auxPlant6!!.getPotImagePlant()
                 val resID6: Int =
                     resources.getIdentifier(drawableName6, "drawable", context?.packageName)
@@ -136,7 +134,7 @@ class FragmentPageGreenhouse(
             }
             if (mutableList!!.size > pos * 9 + 6) {
                 val auxPlant7: Plants? =
-                    mainConnection!!.getPlant(mutableList!![(pos * 9) + 6].plantId)
+                    mainConnection!!.getPlant(mutableList!![(pos * 9) + 6].getScientificName())
                 val drawableName7: String? = auxPlant7!!.getPotImagePlant()
                 val resID7: Int =
                     resources.getIdentifier(drawableName7, "drawable", context?.packageName)
@@ -150,7 +148,7 @@ class FragmentPageGreenhouse(
 
             if (mutableList!!.size > pos * 9 + 7) {
                 val auxPlant8: Plants? =
-                    mainConnection!!.getPlant(mutableList!![(pos * 9) + 7].plantId)
+                    mainConnection!!.getPlant(mutableList!![(pos * 9) + 7].getScientificName())
                 val drawableName8: String? = auxPlant8!!.getPotImagePlant()
                 val resID8: Int =
                     resources.getIdentifier(drawableName8, "drawable", context?.packageName)
@@ -163,7 +161,7 @@ class FragmentPageGreenhouse(
             }
             if (mutableList!!.size > pos * 9 + 8) {
                 val auxPlant9: Plants? =
-                    mainConnection!!.getPlant(mutableList!![(pos * 9) + 8].plantId)
+                    mainConnection!!.getPlant(mutableList!![(pos * 9) + 8].getScientificName())
                 val drawableName9: String? = auxPlant9!!.getPotImagePlant()
                 val resID9: Int =
                     resources.getIdentifier(drawableName9, "drawable", context?.packageName)
