@@ -20,6 +20,11 @@
             android:name="com.rainyteam.services.MusicService"
             android:enabled="true"
             android:exported="true" />
+        <!-- Timer Service Declaration -->
+        <service
+            android:name="com.rainyteam.services.TimerService"
+            android:enabled="true"
+            android:exported="true" />
 
         <activity android:name="com.rainyteam.views.IntroduceWaterActivity" />
         <activity android:name="com.rainyteam.views.SigninActivity" />

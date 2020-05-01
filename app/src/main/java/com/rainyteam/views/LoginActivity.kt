@@ -89,7 +89,7 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
         })
 
         signup.setOnClickListener(View.OnClickListener {
-            val signin = Intent(this, SigninActivity::class.java)
+            val signin = Intent(this, SignIn2Activity::class.java)
             startActivity(signin)
         })
 
