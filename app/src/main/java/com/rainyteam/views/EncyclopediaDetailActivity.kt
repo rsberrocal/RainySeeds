@@ -2,14 +2,12 @@ package com.rainyteam.views
 
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.res.Resources
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.rainyteam.controller.R
 import com.rainyteam.model.Connection
-import com.rainyteam.model.User
 import kotlinx.android.synthetic.main.encyclopedia_detail_layout.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

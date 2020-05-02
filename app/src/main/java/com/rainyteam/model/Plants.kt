@@ -8,7 +8,7 @@ class Plants {
     private var precautions: String? = null
     private var money: Int? = null
     private val moneyMultiplier: Int? = 1
-    private var status: Int? = null
+    private var status: Int = -2
     private var imagePlant: String? = null
 
     constructor() {
@@ -76,6 +76,26 @@ class Plants {
 
     fun setName(name: String) {
         this.name = name
+    }
+
+    fun setStatus(status: Int) {
+        this.status = status;
+    }
+
+    fun isAlive(): Boolean {
+        return this.status > 0
+    }
+
+    fun isWither(): Boolean{
+        return this.status == 0
+    }
+
+    fun isDead(): Boolean{
+        return this.status == -1
+    }
+
+    fun isBought(): Boolean{
+        return this.status == -2
     }
 
 }

@@ -14,8 +14,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.rainyteam.controller.R
 import com.rainyteam.model.Connection
+import com.rainyteam.model.Plants
 import com.rainyteam.model.User
-import com.rainyteam.model.UserPlants
 import com.rainyteam.services.MusicService
 import com.rainyteam.services.TimerService
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
@@ -34,7 +34,7 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
     var mainConnection: Connection? = null
     private lateinit var mPager: ViewPager2
     private var numPages: Int = 1
-    private var mutableList: MutableList<UserPlants>? = null
+    private var mutableList: MutableList<Plants>? = null
     var mBDD: FirebaseFirestore? = null
 
     //shared
@@ -98,7 +98,6 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
             numPages = Math.ceil(mutableList!!.size.toDouble() / NUM_PLANTS_PAGE.toDouble()).toInt() // round up division
 
             val dotsIndicator = findViewById<WormDotsIndicator>(R.id.dots_indicator)
-
 
             mPager.adapter = pagerAdapter
             dotsIndicator.setViewPager2(mPager)
