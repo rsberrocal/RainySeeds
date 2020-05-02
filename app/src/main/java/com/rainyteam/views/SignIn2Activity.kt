@@ -52,6 +52,9 @@ class SignIn2Activity : AppCompatActivity(), CoroutineScope {
                 actualUser!!.setExercise(inputHoursExercise.text.toString().toInt())
                 actualUser!!.setSex(sexOption.checkedRadioButtonId.toString())
                 //hasInfo = true
+                //age
+                //maxWater
+                //plantlist????
             }
             val intent = Intent(this, GreenhouseActivity::class.java)
             startActivity(intent)

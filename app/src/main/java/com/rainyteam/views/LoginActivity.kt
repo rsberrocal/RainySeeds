@@ -230,7 +230,7 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
                     mBDD!!.collection("Users").document(email).set(dataUsers)
                     mBDD!!.collection("User-Plants").document("$email-Cactus").set(dataPlant)
                     mBDD!!.collection("History").document(email).set(dataHistory)
-                    val principal = Intent(this, SigninActivity::class.java)
+                    val principal = Intent(this, SignIn2Activity::class.java)
                     startActivity(principal)
                     finish()
                 } else {
