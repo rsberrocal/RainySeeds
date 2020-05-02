@@ -242,7 +242,7 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
                             startActivity(principal)
                             finish()
                         } else {
-                            val principal = Intent(applicationContext, GreenhouseActivity::class.java)
+                            val principal = Intent(applicationContext, MainWaterActivity::class.java)
                             startActivity(principal)
                             finish()
                         }
