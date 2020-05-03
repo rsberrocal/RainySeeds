@@ -3,6 +3,7 @@ package com.rainyteam.views
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Switch
 import android.widget.TextView
@@ -11,19 +12,20 @@ import androidx.fragment.app.*
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.rainyteam.controller.R
 import com.rainyteam.model.Connection
 import com.rainyteam.model.Plants
 import com.rainyteam.model.User
+import com.rainyteam.model.UserPlants
 import com.rainyteam.services.MusicService
 import com.rainyteam.services.TimerService
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
 import kotlinx.android.synthetic.main.greenhouse_layout.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
+import kotlinx.coroutines.tasks.await
+import java.lang.Exception
 import kotlin.coroutines.CoroutineContext
 
 
@@ -88,22 +90,77 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
         mPager = findViewById(R.id.pager)
         val pagerAdapter = PlantSlidePagerAdapter(this)
 
-        launch{
-            var auxUser: User = mainConnection!!.getUser(user!!)!!
-            if (auxUser.music) {
-                swMusic.isChecked = true
-            }
-            textSeeds.text = auxUser.getRainyCoins().toString()
-            mutableList = mainConnection?.getUserPlantsAlive(user!!)
-            numPages = Math.ceil(mutableList!!.size.toDouble() / NUM_PLANTS_PAGE.toDouble()).toInt() // round up division
+        launch(coroutineContext) {
+            try {
+                var auxUser: User = mainConnection!!.getUser(user!!)!!
+                if (auxUser.music) {
+                    swMusic.isChecked = true
+                }
+                textSeeds.text = auxUser.getRainyCoins().toString()
 
+                var auxList: MutableList<UserPlants> = mutableListOf()
+                auxList = getPlantsAlive()!!
+                mutableList = mutableListOf()
+                var plant: Plants? = null
+                for (userPlant in auxList) {
+                    plant = getPlant(userPlant.plantId)
+                    mutableList!!.add(plant!!)
+                }
+            } catch (e: Exception) {
+                Log.d("Connection", e.message!!)
+            }
+
+            numPages = Math.ceil(mutableList!!.size.toDouble() / NUM_PLANTS_PAGE.toDouble())
+                .toInt() // round up division
             val dotsIndicator = findViewById<WormDotsIndicator>(R.id.dots_indicator)
 
             mPager.adapter = pagerAdapter
             dotsIndicator.setViewPager2(mPager)
-
         }
 
+    }
+
+    suspend fun getPlantsAlive(): MutableList<UserPlants>? {
+        var resultPlants: MutableList<UserPlants>? = mutableListOf()
+        try {
+            mBDD!!.collection("User-Plants")
+                .whereEqualTo("userId", user)
+                .whereGreaterThan("status", 0)
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        var userPlant = document.toObject(UserPlants::class.java)
+                        resultPlants!!.add(userPlant)
+                    }
+                }.await()
+            return resultPlants
+        } catch (e: Exception) {
+            Log.d("Connection", e.message!!)
+            return null
+        }
+    }
+
+    suspend fun getPlant(plant: String): Plants? {
+        var actualPlant: Plants? = null
+        return try {
+            mBDD!!.collection("Plants")
+                .document(plant)
+                .get()
+                .addOnSuccessListener { document ->
+                    actualPlant = document.toObject(Plants::class.java)
+                    actualPlant!!.setName(document.id)
+                    actualPlant!!.setImageName(
+                        "plant_" + actualPlant!!.getScientificName().toLowerCase().replace(
+                            " ",
+                            "_"
+                        )
+                    )
+                }.await()
+            return actualPlant
+        } catch (e: Exception) {
+            Log.d("Connection", e.message!!)
+            return null
+        }
     }
 
     private inner class PlantSlidePagerAdapter(fm: FragmentActivity) : FragmentStateAdapter(fm) {

@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.FirebaseFirestore
 import com.rainyteam.controller.R
 import com.rainyteam.model.Connection
 import com.rainyteam.model.Plants
@@ -15,12 +16,16 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import kotlin.coroutines.CoroutineContext
 
 
 class EncyclopediaActivity : AppCompatActivity(), CoroutineScope {
 
     var mainConnection: Connection? = null
+
+    /** DATABASE **/
+    val database = FirebaseFirestore.getInstance()
 
     private var recyclerView: RecyclerView? = null
     private var gridLayoutManager: GridLayoutManager? = null
@@ -30,6 +35,7 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope {
     // Store a member variable for the listener
 
     //shared
+    val PREF_ID = "USER"
     val PREF_NAME = "USER_ID"
     var prefs: SharedPreferences? = null
     var user: String? = ""
@@ -50,8 +56,8 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope {
 
         this.mainConnection = Connection()
 
-        prefs = getSharedPreferences(PREF_NAME, 0)
-        this.user = prefs!!.getString("USER_ID", "")
+        prefs = getSharedPreferences(PREF_ID, 0)
+        this.user = prefs!!.getString(PREF_NAME, "")
 
         recyclerView = findViewById(R.id.recyclerViewPlants)
         gridLayoutManager =
@@ -71,7 +77,28 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope {
         recyclerView!!.addOnScrollListener(scrollListener!!)
         recyclerView?.setHasFixedSize(true)
         launch {
-            mutableList = mainConnection?.getAllPlants(null)
+            /** GET ALL PLANTS FROM DATABASE, FIRST WE GET USER PLANTS AND LATER THE OTHER PLANTS **/
+            mutableList = mutableListOf()
+            var auxList = mainConnection!!.getUserPlantsId(user!!)
+            var boughtPlants: MutableList<Plants>? = mutableListOf()
+            var buyPlants: MutableList<Plants>? = mutableListOf()
+
+            database.collection("Plants")
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        val actualPlant = document.toObject(Plants::class.java)
+                        actualPlant.setName(document.id)
+                        if (auxList!!.contains(document.id)) {
+                            boughtPlants!!.add(actualPlant)
+                        } else {
+                            buyPlants!!.add(actualPlant)
+                        }
+                    }
+                    buyPlants?.let { boughtPlants!!.plus(it).toMutableList() }
+                }.await()
+            mutableList = buyPlants
+            //mutableList = mainConnection?.getAllPlants(null)
             recyclerViewAdapter = RecyclerViewAdapter(applicationContext, mutableList!!)
             recyclerView?.adapter = recyclerViewAdapter
         }
@@ -107,6 +134,10 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope {
                 recyclerView?.adapter = recyclerViewAdapter
             }
         }
+
+    }
+
+    suspend fun getAllPlants() {
 
     }
 }

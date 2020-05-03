@@ -181,11 +181,11 @@ class Connection : CoroutineScope {
             this.BDD.collection("Plants")
                 .get()
                 .addOnSuccessListener { result ->
-                    for(document in result){
+                    for (document in result) {
                         val actualPlant = document.toObject(Plants::class.java)!!
-                        if (userPlants!!.contains(document.id)){
+                        if (userPlants!!.contains(document.id)) {
                             boughtPlants!!.add(actualPlant)
-                        }else{
+                        } else {
                             buyPlants!!.add(actualPlant)
                         }
                     }
@@ -224,13 +224,13 @@ class Connection : CoroutineScope {
             this.BDD.collection("User-Plants")
                 .whereEqualTo("userId", user)
                 .whereGreaterThan("status", 0)
-                .orderBy("plant_id")
+                //.orderBy("plant_id")
                 .get()
                 .addOnSuccessListener { result ->
                     for (document in result) {
                         launch(coroutineContext) {
                             actualUserPlant = document.toObject(UserPlants::class.java)
-                            var plant = async {
+                            var plant = async(coroutineContext) {
                                 getPlant(actualUserPlant.plantId)!!
                             }.await()
                             plant.setStatus(actualUserPlant.status)
@@ -238,7 +238,7 @@ class Connection : CoroutineScope {
                         }
                         //this.getPlant()
                     }
-                }.await() // job.cancel()
+                }.await()// job.cancel()
             return resultPlants
         } catch (e: Exception) {
             println(e.message)
