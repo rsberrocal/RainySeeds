@@ -84,6 +84,7 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope {
         val btnFilterToBuy = findViewById(R.id.filterToBuy) as RadioButton
 
         btnFilterAll.isChecked = true
+        allPlants()
 
         btnFilterAll.setOnClickListener {
             allPlants()
@@ -109,11 +110,11 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope {
 
     }
 
-    fun boughtPlants(){
+    fun boughtPlants() {
 
     }
 
-    fun allPlants(){
+    fun allPlants() {
         launch {
             /** GET ALL PLANTS FROM DATABASE, FIRST WE GET USER PLANTS AND LATER THE OTHER PLANTS **/
             mutableList = mutableListOf()
@@ -127,13 +128,25 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope {
                     for (document in result) {
                         val actualPlant = document.toObject(Plants::class.java)
                         actualPlant.setName(document.id)
-                        actualPlant!!.setImageName(
-                            "plant_" + actualPlant!!.getScientificName().toLowerCase().replace(
-                                " ",
-                                "_"
+                        if (actualPlant.getStatus() == -2) {
+                            actualPlant!!.setImageName(
+                                "baw_" + actualPlant!!.getScientificName().toLowerCase().replace(
+                                    " ",
+                                    "_"
+                                )
                             )
-                        )
-                        val userPlant:UserPlants? = auxList!!.firstOrNull { it.plantId==document.id }
+                        }
+                        else {
+                            actualPlant!!.setImageName(
+                                "plant_" + actualPlant!!.getScientificName().toLowerCase().replace(
+                                    " ",
+                                    "_"
+                                )
+                            )
+                        }
+
+                        val userPlant: UserPlants? =
+                            auxList!!.firstOrNull { it.plantId == document.id }
                         if (userPlant != null) {
                             actualPlant.setStatus(userPlant.status)
                             boughtPlants!!.add(actualPlant)
