@@ -128,30 +128,25 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope {
                     for (document in result) {
                         val actualPlant = document.toObject(Plants::class.java)
                         actualPlant.setName(document.id)
-                        if (actualPlant.getStatus() == -2) {
-                            actualPlant!!.setImageName(
-                                "baw_" + actualPlant!!.getScientificName().toLowerCase().replace(
-                                    " ",
-                                    "_"
-                                )
-                            )
-                        }
-                        else {
-                            actualPlant!!.setImageName(
+                        val userPlant: UserPlants? =
+                            auxList!!.firstOrNull { it.plantId == document.id }
+                        if (userPlant != null) {
+                            actualPlant.setStatus(userPlant.status)
+                            actualPlant.setImageName(
                                 "plant_" + actualPlant!!.getScientificName().toLowerCase().replace(
                                     " ",
                                     "_"
                                 )
                             )
-                        }
-
-                        val userPlant: UserPlants? =
-                            auxList!!.firstOrNull { it.plantId == document.id }
-                        if (userPlant != null) {
-                            actualPlant.setStatus(userPlant.status)
                             boughtPlants!!.add(actualPlant)
                         } else {
                             actualPlant.setStatus(-2)
+                            actualPlant.setImageName(
+                                "baw_" + actualPlant!!.getScientificName().toLowerCase().replace(
+                                    " ",
+                                    "_"
+                                )
+                            )
                             buyPlants!!.add(actualPlant)
                         }
                     }
