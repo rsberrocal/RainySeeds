@@ -102,22 +102,54 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope {
     fun buyPlants() {
         launch {
             mutableList = mutableListOf()
-            var auxList = mainConnection!!.getUserPlantsId(user!!)
+            /** GETTING ALIVE AND WITHER PLANTS TO EXCLUDE **/
+            var excludeList = mutableListOf<UserPlants>()
+            database.collection("User-Plants")
+                .whereGreaterThan("status", 0)
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        excludeList.add(document.toObject(UserPlants::class.java))
+                    }
+                }.await()
+
+            var deadList = mutableListOf<UserPlants>()
+            database.collection("User-Plants")
+                .whereEqualTo("status", -1)
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        deadList.add(document.toObject(UserPlants::class.java))
+                    }
+                }.await()
+
+
             database.collection("Plants")
                 .get()
                 .addOnSuccessListener { result ->
                     for (document in result) {
                         val actualPlant = document.toObject(Plants::class.java)
-                        val userPlant = auxList!!.firstOrNull { it.plantId == document.id }
-                        if (userPlant == null) {
-                            actualPlant.setName(document.id)
-                            actualPlant.setImageName(
-                                "plant_" + actualPlant.getScientificName().toLowerCase().replace(
-                                    " ",
-                                    "_"
+                        actualPlant.setName(document.id)
+                        val isExclude = excludeList!!.firstOrNull { it.plantId == document.id }
+                        if (isExclude == null) { //If is not alive or wither check first if is dead
+                            val deadPlant = deadList.firstOrNull { it.plantId == document.id }
+                            if (deadPlant != null) {
+                                actualPlant.setImageName(
+                                    "plant_" + actualPlant.getScientificName().toLowerCase().replace(
+                                        " ",
+                                        "_"
+                                    )
                                 )
-                            )
-                            actualPlant.setStatus(-2)
+                                actualPlant.setStatus(deadPlant.status)
+                            } else {
+                                actualPlant.setImageName(
+                                    "baw_" + actualPlant.getScientificName().toLowerCase().replace(
+                                        " ",
+                                        "_"
+                                    )
+                                )
+                                actualPlant.setStatus(-2)
+                            }
                             mutableList!!.add(actualPlant)
                         }
                     }
@@ -130,7 +162,15 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope {
     fun boughtPlants() {
         launch {
             mutableList = mutableListOf()
-            val auxList = mainConnection!!.getUserPlantsId(user!!)
+            val auxList = mutableListOf<UserPlants>()
+            database.collection("User-Plants")
+                .whereGreaterThan("status", 0)
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        auxList.add(document.toObject(UserPlants::class.java))
+                    }
+                }.await()
             database.collection("Plants")
                 .get()
                 .addOnSuccessListener { result ->

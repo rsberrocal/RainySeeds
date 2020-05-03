@@ -266,9 +266,8 @@ class Connection : CoroutineScope {
         }
     }
 
-    suspend fun getDeadPlants(user: String): MutableList<Plants>? {
-        var plants: MutableList<Plants>? = mutableListOf()
-        var actualPlant: Plants? = null
+    suspend fun getDeadPlants(user: String): MutableList<UserPlants>? {
+        var plants: MutableList<UserPlants>? = mutableListOf()
         return try {
             this.BDD.collection("User-Plants")
                 .whereEqualTo("userId", user)
@@ -276,15 +275,8 @@ class Connection : CoroutineScope {
                 .get()
                 .addOnSuccessListener { result ->
                     for (document in result) {
-                        actualPlant = document.toObject(Plants::class.java)
-                        actualPlant!!.setName(document.id)
-                        actualPlant!!.setImageName(
-                            "dead_" + actualPlant!!.getScientificName().toLowerCase().replace(
-                                " ",
-                                "_"
-                            )
-                        )
-                        plants!!.add(actualPlant!!)
+                        var actualPlant = document.toObject(UserPlants::class.java)
+                        plants!!.add(actualPlant)
                     }
                 }
                 .await()
