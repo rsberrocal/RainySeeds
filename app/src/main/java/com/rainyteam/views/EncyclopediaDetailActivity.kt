@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.rainyteam.controller.R
 import com.rainyteam.model.Connection
@@ -72,8 +73,13 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
         launch{
             var actualUser = mainConnection!!.getUser(userName!!)
             var actualPlant = mainConnection!!.getPlant(plantName)
-            actualUser?.setRainyCoins(actualUser.getRainyCoins() - actualPlant?.getMoney()!!)
-            mainConnection!!.buyPlantToUser(actualUser!!, actualPlant!!)
+            if(actualUser!!.getRainyCoins()<actualPlant?.getMoney()!!){
+                Toast.makeText(applicationContext, "You don't have enough money!", Toast.LENGTH_LONG).show()
+            }
+            else {
+                actualUser?.setRainyCoins(actualUser.getRainyCoins() - actualPlant?.getMoney()!!)
+                mainConnection!!.buyPlantToUser(actualUser!!, actualPlant!!)
+            }
         }
 
     }
