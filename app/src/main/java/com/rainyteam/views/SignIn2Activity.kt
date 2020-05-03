@@ -39,7 +39,7 @@ class SignIn2Activity : AppCompatActivity(), CoroutineScope {
     var prefs: SharedPreferences? = null
     var user: String? = null
     var format = SimpleDateFormat("dd MMM, YYY", Locale.US)
-    var age: Long = 0
+    var age: Long = 50
     private var job: Job = Job()
 
     override val coroutineContext: CoroutineContext
@@ -60,7 +60,7 @@ class SignIn2Activity : AppCompatActivity(), CoroutineScope {
         prefs = getSharedPreferences(PREF_NAME, 0)
         this.user = prefs!!.getString("USER_ID", "")
         inputBirthDate.setOnClickListener {
-            age = showDatePickerDialog();
+            showDatePickerDialog();
         }
         btnSignin.setOnClickListener {
             launch {
@@ -91,7 +91,7 @@ class SignIn2Activity : AppCompatActivity(), CoroutineScope {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun showDatePickerDialog(): Long {
+    private fun showDatePickerDialog() {
         val selectedDate = Calendar.getInstance()
         val now = Calendar.getInstance()
         val datePicker = DatePickerDialog(
@@ -101,17 +101,13 @@ class SignIn2Activity : AppCompatActivity(), CoroutineScope {
                 selectedDate.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                 val selectedDateFormatted = format.format(selectedDate.time)
                 inputBirthDate!!.setText(selectedDateFormatted)
+                var actualTime = System.currentTimeMillis()/1000
+                var milisSelectedDate = selectedDate.timeInMillis/1000;
+                age = (actualTime-milisSelectedDate)/(3600*24*365)
             },
             now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH)
         )
         datePicker.show()
-        val currentDate = LocalDateTime.now()
-        selectedDate.toInstant()
-
-        //return ChronoUnit.YEARS.between(selectedDate.toInstant(), currentDate)
-
-
-        return 4;
     }
 }
 
