@@ -98,14 +98,7 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
                 }
                 textSeeds.text = auxUser.getRainyCoins().toString()
 
-                var auxList: MutableList<UserPlants> = mutableListOf()
-                auxList = getPlantsAlive()!!
-                mutableList = mutableListOf()
-                var plant: Plants? = null
-                for (userPlant in auxList) {
-                    plant = getPlant(userPlant.plantId)
-                    mutableList!!.add(plant!!)
-                }
+                boughtPlants()
             } catch (e: Exception) {
                 Log.d("Connection", e.message!!)
             }
@@ -119,6 +112,41 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
         }
 
     }
+
+    fun boughtPlants() {
+        launch {
+            mutableList = mutableListOf()
+            val auxList = mutableListOf<UserPlants>()
+            mBDD!!.collection("User-Plants")
+                .whereGreaterThan("status", 0)
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        auxList.add(document.toObject(UserPlants::class.java))
+                    }
+                }.await()
+            mBDD!!.collection("Plants")
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        val actualPlant = document.toObject(Plants::class.java)
+                        val userPlant = auxList!!.firstOrNull { it.plantId == document.id }
+                        if (userPlant != null) {
+                            actualPlant.setName(document.id)
+                            actualPlant.setImageName(
+                                "plant_" + actualPlant.getScientificName().toLowerCase().replace(
+                                    " ",
+                                    "_"
+                                )
+                            )
+                            actualPlant.setStatus(userPlant.status)
+                            mutableList!!.add(actualPlant)
+                        }
+                    }
+                }.await()
+        }
+    }
+
 
     suspend fun getPlantsAlive(): MutableList<UserPlants>? {
         var resultPlants: MutableList<UserPlants>? = mutableListOf()
