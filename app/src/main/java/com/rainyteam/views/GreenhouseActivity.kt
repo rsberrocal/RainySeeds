@@ -88,27 +88,20 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
         }
 
         mPager = findViewById(R.id.pager)
-        val pagerAdapter = PlantSlidePagerAdapter(this)
+        try {
 
-        launch(coroutineContext) {
-            try {
-                var auxUser: User = mainConnection!!.getUser(user!!)!!
-                if (auxUser.music) {
-                    swMusic.isChecked = true
-                }
-                textSeeds.text = auxUser.getRainyCoins().toString()
+            boughtPlants()
 
-                boughtPlants()
-            } catch (e: Exception) {
-                Log.d("Connection", e.message!!)
+        } catch (e: Exception) {
+            Log.d("Connection", e.message!!)
+        }
+
+        launch {
+            var auxUser: User = mainConnection!!.getUser(user!!)!!
+            if (auxUser.music) {
+                swMusic.isChecked = true
             }
-
-            numPages = Math.ceil(mutableList!!.size.toDouble() / NUM_PLANTS_PAGE.toDouble())
-                .toInt() // round up division
-            val dotsIndicator = findViewById<WormDotsIndicator>(R.id.dots_indicator)
-
-            mPager.adapter = pagerAdapter
-            dotsIndicator.setViewPager2(mPager)
+            textSeeds.text = auxUser.getRainyCoins().toString()
         }
 
     }
@@ -144,50 +137,15 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
                         }
                     }
                 }.await()
-        }
-    }
 
+            val pagerAdapter = PlantSlidePagerAdapter(this@GreenhouseActivity)
 
-    suspend fun getPlantsAlive(): MutableList<UserPlants>? {
-        var resultPlants: MutableList<UserPlants>? = mutableListOf()
-        try {
-            mBDD!!.collection("User-Plants")
-                .whereEqualTo("userId", user)
-                .whereGreaterThan("status", 0)
-                .get()
-                .addOnSuccessListener { result ->
-                    for (document in result) {
-                        var userPlant = document.toObject(UserPlants::class.java)
-                        resultPlants!!.add(userPlant)
-                    }
-                }.await()
-            return resultPlants
-        } catch (e: Exception) {
-            Log.d("Connection", e.message!!)
-            return null
-        }
-    }
+            numPages = Math.ceil(mutableList!!.size.toDouble() / NUM_PLANTS_PAGE.toDouble())
+                .toInt() // round up division
+            val dotsIndicator = findViewById<WormDotsIndicator>(R.id.dots_indicator)
 
-    suspend fun getPlant(plant: String): Plants? {
-        var actualPlant: Plants? = null
-        return try {
-            mBDD!!.collection("Plants")
-                .document(plant)
-                .get()
-                .addOnSuccessListener { document ->
-                    actualPlant = document.toObject(Plants::class.java)
-                    actualPlant!!.setName(document.id)
-                    actualPlant!!.setImageName(
-                        "plant_" + actualPlant!!.getScientificName().toLowerCase().replace(
-                            " ",
-                            "_"
-                        )
-                    )
-                }.await()
-            return actualPlant
-        } catch (e: Exception) {
-            Log.d("Connection", e.message!!)
-            return null
+            mPager.adapter = pagerAdapter
+            dotsIndicator.setViewPager2(mPager)
         }
     }
 
