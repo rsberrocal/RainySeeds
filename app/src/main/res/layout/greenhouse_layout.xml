@@ -54,9 +54,9 @@
 
         </Switch>
 
-        <FrameLayout
+        <LinearLayout
             android:id="@+id/layoutSeeds"
-            android:layout_width="70dp"
+            android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_gravity="top|end"
             android:layout_marginHorizontal="20dp"
@@ -75,15 +75,15 @@
 
             <TextView
                 android:id="@+id/textGoldenSeeds"
-                android:layout_width="35dp"
-                android:layout_height="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="right|center"
                 android:layout_marginRight="5dp"
                 android:text="12"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="15dp" />
-        </FrameLayout>
+        </LinearLayout>
 
     </FrameLayout>
 
