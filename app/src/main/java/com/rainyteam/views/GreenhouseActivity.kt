@@ -88,14 +88,7 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
         }
 
         mPager = findViewById(R.id.pager)
-        try {
-
-            boughtPlants()
-
-        } catch (e: Exception) {
-            Log.d("Connection", e.message!!)
-        }
-
+        boughtPlants()
         launch {
             var auxUser: User = mainConnection!!.getUser(user!!)!!
             if (auxUser.music) {

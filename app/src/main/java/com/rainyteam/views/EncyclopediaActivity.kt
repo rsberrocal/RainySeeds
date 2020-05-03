@@ -105,7 +105,7 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope {
             /** GETTING ALIVE AND WITHER PLANTS TO EXCLUDE **/
             var excludeList = mutableListOf<UserPlants>()
             database.collection("User-Plants")
-                .whereGreaterThan("status", 0)
+                .whereGreaterThanOrEqualTo("status", 0)
                 .get()
                 .addOnSuccessListener { result ->
                     for (document in result) {
