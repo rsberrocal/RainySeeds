@@ -132,26 +132,22 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope {
                             auxList!!.firstOrNull { it.plantId == document.id }
                         if (userPlant != null) {
                             actualPlant.setStatus(userPlant.status)
-                            boughtPlants!!.add(actualPlant)
-                        } else {
-                            actualPlant.setStatus(-2)
-                            buyPlants!!.add(actualPlant)
-                        }
-                        if (actualPlant.getStatus() == -2) {
-                            actualPlant!!.setImageName(
-                                "baw_" + actualPlant!!.getScientificName().toLowerCase().replace(
-                                    " ",
-                                    "_"
-                                )
-                            )
-                        }
-                        else {
-                            actualPlant!!.setImageName(
+                            actualPlant.setImageName(
                                 "plant_" + actualPlant!!.getScientificName().toLowerCase().replace(
                                     " ",
                                     "_"
                                 )
                             )
+                            boughtPlants!!.add(actualPlant)
+                        } else {
+                            actualPlant.setStatus(-2)
+                            actualPlant.setImageName(
+                                "baw_" + actualPlant!!.getScientificName().toLowerCase().replace(
+                                    " ",
+                                    "_"
+                                )
+                            )
+                            buyPlants!!.add(actualPlant)
                         }
                     }
                     mutableList = mutableList?.let { buyPlants!!.plus(it).toMutableList() }
