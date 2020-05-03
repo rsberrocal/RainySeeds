@@ -11,6 +11,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.rainyteam.controller.R
 import com.rainyteam.model.Connection
 import com.rainyteam.model.Plants
+import com.rainyteam.model.UserPlants
 import com.rainyteam.patterns.EndlessRecyclerViewScrollListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -89,15 +90,25 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope {
                     for (document in result) {
                         val actualPlant = document.toObject(Plants::class.java)
                         actualPlant.setName(document.id)
+                        actualPlant!!.setImageName(
+                            "plant_" + actualPlant!!.getScientificName().toLowerCase().replace(
+                                " ",
+                                "_"
+                            )
+                        )
                         if (auxList!!.contains(document.id)) {
+                            var userPlant = auxList.get(auxList!!.indexOf(document.id)) as UserPlants
+                            actualPlant.setStatus(userPlant.status)
                             boughtPlants!!.add(actualPlant)
                         } else {
+                            actualPlant.setStatus(-2)
                             buyPlants!!.add(actualPlant)
                         }
                     }
-                    buyPlants?.let { boughtPlants!!.plus(it).toMutableList() }
+                    mutableList = mutableList?.let { buyPlants!!.plus(it).toMutableList() }
+                    mutableList = mutableList?.let { boughtPlants!!.plus(it).toMutableList() }
                 }.await()
-            mutableList = buyPlants
+
             //mutableList = mainConnection?.getAllPlants(null)
             recyclerViewAdapter = RecyclerViewAdapter(applicationContext, mutableList!!)
             recyclerView?.adapter = recyclerViewAdapter
