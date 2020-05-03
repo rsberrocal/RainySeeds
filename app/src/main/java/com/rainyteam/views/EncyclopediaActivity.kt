@@ -84,39 +84,79 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope {
         val btnFilterToBuy = findViewById(R.id.filterToBuy) as RadioButton
 
         btnFilterAll.isChecked = true
+        /** GET ALL PLANTS FROM DATABASE, FIRST WE GET USER PLANTS AND LATER THE OTHER PLANTS **/
         allPlants()
 
         btnFilterAll.setOnClickListener {
             allPlants()
         }
         btnFilterBought.setOnClickListener {
-            launch {
-                var auxList: MutableList<Plants>? = mainConnection?.getUserPlantsAlive(user!!)
-                mutableList = mutableListOf()
-                for (userPlant in auxList!!) {
-                    mutableList!!.add(mainConnection!!.getPlant(userPlant.getScientificName())!!)
-                }
-                recyclerViewAdapter = RecyclerViewAdapter(applicationContext, mutableList!!)
-                recyclerView?.adapter = recyclerViewAdapter
-            }
+            boughtPlants()
         }
         btnFilterToBuy.setOnClickListener {
-            launch {
-                mutableList = mainConnection?.getDeadPlants(user!!)
-                recyclerViewAdapter = RecyclerViewAdapter(applicationContext, mutableList!!)
-                recyclerView?.adapter = recyclerViewAdapter
-            }
+            buyPlants()
         }
 
     }
 
-    fun boughtPlants() {
+    fun buyPlants() {
+        launch {
+            mutableList = mutableListOf()
+            var auxList = mainConnection!!.getUserPlantsId(user!!)
+            database.collection("Plants")
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        val actualPlant = document.toObject(Plants::class.java)
+                        val userPlant = auxList!!.firstOrNull { it.plantId == document.id }
+                        if (userPlant == null) {
+                            actualPlant.setName(document.id)
+                            actualPlant.setImageName(
+                                "plant_" + actualPlant.getScientificName().toLowerCase().replace(
+                                    " ",
+                                    "_"
+                                )
+                            )
+                            actualPlant.setStatus(-2)
+                            mutableList!!.add(actualPlant)
+                        }
+                    }
+                }.await()
+            recyclerViewAdapter = RecyclerViewAdapter(applicationContext, mutableList!!)
+            recyclerView?.adapter = recyclerViewAdapter
+        }
+    }
 
+    fun boughtPlants() {
+        launch {
+            mutableList = mutableListOf()
+            val auxList = mainConnection!!.getUserPlantsId(user!!)
+            database.collection("Plants")
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        val actualPlant = document.toObject(Plants::class.java)
+                        val userPlant = auxList!!.firstOrNull { it.plantId == document.id }
+                        if (userPlant != null) {
+                            actualPlant.setName(document.id)
+                            actualPlant.setImageName(
+                                "plant_" + actualPlant.getScientificName().toLowerCase().replace(
+                                    " ",
+                                    "_"
+                                )
+                            )
+                            actualPlant.setStatus(userPlant.status)
+                            mutableList!!.add(actualPlant)
+                        }
+                    }
+                }.await()
+            recyclerViewAdapter = RecyclerViewAdapter(applicationContext, mutableList!!)
+            recyclerView?.adapter = recyclerViewAdapter
+        }
     }
 
     fun allPlants() {
         launch {
-            /** GET ALL PLANTS FROM DATABASE, FIRST WE GET USER PLANTS AND LATER THE OTHER PLANTS **/
             mutableList = mutableListOf()
             var auxList = mainConnection!!.getUserPlantsId(user!!)
             var boughtPlants: MutableList<Plants>? = mutableListOf()
