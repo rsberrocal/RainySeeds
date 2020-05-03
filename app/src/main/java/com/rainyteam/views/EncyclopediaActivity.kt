@@ -78,6 +78,42 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope {
         }
         recyclerView!!.addOnScrollListener(scrollListener!!)
         recyclerView?.setHasFixedSize(true)
+
+        val btnFilterAll = findViewById(R.id.filterAll) as RadioButton
+        val btnFilterBought = findViewById(R.id.filterBought) as RadioButton
+        val btnFilterToBuy = findViewById(R.id.filterToBuy) as RadioButton
+
+        btnFilterAll.isChecked = true
+
+        btnFilterAll.setOnClickListener {
+            allPlants()
+        }
+        btnFilterBought.setOnClickListener {
+            launch {
+                var auxList: MutableList<Plants>? = mainConnection?.getUserPlantsAlive(user!!)
+                mutableList = mutableListOf()
+                for (userPlant in auxList!!) {
+                    mutableList!!.add(mainConnection!!.getPlant(userPlant.getScientificName())!!)
+                }
+                recyclerViewAdapter = RecyclerViewAdapter(applicationContext, mutableList!!)
+                recyclerView?.adapter = recyclerViewAdapter
+            }
+        }
+        btnFilterToBuy.setOnClickListener {
+            launch {
+                mutableList = mainConnection?.getDeadPlants(user!!)
+                recyclerViewAdapter = RecyclerViewAdapter(applicationContext, mutableList!!)
+                recyclerView?.adapter = recyclerViewAdapter
+            }
+        }
+
+    }
+
+    fun boughtPlants(){
+
+    }
+
+    fun allPlants(){
         launch {
             /** GET ALL PLANTS FROM DATABASE, FIRST WE GET USER PLANTS AND LATER THE OTHER PLANTS **/
             mutableList = mutableListOf()
@@ -114,42 +150,5 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope {
             recyclerViewAdapter = RecyclerViewAdapter(applicationContext, mutableList!!)
             recyclerView?.adapter = recyclerViewAdapter
         }
-
-        val btnFilterAll = findViewById(R.id.filterAll) as RadioButton
-        val btnFilterBought = findViewById(R.id.filterBought) as RadioButton
-        val btnFilterToBuy = findViewById(R.id.filterToBuy) as RadioButton
-
-        btnFilterAll.isChecked = true
-
-        btnFilterAll.setOnClickListener {
-            launch {
-                mutableList = mainConnection?.getAllPlants(null)
-                recyclerViewAdapter = RecyclerViewAdapter(applicationContext, mutableList!!)
-                recyclerView?.adapter = recyclerViewAdapter
-            }
-        }
-        btnFilterBought.setOnClickListener {
-            launch {
-                var auxList: MutableList<Plants>? = mainConnection?.getUserPlantsAlive(user!!)
-                mutableList = mutableListOf()
-                for (userPlant in auxList!!) {
-                    mutableList!!.add(mainConnection!!.getPlant(userPlant.getScientificName())!!)
-                }
-                recyclerViewAdapter = RecyclerViewAdapter(applicationContext, mutableList!!)
-                recyclerView?.adapter = recyclerViewAdapter
-            }
-        }
-        btnFilterToBuy.setOnClickListener {
-            launch {
-                mutableList = mainConnection?.getDeadPlants(user!!)
-                recyclerViewAdapter = RecyclerViewAdapter(applicationContext, mutableList!!)
-                recyclerView?.adapter = recyclerViewAdapter
-            }
-        }
-
-    }
-
-    suspend fun getAllPlants() {
-
     }
 }
