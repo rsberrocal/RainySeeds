@@ -104,7 +104,7 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
             mutableList = mutableListOf()
             val auxList = mutableListOf<UserPlants>()
             mBDD!!.collection("User-Plants")
-                .whereGreaterThan("status", 0)
+                .whereGreaterThanOrEqualTo("status", 0)
                 .get()
                 .addOnSuccessListener { result ->
                     for (document in result) {
