@@ -128,6 +128,15 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope {
                     for (document in result) {
                         val actualPlant = document.toObject(Plants::class.java)
                         actualPlant.setName(document.id)
+                        val userPlant: UserPlants? =
+                            auxList!!.firstOrNull { it.plantId == document.id }
+                        if (userPlant != null) {
+                            actualPlant.setStatus(userPlant.status)
+                            boughtPlants!!.add(actualPlant)
+                        } else {
+                            actualPlant.setStatus(-2)
+                            buyPlants!!.add(actualPlant)
+                        }
                         if (actualPlant.getStatus() == -2) {
                             actualPlant!!.setImageName(
                                 "baw_" + actualPlant!!.getScientificName().toLowerCase().replace(
@@ -143,16 +152,6 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope {
                                     "_"
                                 )
                             )
-                        }
-
-                        val userPlant: UserPlants? =
-                            auxList!!.firstOrNull { it.plantId == document.id }
-                        if (userPlant != null) {
-                            actualPlant.setStatus(userPlant.status)
-                            boughtPlants!!.add(actualPlant)
-                        } else {
-                            actualPlant.setStatus(-2)
-                            buyPlants!!.add(actualPlant)
                         }
                     }
                     mutableList = mutableList?.let { buyPlants!!.plus(it).toMutableList() }
