@@ -84,6 +84,9 @@ class User {
     fun setExercise(exercise: Int){
         this.exercise = exercise
     }
+    fun setHasInf(x: Boolean){
+        this.hasInfo =x
+    }
     fun getGreenhousePlants(): ArrayList<String>? {
         return null;
     }

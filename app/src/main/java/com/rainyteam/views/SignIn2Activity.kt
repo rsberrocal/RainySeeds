@@ -22,7 +22,7 @@ class SignIn2Activity : AppCompatActivity(), CoroutineScope {
     //shared
     val PREF_NAME = "USER"
     var prefs: SharedPreferences? = null
-    var user: String? = ""
+    var user: String? = null
 
     private var job: Job = Job()
 
@@ -51,10 +51,12 @@ class SignIn2Activity : AppCompatActivity(), CoroutineScope {
                 actualUser!!.setHeight(inputHeight.text.toString().toFloat())
                 actualUser!!.setExercise(inputHoursExercise.text.toString().toInt())
                 actualUser!!.setSex(sexOption.checkedRadioButtonId.toString())
-                //hasInfo = true
+                actualUser!!.setHasInf(true)
+                mainConnection!!.setUser(actualUser)
                 //age
                 //maxWater
             }
+
             val intent = Intent(this, MainWaterActivity::class.java)
             startActivity(intent)
         }

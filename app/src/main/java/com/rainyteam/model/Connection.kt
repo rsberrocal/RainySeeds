@@ -339,8 +339,21 @@ class Connection : CoroutineScope {
             .await()
     }
 
+    suspend fun setUser(user: User){
+        val dataUser = hashMapOf(
+            "age" to user.getAge(),
+            "exercise" to user.getExercise(),
+            "hasInfo" to user.hasInfo,
+            "height" to user.getHeight(),
+            "weight" to user.getWeight(),
+            "sex" to user.getSex(),
+            "username" to user.getUsername()
+        )
+        this.BDD.collection("Users")
+            .document(user.getEmail())
+            .set(dataUser)
+    }
     suspend fun buyPlantToUser(user: User, plantToAdd: Plants) {
-        user.setEmail("rainyseeds@gmail.com")
         var userPlant: UserPlants = UserPlants(plantToAdd.getName(), 100, user.getEmail())
         var documentName: String = user.getEmail() + "-" + plantToAdd.getName()
         this.BDD.collection("User-Plants")

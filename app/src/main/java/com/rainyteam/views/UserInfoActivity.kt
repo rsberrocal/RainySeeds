@@ -35,7 +35,7 @@ class UserInfoActivity() : AppCompatActivity(), CoroutineScope{
         this.mainConnection = Connection()
 
         prefs = getSharedPreferences(PREF_NAME, 0)
-        this.userName = prefs!!.getString(PREF_NAME, "")
+        this.userName = prefs!!.getString("USER_ID", "")
         setUser(userName)
 
         userBackArrowButton.setOnClickListener {
