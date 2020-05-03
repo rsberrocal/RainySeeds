@@ -11,6 +11,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.rainyteam.controller.R
 import com.rainyteam.model.Connection
 import com.rainyteam.model.Plants
+import com.rainyteam.model.User
 import com.rainyteam.model.UserPlants
 import com.rainyteam.patterns.EndlessRecyclerViewScrollListener
 import kotlinx.coroutines.CoroutineScope
@@ -96,8 +97,8 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope {
                                 "_"
                             )
                         )
-                        if (auxList!!.contains(document.id)) {
-                            var userPlant = auxList.get(auxList!!.indexOf(document.id)) as UserPlants
+                        val userPlant:UserPlants? = auxList!!.firstOrNull { it.plantId==document.id }
+                        if (userPlant != null) {
                             actualPlant.setStatus(userPlant.status)
                             boughtPlants!!.add(actualPlant)
                         } else {

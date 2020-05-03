@@ -176,7 +176,7 @@ class Connection : CoroutineScope {
         var buyPlants: MutableList<Plants>? = mutableListOf()
         try {
             launch(coroutineContext) {
-                userPlants = async { getUserPlantsId(user) }.await()
+               // userPlants = async { getUserPlantsId(user) }.await()
             }
             this.BDD.collection("Plants")
                 .get()
@@ -197,8 +197,8 @@ class Connection : CoroutineScope {
         }
     }
 
-    suspend fun getUserPlantsId(user: String): MutableList<String>? {
-        var resultPlants: MutableList<String>? = mutableListOf()
+    suspend fun getUserPlantsId(user: String): MutableList<UserPlants>? {
+        var resultPlants: MutableList<UserPlants>? = mutableListOf()
         var actualUserPlant: UserPlants
         try {
             this.BDD.collection("User-Plants")
@@ -207,9 +207,9 @@ class Connection : CoroutineScope {
                 .addOnSuccessListener { result ->
                     for (document in result) {
                         actualUserPlant = document.toObject(UserPlants::class.java)
-                        resultPlants!!.add(actualUserPlant.plantId)
+                        resultPlants!!.add(actualUserPlant)
                     }
-                }.await() // job.cancel()
+                }.await() // job.cancel()s
             return resultPlants
         } catch (e: Exception) {
             println(e.message)
