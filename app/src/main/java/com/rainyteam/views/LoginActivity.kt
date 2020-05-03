@@ -66,7 +66,7 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
         prefs = getSharedPreferences(PREF_NAME, 0)
         val hasUser = prefs!!.getString("USER_ID", null)
         if (hasUser != null) {
-            val principal = Intent(this, GreenhouseActivity::class.java)
+            val principal = Intent(this, MainWaterActivity::class.java)
             finish()
             startActivity(principal)
         }
@@ -154,7 +154,7 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
                                 startActivity(principal)
                                 finish()
                             } else {
-                                val principal = Intent(applicationContext, GreenhouseActivity::class.java)
+                                val principal = Intent(applicationContext, MainWaterActivity::class.java)
                                 startActivity(principal)
                                 finish()
                             }

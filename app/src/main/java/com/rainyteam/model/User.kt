@@ -7,7 +7,7 @@ import kotlin.collections.ArrayList as ArrayList
 class User {
     private var username: String = ""
     private var email: String = ""
-    private var age: Int = 0
+    private var age: Long = 0
     private var weight: Int = 0
     private var height: Float = 0.0f
     private var sex: String = ""
@@ -42,7 +42,7 @@ class User {
         return this.weight
     }
 
-    fun getAge(): Int {
+    fun getAge(): Long {
         return this.age
     }
 
@@ -86,6 +86,9 @@ class User {
     }
     fun setHasInf(x: Boolean){
         this.hasInfo =x
+    }
+    fun setAge(age: Long){
+        this.age = age
     }
     fun getGreenhousePlants(): ArrayList<String>? {
         return null;

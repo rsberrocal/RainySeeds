@@ -1,6 +1,7 @@
 package com.rainyteam.views
 
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
@@ -23,11 +24,13 @@ class SigninActivity : AppCompatActivity() {
     var mDatabase: DatabaseReference? = null
     var mainConnection: Connection? = null
     var mBDD: FirebaseFirestore? = null
+    val PREF_NAME = "USER"
+    var prefs: SharedPreferences? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.signin_layout)
-
+        prefs = getSharedPreferences(PREF_NAME, 0)
         this.mainConnection = Connection()
         DataInst = mainConnection!!.mDatabase()
         mDatabase = DataInst!!.getReference("Emails")
@@ -99,9 +102,11 @@ class SigninActivity : AppCompatActivity() {
                                 mBDD!!.collection("Users").document(email).set(dataUsers)
                                 mBDD!!.collection("User-Plants").document("$email-Cactus").set(dataPlant)
                                 mBDD!!.collection("History").document(email).set(dataHistory)
+                                setUser(email)
                                 val btnSignin = Intent(this, SignIn2Activity::class.java)
                                 startActivity(btnSignin)
                                 finish()
+
                             } else {
                                 Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
 
@@ -145,6 +150,11 @@ class SigninActivity : AppCompatActivity() {
                 R.string.ErrorLogin, Toast.LENGTH_LONG
             ).show()
         }
+    }
+    private fun setUser(id: String) {
+        val editor = prefs!!.edit()
+        editor.putString("USER_ID", id)
+        editor.apply()
     }
 }
 

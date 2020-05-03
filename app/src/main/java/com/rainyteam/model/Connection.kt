@@ -345,9 +345,12 @@ class Connection : CoroutineScope {
             "exercise" to user.getExercise(),
             "hasInfo" to user.hasInfo,
             "height" to user.getHeight(),
-            "weight" to user.getWeight(),
+            "maxWater" to user.getMaxWater(),
+            "music" to user.music,
+            "rainyCoins" to user.getRainyCoins(),
             "sex" to user.getSex(),
-            "username" to user.getUsername()
+            "username" to user.getUsername(),
+            "weight" to user.getWeight()
         )
         this.BDD.collection("Users")
             .document(user.getEmail())

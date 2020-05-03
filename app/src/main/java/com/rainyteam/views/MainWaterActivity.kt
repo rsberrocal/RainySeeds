@@ -66,6 +66,7 @@ class MainWaterActivity : AppCompatActivity(), CoroutineScope {
             userNameText!!.text = actualUser?.getUsername()
             userAge!!.text = "Age: " + actualUser?.getAge().toString()
             userWeight!!.text = "Weight: " + actualUser?.getWeight().toString()
+
         }
     }
 }

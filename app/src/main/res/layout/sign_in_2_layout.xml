@@ -132,6 +132,8 @@
                     android:background="@color/translucid_white"
                     android:ems="10"
                     android:hint="@string/BirthDate"
+                    android:focusable="false"
+                    android:clickable="true"
                     android:inputType="textEmailAddress"
                     android:paddingLeft="10dp"
                     android:textColor="@color/black"
