@@ -85,7 +85,7 @@ class SignIn2Activity : AppCompatActivity(), CoroutineScope {
                 //maxWater
             }
 
-            val intent = Intent(this, MainWaterActivity::class.java)
+            val intent = Intent(this, GreenhouseActivity::class.java)
             startActivity(intent)
         }
     }
