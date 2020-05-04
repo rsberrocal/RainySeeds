@@ -91,7 +91,7 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
         signup.setOnClickListener(View.OnClickListener {
             val signin = Intent(this, SigninActivity::class.java)
             startActivity(signin)
-            overridePendingTransition(R.anim.slide_out_left, R.anim.slide_stop)
+            overridePendingTransition(R.anim.slide_right_to_left, R.anim.slide_stop)
         })
 
         forgotPass.setOnClickListener(View.OnClickListener {
@@ -153,13 +153,13 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
                             if (!auxUser.hasInfo ) {
                                 val principal = Intent(applicationContext, SignIn2Activity::class.java)
                                 startActivity(principal)
-                                overridePendingTransition(R.anim.slide_down, R.anim.slide_stop)
+                                overridePendingTransition(R.anim.slide_down_to_up, R.anim.slide_stop)
                                 finish()
                             } else {
                                 val principal = Intent(applicationContext, GreenhouseActivity::class.java)
                                 startActivity(principal)
                                 finish()
-                                overridePendingTransition(R.anim.slide_up, R.anim.slide_stop)
+                                overridePendingTransition(R.anim.slide_up_to_down, R.anim.slide_stop)
                             }
                         }
                     } else {
@@ -243,12 +243,12 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
                         if (!auxUser.hasInfo ) {
                             val principal = Intent(applicationContext, SignIn2Activity::class.java)
                             startActivity(principal)
-                            overridePendingTransition(R.anim.slide_down, R.anim.slide_stop)
+                            overridePendingTransition(R.anim.slide_down_to_up, R.anim.slide_stop)
                             finish()
                         } else {
                             val principal = Intent(applicationContext, GreenhouseActivity::class.java)
                             startActivity(principal)
-                            overridePendingTransition(R.anim.slide_up, R.anim.slide_stop)
+                            overridePendingTransition(R.anim.slide_up_to_down, R.anim.slide_stop)
                             finish()
                         }
                     }

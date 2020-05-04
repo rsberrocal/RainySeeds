@@ -6,26 +6,16 @@ import android.content.SharedPreferences
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.RadioButton
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.rainyteam.controller.R
 import com.rainyteam.model.Connection
 import com.rainyteam.model.User
-import kotlinx.android.synthetic.main.main_water_layout.*
 import kotlinx.android.synthetic.main.sign_in_2_layout.*
-import kotlinx.android.synthetic.main.user_info_layout.*
-import kotlinx.android.synthetic.main.user_info_layout.view.*
-import kotlinx.android.synthetic.main.user_info_layout.view.textAge
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.selects.select
 import java.text.SimpleDateFormat
-import java.time.Instant
-import java.time.LocalDateTime
-import java.time.temporal.ChronoUnit
 import java.util.*
 import kotlin.coroutines.CoroutineContext
 
@@ -88,7 +78,7 @@ class SignIn2Activity : AppCompatActivity(), CoroutineScope {
 
             val intent = Intent(this, GreenhouseActivity::class.java)
             startActivity(intent)
-            overridePendingTransition(R.anim.slide_up, R.anim.slide_stop)
+            overridePendingTransition(R.anim.slide_up_to_down, R.anim.slide_stop)
         }
     }
 

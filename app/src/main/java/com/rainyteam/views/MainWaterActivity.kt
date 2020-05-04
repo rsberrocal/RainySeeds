@@ -11,7 +11,6 @@ import androidx.annotation.RequiresApi
 import com.rainyteam.controller.R
 import com.rainyteam.model.Connection
 import com.rainyteam.model.History
-import com.rainyteam.model.User
 import kotlinx.android.synthetic.main.main_water_layout.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -58,7 +57,7 @@ class MainWaterActivity : AppCompatActivity(), CoroutineScope {
         banner.setOnClickListener {
             val intent = Intent(this, UserInfoActivity::class.java)
             startActivity(intent)
-            overridePendingTransition(R.anim.slide_up, R.anim.slide_stop)
+            overridePendingTransition(R.anim.slide_up_to_down, R.anim.slide_stop)
         }
         waterButton.setOnClickListener {
             val intent = Intent(this, IntroduceWaterActivity::class.java)
