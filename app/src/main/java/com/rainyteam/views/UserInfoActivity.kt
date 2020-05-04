@@ -41,6 +41,7 @@ class UserInfoActivity() : AppCompatActivity(), CoroutineScope{
         userBackArrowButton.setOnClickListener {
             val intent = Intent(this, MainWaterActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_down, R.anim.slide_stop)
         }
 
         logoutBtn.setOnClickListener {
@@ -53,6 +54,7 @@ class UserInfoActivity() : AppCompatActivity(), CoroutineScope{
             mAuth.signOut()
             finish()
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_stop)
 
         }
     }

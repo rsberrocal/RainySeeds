@@ -58,6 +58,7 @@ class MainWaterActivity : AppCompatActivity(), CoroutineScope {
         banner.setOnClickListener {
             val intent = Intent(this, UserInfoActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_up, R.anim.slide_stop)
         }
         waterButton.setOnClickListener {
             val intent = Intent(this, IntroduceWaterActivity::class.java)

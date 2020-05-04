@@ -21,6 +21,7 @@ class FragmentViewMenu : androidx.fragment.app.Fragment() {
             if (activity?.javaClass?.simpleName != EncyclopediaActivity::class.simpleName) {
                 val principal = Intent(activity, EncyclopediaActivity::class.java)
                 startActivity(principal)
+                activity?.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_stop)
             }
         }
 
@@ -29,6 +30,7 @@ class FragmentViewMenu : androidx.fragment.app.Fragment() {
             if (activity?.javaClass?.simpleName != MainWaterActivity::class.simpleName) {
                 val principal = Intent(activity, MainWaterActivity::class.java)
                 startActivity(principal)
+                activity?.overridePendingTransition(R.anim.slide_out_left, R.anim.slide_stop)
             }
         }
         viewActual.buttonGreenhouse.setOnClickListener { view ->
@@ -36,6 +38,7 @@ class FragmentViewMenu : androidx.fragment.app.Fragment() {
             if (activity?.javaClass?.simpleName != GreenhouseActivity::class.simpleName) {
                 val principal = Intent(activity, GreenhouseActivity::class.java)
                 startActivity(principal)
+                activity?.overridePendingTransition(R.anim.slide_down, R.anim.slide_stop)
             }
         }
 

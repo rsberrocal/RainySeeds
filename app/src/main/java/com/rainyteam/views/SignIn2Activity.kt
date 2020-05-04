@@ -88,6 +88,7 @@ class SignIn2Activity : AppCompatActivity(), CoroutineScope {
 
             val intent = Intent(this, GreenhouseActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_up, R.anim.slide_stop)
         }
     }
 

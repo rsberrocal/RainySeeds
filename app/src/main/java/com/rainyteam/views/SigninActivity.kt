@@ -48,6 +48,7 @@ class SigninActivity : AppCompatActivity() {
             val returnLogin = Intent(this, LoginActivity::class.java)
             startActivity(returnLogin)
             finish()
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_stop)
         })
     }
 
@@ -105,6 +106,7 @@ class SigninActivity : AppCompatActivity() {
                                 setUser(email)
                                 val btnSignin = Intent(this, SignIn2Activity::class.java)
                                 startActivity(btnSignin)
+                                overridePendingTransition(R.anim.slide_down, R.anim.slide_stop)
                                 finish()
 
                             } else {
