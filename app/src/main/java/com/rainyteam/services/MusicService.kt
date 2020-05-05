@@ -5,7 +5,6 @@ import android.content.Intent
 import android.media.MediaPlayer
 import android.os.IBinder
 import android.provider.Settings
-import kotlin.concurrent.timer
 
 class MusicService : Service() {
 
@@ -20,6 +19,11 @@ class MusicService : Service() {
         mplayer?.isLooping = true
         mplayer?.start()
         return START_STICKY
+    }
+
+    fun onUnBind(arg0: Intent?): IBinder? {
+        // TO DO Auto-generated method
+        return null
     }
 
     override fun onDestroy() {
