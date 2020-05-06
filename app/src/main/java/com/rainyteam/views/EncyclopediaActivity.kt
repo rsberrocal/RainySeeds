@@ -22,7 +22,7 @@ import kotlinx.coroutines.tasks.await
 import kotlin.coroutines.CoroutineContext
 
 
-class EncyclopediaActivity : AppCompatActivity(), CoroutineScope {
+class EncyclopediaActivity : MusicAppCompatActivity(), CoroutineScope {
 
     var mainConnection: Connection? = null
 

@@ -15,7 +15,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
-class UserInfoActivity() : AppCompatActivity(), CoroutineScope{
+class UserInfoActivity() : MusicAppCompatActivity(), CoroutineScope{
     val mAuth = FirebaseAuth.getInstance()
 
     var mainConnection: Connection? = null
