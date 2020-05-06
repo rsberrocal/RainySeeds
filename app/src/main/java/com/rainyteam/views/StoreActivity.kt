@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlin.coroutines.CoroutineContext
 
-class StoreActivity : AppCompatActivity(), CoroutineScope {
+class StoreActivity : MusicAppCompatActivity(), CoroutineScope {
 
     var mainConnection: Connection? = null
 

@@ -16,7 +16,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
-class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
+class EncyclopediaDetailActivity : MusicAppCompatActivity(), CoroutineScope {
     val PREF_NAME = "USER"
     var prefs: SharedPreferences? = null
     var userName: String? = ""

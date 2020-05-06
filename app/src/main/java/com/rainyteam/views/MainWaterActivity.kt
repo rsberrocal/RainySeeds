@@ -18,7 +18,7 @@ import java.nio.channels.Channel
 import kotlin.coroutines.CoroutineContext
 
 
-class MainWaterActivity : AppCompatActivity(), CoroutineScope {
+class MainWaterActivity : MusicAppCompatActivity(), CoroutineScope {
 
     var mainConnection: Connection? = null
 

@@ -61,7 +61,7 @@ class GreenhouseActivity : MusicAppCompatActivity(), CoroutineScope {
         this.mainConnection = Connection()
         mBDD = mainConnection!!.mBDD()
 
-        //val musicService = Intent(this, MusicService::class.java)
+        val musicService = Intent(this, MusicService::class.java)
         val timerService = Intent(this, TimerService::class.java)
         startService(timerService)
 
@@ -79,10 +79,10 @@ class GreenhouseActivity : MusicAppCompatActivity(), CoroutineScope {
 
         swMusic.setOnCheckedChangeListener { _, isChecked ->
             if (swMusic.isChecked) {
-                //startService(musicService)
+                startService(musicService)
                 mBDD!!.collection("Users").document(user!!).update("music", true)
             } else {
-                //stopService(musicService)
+                stopService(musicService)
                 mBDD!!.collection("Users").document(user!!).update("music", false)
             }
         }
