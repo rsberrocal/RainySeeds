@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.coroutines.CoroutineContext
 
-class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope {
+class IntroduceWaterActivity : MusicAppCompatActivity(), CoroutineScope {
 
     var mainConnection: Connection? = null
     //shared

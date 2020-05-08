@@ -3,16 +3,12 @@ package com.rainyteam.views
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Switch
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.*
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.rainyteam.controller.R
 import com.rainyteam.model.Connection
@@ -25,7 +21,6 @@ import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
 import kotlinx.android.synthetic.main.greenhouse_layout.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.tasks.await
-import java.lang.Exception
 import kotlin.coroutines.CoroutineContext
 
 
@@ -61,7 +56,7 @@ class GreenhouseActivity : MusicAppCompatActivity(), CoroutineScope {
         this.mainConnection = Connection()
         mBDD = mainConnection!!.mBDD()
 
-        //val musicService = Intent(this, MusicService::class.java)
+        val musicService = Intent(this, MusicService::class.java)
         val timerService = Intent(this, TimerService::class.java)
         startService(timerService)
 
@@ -79,10 +74,10 @@ class GreenhouseActivity : MusicAppCompatActivity(), CoroutineScope {
 
         swMusic.setOnCheckedChangeListener { _, isChecked ->
             if (swMusic.isChecked) {
-                //startService(musicService)
+                startService(musicService)
                 mBDD!!.collection("Users").document(user!!).update("music", true)
             } else {
-                //stopService(musicService)
+                stopService(musicService)
                 mBDD!!.collection("Users").document(user!!).update("music", false)
             }
         }
