@@ -34,18 +34,26 @@ open class MusicAppCompatActivity : AppCompatActivity(), CoroutineScope {
     override fun onResume() {
         super.onResume()
         musicService = Intent(this, MusicService::class.java)
-        startService(musicService)
-    }
-
-    override fun onStop() {
-        super.onStop()
         launch {
             var database = Connection()
             var prefs = getSharedPreferences(PREF_NAME, 0)
             var user: User = database.getUser(prefs.getString(PREF_ID, "")!!)!!
-            //para pillar estado
-            //user.music
-            stopService(musicService)
+            if (user.music) {
+                startService(musicService)
+            }
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        musicService = Intent(this, MusicService::class.java)
+        launch {
+            var database = Connection()
+            var prefs = getSharedPreferences(PREF_NAME, 0)
+            var user: User = database.getUser(prefs.getString(PREF_ID, "")!!)!!
+            if (user.music) {
+                stopService(musicService)
+            }
         }
     }
 }
