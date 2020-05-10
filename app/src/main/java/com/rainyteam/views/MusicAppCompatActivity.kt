@@ -1,12 +1,35 @@
 package com.rainyteam.views
 
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
+import com.rainyteam.model.Connection
+import com.rainyteam.model.User
 import com.rainyteam.services.MusicService
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 
-open class MusicAppCompatActivity : AppCompatActivity() {
+open class MusicAppCompatActivity : AppCompatActivity(), CoroutineScope {
 
-    var musicService : Intent? = null
+    var musicService: Intent? = null
+
+    val PREF_ID = "USER"
+    val PREF_NAME = "USER_ID"
+    var prefs: SharedPreferences? = null
+
+
+    private var job: Job = Job()
+
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + job
+
+    override fun onDestroy() {
+        super.onDestroy()
+        job.cancel()
+    }
 
     override fun onResume() {
         super.onResume()
@@ -16,6 +39,13 @@ open class MusicAppCompatActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
-        stopService(musicService)
+        launch {
+            var database = Connection()
+            var prefs = getSharedPreferences(PREF_NAME, 0)
+            var user: User = database.getUser(prefs.getString(PREF_ID, "")!!)!!
+            //para pillar estado
+            //user.music
+            stopService(musicService)
+        }
     }
 }

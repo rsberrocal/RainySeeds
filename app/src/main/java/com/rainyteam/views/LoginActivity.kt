@@ -143,23 +143,32 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
             mAuth!!.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, OnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        Toast.makeText(this,
+                        Toast.makeText(
+                            this,
                             R.string.ExitLogin, Toast.LENGTH_LONG
                         ).show()
                         setUser(email)
                         launch {
                             var auxUser: User = mainConnection!!.getUser(email)!!
                             //Si no tiene la informacion
-                            if (!auxUser.hasInfo ) {
-                                val principal = Intent(applicationContext, SignIn2Activity::class.java)
+                            if (!auxUser.hasInfo) {
+                                val principal =
+                                    Intent(applicationContext, SignIn2Activity::class.java)
                                 startActivity(principal)
-                                overridePendingTransition(R.anim.slide_down_to_up, R.anim.slide_stop)
+                                overridePendingTransition(
+                                    R.anim.slide_down_to_up,
+                                    R.anim.slide_stop
+                                )
                                 finish()
                             } else {
-                                val principal = Intent(applicationContext, GreenhouseActivity::class.java)
+                                val principal =
+                                    Intent(applicationContext, GreenhouseActivity::class.java)
                                 startActivity(principal)
                                 finish()
-                                overridePendingTransition(R.anim.slide_up_to_down, R.anim.slide_stop)
+                                overridePendingTransition(
+                                    R.anim.slide_up_to_down,
+                                    R.anim.slide_stop
+                                )
                             }
                         }
                     } else {
@@ -240,13 +249,14 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
                     launch {
                         var auxUser: User = mainConnection!!.getUser(email)!!
                         //Si no tiene la informacion
-                        if (!auxUser.hasInfo ) {
+                        if (!auxUser.hasInfo) {
                             val principal = Intent(applicationContext, SignIn2Activity::class.java)
                             startActivity(principal)
                             overridePendingTransition(R.anim.slide_down_to_up, R.anim.slide_stop)
                             finish()
                         } else {
-                            val principal = Intent(applicationContext, GreenhouseActivity::class.java)
+                            val principal =
+                                Intent(applicationContext, GreenhouseActivity::class.java)
                             startActivity(principal)
                             overridePendingTransition(R.anim.slide_up_to_down, R.anim.slide_stop)
                             finish()

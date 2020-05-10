@@ -63,7 +63,7 @@ class GreenhouseActivity : MusicAppCompatActivity(), CoroutineScope {
         val swMusic = findViewById<View>(R.id.swMusic) as Switch
 
         prefs = getSharedPreferences(PREF_NAME, 0)
-        this.user = prefs!!.getString("USER_ID", "")
+        this.user = prefs!!.getString("USER_ID", null)
 
         layoutSeeds.setOnClickListener {
             val intent = Intent(this, StoreActivity::class.java)
