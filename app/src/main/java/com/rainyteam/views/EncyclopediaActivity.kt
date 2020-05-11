@@ -1,7 +1,9 @@
 package com.rainyteam.views
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.widget.RadioButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
@@ -14,11 +16,10 @@ import com.rainyteam.model.Plants
 import com.rainyteam.model.User
 import com.rainyteam.model.UserPlants
 import com.rainyteam.patterns.EndlessRecyclerViewScrollListener
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import com.rainyteam.services.MusicService
+import kotlinx.coroutines.*
 import kotlinx.coroutines.tasks.await
+import java.lang.Exception
 import kotlin.coroutines.CoroutineContext
 
 
@@ -58,7 +59,7 @@ class EncyclopediaActivity : MusicAppCompatActivity(), CoroutineScope {
 
         prefs = getSharedPreferences(PREF_ID, 0)
         this.user = prefs!!.getString(PREF_NAME, "")
-
+        //prefs!!.edit().putBoolean("NAV",false).apply()
         recyclerView = findViewById(R.id.recyclerViewPlants)
         gridLayoutManager =
             GridLayoutManager(applicationContext, 3, LinearLayoutManager.VERTICAL, false)
@@ -95,6 +96,39 @@ class EncyclopediaActivity : MusicAppCompatActivity(), CoroutineScope {
             buyPlants()
         }
 
+        launch {
+            /** Delay para definir que no es navegacion al crear vista **/
+            delay(500)
+            prefs!!.edit().putBoolean("NAV",false).apply()
+        }
+
+    }
+
+    override fun onStop() {
+        super.onStop()
+        //Se crea el intent para pararlo
+        val musicService = Intent(this, MusicService::class.java)
+        val isNav = prefs!!.getBoolean("NAV", false);
+        //Se mira si es una navegacion, de no serla es un destroy de app, se apaga la musica
+        if (!isNav) {
+            //De ser un destroy se detiene
+            stopService(musicService)
+        }
+    }
+
+    //Viene de un destroy
+    override fun onRestart() {
+        super.onRestart()
+        //Se crea el intent para iniciarlo
+        val musicService = Intent(this, MusicService::class.java)
+        var musicPlay = prefs!!.getBoolean("PLAY", false)
+        //Solo se inicia si la musica ha parado y si el usuario tiene habilitado el check
+        launch {
+            var auxUser: User = mainConnection!!.getUser(user!!)!!
+            if (auxUser.music && !musicPlay) {
+                startService(musicService)
+            }
+        }
     }
 
     fun buyPlants() {
@@ -196,7 +230,13 @@ class EncyclopediaActivity : MusicAppCompatActivity(), CoroutineScope {
     fun allPlants() {
         launch {
             mutableList = mutableListOf()
-            var auxList = mainConnection!!.getUserPlantsId(user!!)
+            var auxList = mutableListOf<UserPlants>()
+            try {
+                auxList = mainConnection!!.getUserPlantsId(user!!)!!
+            } catch (ex: Exception) {
+                Log.d("Connection", ex.message)
+            }
+
             var boughtPlants: MutableList<Plants>? = mutableListOf()
             var buyPlants: MutableList<Plants>? = mutableListOf()
 

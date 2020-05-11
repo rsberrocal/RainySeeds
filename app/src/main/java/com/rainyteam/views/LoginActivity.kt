@@ -64,6 +64,8 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
         mBDD = mainConnection!!.mBDD()
 
         prefs = getSharedPreferences(PREF_NAME, 0)
+        //Setting default play
+        prefs!!.edit().putBoolean("PLAY", false).apply()
         val hasUser = prefs!!.getString("USER_ID", null)
         if (hasUser != null) {
             val principal = Intent(this, GreenhouseActivity::class.java)

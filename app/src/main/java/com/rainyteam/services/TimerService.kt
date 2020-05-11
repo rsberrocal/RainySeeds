@@ -54,13 +54,13 @@ class TimerService : Service() {
             while (true) {
                 time = Calendar.getInstance().timeInMillis / 1000;
                 if (time > nextTime) {
-                    logMessage("Time more than next: " + time)
+                    //logMessage("Time more than next: " + time)
                 } else {
-                    logMessage("Time less than next: " + time)
+                    //logMessage("Time less than next: " + time)
                 }
                 Thread.sleep(1000)
             }
-            logMessage("Time in millis " + time)
+            //logMessage("Time in millis " + time)
         }
         val thread = Thread(runable)
         thread.start()
