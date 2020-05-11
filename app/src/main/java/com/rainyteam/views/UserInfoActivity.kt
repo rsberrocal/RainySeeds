@@ -20,9 +20,9 @@ class UserInfoActivity() : MusicAppCompatActivity(), CoroutineScope{
 
     var mainConnection: Connection? = null
 
-    val PREF_NAME = "USER"
+
     var userName: String? = ""
-    var prefs: SharedPreferences? = null
+
 
     private var job: Job = Job()
     override val coroutineContext: CoroutineContext

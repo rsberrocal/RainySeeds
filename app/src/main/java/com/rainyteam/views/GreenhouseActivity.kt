@@ -35,8 +35,7 @@ class GreenhouseActivity : MusicAppCompatActivity(), CoroutineScope {
     var mBDD: FirebaseFirestore? = null
 
     //shared
-    val PREF_NAME = "USER"
-    var prefs: SharedPreferences? = null
+
     var user: String? = ""
 
     private var job: Job = Job()

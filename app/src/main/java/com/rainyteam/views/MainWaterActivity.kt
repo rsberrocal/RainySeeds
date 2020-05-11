@@ -22,8 +22,7 @@ class MainWaterActivity : MusicAppCompatActivity(), CoroutineScope {
 
     var mainConnection: Connection? = null
 
-    val PREF_NAME = "USER"
-    var prefs: SharedPreferences? = null
+
     var userName: String? = null
     var textWaterPercent: TextView? = null
 

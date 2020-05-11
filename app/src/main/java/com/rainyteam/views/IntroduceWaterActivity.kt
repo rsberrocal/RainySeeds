@@ -25,8 +25,7 @@ class IntroduceWaterActivity : MusicAppCompatActivity(), CoroutineScope {
 
     var mainConnection: Connection? = null
     //shared
-    val PREF_NAME = "USER"
-    var prefs: SharedPreferences? = null
+
     var user: String? = ""
 
     private var job: Job = Job()
