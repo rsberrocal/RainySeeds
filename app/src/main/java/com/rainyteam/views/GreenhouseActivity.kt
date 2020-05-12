@@ -5,9 +5,11 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
+import android.view.ActionMode
 import android.view.View
 import android.widget.Switch
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.*
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -78,6 +80,7 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
         layoutSeeds.setOnClickListener {
             val intent = Intent(this, StoreActivity::class.java)
             startActivity(intent)
+            prefs!!.edit().putBoolean("NAV", true).apply()
         }
 
         val textSeeds: TextView = findViewById(R.id.textGoldenSeeds) as TextView
@@ -110,6 +113,11 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
             prefs!!.edit().putBoolean("NAV", false).apply()
         }
 
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        Log.d("MUSIC", "IS PRESSED")
     }
 
     override fun onStop() {
@@ -147,37 +155,37 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
             mutableList = mutableListOf()
             val auxList = mutableListOf<UserPlants>()
             mBDD!!.collection("User-Plants")
-                .whereGreaterThanOrEqualTo("status", 0)
-                .get()
-                .addOnSuccessListener { result ->
-                    for (document in result) {
-                        auxList.add(document.toObject(UserPlants::class.java))
-                    }
-                }.await()
-            mBDD!!.collection("Plants")
-                .get()
-                .addOnSuccessListener { result ->
-                    for (document in result) {
-                        val actualPlant = document.toObject(Plants::class.java)
-                        val userPlant = auxList!!.firstOrNull { it.plantId == document.id }
-                        if (userPlant != null) {
-                            actualPlant.setName(document.id)
-                            actualPlant.setImageName(
-                                "plant_" + actualPlant.getScientificName().toLowerCase().replace(
-                                    " ",
-                                    "_"
-                                )
-                            )
-                            actualPlant.setStatus(userPlant.status)
-                            mutableList!!.add(actualPlant)
+                    .whereGreaterThanOrEqualTo("status", 0)
+                    .get()
+                    .addOnSuccessListener { result ->
+                        for (document in result) {
+                            auxList.add(document.toObject(UserPlants::class.java))
                         }
-                    }
-                }.await()
+                    }.await()
+            mBDD!!.collection("Plants")
+                    .get()
+                    .addOnSuccessListener { result ->
+                        for (document in result) {
+                            val actualPlant = document.toObject(Plants::class.java)
+                            val userPlant = auxList!!.firstOrNull { it.plantId == document.id }
+                            if (userPlant != null) {
+                                actualPlant.setName(document.id)
+                                actualPlant.setImageName(
+                                        "plant_" + actualPlant.getScientificName().toLowerCase().replace(
+                                                " ",
+                                                "_"
+                                        )
+                                )
+                                actualPlant.setStatus(userPlant.status)
+                                mutableList!!.add(actualPlant)
+                            }
+                        }
+                    }.await()
 
             val pagerAdapter = PlantSlidePagerAdapter(this@GreenhouseActivity)
 
             numPages = Math.ceil(mutableList!!.size.toDouble() / NUM_PLANTS_PAGE.toDouble())
-                .toInt() // round up division
+                    .toInt() // round up division
             val dotsIndicator = findViewById<WormDotsIndicator>(R.id.dots_indicator)
 
             mPager.adapter = pagerAdapter
@@ -186,11 +194,11 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
     }
 
     private inner class PlantSlidePagerAdapter(fm: FragmentActivity) :
-        FragmentStateAdapter(fm) {
+            FragmentStateAdapter(fm) {
         override fun getItemCount(): Int = numPages
 
         override fun createFragment(position: Int): Fragment =
-            FragmentPageGreenhouse(position)
+                FragmentPageGreenhouse(position)
     }
 
 }
