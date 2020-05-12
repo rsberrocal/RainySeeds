@@ -69,7 +69,7 @@ class MainWaterActivity : AppCompatActivity(), CoroutineScope {
         launch {
             //textWaterPercent!!.text = mainConnection.getUser(userName)
             /** Delay para definir que no es navegacion al crear vista **/
-            delay(500)
+            delay(1000)
             prefs!!.edit().putBoolean("NAV", false).apply()
         }
     }
