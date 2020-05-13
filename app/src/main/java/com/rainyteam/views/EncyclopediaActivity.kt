@@ -196,7 +196,7 @@ class EncyclopediaActivity : MusicAppCompatActivity(), CoroutineScope {
             mutableList = mutableListOf()
             val auxList = mutableListOf<UserPlants>()
             database.collection("User-Plants")
-                .whereGreaterThan("status", 0)
+                .whereGreaterThanOrEqualTo("status", 0)
                 .get()
                 .addOnSuccessListener { result ->
                     for (document in result) {
