@@ -15,11 +15,15 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
-class UserInfoActivity() : MusicAppCompatActivity(), CoroutineScope{
+class UserInfoActivity() : AppCompatActivity(), CoroutineScope{
     val mAuth = FirebaseAuth.getInstance()
 
     var mainConnection: Connection? = null
 
+    //shared
+    val PREF_ID = "USER"
+    val PREF_NAME = "USER_ID"
+    var prefs: SharedPreferences? = null
 
     var userName: String? = ""
 
@@ -34,8 +38,8 @@ class UserInfoActivity() : MusicAppCompatActivity(), CoroutineScope{
 
         this.mainConnection = Connection()
 
-        prefs = getSharedPreferences(PREF_NAME, 0)
-        this.userName = prefs!!.getString("USER_ID", "")
+        prefs = getSharedPreferences(PREF_ID, 0)
+        this.userName = prefs!!.getString(PREF_NAME, null)
         setUser(userName)
 
         userBackArrowButton.setOnClickListener {
@@ -45,14 +49,12 @@ class UserInfoActivity() : MusicAppCompatActivity(), CoroutineScope{
         }
 
         logoutBtn.setOnClickListener {
+            prefs!!.edit().remove(PREF_NAME).apply()
             var music = Intent(this, MusicService::class.java)
             stopService(music)
-            var edit = prefs!!.edit()
-            edit.remove("USER_ID")
-            edit.apply()
-            val intent = Intent(this, LoginActivity::class.java)
             mAuth.signOut()
             finish()
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             overridePendingTransition(R.anim.slide_left_to_right, R.anim.slide_stop)
 
