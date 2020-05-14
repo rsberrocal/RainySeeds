@@ -42,8 +42,8 @@
     <string name="addWater4">1000ml</string>
     <string name="Name">Name</string>
     <string name="Age">Age</string>
-    <string name="Weight">Weight</string>
-    <string name="Height">Height</string>
+    <string name="Weight">Weight (kg)</string>
+    <string name="Height">Height (cm)</string>
     <string name="Sex">Sex</string>
     <string name="Exercise">Hours of exercise</string>
     <string name="BirthDate">Birth Date</string>

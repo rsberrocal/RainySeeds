@@ -107,9 +107,9 @@ class MainWaterActivity : AppCompatActivity(), CoroutineScope {
         launch {
             var actualUser = mainConnection!!.getUser(user!!)
             userNameText!!.text = actualUser?.getUsername()
-            userAge!!.text = "Age: " + actualUser?.getAge().toString()
-            userWeight!!.text = "Weight: " + actualUser?.getWeight().toString()
-
+            userAge!!.text =  actualUser?.getAge().toString() + " years"
+            userWeight!!.text =  actualUser?.getWeight().toString() + " kg"
+            emailText!!.text = actualUser?.getEmail().toString()
         }
     }
 
