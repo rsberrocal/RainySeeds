@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.widget.Button
@@ -110,6 +111,7 @@ class SigninActivity : AppCompatActivity() {
                                 finish()
 
                             } else {
+                                Log.d("Connection", task.exception?.message!!)
                                 Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
 
                             }
