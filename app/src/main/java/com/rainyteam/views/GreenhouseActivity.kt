@@ -117,7 +117,9 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        Log.d("MUSIC", "IS PRESSED")
+        if (!isTaskRoot) {
+            prefs!!.edit().putBoolean("NAV", true).apply()
+        }
     }
 
     override fun onStop() {
@@ -153,19 +155,22 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
     fun boughtPlants() {
         launch {
             mutableList = mutableListOf()
+            var count = 0
             val auxList = mutableListOf<UserPlants>()
             mBDD!!.collection("User-Plants")
-                    .whereGreaterThanOrEqualTo("status", 0)
+                .whereEqualTo("userId", user)
+                .whereGreaterThanOrEqualTo("status", 0)
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        count++
+                    }
+                }.await()
+            /*mBDD!!.collection("Plants")
                     .get()
                     .addOnSuccessListener { result ->
                         for (document in result) {
-                            auxList.add(document.toObject(UserPlants::class.java))
-                        }
-                    }.await()
-            mBDD!!.collection("Plants")
-                    .get()
-                    .addOnSuccessListener { result ->
-                        for (document in result) {
+
                             val actualPlant = document.toObject(Plants::class.java)
                             val userPlant = auxList!!.firstOrNull { it.plantId == document.id }
                             if (userPlant != null) {
@@ -180,12 +185,12 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
                                 mutableList!!.add(actualPlant)
                             }
                         }
-                    }.await()
+                    }.await()*/
 
             val pagerAdapter = PlantSlidePagerAdapter(this@GreenhouseActivity)
 
-            numPages = Math.ceil(mutableList!!.size.toDouble() / NUM_PLANTS_PAGE.toDouble())
-                    .toInt() // round up division
+            numPages = Math.ceil(count / NUM_PLANTS_PAGE.toDouble())
+                .toInt() // round up division
             val dotsIndicator = findViewById<WormDotsIndicator>(R.id.dots_indicator)
 
             mPager.adapter = pagerAdapter
@@ -194,11 +199,11 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
     }
 
     private inner class PlantSlidePagerAdapter(fm: FragmentActivity) :
-            FragmentStateAdapter(fm) {
+        FragmentStateAdapter(fm) {
         override fun getItemCount(): Int = numPages
 
         override fun createFragment(position: Int): Fragment =
-                FragmentPageGreenhouse(position)
+            FragmentPageGreenhouse(position)
     }
 
 }
