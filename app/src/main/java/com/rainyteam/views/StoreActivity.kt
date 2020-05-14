@@ -3,6 +3,7 @@ package com.rainyteam.views
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -60,11 +61,19 @@ class StoreActivity : AppCompatActivity(), CoroutineScope {
         prefs = getSharedPreferences(PREF_ID, 0)
         this.user = prefs!!.getString(PREF_NAME, "")
 
+        val textSeeds: TextView = findViewById(R.id.textGoldenSeeds) as TextView
+
         recyclerView = findViewById(R.id.recyclerViewStore)
         gridLayoutManager =
             GridLayoutManager(applicationContext, 3, LinearLayoutManager.VERTICAL, false)
         recyclerView?.layoutManager = gridLayoutManager
         recyclerView?.setHasFixedSize(true)
+
+        launch{
+            var auxUser: User = mainConnection!!.getUser(user!!)!!
+            textSeeds.text = auxUser.getRainyCoins().toString()
+        }
+
 
         buyPlants()
 
