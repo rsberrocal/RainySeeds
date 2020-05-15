@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -29,6 +30,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.lang.Exception
 import kotlin.coroutines.CoroutineContext
 
 class LoginActivity : AppCompatActivity(), CoroutineScope {
@@ -64,6 +66,8 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
         mBDD = mainConnection!!.mBDD()
 
         prefs = getSharedPreferences(PREF_NAME, 0)
+        //Setting default play
+        prefs!!.edit().putBoolean("PLAY", false).apply()
         val hasUser = prefs!!.getString("USER_ID", null)
         if (hasUser != null) {
             val principal = Intent(this, GreenhouseActivity::class.java)
@@ -140,32 +144,52 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
         var password = passwordTxt.text.toString()
 
         if (!email.isEmpty() && !password.isEmpty()) {
-            mAuth!!.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, OnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        Toast.makeText(this,
-                            R.string.ExitLogin, Toast.LENGTH_LONG
-                        ).show()
-                        setUser(email)
-                        launch {
-                            var auxUser: User = mainConnection!!.getUser(email)!!
-                            //Si no tiene la informacion
-                            if (!auxUser.hasInfo ) {
-                                val principal = Intent(applicationContext, SignIn2Activity::class.java)
-                                startActivity(principal)
-                                overridePendingTransition(R.anim.slide_down_to_up, R.anim.slide_stop)
-                                finish()
-                            } else {
-                                val principal = Intent(applicationContext, GreenhouseActivity::class.java)
-                                startActivity(principal)
-                                finish()
-                                overridePendingTransition(R.anim.slide_up_to_down, R.anim.slide_stop)
+            try {
+                mAuth!!.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, OnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            Toast.makeText(
+                                this,
+                                R.string.ExitLogin, Toast.LENGTH_LONG
+                            ).show()
+                            setUser(email)
+                            launch {
+                                var auxUser: User = mainConnection!!.getUser(email)!!
+                                //Si no tiene la informacion
+                                if (!auxUser.hasInfo) {
+                                    val principal =
+                                        Intent(applicationContext, SignIn2Activity::class.java)
+                                    startActivity(principal)
+                                    overridePendingTransition(
+                                        R.anim.slide_down_to_up,
+                                        R.anim.slide_stop
+                                    )
+                                    finish()
+                                } else {
+                                    val principal =
+                                        Intent(applicationContext, GreenhouseActivity::class.java)
+                                    startActivity(principal)
+                                    finish()
+                                    overridePendingTransition(
+                                        R.anim.slide_up_to_down,
+                                        R.anim.slide_stop
+                                    )
+                                }
                             }
+                        } else {
+                            Toast.makeText(
+                                this,
+                                R.string.LoginError, Toast.LENGTH_LONG
+                            ).show()
                         }
-                    } else {
-                        Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
-                    }
-                })
+                    })
+            } catch (e: Exception) {
+                Log.d("Connection: ", e.message)
+                Toast.makeText(
+                    this,
+                    "Error", Toast.LENGTH_LONG
+                ).show()
+            }
         } else {
             Toast.makeText(
                 this,
@@ -218,49 +242,66 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
             "sunday" to 0.0f
         )
         val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
-        mAuth!!.signInWithCredential(credential).addOnCompleteListener {
-            val isNewUser: Boolean = it.getResult()!!.additionalUserInfo!!.isNewUser()
-            if (it.isSuccessful) {
-                val user = FirebaseAuth.getInstance().currentUser
-                val email = user!!.email.toString()
-                val dataPlant = hashMapOf(
-                    "status" to 100,
-                    "userId" to email,
-                    "plantId" to "Cactus"
-                )
-                setUser(acct.email!!)
-                if (isNewUser) {
-                    mBDD!!.collection("Users").document(email).set(dataUsers)
-                    mBDD!!.collection("User-Plants").document("$email-Cactus").set(dataPlant)
-                    mBDD!!.collection("History").document(email).set(dataHistory)
-                    val principal = Intent(this, SignIn2Activity::class.java)
-                    startActivity(principal)
-                    finish()
-                } else {
-                    launch {
-                        var auxUser: User = mainConnection!!.getUser(email)!!
-                        //Si no tiene la informacion
-                        if (!auxUser.hasInfo ) {
-                            val principal = Intent(applicationContext, SignIn2Activity::class.java)
-                            startActivity(principal)
-                            overridePendingTransition(R.anim.slide_down_to_up, R.anim.slide_stop)
-                            finish()
-                        } else {
-                            val principal = Intent(applicationContext, GreenhouseActivity::class.java)
-                            startActivity(principal)
-                            overridePendingTransition(R.anim.slide_up_to_down, R.anim.slide_stop)
-                            finish()
+        try {
+            mAuth!!.signInWithCredential(credential).addOnCompleteListener {
+                val isNewUser: Boolean = it.result!!.additionalUserInfo!!.isNewUser
+                if (it.isSuccessful) {
+                    val email = acct.email!!
+                    val dataPlant = hashMapOf(
+                        "status" to 100,
+                        "userId" to email,
+                        "plantId" to "Cactus"
+                    )
+                    setUser(acct.email!!)
+                    if (isNewUser) {
+                        mBDD!!.collection("Users").document(email).set(dataUsers)
+                        mBDD!!.collection("User-Plants").document("$email-Cactus").set(dataPlant)
+                        mBDD!!.collection("History").document(email).set(dataHistory)
+                        val principal = Intent(this, SignIn2Activity::class.java)
+                        startActivity(principal)
+                        overridePendingTransition(
+                            R.anim.slide_down_to_up,
+                            R.anim.slide_stop
+                        )
+                        finish()
+                    } else {
+                        launch {
+                            var auxUser: User = mainConnection!!.getUser(email)!!
+                            //Si no tiene la informacion
+                            if (!auxUser.hasInfo) {
+                                val principal =
+                                    Intent(applicationContext, SignIn2Activity::class.java)
+                                startActivity(principal)
+                                overridePendingTransition(
+                                    R.anim.slide_down_to_up,
+                                    R.anim.slide_stop
+                                )
+                                finish()
+                            } else {
+                                val principal =
+                                    Intent(applicationContext, GreenhouseActivity::class.java)
+                                startActivity(principal)
+                                overridePendingTransition(
+                                    R.anim.slide_up_to_down,
+                                    R.anim.slide_stop
+                                )
+                                finish()
+                            }
                         }
                     }
-                }
-                Toast.makeText(
-                    this,
-                    R.string.ExitLogin, Toast.LENGTH_LONG
-                ).show()
+                    Toast.makeText(
+                        this,
+                        R.string.ExitLogin, Toast.LENGTH_LONG
+                    ).show()
 
-            } else {
-                Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
+                }
             }
+        } catch (e: Exception) {
+            Log.d("Connection: ", e.message)
+            Toast.makeText(
+                this,
+                "Error", Toast.LENGTH_LONG
+            ).show()
         }
     }
 }

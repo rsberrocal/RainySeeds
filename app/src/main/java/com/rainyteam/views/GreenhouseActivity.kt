@@ -1,18 +1,19 @@
 package com.rainyteam.views
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
+import android.view.ActionMode
 import android.view.View
 import android.widget.Switch
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.*
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.rainyteam.controller.R
 import com.rainyteam.model.Connection
@@ -25,7 +26,6 @@ import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
 import kotlinx.android.synthetic.main.greenhouse_layout.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.tasks.await
-import java.lang.Exception
 import kotlin.coroutines.CoroutineContext
 
 
@@ -40,10 +40,11 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
     var mBDD: FirebaseFirestore? = null
 
     //shared
-    val PREF_NAME = "USER"
+    val PREF_ID = "USER"
+    val PREF_NAME = "USER_ID"
     var prefs: SharedPreferences? = null
-    var user: String? = ""
 
+    var user: String? = ""
     private var job: Job = Job()
 
     override val coroutineContext: CoroutineContext
@@ -63,23 +64,34 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
 
         val musicService = Intent(this, MusicService::class.java)
         val timerService = Intent(this, TimerService::class.java)
-        startService(timerService)
 
         val swMusic = findViewById<View>(R.id.swMusic) as Switch
 
-        prefs = getSharedPreferences(PREF_NAME, 0)
-        this.user = prefs!!.getString("USER_ID", "")
+        prefs = getSharedPreferences(PREF_ID, 0)
+        //prefs!!.edit().putBoolean("PLAY", false).apply()
+        this.user = prefs!!.getString(PREF_NAME, null)
+        if (this.user == null) {
+            val principal = Intent(this, LoginActivity::class.java)
+            finish()
+            startActivity(principal)
+        }
+
 
         layoutSeeds.setOnClickListener {
             val intent = Intent(this, StoreActivity::class.java)
             startActivity(intent)
+            prefs!!.edit().putBoolean("NAV", true).apply()
         }
 
         val textSeeds: TextView = findViewById(R.id.textGoldenSeeds) as TextView
 
         swMusic.setOnCheckedChangeListener { _, isChecked ->
             if (swMusic.isChecked) {
-                startService(musicService)
+                var musicPlay = prefs!!.getBoolean("PLAY", false)
+                if (!musicPlay) {
+                    Log.d("MUSIC", "STARTING ON CREATE")
+                    startService(musicService)
+                }
                 mBDD!!.collection("Users").document(user!!).update("music", true)
             } else {
                 stopService(musicService)
@@ -94,46 +106,90 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
             if (auxUser.music) {
                 swMusic.isChecked = true
             }
+            startService(timerService)
             textSeeds.text = auxUser.getRainyCoins().toString()
+            /** Delay para definir que no es navegacion al crear vista **/
+            delay(1000)
+            prefs!!.edit().putBoolean("NAV", false).apply()
         }
 
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        if (!isTaskRoot) {
+            prefs!!.edit().putBoolean("NAV", true).apply()
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        //Se crea el intent para pararlo
+        val musicService = Intent(this, MusicService::class.java)
+        val isNav = prefs!!.getBoolean("NAV", false);
+        //Se mira si es una navegacion, de no serla es un destroy de app, se apaga la musica
+        if (!isNav) {
+            //De ser un destroy se detiene
+            stopService(musicService)
+        }
+    }
+
+    //Viene de un destroy
+    override fun onRestart() {
+        super.onRestart()
+        Log.d("MUSIC", "ON RESTART GREENHOUSE")
+        //Se crea el intent para iniciarlo
+        val musicService = Intent(this, MusicService::class.java)
+        var musicPlay = prefs!!.getBoolean("PLAY", false)
+        //Solo se inicia si la musica ha parado y si el usuario tiene habilitado el check
+        launch {
+            var auxUser: User = mainConnection!!.getUser(user!!)!!
+            if (auxUser.music && !musicPlay) {
+                Log.d("MUSIC", "STARTING ON RESTART")
+                startService(musicService)
+            }
+        }
+    }
+
+
     fun boughtPlants() {
         launch {
             mutableList = mutableListOf()
+            var count = 0
             val auxList = mutableListOf<UserPlants>()
             mBDD!!.collection("User-Plants")
+                .whereEqualTo("userId", user)
                 .whereGreaterThanOrEqualTo("status", 0)
                 .get()
                 .addOnSuccessListener { result ->
                     for (document in result) {
-                        auxList.add(document.toObject(UserPlants::class.java))
+                        count++
                     }
                 }.await()
-            mBDD!!.collection("Plants")
-                .get()
-                .addOnSuccessListener { result ->
-                    for (document in result) {
-                        val actualPlant = document.toObject(Plants::class.java)
-                        val userPlant = auxList!!.firstOrNull { it.plantId == document.id }
-                        if (userPlant != null) {
-                            actualPlant.setName(document.id)
-                            actualPlant.setImageName(
-                                "plant_" + actualPlant.getScientificName().toLowerCase().replace(
-                                    " ",
-                                    "_"
+            /*mBDD!!.collection("Plants")
+                    .get()
+                    .addOnSuccessListener { result ->
+                        for (document in result) {
+
+                            val actualPlant = document.toObject(Plants::class.java)
+                            val userPlant = auxList!!.firstOrNull { it.plantId == document.id }
+                            if (userPlant != null) {
+                                actualPlant.setName(document.id)
+                                actualPlant.setImageName(
+                                        "plant_" + actualPlant.getScientificName().toLowerCase().replace(
+                                                " ",
+                                                "_"
+                                        )
                                 )
-                            )
-                            actualPlant.setStatus(userPlant.status)
-                            mutableList!!.add(actualPlant)
+                                actualPlant.setStatus(userPlant.status)
+                                mutableList!!.add(actualPlant)
+                            }
                         }
-                    }
-                }.await()
+                    }.await()*/
 
             val pagerAdapter = PlantSlidePagerAdapter(this@GreenhouseActivity)
 
-            numPages = Math.ceil(mutableList!!.size.toDouble() / NUM_PLANTS_PAGE.toDouble())
+            numPages = Math.ceil(count / NUM_PLANTS_PAGE.toDouble())
                 .toInt() // round up division
             val dotsIndicator = findViewById<WormDotsIndicator>(R.id.dots_indicator)
 
@@ -142,7 +198,8 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
         }
     }
 
-    private inner class PlantSlidePagerAdapter(fm: FragmentActivity) : FragmentStateAdapter(fm) {
+    private inner class PlantSlidePagerAdapter(fm: FragmentActivity) :
+        FragmentStateAdapter(fm) {
         override fun getItemCount(): Int = numPages
 
         override fun createFragment(position: Int): Fragment =

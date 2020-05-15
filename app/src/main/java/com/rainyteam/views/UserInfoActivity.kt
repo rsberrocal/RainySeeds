@@ -20,9 +20,13 @@ class UserInfoActivity() : AppCompatActivity(), CoroutineScope{
 
     var mainConnection: Connection? = null
 
-    val PREF_NAME = "USER"
-    var userName: String? = ""
+    //shared
+    val PREF_ID = "USER"
+    val PREF_NAME = "USER_ID"
     var prefs: SharedPreferences? = null
+
+    var userName: String? = ""
+
 
     private var job: Job = Job()
     override val coroutineContext: CoroutineContext
@@ -34,8 +38,8 @@ class UserInfoActivity() : AppCompatActivity(), CoroutineScope{
 
         this.mainConnection = Connection()
 
-        prefs = getSharedPreferences(PREF_NAME, 0)
-        this.userName = prefs!!.getString("USER_ID", "")
+        prefs = getSharedPreferences(PREF_ID, 0)
+        this.userName = prefs!!.getString(PREF_NAME, null)
         setUser(userName)
 
         userBackArrowButton.setOnClickListener {
@@ -45,14 +49,12 @@ class UserInfoActivity() : AppCompatActivity(), CoroutineScope{
         }
 
         logoutBtn.setOnClickListener {
+            prefs!!.edit().remove(PREF_NAME).apply()
             var music = Intent(this, MusicService::class.java)
             stopService(music)
-            var edit = prefs!!.edit()
-            edit.remove("USER_ID")
-            edit.apply()
-            val intent = Intent(this, LoginActivity::class.java)
             mAuth.signOut()
             finish()
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             overridePendingTransition(R.anim.slide_left_to_right, R.anim.slide_stop)
 
@@ -62,12 +64,12 @@ class UserInfoActivity() : AppCompatActivity(), CoroutineScope{
         launch {
             var actualUser = mainConnection!!.getUser(user!!)
             textName!!.text = actualUser?.getUsername()
-            textAge!!.text =  actualUser?.getAge().toString()
-            textWeight!!.text = actualUser?.getWeight().toString()
+            textAge!!.text =  actualUser?.getAge().toString() + " years"
+            textWeight!!.text = actualUser?.getWeight().toString() + " kg"
             textEmail!!.text = actualUser?.getEmail()
-            textHeight!!.text = actualUser?.getHeight().toString()
+            textHeight!!.text = actualUser?.getHeight().toString() + " cm"
             textSex!!.text = actualUser?.getSex()
-            textExercise!!.text = actualUser?.getExercise().toString()
+            textExercise!!.text = actualUser?.getExercise().toString() + " hours"
         }
     }
 

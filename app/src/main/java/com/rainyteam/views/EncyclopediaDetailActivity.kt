@@ -9,16 +9,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.rainyteam.controller.R
 import com.rainyteam.model.Connection
+import com.rainyteam.model.User
+import com.rainyteam.services.MusicService
 import kotlinx.android.synthetic.main.encyclopedia_detail_layout.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
 class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
-    val PREF_NAME = "USER"
-    var prefs: SharedPreferences? = null
+
     var userName: String? = ""
     var mainConnection: Connection? = null
     var textNamePlant: TextView? = null
@@ -28,6 +26,10 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
     var textWarnings: TextView? = null
     var textMoney: TextView? = null
     var imagePlant: ImageView? = null
+
+    val PREF_ID = "USER"
+    val PREF_NAME = "USER_ID"
+    var prefs: SharedPreferences? = null
 
     private var job: Job = Job()
 
@@ -55,34 +57,72 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
 
         val idPlant: String = intent.getStringExtra("idPlant")
 
-        prefs = getSharedPreferences(PREF_NAME, 0)
-        this.userName = prefs!!.getString("USER_ID", "")
+        prefs = getSharedPreferences(PREF_ID, 0)
+        this.userName = prefs!!.getString(PREF_NAME, "")
 
 
         setPlant(idPlant)
-        shopButton.setOnClickListener{
-        buyPlant(idPlant)
+        shopButton.setOnClickListener {
+            buyPlant(idPlant)
         }
         btnBack.setOnClickListener {
             val intent = Intent(this, EncyclopediaActivity::class.java)
             startActivity(intent)
         }
 
+        launch {
+            /** Delay para definir que no es navegacion al crear vista **/
+            delay(500)
+            prefs!!.edit().putBoolean("NAV",false).apply()
+        }
+
     }
-    fun buyPlant(plantName: String){
-        launch{
+
+    override fun onStop() {
+        super.onStop()
+        //Se crea el intent para pararlo
+        val musicService = Intent(this, MusicService::class.java)
+        val isNav = prefs!!.getBoolean("NAV", false);
+        //Se mira si es una navegacion, de no serla es un destroy de app, se apaga la musica
+        if (!isNav) {
+            //De ser un destroy se detiene
+            stopService(musicService)
+        }
+    }
+
+    //Viene de un destroy
+    override fun onRestart() {
+        super.onRestart()
+        //Se crea el intent para iniciarlo
+        val musicService = Intent(this, MusicService::class.java)
+        var musicPlay = prefs!!.getBoolean("PLAY", false)
+        //Solo se inicia si la musica ha parado y si el usuario tiene habilitado el check
+        launch {
+            var auxUser: User = mainConnection!!.getUser(userName!!)!!
+            if (auxUser.music && !musicPlay) {
+                startService(musicService)
+            }
+        }
+    }
+
+    fun buyPlant(plantName: String) {
+        launch {
             var actualUser = mainConnection!!.getUser(userName!!)
             var actualPlant = mainConnection!!.getPlant(plantName)
-            if(actualUser!!.getRainyCoins()<actualPlant?.getMoney()!!){
-                Toast.makeText(applicationContext, "You don't have enough money!", Toast.LENGTH_LONG).show()
-            }
-            else {
+            if (actualUser!!.getRainyCoins() < actualPlant?.getMoney()!!) {
+                Toast.makeText(
+                    applicationContext,
+                    "You don't have enough money!",
+                    Toast.LENGTH_LONG
+                ).show()
+            } else {
                 actualUser?.setRainyCoins(actualUser.getRainyCoins() - actualPlant?.getMoney()!!)
                 mainConnection!!.buyPlantToUser(actualUser!!, actualPlant!!)
             }
         }
 
     }
+
     fun setPlant(plant: String) {
         launch {
             var actualPlant = mainConnection!!.getPlant(plant)
@@ -92,8 +132,9 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
             textUses!!.text = actualPlant?.getUses()!!.replace("\\n", "\n")
             textWarnings!!.text = actualPlant?.getPrecautions()!!.replace("\\n", "\n")
             textMoney!!.text = actualPlant?.getMoney().toString()
-            val drawableName : String? = actualPlant.getImagePlant()
-            val resID: Int = resources.getIdentifier(drawableName, "drawable", applicationContext.packageName)
+            val drawableName: String? = actualPlant.getImagePlant()
+            val resID: Int =
+                resources.getIdentifier(drawableName, "drawable", applicationContext.packageName)
             imagePlant!!.setImageResource(resID)
         }
     }

@@ -13,11 +13,9 @@ import com.rainyteam.controller.R
 import com.rainyteam.model.Connection
 import com.rainyteam.model.History
 import com.rainyteam.model.User
+import com.rainyteam.services.MusicService
 import kotlinx.android.synthetic.main.introduce_water_layout.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import java.util.*
 import kotlin.coroutines.CoroutineContext
 
@@ -25,8 +23,10 @@ class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope {
 
     var mainConnection: Connection? = null
     //shared
-    val PREF_NAME = "USER"
+    val PREF_ID = "USER"
+    val PREF_NAME = "USER_ID"
     var prefs: SharedPreferences? = null
+
     var user: String? = ""
 
     private var job: Job = Job()
@@ -49,8 +49,8 @@ class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope {
         }
 
         this.mainConnection = Connection()
-        prefs = getSharedPreferences(PREF_NAME, 0)
-        this.user = prefs!!.getString("USER_ID", "")
+        prefs = getSharedPreferences(PREF_ID, 0)
+        this.user = prefs!!.getString(PREF_NAME, "")
 
         //add water
         val btnGota = findViewById(R.id.btnGota) as FrameLayout
@@ -72,6 +72,38 @@ class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope {
         btnGota.setOnClickListener {
             addWater(300)
         }
+        launch {
+            /** Delay para definir que no es navegacion al crear vista **/
+            delay(500)
+            prefs!!.edit().putBoolean("NAV", false).apply()
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        //Se crea el intent para pararlo
+        val musicService = Intent(this, MusicService::class.java)
+        val isNav = prefs!!.getBoolean("NAV", false);
+        //Se mira si es una navegacion, de no serla es un destroy de app, se apaga la musica
+        if (!isNav) {
+            //De ser un destroy se detiene
+            stopService(musicService)
+        }
+    }
+
+    //Viene de un destroy
+    override fun onRestart() {
+        super.onRestart()
+        //Se crea el intent para iniciarlo
+        val musicService = Intent(this, MusicService::class.java)
+        var musicPlay = prefs!!.getBoolean("PLAY", false)
+        //Solo se inicia si la musica ha parado y si el usuario tiene habilitado el check
+        launch {
+            var auxUser: User = mainConnection!!.getUser(user!!)!!
+            if (auxUser.music && !musicPlay) {
+                startService(musicService)
+            }
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -91,7 +123,7 @@ class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope {
                 Calendar.FRIDAY -> actualHistory!!.friday = actualHistory.friday + quantity
                 Calendar.SATURDAY -> actualHistory!!.saturday = actualHistory.saturday + quantity
             }
-            mainConnection!!.addHistory(user!!,actualHistory!!)
+            mainConnection!!.addHistory(user!!, actualHistory!!)
             //Pillar el maximo del usuario
             //calcular su porcentaje y añadirlo al history
             //hacer reload de la botella

@@ -1,7 +1,9 @@
 package com.rainyteam.views
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,7 +12,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.rainyteam.controller.R
 import com.rainyteam.model.Connection
 import com.rainyteam.model.Plants
+import com.rainyteam.model.User
 import com.rainyteam.model.UserPlants
+import com.rainyteam.services.MusicService
 import kotlinx.android.synthetic.main.store_layout.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -25,6 +29,13 @@ class StoreActivity : AppCompatActivity(), CoroutineScope {
 
     /** DATABASE **/
     val database = FirebaseFirestore.getInstance()
+
+    //shared
+    val PREF_ID = "USER"
+    val PREF_NAME = "USER_ID"
+    var prefs: SharedPreferences? = null
+
+    var user: String? = ""
 
     private var recyclerView: RecyclerView? = null
     private var gridLayoutManager: GridLayoutManager? = null
@@ -47,11 +58,22 @@ class StoreActivity : AppCompatActivity(), CoroutineScope {
 
         this.mainConnection = Connection()
 
+        prefs = getSharedPreferences(PREF_ID, 0)
+        this.user = prefs!!.getString(PREF_NAME, "")
+
+        val textSeeds: TextView = findViewById(R.id.textGoldenSeeds) as TextView
+
         recyclerView = findViewById(R.id.recyclerViewStore)
         gridLayoutManager =
             GridLayoutManager(applicationContext, 3, LinearLayoutManager.VERTICAL, false)
         recyclerView?.layoutManager = gridLayoutManager
         recyclerView?.setHasFixedSize(true)
+
+        launch{
+            var auxUser: User = mainConnection!!.getUser(user!!)!!
+            textSeeds.text = auxUser.getRainyCoins().toString()
+        }
+
 
         buyPlants()
 
@@ -60,6 +82,33 @@ class StoreActivity : AppCompatActivity(), CoroutineScope {
             startActivity(intent)
         }
 
+    }
+
+    override fun onStop() {
+        super.onStop()
+        //Se crea el intent para pararlo
+        val musicService = Intent(this, MusicService::class.java)
+        val isNav = prefs!!.getBoolean("NAV", false);
+        //Se mira si es una navegacion, de no serla es un destroy de app, se apaga la musica
+        if (!isNav) {
+            //De ser un destroy se detiene
+            stopService(musicService)
+        }
+    }
+
+    //Viene de un destroy
+    override fun onRestart() {
+        super.onRestart()
+        //Se crea el intent para iniciarlo
+        val musicService = Intent(this, MusicService::class.java)
+        var musicPlay = prefs!!.getBoolean("PLAY", false)
+        //Solo se inicia si la musica ha parado y si el usuario tiene habilitado el check
+        launch {
+            var auxUser: User = mainConnection!!.getUser(user!!)!!
+            if (auxUser.music && !musicPlay) {
+                startService(musicService)
+            }
+        }
     }
 
     fun buyPlants() {
