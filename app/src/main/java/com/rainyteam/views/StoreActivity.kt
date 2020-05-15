@@ -87,6 +87,15 @@ class StoreActivity : AppCompatActivity(), CoroutineScope {
         }
     }
 
+    //Funcion que se ejecuta al tirar atras
+    override fun onBackPressed() {
+        super.onBackPressed()
+        if (!isTaskRoot) {
+            prefs!!.edit().putBoolean("NAV", true).apply()
+        }
+        prefs!!.edit().putBoolean("NAV", false).apply()
+    }
+
     //Viene de un destroy
     override fun onRestart() {
         super.onRestart()

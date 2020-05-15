@@ -82,6 +82,11 @@ class SignIn2Activity : AppCompatActivity(), CoroutineScope {
         }
     }
 
+    //Funcion que se ejecuta al tirar atras
+    override fun onBackPressed() {
+        super.onBackPressed()
+    }
+
     @RequiresApi(Build.VERSION_CODES.O)
     private fun showDatePickerDialog() {
         val selectedDate = Calendar.getInstance()

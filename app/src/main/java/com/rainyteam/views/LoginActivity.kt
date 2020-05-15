@@ -114,6 +114,11 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
         })
     }
 
+    //Funcion que se ejecuta al tirar atras
+    override fun onBackPressed() {
+        super.onBackPressed()
+    }
+
     private fun forgot(email: EditText) {
 
         mAuth!!.sendPasswordResetEmail(email.text.toString()).addOnCompleteListener { task ->

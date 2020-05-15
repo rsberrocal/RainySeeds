@@ -60,6 +60,12 @@ class UserInfoActivity() : AppCompatActivity(), CoroutineScope{
 
         }
     }
+
+    //Funcion que se ejecuta al tirar atras
+    override fun onBackPressed() {
+        super.onBackPressed()
+    }
+
     fun setUser(user: String?){
         launch {
             var actualUser = mainConnection!!.getUser(user!!)

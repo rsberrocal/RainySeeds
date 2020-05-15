@@ -23,7 +23,7 @@ import java.lang.Exception
 import kotlin.coroutines.CoroutineContext
 
 
-class EncyclopediaActivity : MusicAppCompatActivity(), CoroutineScope {
+class EncyclopediaActivity : AppCompatActivity(), CoroutineScope {
 
     var mainConnection: Connection? = null
 
@@ -38,6 +38,9 @@ class EncyclopediaActivity : MusicAppCompatActivity(), CoroutineScope {
     // Store a member variable for the listener
 
     //shared
+    val PREF_ID = "USER"
+    val PREF_NAME = "USER_ID"
+    var prefs: SharedPreferences? = null
 
     var user: String? = ""
 
@@ -114,6 +117,15 @@ class EncyclopediaActivity : MusicAppCompatActivity(), CoroutineScope {
             //De ser un destroy se detiene
             stopService(musicService)
         }
+    }
+
+    //Funcion que se ejecuta al tirar atras
+    override fun onBackPressed() {
+        super.onBackPressed()
+        if (!isTaskRoot) {
+            prefs!!.edit().putBoolean("NAV", true).apply()
+        }
+        prefs!!.edit().putBoolean("NAV", false).apply()
     }
 
     //Viene de un destroy

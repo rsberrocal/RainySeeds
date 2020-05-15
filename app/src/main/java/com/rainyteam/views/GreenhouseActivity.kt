@@ -120,6 +120,7 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
         if (!isTaskRoot) {
             prefs!!.edit().putBoolean("NAV", true).apply()
         }
+        prefs!!.edit().putBoolean("NAV", false).apply()
     }
 
     override fun onStop() {
