@@ -47,5 +47,7 @@
     <string name="Sex">Sex</string>
     <string name="Exercise">Hours of exercise</string>
     <string name="BirthDate">Birth Date</string>
+    <string name="ErrorPasswordLength">Password should be at least 6 characters</string>
+    <string name="LoginError">Error email or password</string>
 
 </resources>

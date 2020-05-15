@@ -90,32 +90,38 @@ class SigninActivity : AppCompatActivity() {
 
         if (!email.isEmpty() && !password.isEmpty() && !confirmPassword.isEmpty()) {
             if (password == confirmPassword) {
-                if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                    mAuth!!.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(this, OnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                val user = mAuth!!.currentUser
-                                val uid = user!!.uid
-                                mDatabase!!.child(uid).child("Email").setValue(email)
-                                Toast.makeText(
-                                    this,
-                                    R.string.ExitSignin, Toast.LENGTH_LONG
-                                ).show()
-                                mBDD!!.collection("Users").document(email).set(dataUsers)
-                                mBDD!!.collection("User-Plants").document("$email-Cactus").set(dataPlant)
-                                mBDD!!.collection("History").document(email).set(dataHistory)
-                                setUser(email)
-                                val btnSignin = Intent(this, SignIn2Activity::class.java)
-                                startActivity(btnSignin)
-                                overridePendingTransition(R.anim.slide_down_to_up, R.anim.slide_stop)
-                                finish()
+                if (password.length >= 6) {
+                    if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
 
-                            } else {
-                                Log.d("Connection", task.exception?.message!!)
-                                Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
+                        mAuth!!.createUserWithEmailAndPassword(email, password)
+                            .addOnCompleteListener(this, OnCompleteListener { task ->
+                                if (task.isSuccessful) {
+                                    val user = mAuth!!.currentUser
+                                    val uid = user!!.uid
+                                    mDatabase!!.child(uid).child("Email").setValue(email)
+                                    Toast.makeText(
+                                        this,
+                                        R.string.ExitSignin, Toast.LENGTH_LONG
+                                    ).show()
+                                    mBDD!!.collection("Users").document(email).set(dataUsers)
+                                    mBDD!!.collection("User-Plants").document("$email-Cactus")
+                                        .set(dataPlant)
+                                    mBDD!!.collection("History").document(email).set(dataHistory)
+                                    setUser(email)
+                                    val btnSignin = Intent(this, SignIn2Activity::class.java)
+                                    startActivity(btnSignin)
+                                    overridePendingTransition(
+                                        R.anim.slide_down_to_up,
+                                        R.anim.slide_stop
+                                    )
+                                    finish()
 
-                            }
-                        })/*
+                                } else {
+                                    Log.d("Connection", task.exception?.message!!)
+                                    Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
+
+                                }
+                            })/*
                     //Sincronizacion de varias cuentas
                     val prevUser = mAuth!!.currentUser
                     mAuth!!.signInWithCredential(credential)
@@ -136,10 +142,16 @@ class SigninActivity : AppCompatActivity() {
                                 finish()
                             }
                         } */
+                    } else {
+                        Toast.makeText(
+                            this,
+                            R.string.WrongEmail, Toast.LENGTH_LONG
+                        ).show()
+                    }
                 } else {
                     Toast.makeText(
                         this,
-                        R.string.WrongEmail, Toast.LENGTH_LONG
+                        R.string.ErrorPasswordLength, Toast.LENGTH_LONG
                     ).show()
                 }
             } else {
@@ -155,6 +167,7 @@ class SigninActivity : AppCompatActivity() {
             ).show()
         }
     }
+
     private fun setUser(id: String) {
         val editor = prefs!!.edit()
         editor.putString("USER_ID", id)
