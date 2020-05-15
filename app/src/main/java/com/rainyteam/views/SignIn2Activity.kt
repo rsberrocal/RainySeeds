@@ -98,9 +98,9 @@ class SignIn2Activity : AppCompatActivity(), CoroutineScope {
                 selectedDate.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                 val selectedDateFormatted = format.format(selectedDate.time)
                 inputBirthDate!!.setText(selectedDateFormatted)
-                var actualTime = System.currentTimeMillis()/1000
-                var milisSelectedDate = selectedDate.timeInMillis/1000;
-                age = (actualTime-milisSelectedDate)/(3600*24*365)
+                var actualTime = System.currentTimeMillis() / 1000
+                var milisSelectedDate = selectedDate.timeInMillis / 1000;
+                age = (actualTime - milisSelectedDate) / (3600 * 24 * 365)
             },
             now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH)
         )

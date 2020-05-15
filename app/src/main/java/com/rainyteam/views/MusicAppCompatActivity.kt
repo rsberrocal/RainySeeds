@@ -3,13 +3,9 @@ package com.rainyteam.views
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
-import com.rainyteam.model.Connection
-import com.rainyteam.model.User
-import com.rainyteam.services.MusicService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
 open class MusicAppCompatActivity : AppCompatActivity(), CoroutineScope {

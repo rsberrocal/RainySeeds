@@ -94,7 +94,7 @@
                             android:layout_gravity="start|top"
                             android:text="Name:"
                             android:textColor="@color/gray"
-                            android:textSize="15dp"
+                            android:textSize="13dp"
                             android:textStyle="italic|bold" />
 
                     </FrameLayout>
@@ -107,9 +107,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="start|bottom"
                         android:layout_marginLeft="10dp"
-                        android:text="Name"
                         android:textColor="@color/black"
-                        android:textSize="20dp">
+                        android:textSize="18dp">
 
                     </TextView>
 
@@ -119,7 +118,7 @@
                         android:layout_gravity="start|top"
                         android:text="Email:"
                         android:textColor="@color/gray"
-                        android:textSize="15dp"
+                        android:textSize="13dp"
                         android:textStyle="italic|bold">
 
                     </TextView>
@@ -130,9 +129,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="start|bottom"
                         android:layout_marginLeft="10dp"
-                        android:text="Email"
                         android:textColor="@color/black"
-                        android:textSize="18dp" />
+                        android:textSize="14dp" />
 
                 </LinearLayout>
 
@@ -156,7 +154,7 @@
                         android:layout_height="wrap_content"
                         android:text="Weight:"
                         android:textColor="@color/gray"
-                        android:textSize="15dp"
+                        android:textSize="13dp"
                         android:textStyle="italic|bold" />
 
                     <TextView
@@ -164,9 +162,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:text="Weight"
                         android:textColor="@color/black"
-                        android:textSize="18sp" />
+                        android:textSize="15sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -181,7 +178,7 @@
                         android:layout_gravity="start|top"
                         android:text="Age:"
                         android:textColor="@color/gray"
-                        android:textSize="15dp"
+                        android:textSize="13dp"
                         android:textStyle="italic|bold" />
 
                     <TextView
@@ -189,9 +186,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:text="Age"
                         android:textColor="@color/black"
-                        android:textSize="18dp" />
+                        android:textSize="15dp" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -215,7 +211,7 @@
                         android:layout_gravity="start|top"
                         android:text="Height:"
                         android:textColor="@color/gray"
-                        android:textSize="15dp"
+                        android:textSize="13dp"
                         android:textStyle="italic|bold" />
 
                     <TextView
@@ -224,9 +220,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="start|bottom"
                         android:layout_marginLeft="10dp"
-                        android:text="Height"
                         android:textColor="@color/black"
-                        android:textSize="18dp" />
+                        android:textSize="15dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -241,7 +236,7 @@
                         android:layout_gravity="start|top"
                         android:text="Sex:"
                         android:textColor="@color/gray"
-                        android:textSize="15dp"
+                        android:textSize="13dp"
                         android:textStyle="italic|bold" />
 
                     <TextView
@@ -250,9 +245,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="start|bottom"
                         android:layout_marginLeft="10dp"
-                        android:text="Sex"
                         android:textColor="@color/black"
-                        android:textSize="18dp" />
+                        android:textSize="15dp" />
 
                 </LinearLayout>
 
@@ -281,7 +275,7 @@
                             android:layout_gravity="start|top"
                             android:text="Exercise per week:"
                             android:textColor="@color/gray"
-                            android:textSize="15dp"
+                            android:textSize="13dp"
                             android:textStyle="italic|bold" />
 
                         <TextView
@@ -290,9 +284,8 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="start|bottom"
                             android:layout_marginLeft="10dp"
-                            android:text="Exercise hours"
                             android:textColor="@color/black"
-                            android:textSize="18dp" />
+                            android:textSize="15dp" />
                     </LinearLayout>
 
                     <ImageView
@@ -341,7 +334,7 @@
                     android:layout_gravity="center"
                     android:text="Graph of the water drunk the last days:"
                     android:textColor="@color/gray"
-                    android:textSize="15dp"
+                    android:textSize="13dp"
                     android:textStyle="italic|bold" />
 
             </FrameLayout>

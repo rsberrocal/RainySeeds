@@ -70,12 +70,12 @@ class UserInfoActivity() : AppCompatActivity(), CoroutineScope{
         launch {
             var actualUser = mainConnection!!.getUser(user!!)
             textName!!.text = actualUser?.getUsername()
-            textAge!!.text =  actualUser?.getAge().toString()
-            textWeight!!.text = actualUser?.getWeight().toString()
+            textAge!!.text =  actualUser?.getAge().toString() + " years"
+            textWeight!!.text = actualUser?.getWeight().toString() + " kg"
             textEmail!!.text = actualUser?.getEmail()
-            textHeight!!.text = actualUser?.getHeight().toString()
+            textHeight!!.text = actualUser?.getHeight().toString() + " cm"
             textSex!!.text = actualUser?.getSex()
-            textExercise!!.text = actualUser?.getExercise().toString()
+            textExercise!!.text = actualUser?.getExercise().toString() + " hours"
         }
     }
 
