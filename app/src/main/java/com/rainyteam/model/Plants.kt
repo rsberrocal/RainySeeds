@@ -49,8 +49,8 @@ class Plants {
         return this.precautions
     }
 
-    fun getMoney(): Int? {
-        return this.money
+    fun getMoney(): Int {
+        return this.money!!
     }
 
     fun getMoneyGenerated(): Int {

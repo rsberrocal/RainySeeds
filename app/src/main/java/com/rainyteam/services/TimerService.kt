@@ -7,6 +7,10 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.IBinder
 import android.util.Log
+import com.rainyteam.model.Connection
+import com.rainyteam.model.Plants
+import com.rainyteam.model.UserPlants
+import kotlinx.coroutines.tasks.await
 import java.lang.ClassCastException
 import java.util.*
 import kotlin.math.log
@@ -17,10 +21,15 @@ class TimerService : Service() {
     var lastTime: Int = 0
     val PREF_NAME = "USER"
     val PREF_ID = "NEXT"
+    var user = ""
     var prefs: SharedPreferences? = null
+    lateinit var connection: Connection
     override fun onCreate() {
         logMessage("Starting")
         super.onCreate()
+        connection = Connection()
+        prefs = getSharedPreferences(PREF_NAME, 0)
+        this.user = prefs!!.getString("USER_ID", "")!!
     }
 
     override fun onDestroy() {
@@ -34,7 +43,6 @@ class TimerService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         logMessage("Starting timer command")
-        prefs = getSharedPreferences(PREF_NAME, 0)
         var aux = 0
         try {
             aux = prefs!!.getInt(PREF_ID, 0)
@@ -51,9 +59,40 @@ class TimerService : Service() {
                 edit.putInt("NEXT", nextTime.toInt())
                 edit.apply()
             }
+            // todo matar a las plantas de forma progresiva,
             while (true) {
                 time = Calendar.getInstance().timeInMillis / 1000;
                 if (time > nextTime) {
+                    logMessage("Updating")
+                    prefs!!.edit().putInt("NEXT", time.toInt());
+                    nextTime += 60
+                    //Matamos plantas
+                    connection.BDD.collection("User-Plants")
+                        .whereEqualTo("userId", user)
+                        .whereGreaterThan("status", 0)
+                        .get()
+                        .addOnSuccessListener { result ->
+
+                            result.documents.forEach {
+                                val plant = it.toObject(UserPlants::class.java)
+                                connection.BDD.collection("Plants")
+                                    .document(plant!!.plantId)
+                                    .get()
+                                    .addOnSuccessListener { detail ->
+                                        var aux = detail.toObject(Plants::class.java)
+                                        // todo cambiar batch por update de solo un document.
+                                        val batch = connection.BDD.batch()
+                                        batch.update(
+                                            it.reference,
+                                            "status",
+                                            getDrying(aux!!, plant.status)
+                                        )
+                                        batch.commit()
+                                        logMessage("update status: " + plant.plantId + " less 20")
+                                    }
+                            }
+                        }
+
                     //logMessage("Time more than next: " + time)
                 } else {
                     //logMessage("Time less than next: " + time)
@@ -69,6 +108,15 @@ class TimerService : Service() {
 
     override fun onBind(p0: Intent?): IBinder? {
         return null
+    }
+
+    fun getDrying(plant: Plants, status: Int): Int {
+        var num = 0.0
+        num = plant.getMoney() * 0.2
+        if (status - num < 0) {
+            return -1;
+        }
+        return (status - num).toInt()
     }
 
 }
