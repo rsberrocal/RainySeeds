@@ -32,6 +32,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.lang.Exception
 import kotlin.coroutines.CoroutineContext
+import kotlin.system.exitProcess
 
 class LoginActivity : AppCompatActivity(), CoroutineScope {
 
@@ -116,9 +117,9 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
         })
     }
 
-    //Funcion que se ejecuta al tirar atras
     override fun onBackPressed() {
         super.onBackPressed()
+        exitProcess(0)
     }
 
     private fun forgot(email: EditText) {

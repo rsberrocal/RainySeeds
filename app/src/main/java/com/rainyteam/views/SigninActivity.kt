@@ -55,8 +55,8 @@ class SigninActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        val green = Intent(this, GreenhouseActivity::class.java)
-        startActivity(green)
+        val returnLogin = Intent(this, LoginActivity::class.java)
+        startActivity(returnLogin)
         finish()
         overridePendingTransition(R.anim.slide_left_to_right, R.anim.slide_stop)
     }
