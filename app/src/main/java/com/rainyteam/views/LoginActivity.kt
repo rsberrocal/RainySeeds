@@ -119,7 +119,10 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        exitProcess(0)
+        Log.d("MAIN", "Finish app");
+        //exitProcess(0)
+        moveTaskToBack(true)
+        exitProcess(-1)
     }
 
     private fun forgot(email: EditText) {
@@ -221,6 +224,7 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
                     this,
                     R.string.GoogleSigninError, Toast.LENGTH_LONG
                 ).show()
+                Log.d("Firebase", e.message)
             }
         }
     }
