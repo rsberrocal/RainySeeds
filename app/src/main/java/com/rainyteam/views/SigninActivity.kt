@@ -53,6 +53,14 @@ class SigninActivity : AppCompatActivity() {
         })
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val green = Intent(this, GreenhouseActivity::class.java)
+        startActivity(green)
+        finish()
+        overridePendingTransition(R.anim.slide_left_to_right, R.anim.slide_stop)
+    }
+
     private fun register() {
         val emailTxt = findViewById<View>(R.id.eT_EmailSignin) as EditText
         val passwordTxt = findViewById<View>(R.id.eT_PasswordSignin) as EditText
