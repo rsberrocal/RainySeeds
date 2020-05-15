@@ -3,6 +3,7 @@ package com.rainyteam.views
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -56,12 +57,13 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
         textMoney = findViewById(R.id.textPricePlant)
 
         val idPlant: String = intent.getStringExtra("idPlant")
+        val statusPlant: Int = intent.getIntExtra("statusPlant", -2)
 
         prefs = getSharedPreferences(PREF_ID, 0)
         this.userName = prefs!!.getString(PREF_NAME, "")
 
 
-        setPlant(idPlant)
+        setPlant(idPlant, statusPlant)
         shopButton.setOnClickListener {
             buyPlant(idPlant)
         }
@@ -132,7 +134,7 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
 
     }
 
-    fun setPlant(plant: String) {
+    fun setPlant(plant: String, statusPlant: Int) {
         launch {
             var actualPlant = mainConnection!!.getPlant(plant)
             textNamePlant!!.text = plant.replace("\\n", "\n")
@@ -141,9 +143,17 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
             textUses!!.text = actualPlant?.getUses()!!.replace("\\n", "\n")
             textWarnings!!.text = actualPlant?.getPrecautions()!!.replace("\\n", "\n")
             textMoney!!.text = actualPlant?.getMoney().toString()
-            val drawableName: String? = actualPlant.getImagePlant()
-            val resID: Int =
-                resources.getIdentifier(drawableName, "drawable", applicationContext.packageName)
+            val drawableName: String?
+            val resID: Int
+            if(statusPlant == -2){
+                Log.d("STATUS", "STATUS == -2 (DEAD)")
+                drawableName = "baw_" + actualPlant.getScientificName().toLowerCase().replace(" ", "_")
+                resID = resources.getIdentifier(drawableName, "drawable", applicationContext.packageName)
+            } else {
+                drawableName = actualPlant.getImagePlant()
+                resID = resources.getIdentifier(drawableName, "drawable", applicationContext.packageName)
+            }
+
             imagePlant!!.setImageResource(resID)
         }
     }
