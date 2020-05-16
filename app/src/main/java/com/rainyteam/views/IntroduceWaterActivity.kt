@@ -58,21 +58,29 @@ class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope {
         val btnGota = findViewById(R.id.btnGota) as FrameLayout
         btnGota.setOnClickListener {
             addWater(100)
+            val intent = Intent(this, MainWaterActivity::class.java)
+            startActivity(intent)
         }
 
         val btnVaso = findViewById(R.id.btnVaso) as FrameLayout
         btnVaso.setOnClickListener {
             addWater(200)
+            val intent = Intent(this, MainWaterActivity::class.java)
+            startActivity(intent)
         }
 
         val btnBotella = findViewById(R.id.btnBotella) as FrameLayout
         btnBotella.setOnClickListener {
             addWater(500)
+            val intent = Intent(this, MainWaterActivity::class.java)
+            startActivity(intent)
         }
 
         val btnRegadera = findViewById(R.id.btnRegadera) as FrameLayout
         btnRegadera.setOnClickListener {
             addWater(1000)
+            val intent = Intent(this, MainWaterActivity::class.java)
+            startActivity(intent)
         }
         launch {
             /** Delay para definir que no es navegacion al crear vista **/
