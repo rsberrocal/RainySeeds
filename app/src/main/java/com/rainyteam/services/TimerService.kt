@@ -148,7 +148,12 @@ class TimerService : Service(), CoroutineScope {
                             .addOnSuccessListener { detail ->
                                 var aux = detail.toObject(Plants::class.java)!!
                                 //dinero que recibe el usuario
-                                moneyToAdd += (aux.getMoney() * 10)/100
+
+                                if (detail.id == "Cactus"){
+                                    moneyToAdd += 5
+                                }else{
+                                    moneyToAdd += (aux.getMoney() * 10)/100
+                                }
 
                                 it.reference.update(
                                     "status",
