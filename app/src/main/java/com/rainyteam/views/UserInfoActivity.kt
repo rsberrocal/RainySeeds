@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.google.firebase.auth.FirebaseAuth
 import com.rainyteam.controller.R
@@ -92,6 +93,7 @@ class UserInfoActivity() : AppCompatActivity(), CoroutineScope{
                 entries.add(Entry(5f,userHistory.friday))
                 entries.add(Entry(6f,userHistory.saturday))
                 entries.add(Entry(7f,userHistory.sunday))
+
                 val dataSet= LineDataSet(entries, "Float")
                 dataSet.setDrawValues(false)
                 dataSet.setDrawFilled(true)
@@ -101,8 +103,10 @@ class UserInfoActivity() : AppCompatActivity(), CoroutineScope{
 
                 lineChart.xAxis.labelRotationAngle = 0f
 
+                lineChart.data = LineData(dataSet)
+
                 lineChart.axisRight.isEnabled = false
-                lineChart.xAxis.axisMaximum = 100f
+                lineChart.xAxis.axisMaximum = 7f
 
                 lineChart.setTouchEnabled(true)
                 lineChart.setPinchZoom(true)
