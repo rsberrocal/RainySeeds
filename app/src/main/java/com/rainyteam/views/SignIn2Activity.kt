@@ -6,7 +6,9 @@ import android.content.SharedPreferences
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.view.isEmpty
 import com.rainyteam.controller.R
 import com.rainyteam.model.Connection
 import com.rainyteam.model.User
@@ -53,32 +55,41 @@ class SignIn2Activity : AppCompatActivity(), CoroutineScope {
             showDatePickerDialog();
         }
         btnSignin.setOnClickListener {
-            launch {
-                var actualUser: User? = mainConnection!!.getUser(user!!)
-                actualUser!!.setName(inputUsername.text.toString())
-                actualUser!!.setWeight(inputWeight.text.toString().toInt())
-                actualUser!!.setHeight(inputHeight.text.toString().toFloat())
-                actualUser!!.setExercise(inputHoursExercise.text.toString().toInt())
-                var sexString: String = ""
-                if (maleOption.isChecked) {
-                    sexString = "Male"
-                } else if (femaleOption.isChecked) {
-                    sexString = "Female"
-                } else {
-                    sexString = "Other"
+            if (inputUsername.text.toString().isEmpty() && !inputHeight.text.toString().isEmpty()
+                && !inputWeight.text.toString().isEmpty() && !inputHoursExercise.text.toString()
+                    .isEmpty()
+                && !sexOption.isSelected
+            ){
+                launch {
+                    var actualUser: User? = mainConnection!!.getUser(user!!)
+                    actualUser!!.setName(inputUsername.text.toString())
+                    actualUser!!.setWeight(inputWeight.text.toString().toInt())
+                    actualUser!!.setHeight(inputHeight.text.toString().toFloat())
+                    actualUser!!.setExercise(inputHoursExercise.text.toString().toInt())
+                    var sexString: String = ""
+                    if (maleOption.isChecked) {
+                        sexString = "Male"
+                    } else if (femaleOption.isChecked) {
+                        sexString = "Female"
+                    } else {
+                        sexString = "Other"
+                    }
+                    actualUser!!.setSex(sexString)
+                    actualUser!!.setHasInf(true)
+                    actualUser!!.setAge(age)
+                    actualUser!!.setMaxWater()
+                    mainConnection!!.setUser(actualUser)
+                    //age
+                    //maxWater
                 }
-                actualUser!!.setSex(sexString)
-                actualUser!!.setHasInf(true)
-                actualUser!!.setAge(age)
-                actualUser!!.setMaxWater()
-                mainConnection!!.setUser(actualUser)
-                //age
-                //maxWater
-            }
 
             val intent = Intent(this, GreenhouseActivity::class.java)
             startActivity(intent)
             overridePendingTransition(R.anim.slide_up_to_down, R.anim.slide_stop)
+            }
+            else{
+                Toast.makeText(this, "Introduce all values", Toast.LENGTH_LONG).show()
+            }
         }
     }
 
