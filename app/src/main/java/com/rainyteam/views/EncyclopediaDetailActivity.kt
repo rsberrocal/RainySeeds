@@ -1,6 +1,7 @@
 package com.rainyteam.views
 
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -8,10 +9,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.rainyteam.controller.R
 import com.rainyteam.model.Connection
 import com.rainyteam.model.User
 import com.rainyteam.services.MusicService
+import com.rainyteam.services.TimerService
 import kotlinx.android.synthetic.main.encyclopedia_detail_layout.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
@@ -70,6 +73,7 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
         btnBack.setOnClickListener {
             val intent = Intent(this, EncyclopediaActivity::class.java)
             startActivity(intent)
+            prefs!!.edit().putBoolean("NAV", true).apply()
         }
 
         launch {
@@ -84,11 +88,15 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
         super.onStop()
         //Se crea el intent para pararlo
         val musicService = Intent(this, MusicService::class.java)
+
+        val timerService = Intent(this, TimerService::class.java)
+
         val isNav = prefs!!.getBoolean("NAV", false);
         //Se mira si es una navegacion, de no serla es un destroy de app, se apaga la musica
         if (!isNav) {
             //De ser un destroy se detiene
             stopService(musicService)
+            stopService(timerService)
         }
     }
 
@@ -104,15 +112,20 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
     //Viene de un destroy
     override fun onRestart() {
         super.onRestart()
+        Log.d("MUSIC", "ON RESTART GREENHOUSE")
         //Se crea el intent para iniciarlo
         val musicService = Intent(this, MusicService::class.java)
+        val timerService = Intent(this, TimerService::class.java)
+
         var musicPlay = prefs!!.getBoolean("PLAY", false)
         //Solo se inicia si la musica ha parado y si el usuario tiene habilitado el check
         launch {
             var auxUser: User = mainConnection!!.getUser(userName!!)!!
             if (auxUser.music && !musicPlay) {
+                Log.d("MUSIC", "STARTING ON RESTART")
                 startService(musicService)
             }
+            startService(timerService)
         }
     }
 

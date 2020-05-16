@@ -102,6 +102,7 @@ class FragmentPageGreenhouse(
                     val intent = Intent(plantR1C1.context, EncyclopediaDetailActivity::class.java)
                     intent.putExtra("idPlant", auxPlant1.getName())
                     plantR1C1.context.startActivity(intent)
+                    prefs!!.edit().putBoolean("NAV", true).apply()
                 }
             }
             if (mutableList!!.size > pos * 9 + 1) {
@@ -114,6 +115,7 @@ class FragmentPageGreenhouse(
                     val intent = Intent(plantR1C2.context, EncyclopediaDetailActivity::class.java)
                     intent.putExtra("idPlant", auxPlant2.getName())
                     plantR1C2.context.startActivity(intent)
+                    prefs!!.edit().putBoolean("NAV", true).apply()
                 }
             }
             if (mutableList!!.size > pos * 9 + 2) {
@@ -126,6 +128,7 @@ class FragmentPageGreenhouse(
                     val intent = Intent(plantR1C3.context, EncyclopediaDetailActivity::class.java)
                     intent.putExtra("idPlant", auxPlant3.getName())
                     plantR1C3.context.startActivity(intent)
+                    prefs!!.edit().putBoolean("NAV", true).apply()
                 }
             }
             if (mutableList!!.size > pos * 9 + 3) {
@@ -138,6 +141,7 @@ class FragmentPageGreenhouse(
                     val intent = Intent(plantR2C1.context, EncyclopediaDetailActivity::class.java)
                     intent.putExtra("idPlant", auxPlant4.getName())
                     plantR2C1.context.startActivity(intent)
+                    prefs!!.edit().putBoolean("NAV", true).apply()
                 }
             }
             if (mutableList!!.size > pos * 9 + 4) {
@@ -150,6 +154,7 @@ class FragmentPageGreenhouse(
                     val intent = Intent(plantR2C2.context, EncyclopediaDetailActivity::class.java)
                     intent.putExtra("idPlant", auxPlant5.getName())
                     plantR2C2.context.startActivity(intent)
+                    prefs!!.edit().putBoolean("NAV", true).apply()
                 }
             }
             if (mutableList!!.size > pos * 9 + 5) {
@@ -162,6 +167,7 @@ class FragmentPageGreenhouse(
                     val intent = Intent(plantR2C3.context, EncyclopediaDetailActivity::class.java)
                     intent.putExtra("idPlant", auxPlant6.getName())
                     plantR2C3.context.startActivity(intent)
+                    prefs!!.edit().putBoolean("NAV", true).apply()
                 }
             }
             if (mutableList!!.size > pos * 9 + 6) {
@@ -174,6 +180,7 @@ class FragmentPageGreenhouse(
                     val intent = Intent(plantR3C1.context, EncyclopediaDetailActivity::class.java)
                     intent.putExtra("idPlant", auxPlant7.getName())
                     plantR3C1.context.startActivity(intent)
+                    prefs!!.edit().putBoolean("NAV", true).apply()
                 }
             }
 
@@ -187,6 +194,7 @@ class FragmentPageGreenhouse(
                     val intent = Intent(plantR3C2.context, EncyclopediaDetailActivity::class.java)
                     intent.putExtra("idPlant", auxPlant8.getName())
                     plantR3C2.context.startActivity(intent)
+                    prefs!!.edit().putBoolean("NAV", true).apply()
                 }
             }
             if (mutableList!!.size > pos * 9 + 8) {
@@ -199,6 +207,7 @@ class FragmentPageGreenhouse(
                     val intent = Intent(plantR3C3.context, EncyclopediaDetailActivity::class.java)
                     intent.putExtra("idPlant", auxPlant9.getName())
                     plantR3C3.context.startActivity(intent)
+                    prefs!!.edit().putBoolean("NAV", true).apply()
                 }
             }
         }

@@ -159,6 +159,9 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
         Log.d("MUSIC", "ON RESTART GREENHOUSE")
         //Se crea el intent para iniciarlo
         val musicService = Intent(this, MusicService::class.java)
+        val timerService = Intent(this, TimerService::class.java)
+        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, IntentFilter("Timer"))
+
         var musicPlay = prefs!!.getBoolean("PLAY", false)
         //Solo se inicia si la musica ha parado y si el usuario tiene habilitado el check
         launch {
@@ -167,6 +170,7 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
                 Log.d("MUSIC", "STARTING ON RESTART")
                 startService(musicService)
             }
+            startService(timerService)
         }
     }
 

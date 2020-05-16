@@ -1,19 +1,23 @@
 package com.rainyteam.views
 
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.SharedPreferences
 import android.icu.util.Calendar
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.FrameLayout
 import androidx.annotation.RequiresApi
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.rainyteam.controller.R
 import com.rainyteam.model.Connection
 import com.rainyteam.model.History
 import com.rainyteam.model.User
 import com.rainyteam.services.MusicService
+import com.rainyteam.services.TimerService
 import kotlinx.android.synthetic.main.introduce_water_layout.*
 import kotlinx.coroutines.*
 import java.util.*
@@ -103,15 +107,20 @@ class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope {
     //Viene de un destroy
     override fun onRestart() {
         super.onRestart()
+        Log.d("MUSIC", "ON RESTART GREENHOUSE")
         //Se crea el intent para iniciarlo
         val musicService = Intent(this, MusicService::class.java)
+        val timerService = Intent(this, TimerService::class.java)
+
         var musicPlay = prefs!!.getBoolean("PLAY", false)
         //Solo se inicia si la musica ha parado y si el usuario tiene habilitado el check
         launch {
             var auxUser: User = mainConnection!!.getUser(user!!)!!
             if (auxUser.music && !musicPlay) {
+                Log.d("MUSIC", "STARTING ON RESTART")
                 startService(musicService)
             }
+            startService(timerService)
         }
     }
 

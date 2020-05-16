@@ -1,10 +1,11 @@
 package com.rainyteam.views
 
-import android.content.Intent
-import android.content.SharedPreferences
+import android.content.*
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +16,7 @@ import com.rainyteam.model.Plants
 import com.rainyteam.model.User
 import com.rainyteam.model.UserPlants
 import com.rainyteam.services.MusicService
+import com.rainyteam.services.TimerService
 import kotlinx.android.synthetic.main.store_layout.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -42,6 +44,15 @@ class StoreActivity : AppCompatActivity(), CoroutineScope {
     private var mutableList: MutableList<Plants>? = null
     private var recyclerViewStoreAdapter: RecyclerViewStoreAdapter? = null
 
+    //reciver
+    val broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(p0: Context?, p1: Intent?) {
+            //actualizar datos
+            Log.d("Timer", "Update en greenhouse")
+            buyPlants()
+        }
+    }
+
     private var job: Job = Job()
 
     override val coroutineContext: CoroutineContext
@@ -57,6 +68,10 @@ class StoreActivity : AppCompatActivity(), CoroutineScope {
         setContentView(R.layout.store_layout)
 
         this.mainConnection = Connection()
+
+        //register receiver
+        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, IntentFilter("Timer"))
+
 
         prefs = getSharedPreferences(PREF_ID, 0)
         this.user = prefs!!.getString(PREF_NAME, "")
@@ -88,11 +103,16 @@ class StoreActivity : AppCompatActivity(), CoroutineScope {
         super.onStop()
         //Se crea el intent para pararlo
         val musicService = Intent(this, MusicService::class.java)
+
+        val timerService = Intent(this, TimerService::class.java)
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver)
+
         val isNav = prefs!!.getBoolean("NAV", false);
         //Se mira si es una navegacion, de no serla es un destroy de app, se apaga la musica
         if (!isNav) {
             //De ser un destroy se detiene
             stopService(musicService)
+            stopService(timerService)
         }
     }
 
@@ -108,15 +128,21 @@ class StoreActivity : AppCompatActivity(), CoroutineScope {
     //Viene de un destroy
     override fun onRestart() {
         super.onRestart()
+        Log.d("MUSIC", "ON RESTART GREENHOUSE")
         //Se crea el intent para iniciarlo
         val musicService = Intent(this, MusicService::class.java)
+        val timerService = Intent(this, TimerService::class.java)
+        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, IntentFilter("Timer"))
+
         var musicPlay = prefs!!.getBoolean("PLAY", false)
         //Solo se inicia si la musica ha parado y si el usuario tiene habilitado el check
         launch {
             var auxUser: User = mainConnection!!.getUser(user!!)!!
             if (auxUser.music && !musicPlay) {
+                Log.d("MUSIC", "STARTING ON RESTART")
                 startService(musicService)
             }
+            startService(timerService)
         }
     }
 
