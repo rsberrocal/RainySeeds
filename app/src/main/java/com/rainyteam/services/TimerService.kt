@@ -146,7 +146,9 @@ class TimerService : Service(), CoroutineScope {
                             .get()
                             .addOnSuccessListener { detail ->
                                 var aux = detail.toObject(Plants::class.java)!!
-                                moneyToAdd += aux.getMoney()
+                                //dinero que recibe el usuario
+                                moneyToAdd += (aux.getMoney() * 10)/100
+
                                 it.reference.update(
                                     "status",
                                     getDrying(aux, plant.status)
@@ -155,15 +157,15 @@ class TimerService : Service(), CoroutineScope {
                                 count++
                                 if (items == count) {
                                     logMessage("is Last element")
-                                    sendMessage()
+                                    //sendMessage()
                                     //todo mirar si lo del dinero es de esa forma
                                     logMessage("Money adding " + moneyToAdd)
-                                    /*connection.BDD.collection("Users")
+                                    connection.BDD.collection("Users")
                                         .document(user)
                                         .update("rainyCoins", moneyToAdd)
                                         .addOnSuccessListener { result ->
                                             sendMessage()
-                                        }*/
+                                        }
                                     //update views
                                 }
                             }
