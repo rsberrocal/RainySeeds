@@ -86,7 +86,7 @@
                             android:textStyle="italic" />
 
                         <FrameLayout
-                            android:id="@+id/btnBuyPlant"
+                            android:id="@+id/shopButton"
                             android:layout_width="wrap_content"
                             android:layout_height="30dp"
                             android:layout_gravity="left"
@@ -97,7 +97,6 @@
                             android:minWidth="60dp">
 
                             <LinearLayout
-                                android:id="@+id/shopButton"
                                 android:layout_width="wrap_content"
                                 android:layout_height="30dp"
                                 android:gravity="center"

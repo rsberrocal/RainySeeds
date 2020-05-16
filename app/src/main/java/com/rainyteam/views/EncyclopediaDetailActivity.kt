@@ -5,6 +5,8 @@ import android.content.IntentFilter
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -30,6 +32,7 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
     var textWarnings: TextView? = null
     var textMoney: TextView? = null
     var imagePlant: ImageView? = null
+    var shopButton : FrameLayout? = null
 
     val PREF_ID = "USER"
     val PREF_NAME = "USER_ID"
@@ -58,6 +61,7 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
         textWarnings = findViewById(R.id.textWarningsPlant)
         imagePlant = findViewById(R.id.plantImageDetail)
         textMoney = findViewById(R.id.textPricePlant)
+        shopButton = findViewById(R.id.shopButton)
 
         val idPlant: String = intent.getStringExtra("idPlant")!!
         val statusPlant: Int = intent.getIntExtra("statusPlant", -2)
@@ -67,7 +71,10 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
 
 
         setPlant(idPlant, statusPlant)
-        shopButton.setOnClickListener {
+        if (statusPlant >= 0) {
+            shopButton!!.setVisibility(View.INVISIBLE)
+        }
+        shopButton!!.setOnClickListener {
             buyPlant(idPlant)
         }
         btnBack.setOnClickListener {
@@ -141,7 +148,7 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
                 ).show()
             } else {
                 //se revive la planta
-                if (actualPlant.isWither() || actualPlant.isDead()) {
+                if (actualPlant.isDead()) {
                     actualUser.setRainyCoins(actualUser.getRainyCoins() - actualPlant.getMoney())
                     mainConnection!!.BDD.collection("Users")
                         .document(userName!!)
@@ -155,6 +162,7 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
                     actualUser.setRainyCoins(actualUser.getRainyCoins() - actualPlant.getMoney())
                     mainConnection!!.buyPlantToUser(actualUser, actualPlant)
                 }
+                shopButton!!.setVisibility(View.INVISIBLE)
             }
         }
 
