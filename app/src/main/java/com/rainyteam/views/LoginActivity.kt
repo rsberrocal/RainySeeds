@@ -71,9 +71,14 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
         prefs!!.edit().putBoolean("PLAY", false).apply()
         val hasUser = prefs!!.getString("USER_ID", null)
         if (hasUser != null) {
-            val principal = Intent(this, GreenhouseActivity::class.java)
-            finish()
-            startActivity(principal)
+            launch {
+                val userData = mainConnection!!.getUser(hasUser)
+                if (userData!!.hasInfo){
+                    val principal = Intent(this@LoginActivity, GreenhouseActivity::class.java)
+                    finish()
+                    startActivity(principal)
+                }
+            }
         }
 
         val btnLogin = findViewById<View>(R.id.btnLogin) as Button

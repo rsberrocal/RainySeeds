@@ -35,7 +35,8 @@ class TimerService : Service(), CoroutineScope {
     var nextTime: Long = 0
     lateinit var mainThread: Thread
     //in seconds
-    val WAIT_TIME = 3600
+    //val WAIT_TIME = 3600
+    val WAIT_TIME = 60
     lateinit var connection: Connection
 
     private var job: Job = Job()

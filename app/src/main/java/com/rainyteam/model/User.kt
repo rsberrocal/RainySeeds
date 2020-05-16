@@ -16,7 +16,6 @@ class User {
     private var rainycoins: Int
     var music: Boolean = true
     var hasInfo: Boolean = false
-    var plantList: ArrayList<String>
 
     constructor() {
 
@@ -24,7 +23,6 @@ class User {
 
     init {
         this.rainycoins = 0
-        this.plantList = ArrayList<String>()
         this.setMaxWater()
     }
 
@@ -85,19 +83,11 @@ class User {
         this.exercise = exercise
     }
     fun setHasInf(x: Boolean){
-        this.hasInfo =x
+        this.hasInfo = x
     }
     fun setAge(age: Long){
         this.age = age
     }
-    fun getGreenhousePlants(): ArrayList<String>? {
-        return null;
-    }
-
-    fun getEncyclopediaPlants(): ArrayList<String>? {
-        return null;
-    }
-
     fun setMaxWater() {
         var temp: Float
         temp = this.weight * 0.035f

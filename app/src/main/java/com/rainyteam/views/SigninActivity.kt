@@ -26,6 +26,7 @@ class SigninActivity : AppCompatActivity() {
     var mainConnection: Connection? = null
     var mBDD: FirebaseFirestore? = null
     val PREF_NAME = "USER"
+    val PREF_ID = "USER_ID"
     var prefs: SharedPreferences? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,16 +42,16 @@ class SigninActivity : AppCompatActivity() {
         val btnSignin = findViewById<View>(R.id.btnSignin) as Button
         val btnReturnLogin = findViewById<View>(R.id.btnReturnLogin) as Button
 
-        btnSignin.setOnClickListener(View.OnClickListener { view ->
+        btnSignin.setOnClickListener { view ->
             register()
-        })
+        }
 
-        btnReturnLogin.setOnClickListener(View.OnClickListener {
+        btnReturnLogin.setOnClickListener {
             val returnLogin = Intent(this, LoginActivity::class.java)
             startActivity(returnLogin)
             finish()
             overridePendingTransition(R.anim.slide_left_to_right, R.anim.slide_stop)
-        })
+        }
     }
 
     override fun onBackPressed() {
@@ -177,9 +178,7 @@ class SigninActivity : AppCompatActivity() {
     }
 
     private fun setUser(id: String) {
-        val editor = prefs!!.edit()
-        editor.putString("USER_ID", id)
-        editor.apply()
+        prefs!!.edit().putString(PREF_ID, id).apply()
     }
 }
 

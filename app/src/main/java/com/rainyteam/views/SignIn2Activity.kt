@@ -58,13 +58,13 @@ class SignIn2Activity : AppCompatActivity(), CoroutineScope {
             if (!inputUsername.text.toString().isEmpty() && !inputHeight.text.toString().isEmpty()
                 && !inputWeight.text.toString().isEmpty() && !inputHoursExercise.text.toString().isEmpty()
                 && !inputBirthDate.text.toString().isEmpty()
-            ){
+            ) {
                 launch {
-                    var actualUser: User? = mainConnection!!.getUser(user!!)
-                    actualUser!!.setName(inputUsername.text.toString())
-                    actualUser!!.setWeight(inputWeight.text.toString().toInt())
-                    actualUser!!.setHeight(inputHeight.text.toString().toFloat())
-                    actualUser!!.setExercise(inputHoursExercise.text.toString().toInt())
+                    var actualUser: User = mainConnection!!.getUser(user!!)!!
+                    actualUser.setName(inputUsername.text.toString())
+                    actualUser.setWeight(inputWeight.text.toString().toInt())
+                    actualUser.setHeight(inputHeight.text.toString().toFloat())
+                    actualUser.setExercise(inputHoursExercise.text.toString().toInt())
                     var sexString: String = ""
                     if (maleOption.isChecked) {
                         sexString = "Male"
@@ -73,20 +73,20 @@ class SignIn2Activity : AppCompatActivity(), CoroutineScope {
                     } else {
                         sexString = "Other"
                     }
-                    actualUser!!.setSex(sexString)
-                    actualUser!!.setHasInf(true)
-                    actualUser!!.setAge(age)
-                    actualUser!!.setMaxWater()
+                    actualUser.setSex(sexString)
+                    actualUser.setHasInf(true)
+                    actualUser.setAge(age)
+                    actualUser.setMaxWater()
                     mainConnection!!.setUser(actualUser)
                     //age
                     //maxWater
                 }
 
-            val intent = Intent(this, GreenhouseActivity::class.java)
-            startActivity(intent)
-            overridePendingTransition(R.anim.slide_up_to_down, R.anim.slide_stop)
-            }
-            else{
+                val intent = Intent(this, GreenhouseActivity::class.java)
+                startActivity(intent)
+                finish()
+                overridePendingTransition(R.anim.slide_up_to_down, R.anim.slide_stop)
+            } else {
                 Toast.makeText(this, "Introduce all values", Toast.LENGTH_LONG).show()
             }
         }
