@@ -104,8 +104,8 @@
                 android:layout_width="200dp"
                 android:layout_height="430dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="15dp"
-                android:src="@drawable/bottle" />
+                android:layout_marginTop="-30dp"
+                android:src="@drawable/bottle_empty" />
 
             <TextView
                 android:id="@+id/waterPercent"

@@ -146,6 +146,9 @@ class MainWaterActivity : AppCompatActivity(), CoroutineScope {
 
     fun setWaterImage(actualUserWater: Float) {
         when {
+            actualUserWater <= 5 -> waterButton.setImageDrawable(
+                ContextCompat.getDrawable(getApplicationContext(), R.drawable.bottle_empty)
+            )
             actualUserWater <= 10 && actualUserWater > 5 -> waterButton.setImageDrawable(
                 ContextCompat.getDrawable(getApplicationContext(), R.drawable.bottle_5)
             )
