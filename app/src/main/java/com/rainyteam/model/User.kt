@@ -105,7 +105,7 @@ class User {
             temp *= 1.20f;
         }
         temp *= (this.exercise / 10) * 1.2f + 1;
-        this.maxWater = temp;
+        this.maxWater = temp*1000;
     }
 
     fun getMaxWater(): Float {
