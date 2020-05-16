@@ -18,10 +18,7 @@ import com.rainyteam.model.User
 import com.rainyteam.services.MusicService
 import com.rainyteam.services.TimerService
 import kotlinx.android.synthetic.main.user_info_layout.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
 class UserInfoActivity() : AppCompatActivity(), CoroutineScope{
@@ -54,6 +51,7 @@ class UserInfoActivity() : AppCompatActivity(), CoroutineScope{
         userBackArrowButton.setOnClickListener {
             val intent = Intent(this, MainWaterActivity::class.java)
             startActivity(intent)
+            prefs!!.edit().putBoolean("NAV", true).apply()
             overridePendingTransition(R.anim.slide_down_to_up, R.anim.slide_stop)
         }
 
@@ -67,6 +65,13 @@ class UserInfoActivity() : AppCompatActivity(), CoroutineScope{
             startActivity(intent)
             overridePendingTransition(R.anim.slide_left_to_right, R.anim.slide_stop)
 
+        }
+
+        launch {
+            //textWaterPercent!!.text = mainConnection.getUser(userName)
+            /** Delay para definir que no es navegacion al crear vista **/
+            delay(1000)
+            prefs!!.edit().putBoolean("NAV", false).apply()
         }
     }
 

@@ -76,7 +76,7 @@ class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope {
         }
         launch {
             /** Delay para definir que no es navegacion al crear vista **/
-            delay(500)
+            delay(1000)
             prefs!!.edit().putBoolean("NAV", false).apply()
         }
     }
