@@ -55,22 +55,22 @@ class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope {
         //add water
         val btnGota = findViewById(R.id.btnGota) as FrameLayout
         btnGota.setOnClickListener {
-            addWater(50)
+            addWater(100)
         }
 
         val btnVaso = findViewById(R.id.btnVaso) as FrameLayout
         btnVaso.setOnClickListener {
-            addWater(100)
+            addWater(200)
         }
 
         val btnBotella = findViewById(R.id.btnBotella) as FrameLayout
         btnBotella.setOnClickListener {
-            addWater(200)
+            addWater(500)
         }
 
         val btnRegadera = findViewById(R.id.btnRegadera) as FrameLayout
         btnRegadera.setOnClickListener {
-            addWater(300)
+            addWater(1000)
         }
         launch {
             /** Delay para definir que no es navegacion al crear vista **/
@@ -133,9 +133,6 @@ class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope {
                 Calendar.SATURDAY -> actualHistory!!.saturday = actualHistory.saturday + quantity
             }
             mainConnection!!.addHistory(user!!, actualHistory!!)
-            //Pillar el maximo del usuario
-            //calcular su porcentaje y añadirlo al history
-            //hacer reload de la botella
         }
     }
 }
