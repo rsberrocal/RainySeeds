@@ -349,7 +349,7 @@ class Connection : CoroutineScope {
             .set(dataUser)
     }
     suspend fun buyPlantToUser(user: User, plantToAdd: Plants) {
-        var userPlant: UserPlants = UserPlants(plantToAdd.getName(), 100, user.getEmail())
+        var userPlant: UserPlants = UserPlants(plantToAdd.getName(), plantToAdd.getMoney(), user.getEmail())
         var documentName: String = user.getEmail() + "-" + plantToAdd.getName()
         val dataUser = hashMapOf(
             "age" to user.getAge(),

@@ -7,26 +7,45 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.IBinder
 import android.util.Log
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.rainyteam.model.Connection
 import com.rainyteam.model.Plants
 import com.rainyteam.model.UserPlants
+import com.rainyteam.patterns.Observable
+import com.rainyteam.patterns.Observer
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import java.lang.ClassCastException
 import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.coroutines.CoroutineContext
 import kotlin.math.log
 
-class TimerService : Service() {
+class TimerService : Service(), CoroutineScope {
     val TAG = "Timer"
-    var counter: Int = 0
-    var lastTime: Int = 0
     val PREF_NAME = "USER"
-    val PREF_ID = "NEXT"
+    val PREF_NEXT = "NEXT"
+    val PREF_ACTUAL = "ACTUAL"
     var user = ""
     var prefs: SharedPreferences? = null
+    var actualTime: Long = 0
+    var nextTime: Long = 0
+    lateinit var mainThread: Thread
+    //in seconds
+    val WAIT_TIME = 3600
     lateinit var connection: Connection
+
+    private var job: Job = Job()
+
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + job
+
     override fun onCreate() {
-        logMessage("Starting")
         super.onCreate()
+        logMessage("Starting")
         connection = Connection()
         prefs = getSharedPreferences(PREF_NAME, 0)
         this.user = prefs!!.getString("USER_ID", "")!!
@@ -34,6 +53,7 @@ class TimerService : Service() {
 
     override fun onDestroy() {
         logMessage("Destoying")
+        this.mainThread.interrupt()
         super.onDestroy()
     }
 
@@ -43,66 +63,54 @@ class TimerService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         logMessage("Starting timer command")
-        var aux = 0
+        //Miro si hay un next guardado de otro momento
+        var savedNextTime = 0
         try {
-            aux = prefs!!.getInt(PREF_ID, 0)
+            savedNextTime = prefs!!.getInt(PREF_NEXT, 0)
         } catch (E: ClassCastException) {
-            var edit = prefs!!.edit()
-            edit.putInt(PREF_ID, 0)
-            edit.apply()
+            //De no existir lo creo poniendo un 0
+            prefs!!.edit().putInt(PREF_NEXT, 0).apply()
         }
+        //se crea el thread runnable
         val runable = Runnable {
-            var time = Calendar.getInstance().timeInMillis / 1000;
-            var nextTime = time + 60; //next time will be 60 seconds more
-            if (aux == 0) {
-                var edit = prefs!!.edit()
-                edit.putInt("NEXT", nextTime.toInt())
-                edit.apply()
+            //Consigo el tiempo actual en segundos (Epoch time)
+            actualTime = Calendar.getInstance().timeInMillis / 1000;
+
+            //El tiempo a actualizar sera el tiempo actual mas lo que hay que esperar (1 hora)
+            nextTime = actualTime + WAIT_TIME;
+            //Si el next guardado es 0, pongo como next el nuevo
+            if (savedNextTime == 0) {
+                logMessage("Saved next time was not set")
+                prefs!!.edit().putInt(PREF_NEXT, nextTime.toInt()).apply()
+            } else if (actualTime > savedNextTime) {//miramos si el next guardado ha sido superado, por lo tanto actualizamos
+                // todo calcular cuanto tiempo ha pasado desde la ultima vez. mirar cuantas horas y cuantos updates hay que hacer
+                //update
+                //prefs!!.edit().putInt(PREF_NEXT, nextTime.toInt()).apply()
+                //updatePlants()
+                logMessage("Update plants with saved nexttime")
             }
             // todo matar a las plantas de forma progresiva,
             while (true) {
-                time = Calendar.getInstance().timeInMillis / 1000;
-                if (time > nextTime) {
+                actualTime = Calendar.getInstance().timeInMillis / 1000;
+                if (actualTime > nextTime) {
                     logMessage("Updating")
-                    prefs!!.edit().putInt("NEXT", time.toInt());
-                    nextTime += 60
+                    nextTime = actualTime + WAIT_TIME;
+                    prefs!!.edit().putInt("NEXT", nextTime.toInt()).apply();
                     //Matamos plantas
-                    connection.BDD.collection("User-Plants")
-                        .whereEqualTo("userId", user)
-                        .whereGreaterThan("status", 0)
-                        .get()
-                        .addOnSuccessListener { result ->
-
-                            result.documents.forEach {
-                                val plant = it.toObject(UserPlants::class.java)
-                                connection.BDD.collection("Plants")
-                                    .document(plant!!.plantId)
-                                    .get()
-                                    .addOnSuccessListener { detail ->
-                                        var aux = detail.toObject(Plants::class.java)
-                                        // todo cambiar batch por update de solo un document.
-                                        val batch = connection.BDD.batch()
-                                        batch.update(
-                                            it.reference,
-                                            "status",
-                                            getDrying(aux!!, plant.status)
-                                        )
-                                        //batch.commit()
-                                        logMessage("update status: " + plant.plantId + " less 20")
-                                    }
-                            }
-                        }
-
+                    //update plantas y dinero usuario
+                    updatePlants()
+                    logMessage("update plants")
                     //logMessage("Time more than next: " + time)
-                } else {
-                    //logMessage("Time less than next: " + time)
                 }
+                //logMessage("Time less than next: " + time)
+                //paramos el hilo cada segundo
                 Thread.sleep(1000)
             }
-            //logMessage("Time in millis " + time)
         }
-        val thread = Thread(runable)
-        thread.start()
+        //Guardamos el hilo para detenerlo
+        this.mainThread = Thread(runable)
+        //iniciamos el timer
+        mainThread.start()
         return super.onStartCommand(intent, flags, startId)
     }
 
@@ -117,6 +125,56 @@ class TimerService : Service() {
             return -1;
         }
         return (status - num).toInt()
+    }
+
+    fun updatePlants() {
+        launch {
+            var userData = connection.getUser(user)!!
+            var moneyToAdd = userData.getRainyCoins();
+            connection.BDD.collection("User-Plants")
+                .whereEqualTo("userId", user)
+                .whereGreaterThan("status", -1)
+                .get()
+                .addOnSuccessListener { result ->
+                    var items = result.documents.size
+                    logMessage("Number of items" + items)
+                    var count = 0;
+                    result.documents.forEach {
+                        val plant = it.toObject(UserPlants::class.java)
+                        connection.BDD.collection("Plants")
+                            .document(plant!!.plantId)
+                            .get()
+                            .addOnSuccessListener { detail ->
+                                var aux = detail.toObject(Plants::class.java)!!
+                                moneyToAdd += aux.getMoney()
+                                it.reference.update(
+                                    "status",
+                                    getDrying(aux, plant.status)
+                                )
+                                logMessage("update status: " + plant.plantId + " less 20")
+                                count++
+                                if (items == count) {
+                                    logMessage("is Last element")
+                                    sendMessage()
+                                    //todo mirar si lo del dinero es de esa forma
+                                    logMessage("Money adding " + moneyToAdd)
+                                    /*connection.BDD.collection("Users")
+                                        .document(user)
+                                        .update("rainyCoins", moneyToAdd)
+                                        .addOnSuccessListener { result ->
+                                            sendMessage()
+                                        }*/
+                                    //update views
+                                }
+                            }
+                    }
+                }
+        }
+
+    }
+
+    fun sendMessage() {
+        LocalBroadcastManager.getInstance(this).sendBroadcast(Intent("Timer"))
     }
 
 }

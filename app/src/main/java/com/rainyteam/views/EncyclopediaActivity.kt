@@ -1,11 +1,11 @@
 package com.rainyteam.views
 
-import android.content.Intent
-import android.content.SharedPreferences
+import android.content.*
 import android.os.Bundle
 import android.util.Log
 import android.widget.RadioButton
 import androidx.appcompat.app.AppCompatActivity
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +17,7 @@ import com.rainyteam.model.User
 import com.rainyteam.model.UserPlants
 import com.rainyteam.patterns.EndlessRecyclerViewScrollListener
 import com.rainyteam.services.MusicService
+import com.rainyteam.services.TimerService
 import kotlinx.coroutines.*
 import kotlinx.coroutines.tasks.await
 import java.lang.Exception
@@ -37,10 +38,27 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope {
     private var scrollListener: EndlessRecyclerViewScrollListener? = null
     // Store a member variable for the listener
 
+    //reciver
+    val broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(p0: Context?, p1: Intent?) {
+            //actualizar datos
+            Log.d("Timer", "Update en diccionary")
+            when(actualStatus){
+                0 -> allPlants()
+                1 -> boughtPlants()
+                2 -> buyPlants()
+            }
+        }
+    }
+
     //shared
     val PREF_ID = "USER"
     val PREF_NAME = "USER_ID"
     var prefs: SharedPreferences? = null
+
+    //status de los filtros
+    //0 All, 1 Bought, 2 To Buy
+    var actualStatus = 0
 
     var user: String? = ""
 
@@ -59,6 +77,9 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope {
         setContentView(R.layout.encyclopedia_layout)
 
         this.mainConnection = Connection()
+
+        //register receiver
+        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, IntentFilter("Timer"))
 
         prefs = getSharedPreferences(PREF_ID, 0)
         this.user = prefs!!.getString(PREF_NAME, "")
@@ -91,12 +112,15 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope {
 
         btnFilterAll.setOnClickListener {
             allPlants()
+            actualStatus = 0;
         }
         btnFilterBought.setOnClickListener {
             boughtPlants()
+            actualStatus = 1;
         }
         btnFilterToBuy.setOnClickListener {
             buyPlants()
+            actualStatus = 2;
         }
 
         launch {
@@ -111,11 +135,16 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope {
         super.onStop()
         //Se crea el intent para pararlo
         val musicService = Intent(this, MusicService::class.java)
+
+        val timerService = Intent(this, TimerService::class.java)
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver)
+
         val isNav = prefs!!.getBoolean("NAV", false);
         //Se mira si es una navegacion, de no serla es un destroy de app, se apaga la musica
         if (!isNav) {
             //De ser un destroy se detiene
             stopService(musicService)
+            stopService(timerService)
         }
     }
 

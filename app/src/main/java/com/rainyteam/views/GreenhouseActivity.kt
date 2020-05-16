@@ -1,8 +1,6 @@
 package com.rainyteam.views
 
-import android.content.Context
-import android.content.Intent
-import android.content.SharedPreferences
+import android.content.*
 import android.os.Bundle
 import android.util.Log
 import android.view.ActionMode
@@ -12,6 +10,7 @@ import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.*
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.firebase.firestore.FirebaseFirestore
@@ -20,6 +19,8 @@ import com.rainyteam.model.Connection
 import com.rainyteam.model.Plants
 import com.rainyteam.model.User
 import com.rainyteam.model.UserPlants
+import com.rainyteam.patterns.Observable
+import com.rainyteam.patterns.Observer
 import com.rainyteam.services.MusicService
 import com.rainyteam.services.TimerService
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
@@ -47,6 +48,15 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
     var user: String? = ""
     private var job: Job = Job()
 
+    //reciver
+    val broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(p0: Context?, p1: Intent?) {
+            //actualizar datos
+            Log.d("Timer", "Update en greenhouse")
+            boughtPlants()
+        }
+    }
+
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
 
@@ -64,6 +74,9 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
 
         val musicService = Intent(this, MusicService::class.java)
         val timerService = Intent(this, TimerService::class.java)
+
+        //register receiver
+        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, IntentFilter("Timer"))
 
         val swMusic = findViewById<View>(R.id.swMusic) as Switch
 
@@ -127,11 +140,16 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
         super.onStop()
         //Se crea el intent para pararlo
         val musicService = Intent(this, MusicService::class.java)
+
+        val timerService = Intent(this, TimerService::class.java)
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver)
+
         val isNav = prefs!!.getBoolean("NAV", false);
         //Se mira si es una navegacion, de no serla es un destroy de app, se apaga la musica
         if (!isNav) {
             //De ser un destroy se detiene
             stopService(musicService)
+            stopService(timerService)
         }
     }
 

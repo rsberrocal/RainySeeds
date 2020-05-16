@@ -75,7 +75,7 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
         launch {
             /** Delay para definir que no es navegacion al crear vista **/
             delay(500)
-            prefs!!.edit().putBoolean("NAV",false).apply()
+            prefs!!.edit().putBoolean("NAV", false).apply()
         }
 
     }
@@ -127,8 +127,21 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
                     Toast.LENGTH_LONG
                 ).show()
             } else {
-                actualUser?.setRainyCoins(actualUser.getRainyCoins() - actualPlant?.getMoney()!!)
-                mainConnection!!.buyPlantToUser(actualUser!!, actualPlant!!)
+                //se revive la planta
+                if (actualPlant.isWither() || actualPlant.isDead()) {
+                    actualUser.setRainyCoins(actualUser.getRainyCoins() - actualPlant.getMoney())
+                    mainConnection!!.BDD.collection("Users")
+                        .document(userName!!)
+                        .update("rainyCoins", actualUser.getRainyCoins())
+
+                    //actualizamos planta
+                    mainConnection!!.BDD.collection("UserPlants")
+                        .document(userName + "-" + plantName)
+                        .update("status", actualPlant.getMoney())
+                } else {
+                    actualUser.setRainyCoins(actualUser.getRainyCoins() - actualPlant.getMoney())
+                    mainConnection!!.buyPlantToUser(actualUser, actualPlant)
+                }
             }
         }
 
@@ -145,13 +158,22 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
             textMoney!!.text = actualPlant?.getMoney().toString()
             val drawableName: String?
             val resID: Int
-            if(statusPlant == -2){
+            if (statusPlant == -2) {
                 Log.d("STATUS", "STATUS == -2 (DEAD)")
-                drawableName = "baw_" + actualPlant.getScientificName().toLowerCase().replace(" ", "_")
-                resID = resources.getIdentifier(drawableName, "drawable", applicationContext.packageName)
+                drawableName =
+                    "baw_" + actualPlant.getScientificName().toLowerCase().replace(" ", "_")
+                resID = resources.getIdentifier(
+                    drawableName,
+                    "drawable",
+                    applicationContext.packageName
+                )
             } else {
                 drawableName = actualPlant.getImagePlant()
-                resID = resources.getIdentifier(drawableName, "drawable", applicationContext.packageName)
+                resID = resources.getIdentifier(
+                    drawableName,
+                    "drawable",
+                    applicationContext.packageName
+                )
             }
 
             imagePlant!!.setImageResource(resID)
