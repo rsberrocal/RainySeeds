@@ -4,6 +4,9 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.github.mikephil.charting.animation.Easing
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineDataSet
 import com.google.firebase.auth.FirebaseAuth
 import com.rainyteam.controller.R
 import com.rainyteam.model.Connection
@@ -26,7 +29,7 @@ class UserInfoActivity() : AppCompatActivity(), CoroutineScope{
     var prefs: SharedPreferences? = null
 
     var userName: String? = ""
-
+    val entries = ArrayList<Entry>()
 
     private var job: Job = Job()
     override val coroutineContext: CoroutineContext
@@ -41,7 +44,7 @@ class UserInfoActivity() : AppCompatActivity(), CoroutineScope{
         prefs = getSharedPreferences(PREF_ID, 0)
         this.userName = prefs!!.getString(PREF_NAME, null)
         setUser(userName)
-
+        setUserStatics(userName)
         userBackArrowButton.setOnClickListener {
             val intent = Intent(this, MainWaterActivity::class.java)
             startActivity(intent)
@@ -78,5 +81,43 @@ class UserInfoActivity() : AppCompatActivity(), CoroutineScope{
             textExercise!!.text = actualUser?.getExercise().toString() + " hours"
         }
     }
+    fun setUserStatics(user: String?){
+        launch {
+            var userHistory = mainConnection?.getHistory(user!!)
+            if (userHistory != null) {
+                entries.add(Entry(1f,userHistory.monday))
+                entries.add(Entry(2f,userHistory.tuesday))
+                entries.add(Entry(3f,userHistory.wednesday))
+                entries.add(Entry(4f,userHistory.thursday))
+                entries.add(Entry(5f,userHistory.friday))
+                entries.add(Entry(6f,userHistory.saturday))
+                entries.add(Entry(7f,userHistory.sunday))
+                val dataSet= LineDataSet(entries, "Float")
+                dataSet.setDrawValues(false)
+                dataSet.setDrawFilled(true)
+                dataSet.lineWidth = 3f
+                dataSet.fillColor = R.color.gray
+                dataSet.fillAlpha = R.color.colorPrimary
+
+                lineChart.xAxis.labelRotationAngle = 0f
+
+                lineChart.axisRight.isEnabled = false
+                lineChart.xAxis.axisMaximum = 100f
+
+                lineChart.setTouchEnabled(true)
+                lineChart.setPinchZoom(true)
+
+
+                lineChart.description.text = "Days"
+                lineChart.setNoDataText("No forex yet!")
+
+
+                lineChart.animateX(1800, Easing.EaseInExpo)
+
+            }
+        }
+    }
+
+
 
 }
