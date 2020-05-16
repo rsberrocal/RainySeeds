@@ -9,6 +9,7 @@ import android.widget.Switch
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.*
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -82,7 +83,7 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
         //register receiver
         LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, IntentFilter("Timer"))
 
-        val swMusic = findViewById<View>(R.id.swMusic) as Switch
+        val swMusic = findViewById<View>(R.id.swMusic) as SwitchCompat
 
         prefs = getSharedPreferences(PREF_ID, 0)
         //prefs!!.edit().putBoolean("PLAY", false).apply()
