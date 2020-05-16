@@ -70,6 +70,18 @@ class Plants {
         return "pot_" + scientificName!!.toLowerCase().replace(" ", "_")
     }
 
+    fun getWitheredImagePlant(): String? {
+        return "pot_withered_" + scientificName!!.toLowerCase().replace(" ", "_")
+    }
+
+    fun getLiveImagePlant(): String? {
+        return "plant_" + scientificName!!.toLowerCase().replace(" ", "_")
+    }
+
+    fun getBawImagePlant(): String? {
+        return "baw_" + scientificName!!.toLowerCase().replace(" ", "_")
+    }
+
     fun setImageName(name: String) {
         this.imagePlant = name
     }
@@ -87,7 +99,7 @@ class Plants {
     }
 
     fun isWither(): Boolean{
-        return this.status == 0
+        return this.status < 40
     }
 
     fun isDead(): Boolean{

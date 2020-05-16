@@ -159,9 +159,8 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
             val drawableName: String?
             val resID: Int
             if (statusPlant == -2) {
-                Log.d("STATUS", "STATUS == -2 (DEAD)")
-                drawableName =
-                    "baw_" + actualPlant.getScientificName().toLowerCase().replace(" ", "_")
+                Log.d("STATUS", "STATUS == -2 (NO COMPRADA)")
+                drawableName = actualPlant.getBawImagePlant()
                 resID = resources.getIdentifier(
                     drawableName,
                     "drawable",
