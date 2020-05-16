@@ -2,7 +2,9 @@ package com.rainyteam.views
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.res.Resources
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,12 +27,17 @@ class RecyclerViewAdapter (var context: Context, var listOfPlants: MutableList<P
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
         val plant: Plants = listOfPlants.get(position)
 
+        val PREF_NAME = "USER"
+        var prefs: SharedPreferences? = context.getSharedPreferences(PREF_NAME,0)
+
         val resources: Resources = context.resources
         val drawableName : String? = plant.getImagePlant()
         val resID: Int = resources.getIdentifier(drawableName, "drawable", context.packageName)
         holder.image.setImageResource(resID)
         holder.name.text = plant.getName()
         holder.image.setOnClickListener{
+            Log.d("Timer", "Nav to true")
+            prefs!!.edit().putBoolean("NAV", true).apply()
             val intent = Intent(holder.image.context, EncyclopediaDetailActivity::class.java)
             intent.putExtra("idPlant", plant.getName())
             intent.putExtra("statusPlant", plant.getStatus())

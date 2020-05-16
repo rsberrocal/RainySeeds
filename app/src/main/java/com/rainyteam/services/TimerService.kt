@@ -13,12 +13,10 @@ import com.rainyteam.model.Plants
 import com.rainyteam.model.UserPlants
 import com.rainyteam.patterns.Observable
 import com.rainyteam.patterns.Observer
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import kotlinx.coroutines.tasks.await
 import java.lang.ClassCastException
+import java.lang.Runnable
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.coroutines.CoroutineContext
@@ -105,7 +103,13 @@ class TimerService : Service(), CoroutineScope {
                 }
                 //logMessage("Time less than next: " + time)
                 //paramos el hilo cada segundo
-                Thread.sleep(1000)
+                try {
+                    Thread.sleep(1000)
+                }catch (e:InterruptedException){
+                    println("Intrrumping")
+                    logMessage(e.message!!)
+                }
+
             }
         }
         //Guardamos el hilo para detenerlo

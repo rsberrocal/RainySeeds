@@ -127,12 +127,12 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope {
             /** Delay para definir que no es navegacion al crear vista **/
             delay(1000)
             prefs!!.edit().putBoolean("NAV",false).apply()
+            Log.d("Timer", "Set nav false on delay")
         }
 
     }
 
     override fun onStop() {
-        super.onStop()
         //Se crea el intent para pararlo
         val musicService = Intent(this, MusicService::class.java)
 
@@ -140,12 +140,15 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver)
 
         val isNav = prefs!!.getBoolean("NAV", false);
+        Log.d("Timer", "no es nav " + isNav)
         //Se mira si es una navegacion, de no serla es un destroy de app, se apaga la musica
         if (!isNav) {
             //De ser un destroy se detiene
             stopService(musicService)
+            Log.d("Timer", "Se destruye aqui")
             stopService(timerService)
         }
+        super.onStop()
     }
 
     //Funcion que se ejecuta al tirar atras

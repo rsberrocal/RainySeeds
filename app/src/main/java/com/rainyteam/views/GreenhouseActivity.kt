@@ -137,7 +137,7 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
     }
 
     override fun onStop() {
-        super.onStop()
+
         //Se crea el intent para pararlo
         val musicService = Intent(this, MusicService::class.java)
 
@@ -151,6 +151,7 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
             stopService(musicService)
             stopService(timerService)
         }
+        super.onStop()
     }
 
     //Viene de un destroy

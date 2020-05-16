@@ -3,6 +3,7 @@ package com.rainyteam.views
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -105,7 +106,7 @@ class FragmentPageGreenhouse(
                 plantR1C1.setOnClickListener { view ->
                     val intent = Intent(plantR1C1.context, EncyclopediaDetailActivity::class.java)
                     intent.putExtra("idPlant", auxPlant1.getName())
-                    intent.putExtra("statusPlant", auxPlant1!!.getStatus())
+                    intent.putExtra("statusPlant", auxPlant1.getStatus())
                     plantR1C1.context.startActivity(intent)
                     prefs!!.edit().putBoolean("NAV", true).apply()
                 }
@@ -198,11 +199,11 @@ class FragmentPageGreenhouse(
                     resources.getIdentifier(drawableName6, "drawable", context?.packageName)
                 plantR2C3!!.setImageResource(resID6)
                 plantR2C3.setOnClickListener { view ->
+                    prefs!!.edit().putBoolean("NAV", true).apply()
                     val intent = Intent(plantR2C3.context, EncyclopediaDetailActivity::class.java)
                     intent.putExtra("idPlant", auxPlant6.getName())
                     intent.putExtra("statusPlant", auxPlant6.getStatus())
                     plantR2C3.context.startActivity(intent)
-                    prefs!!.edit().putBoolean("NAV", true).apply()
                 }
             }
             if (mutableList!!.size > pos * 9 + 6) {
@@ -217,11 +218,11 @@ class FragmentPageGreenhouse(
                     resources.getIdentifier(drawableName7, "drawable", context?.packageName)
                 plantR3C1!!.setImageResource(resID7)
                 plantR3C1.setOnClickListener { view ->
+                    prefs!!.edit().putBoolean("NAV", true).apply()
                     val intent = Intent(plantR3C1.context, EncyclopediaDetailActivity::class.java)
                     intent.putExtra("idPlant", auxPlant7.getName())
                     intent.putExtra("statusPlant", auxPlant7.getStatus())
                     plantR3C1.context.startActivity(intent)
-                    prefs!!.edit().putBoolean("NAV", true).apply()
                 }
             }
 

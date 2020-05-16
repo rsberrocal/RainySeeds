@@ -85,14 +85,13 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
 
         launch {
             /** Delay para definir que no es navegacion al crear vista **/
-            delay(500)
+            delay(1000)
             prefs!!.edit().putBoolean("NAV", false).apply()
         }
 
     }
 
     override fun onStop() {
-        super.onStop()
         //Se crea el intent para pararlo
         val musicService = Intent(this, MusicService::class.java)
 
@@ -105,6 +104,7 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
             stopService(musicService)
             stopService(timerService)
         }
+        super.onStop()
     }
 
     //Funcion que se ejecuta al tirar atras
