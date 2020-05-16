@@ -84,8 +84,8 @@ class TimerService : Service(), CoroutineScope {
             } else if (actualTime > savedNextTime) {//miramos si el next guardado ha sido superado, por lo tanto actualizamos
                 // todo calcular cuanto tiempo ha pasado desde la ultima vez. mirar cuantas horas y cuantos updates hay que hacer
                 //update
-                //prefs!!.edit().putInt(PREF_NEXT, nextTime.toInt()).apply()
-                //updatePlants()
+                prefs!!.edit().putInt(PREF_NEXT, nextTime.toInt()).apply()
+                updatePlants()
                 logMessage("Update plants with saved nexttime")
             }
             // todo matar a las plantas de forma progresiva,

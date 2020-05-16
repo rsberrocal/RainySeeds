@@ -39,7 +39,7 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
     private var numPages: Int = 1
     private var mutableList: MutableList<Plants>? = null
     var mBDD: FirebaseFirestore? = null
-
+    lateinit var textSeeds: TextView
     //shared
     val PREF_ID = "USER"
     val PREF_NAME = "USER_ID"
@@ -54,6 +54,10 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
             //actualizar datos
             Log.d("Timer", "Update en greenhouse")
             boughtPlants()
+            launch {
+                var auxUser: User = mainConnection!!.getUser(user!!)!!
+                textSeeds.text = auxUser.getRainyCoins().toString()
+            }
         }
     }
 
@@ -96,7 +100,7 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
             prefs!!.edit().putBoolean("NAV", true).apply()
         }
 
-        val textSeeds: TextView = findViewById(R.id.textGoldenSeeds) as TextView
+        textSeeds = findViewById(R.id.textGoldenSeeds) as TextView
 
         swMusic.setOnCheckedChangeListener { _, isChecked ->
             if (swMusic.isChecked) {
