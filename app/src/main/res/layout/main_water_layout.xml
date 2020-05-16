@@ -101,10 +101,11 @@
 
             <ImageView
                 android:id="@+id/waterButton"
-                android:layout_width="200dp"
-                android:layout_height="430dp"
+                android:layout_width="300dp"
+                android:layout_height="450dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="-30dp"
+                android:layout_marginLeft="5dp"
                 android:src="@drawable/bottle_empty" />
 
             <TextView
@@ -112,7 +113,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|center_vertical"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="-20dp"
                 android:text=""
                 android:textColor="@color/black"
                 android:textSize="45sp"

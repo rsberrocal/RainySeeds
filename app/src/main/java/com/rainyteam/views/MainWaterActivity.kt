@@ -180,7 +180,7 @@ class MainWaterActivity : AppCompatActivity(), CoroutineScope {
                 ContextCompat.getDrawable(getApplicationContext(), R.drawable.bottle_90)
             )
         }
-        textWaterPercent!!.text = actualUserWater.toString() + "%"
+        textWaterPercent!!.text = actualUserWater.toInt() .toString() + "%"
 
     }
 

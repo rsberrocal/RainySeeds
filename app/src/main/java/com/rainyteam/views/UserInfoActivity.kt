@@ -94,7 +94,7 @@ class UserInfoActivity() : AppCompatActivity(), CoroutineScope{
                 entries.add(Entry(6f,userHistory.saturday))
                 entries.add(Entry(7f,userHistory.sunday))
 
-                val dataSet= LineDataSet(entries, "Float")
+                val dataSet= LineDataSet(entries, "Water Percentage")
                 dataSet.setDrawValues(false)
                 dataSet.setDrawFilled(true)
                 dataSet.lineWidth = 3f

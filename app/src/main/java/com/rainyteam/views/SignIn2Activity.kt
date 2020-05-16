@@ -55,10 +55,9 @@ class SignIn2Activity : AppCompatActivity(), CoroutineScope {
             showDatePickerDialog();
         }
         btnSignin.setOnClickListener {
-            if (inputUsername.text.toString().isEmpty() && !inputHeight.text.toString().isEmpty()
-                && !inputWeight.text.toString().isEmpty() && !inputHoursExercise.text.toString()
-                    .isEmpty()
-                && !sexOption.isSelected
+            if (!inputUsername.text.toString().isEmpty() && !inputHeight.text.toString().isEmpty()
+                && !inputWeight.text.toString().isEmpty() && !inputHoursExercise.text.toString().isEmpty()
+                && !inputBirthDate.text.toString().isEmpty()
             ){
                 launch {
                     var actualUser: User? = mainConnection!!.getUser(user!!)
