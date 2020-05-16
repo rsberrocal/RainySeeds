@@ -87,7 +87,7 @@ class TimerService : Service() {
                                             "status",
                                             getDrying(aux!!, plant.status)
                                         )
-                                        batch.commit()
+                                        //batch.commit()
                                         logMessage("update status: " + plant.plantId + " less 20")
                                     }
                             }

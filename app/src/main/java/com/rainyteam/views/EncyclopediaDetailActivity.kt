@@ -56,7 +56,7 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
         imagePlant = findViewById(R.id.plantImageDetail)
         textMoney = findViewById(R.id.textPricePlant)
 
-        val idPlant: String = intent.getStringExtra("idPlant")
+        val idPlant: String = intent.getStringExtra("idPlant")!!
         val statusPlant: Int = intent.getIntExtra("statusPlant", -2)
 
         prefs = getSharedPreferences(PREF_ID, 0)

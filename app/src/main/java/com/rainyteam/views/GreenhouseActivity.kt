@@ -167,27 +167,6 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
                         count++
                     }
                 }.await()
-            /*mBDD!!.collection("Plants")
-                    .get()
-                    .addOnSuccessListener { result ->
-                        for (document in result) {
-
-                            val actualPlant = document.toObject(Plants::class.java)
-                            val userPlant = auxList!!.firstOrNull { it.plantId == document.id }
-                            if (userPlant != null) {
-                                actualPlant.setName(document.id)
-                                actualPlant.setImageName(
-                                        "plant_" + actualPlant.getScientificName().toLowerCase().replace(
-                                                " ",
-                                                "_"
-                                        )
-                                )
-                                actualPlant.setStatus(userPlant.status)
-                                mutableList!!.add(actualPlant)
-                            }
-                        }
-                    }.await()*/
-
             val pagerAdapter = PlantSlidePagerAdapter(this@GreenhouseActivity)
 
             numPages = Math.ceil(count / NUM_PLANTS_PAGE.toDouble())

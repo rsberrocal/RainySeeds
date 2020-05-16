@@ -149,6 +149,7 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope {
             /** GETTING ALIVE AND WITHER PLANTS TO EXCLUDE **/
             var excludeList = mutableListOf<UserPlants>()
             database.collection("User-Plants")
+                .whereEqualTo("userId", user)
                 .whereGreaterThanOrEqualTo("status", 0)
                 .get()
                 .addOnSuccessListener { result ->
@@ -159,6 +160,7 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope {
 
             var deadList = mutableListOf<UserPlants>()
             database.collection("User-Plants")
+                .whereEqualTo("userId", user)
                 .whereEqualTo("status", -1)
                 .get()
                 .addOnSuccessListener { result ->
@@ -208,6 +210,7 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope {
             mutableList = mutableListOf()
             val auxList = mutableListOf<UserPlants>()
             database.collection("User-Plants")
+                .whereEqualTo("userId", user)
                 .whereGreaterThanOrEqualTo("status", 0)
                 .get()
                 .addOnSuccessListener { result ->
