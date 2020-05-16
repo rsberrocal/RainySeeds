@@ -190,7 +190,7 @@ class FragmentPageGreenhouse(
                 }
             }
             if (mutableList!!.size > pos * 9 + 8) {
-                val auxPlant9: Plants? =mutableList!![pos * 9 + +8]
+                val auxPlant9: Plants? =mutableList!![pos * 9 + 8]
                 val drawableName9: String? = auxPlant9!!.getPotImagePlant()
                 val resID9: Int =
                     resources.getIdentifier(drawableName9, "drawable", context?.packageName)
