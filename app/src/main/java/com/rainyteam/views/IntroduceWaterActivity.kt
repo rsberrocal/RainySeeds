@@ -59,17 +59,17 @@ class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope {
         }
 
         val btnVaso = findViewById(R.id.btnVaso) as FrameLayout
-        btnGota.setOnClickListener {
+        btnVaso.setOnClickListener {
             addWater(100)
         }
 
         val btnBotella = findViewById(R.id.btnBotella) as FrameLayout
-        btnGota.setOnClickListener {
+        btnBotella.setOnClickListener {
             addWater(200)
         }
 
         val btnRegadera = findViewById(R.id.btnRegadera) as FrameLayout
-        btnGota.setOnClickListener {
+        btnRegadera.setOnClickListener {
             addWater(300)
         }
         launch {
