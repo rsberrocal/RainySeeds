@@ -13,9 +13,7 @@ import android.widget.FrameLayout
 import androidx.annotation.RequiresApi
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.rainyteam.controller.R
-import com.rainyteam.model.Connection
-import com.rainyteam.model.History
-import com.rainyteam.model.User
+import com.rainyteam.model.*
 import com.rainyteam.services.MusicService
 import com.rainyteam.services.TimerService
 import kotlinx.android.synthetic.main.introduce_water_layout.*
@@ -127,11 +125,11 @@ class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope {
     @RequiresApi(Build.VERSION_CODES.N)
     fun addWater(water: Int) {
         launch {
-            var actualHistory: History? = mainConnection!!.getHistory(user!!)
-            var actualUser: User? = mainConnection!!.getUser(user!!)
-            var quantity: Float = (water * 100) / actualUser!!.getMaxWater()
-            var cal: Calendar = Calendar.getInstance()
-            var day = cal.get(Calendar.DAY_OF_WEEK)
+            val actualHistory: History? = mainConnection!!.getHistory(user!!)
+            val actualUser: User? = mainConnection!!.getUser(user!!)
+            val quantity: Float = (water * 100) / actualUser!!.getMaxWater()
+            val cal: Calendar = Calendar.getInstance()
+            val day = cal.get(Calendar.DAY_OF_WEEK)
             when (day) {
                 Calendar.SUNDAY -> actualHistory!!.sunday = actualHistory.sunday + quantity
                 Calendar.MONDAY -> actualHistory!!.monday = actualHistory.monday + quantity
@@ -142,6 +140,26 @@ class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope {
                 Calendar.SATURDAY -> actualHistory!!.saturday = actualHistory.saturday + quantity
             }
             mainConnection!!.addHistory(user!!, actualHistory!!)
+            mainConnection!!.BDD.collection("User-Plants")
+                .whereEqualTo("userId", user)
+                .whereGreaterThan("status", -1)
+                .get()
+                .addOnSuccessListener { result ->
+                    result.documents.forEach {
+                        val plant = it.toObject(UserPlants::class.java)
+                        mainConnection!!.BDD.collection("Plants")
+                            .document(plant!!.plantId)
+                            .get()
+                            .addOnSuccessListener { detail ->
+                                val aux = detail.toObject(Plants::class.java)!!
+                                it.reference.update(
+                                    "status",
+                                    plant.status + aux.getMoney() * 0.3 + quantity
+                                )
+                            }
+                    }
+                    Log.d("Connection", "Regando plantas")
+                }
         }
     }
 }
