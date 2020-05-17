@@ -3,11 +3,17 @@ package com.rainyteam.views
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.*
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.ImageView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.ProcessLifecycleOwner
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
@@ -26,7 +32,7 @@ import java.io.ByteArrayOutputStream
 import kotlin.coroutines.CoroutineContext
 
 
-class UserInfoActivity() : AppCompatActivity(), CoroutineScope {
+class UserInfoActivity() : AppCompatActivity(), CoroutineScope, LifecycleObserver {
     val mAuth = FirebaseAuth.getInstance()
 
     var mainConnection: Connection? = null
@@ -35,6 +41,8 @@ class UserInfoActivity() : AppCompatActivity(), CoroutineScope {
     val PREF_ID = "USER"
     val PREF_NAME = "USER_ID"
     var prefs: SharedPreferences? = null
+
+    var firstNav = false
 
     //Camara
     val REQUEST_IMAGE_CAPTURE = 1
@@ -50,8 +58,16 @@ class UserInfoActivity() : AppCompatActivity(), CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
 
+    override fun onDestroy() {
+        super.onDestroy()
+        ProcessLifecycleOwner.get().lifecycle.removeObserver(this)
+        job.cancel()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        ProcessLifecycleOwner.get().lifecycle.addObserver(this)
+
         setContentView(R.layout.user_info_layout)
 
         this.mainConnection = Connection()
@@ -86,6 +102,7 @@ class UserInfoActivity() : AppCompatActivity(), CoroutineScope {
             prefs!!.edit().putBoolean("NAV", true).apply()
             //overridePendingTransition(R.anim.slide_down_to_up, R.anim.slide_stop)
             overridePendingTransition(R.anim.slide_stop, R.anim.slide_stop)
+            finish()
         }
 
         logoutBtn.setOnClickListener {
@@ -102,13 +119,13 @@ class UserInfoActivity() : AppCompatActivity(), CoroutineScope {
 
 
 
-
+        //prefs!!.edit().putBoolean("NAV", false).commit()
 
         launch {
             //textWaterPercent!!.text = mainConnection.getUser(userName)
             /** Delay para definir que no es navegacion al crear vista **/
             delay(1000)
-            prefs!!.edit().putBoolean("NAV", false).apply()
+            prefs!!.edit().putBoolean("NAV", false).commit()
         }
     }
 
@@ -116,45 +133,9 @@ class UserInfoActivity() : AppCompatActivity(), CoroutineScope {
     override fun onBackPressed() {
         super.onBackPressed()
         if (!isTaskRoot) {
-            prefs!!.edit().putBoolean("NAV", true).apply()
+            prefs!!.edit().putBoolean("NAV", true).commit()
         }
-        prefs!!.edit().putBoolean("NAV", false).apply()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        //Se crea el intent para pararlo
-        val musicService = Intent(this, MusicService::class.java)
-
-        val timerService = Intent(this, TimerService::class.java)
-
-        val isNav = prefs!!.getBoolean("NAV", false);
-        //Se mira si es una navegacion, de no serla es un destroy de app, se apaga la musica
-        if (!isNav) {
-            //De ser un destroy se detiene
-            stopService(musicService)
-            stopService(timerService)
-        }
-    }
-
-    //Viene de un destroy
-    override fun onRestart() {
-        super.onRestart()
-        Log.d("MUSIC", "ON RESTART GREENHOUSE")
-        //Se crea el intent para iniciarlo
-        val musicService = Intent(this, MusicService::class.java)
-        val timerService = Intent(this, TimerService::class.java)
-
-        var musicPlay = prefs!!.getBoolean("PLAY", false)
-        //Solo se inicia si la musica ha parado y si el usuario tiene habilitado el check
-        launch {
-            var auxUser: User = mainConnection!!.getUser(userName!!)!!
-            if (auxUser.music && !musicPlay) {
-                Log.d("MUSIC", "STARTING ON RESTART")
-                startService(musicService)
-            }
-            startService(timerService)
-        }
+        prefs!!.edit().putBoolean("NAV", false).commit()
     }
 
     fun setUser(user: String?) {
@@ -265,6 +246,44 @@ class UserInfoActivity() : AppCompatActivity(), CoroutineScope {
         //Bitmap _bmp = Bitmap.createScaledBitmap(output, 60, 60, false);
 //return _bmp;
         return output
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    fun onAppBackgrounded() {
+        //App in background
+
+        Log.e("MUSIC", "************* backgrounded user info")
+
+        val musicService = Intent(this, MusicService::class.java)
+        val timerService = Intent(this, TimerService::class.java)
+
+        stopService(musicService)
+        stopService(timerService)
+
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    fun onAppForegrounded() {
+        if (!this.firstNav){
+            this.firstNav = true
+        }else{
+            Log.e("MUSIC", "************* foregrounded user info")
+            // App in foreground
+            //Se crea el intent para iniciarlo
+            val musicService = Intent(this, MusicService::class.java)
+            val timerService = Intent(this, TimerService::class.java)
+            //var musicPlay = prefs!!.getBoolean("PLAY", false)
+            //val isNav = prefs!!.getBoolean("NAV", false);
+            //Solo se inicia si la musica ha parado y si el usuario tiene habilitado el check
+            launch {
+                var auxUser: User = mainConnection!!.getUser(userName!!)!!
+                if (auxUser.music) {
+                    Log.d("MUSIC", "STARTING ON RESTART")
+                    startService(musicService)
+                }
+                startService(timerService)
+            }
+        }
     }
 
 

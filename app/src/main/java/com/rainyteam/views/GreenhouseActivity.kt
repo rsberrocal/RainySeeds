@@ -100,8 +100,8 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
 
         textSeeds = findViewById(R.id.textGoldenSeeds) as TextView
 
-        swMusic.setOnCheckedChangeListener { _, isChecked ->
-            if (swMusic.isChecked) {
+        swMusic.setOnCheckedChangeListener { compoundButton, isChecked ->
+            if (isChecked) {
                 var musicPlay = prefs!!.getBoolean("PLAY", false)
                 if (!musicPlay) {
                     Log.d("MUSIC", "STARTING ON CREATE")
@@ -110,7 +110,7 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
             } else {
                 stopService(musicService)
             }
-            mBDD!!.collection("Users").document(user!!).update("music", swMusic.isChecked)
+            mBDD!!.collection("Users").document(user!!).update("music", isChecked)
         }
 
         mPager = findViewById(R.id.pager)
@@ -118,6 +118,11 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
         launch {
             var auxUser: User = mainConnection!!.getUser(user!!)!!
             swMusic.isChecked = auxUser.music
+            var musicPlay = prefs!!.getBoolean("PLAY", false)
+            if (auxUser.music && !musicPlay) {
+                Log.d("MUSIC", "STARTING ON CREATE")
+                startService(musicService)
+            }
             startService(timerService)
             textSeeds.text = auxUser.getRainyCoins().toString()
             /** Delay para definir que no es navegacion al crear vista **/
