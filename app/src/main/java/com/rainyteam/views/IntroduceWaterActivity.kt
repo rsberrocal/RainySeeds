@@ -200,10 +200,10 @@ class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope, LifecycleObs
                                     val aux = detail.toObject(Plants::class.java)!!
                                     var statusToadd = 0
                                     if (getStatusHistory(actualHistory) > actualUser.getMaxWater()) {
-                                        statusToadd = (plant.status - aux.getMoney() * 0.2 + quantity).toInt()
+                                        statusToadd = (plant.status - aux.getMoney() * 3 + quantity).toInt()
                                         Toast.makeText(applicationContext, "You're drowning your plants!!", Toast.LENGTH_LONG).show()
                                     } else {
-                                        statusToadd = (plant.status + aux.getMoney() * 0.3 + quantity).toInt()
+                                        statusToadd = (plant.status + aux.getMoney() * 0.002 + quantity).toInt()
                                     }
                                     it.reference.update("status", statusToadd)
                                 }
