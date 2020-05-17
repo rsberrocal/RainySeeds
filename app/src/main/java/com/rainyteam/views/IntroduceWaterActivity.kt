@@ -31,7 +31,7 @@ class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope, LifecycleObs
     val PREF_ID = "USER"
     val PREF_NAME = "USER_ID"
     var prefs: SharedPreferences? = null
-
+    val MAX_WATER = 999
     var user: String? = ""
 
     var firstNav = false
@@ -123,41 +123,96 @@ class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope, LifecycleObs
             val quantity: Float = (water * 100) / actualUser!!.getMaxWater()
             val cal: Calendar = Calendar.getInstance()
             val day = cal.get(Calendar.DAY_OF_WEEK)
+            var hasOverload = false
             when (day) {
-                Calendar.SUNDAY -> actualHistory!!.sunday = actualHistory.sunday + quantity
-                Calendar.MONDAY -> actualHistory!!.monday = actualHistory.monday + quantity
-                Calendar.TUESDAY -> actualHistory!!.tuesday = actualHistory.tuesday + quantity
-                Calendar.WEDNESDAY -> actualHistory!!.wednesday = actualHistory.wednesday + quantity
-                Calendar.THURSDAY -> actualHistory!!.thursday = actualHistory.thursday + quantity
-                Calendar.FRIDAY -> actualHistory!!.friday = actualHistory.friday + quantity
-                Calendar.SATURDAY -> actualHistory!!.saturday = actualHistory.saturday + quantity
-            }
-            mainConnection!!.addHistory(user!!, actualHistory!!)
-            mainConnection!!.BDD.collection("User-Plants")
-                .whereEqualTo("userId", user)
-                .whereGreaterThan("status", -1)
-                .get()
-                .addOnSuccessListener { result ->
-                    result.documents.forEach {
-                        val plant = it.toObject(UserPlants::class.java)
-                        mainConnection!!.BDD.collection("Plants")
-                            .document(plant!!.plantId)
-                            .get()
-                            .addOnSuccessListener { detail ->
-                                val aux = detail.toObject(Plants::class.java)!!
-                                var statusToadd = 0
-                                if (getStatusHistory(actualHistory) > actualUser.getMaxWater()) {
-                                    statusToadd = (plant.status - aux.getMoney() * 0.2 + quantity).toInt()
-                                    Toast.makeText(applicationContext, "You're drowning your plants!!", Toast.LENGTH_LONG).show()
-                                } else {
-                                    statusToadd = (plant.status + aux.getMoney() * 0.3 + quantity).toInt()
-                                }
-                                it.reference.update("status", statusToadd)
-                            }
+                Calendar.SUNDAY -> {
+                    actualHistory!!.sunday = actualHistory.sunday + quantity
+                    if (actualHistory.sunday > MAX_WATER) {
+                        hasOverload = true
                     }
-                    Log.d("Connection", "Regando plantas")
                 }
+                Calendar.MONDAY -> {
+                    actualHistory!!.monday = actualHistory.monday + quantity
+                    if (actualHistory.monday > MAX_WATER) {
+                        hasOverload = true
+                    }
+                }
+                Calendar.TUESDAY -> {
+                    actualHistory!!.tuesday = actualHistory.tuesday + quantity
+                    if (actualHistory.tuesday > MAX_WATER) {
+                        hasOverload = true
+                    }
+                }
+                Calendar.WEDNESDAY -> {
+                    actualHistory!!.wednesday = actualHistory.wednesday + quantity
+                    if (actualHistory.wednesday > MAX_WATER) {
+                        hasOverload = true
+                    }
+                }
+                Calendar.THURSDAY -> {
+                    actualHistory!!.thursday = actualHistory.thursday + quantity
+                    if (actualHistory.thursday > MAX_WATER) {
+                        hasOverload = true
+                    }
+                }
+                Calendar.FRIDAY -> {
+                    actualHistory!!.friday = actualHistory.friday + quantity
+                    if (actualHistory.friday > MAX_WATER) {
+                        hasOverload = true
+                    }
+                }
+                Calendar.SATURDAY -> {
+                    actualHistory!!.saturday = actualHistory.saturday + quantity
+                    if (actualHistory.saturday > MAX_WATER) {
+                        hasOverload = true
+                    }
+                }
+            }
 
+            //El usuario se ha pasado bebiendo
+            if (hasOverload) {
+                mainConnection!!.BDD.collection("User-Plants")
+                    .whereEqualTo("userId", user)
+                    .whereGreaterThan("status", -1)
+                    .get()
+                    .addOnSuccessListener { result ->
+                        val items = result.documents.size
+                        var count = 0
+                        result.documents.forEach {
+                            it.reference.update("status", -1)
+                            count++
+                            if (count == items) {
+                                Toast.makeText(this@IntroduceWaterActivity, "You've drowned all your plants by drinking too much :(", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+            } else {
+                mainConnection!!.addHistory(user!!, actualHistory!!)
+                mainConnection!!.BDD.collection("User-Plants")
+                    .whereEqualTo("userId", user)
+                    .whereGreaterThan("status", -1)
+                    .get()
+                    .addOnSuccessListener { result ->
+                        result.documents.forEach {
+                            val plant = it.toObject(UserPlants::class.java)
+                            mainConnection!!.BDD.collection("Plants")
+                                .document(plant!!.plantId)
+                                .get()
+                                .addOnSuccessListener { detail ->
+                                    val aux = detail.toObject(Plants::class.java)!!
+                                    var statusToadd = 0
+                                    if (getStatusHistory(actualHistory) > actualUser.getMaxWater()) {
+                                        statusToadd = (plant.status - aux.getMoney() * 0.2 + quantity).toInt()
+                                        Toast.makeText(applicationContext, "You're drowning your plants!!", Toast.LENGTH_LONG).show()
+                                    } else {
+                                        statusToadd = (plant.status + aux.getMoney() * 0.3 + quantity).toInt()
+                                    }
+                                    it.reference.update("status", statusToadd)
+                                }
+                        }
+                        Log.d("Connection", "Regando plantas")
+                    }
+            }
 
             val intent = Intent(applicationContext, MainWaterActivity::class.java)
             startActivity(intent)
@@ -171,14 +226,14 @@ class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope, LifecycleObs
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
-    fun getStatusHistory(history:History): Float{
+    fun getStatusHistory(history: History): Float {
         val cal: Calendar = Calendar.getInstance()
         val day = cal.get(Calendar.DAY_OF_WEEK)
         when (day) {
-            Calendar.SUNDAY ->return history.sunday
-            Calendar.MONDAY ->return history.monday
-            Calendar.TUESDAY ->return history.tuesday
-            Calendar.WEDNESDAY ->return history.wednesday
+            Calendar.SUNDAY -> return history.sunday
+            Calendar.MONDAY -> return history.monday
+            Calendar.TUESDAY -> return history.tuesday
+            Calendar.WEDNESDAY -> return history.wednesday
             Calendar.THURSDAY -> return history.thursday
             Calendar.FRIDAY -> return history.friday
             Calendar.SATURDAY -> return history.saturday
@@ -202,9 +257,9 @@ class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope, LifecycleObs
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onAppForegrounded() {
-        if (!this.firstNav){
+        if (!this.firstNav) {
             this.firstNav = true
-        }else{
+        } else {
             Log.e("MUSIC", "************* foregrounded main water")
             // App in foreground
             Log.d("MUSIC", "ON RESTART MainWaterActivity")
@@ -226,14 +281,14 @@ class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope, LifecycleObs
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
-    fun getDay(): String{
+    fun getDay(): String {
         var cal: Calendar = Calendar.getInstance()
         var day = cal.get(Calendar.DAY_OF_WEEK)
         when (day) {
             Calendar.SUNDAY -> return "sunday"
             Calendar.MONDAY -> return "monday"
             Calendar.TUESDAY -> return "tuesday"
-            Calendar.WEDNESDAY ->return "wednesday"
+            Calendar.WEDNESDAY -> return "wednesday"
             Calendar.THURSDAY -> return "thursday"
             Calendar.FRIDAY -> return "friday"
             Calendar.SATURDAY -> return "saturday"
