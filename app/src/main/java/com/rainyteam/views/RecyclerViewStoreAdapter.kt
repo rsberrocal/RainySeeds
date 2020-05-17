@@ -34,6 +34,7 @@ class RecyclerViewStoreAdapter (var context: Context, var listOfPlants: MutableL
         holder.image.setOnClickListener{
             val intent = Intent(holder.image.context, EncyclopediaDetailActivity::class.java)
             intent.putExtra("idPlant", plant.getName())
+            intent.putExtra("statusPlant", plant.getStatus())
             holder.image.context.startActivity(intent)
         }
     }
