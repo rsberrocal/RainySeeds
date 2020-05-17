@@ -340,7 +340,16 @@ recyclerView?.adapter = recyclerViewAdapter
     }
     fun search() {
         var strToFind = inputStoreSearch.text.toString()
+        var lenToFind: Int = strToFind.length
         var aux: MutableList<Plants>? = null
+        for (plant in mutableList!!){
+            var compareStr= plant.getName().substring(0, lenToFind+1)
+            if (compareStr == strToFind){
+                aux?.add(plant)
+            }
+        }
+        recyclerViewAdapter = RecyclerViewAdapter(applicationContext, aux!!)
+        recyclerView?.adapter = recyclerViewAdapter
 
     }
 }
