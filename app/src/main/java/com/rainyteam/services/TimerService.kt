@@ -56,7 +56,7 @@ class TimerService : Service(), CoroutineScope {
     override fun onDestroy() {
         logMessage("Destroying")
         //this.mainThread.interrupt()
-        prefs!!.edit().putLong(PREF_ACTUAL, this.actualTime).apply()
+        prefs!!.edit().putLong(PREF_ACTUAL, this.actualTime * 1000).apply()
         this.mainTimer.cancel()
         this.mainTimer.purge()
 

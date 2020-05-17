@@ -146,7 +146,7 @@ class MainWaterActivity : AppCompatActivity(), CoroutineScope, LifecycleObserver
             var lastTime = prefs!!.getLong("ACTUAL", 0)
             if (lastTime != 0L) {
                 val sdf = SimpleDateFormat("MM/dd/yyyy")
-                val netDate = Date(lastTime * 1000)
+                val netDate = Date(lastTime)
                 val time = sdf.format(netDate)
                 println(time)
             }
