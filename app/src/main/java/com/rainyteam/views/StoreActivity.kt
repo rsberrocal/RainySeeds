@@ -49,21 +49,9 @@ class StoreActivity : AppCompatActivity(), CoroutineScope, LifecycleObserver {
     private var gridLayoutManager: GridLayoutManager? = null
     private var mutableList: MutableList<Plants>? = null
     private var recyclerViewStoreAdapter: RecyclerViewStoreAdapter? = null
-    lateinit var textSeeds: TextView
 
     //reciver
-    val onMoneyChange: BroadcastReceiver = object : BroadcastReceiver() {
-        override fun onReceive(p0: Context?, p1: Intent?) {
-            //actualizar datos
-            Log.d("Timer", "Update en greenhouse")
-            launch {
-                var auxUser: User = mainConnection!!.getUser(user!!)!!
-                textSeeds.text = auxUser.getRainyCoins().toString()
-            }
-        }
-    }
-
-    val onDeadPlant: BroadcastReceiver = object : BroadcastReceiver() {
+    val broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(p0: Context?, p1: Intent?) {
             //actualizar datos
             Log.d("Timer", "Update en greenhouse")
@@ -79,8 +67,6 @@ class StoreActivity : AppCompatActivity(), CoroutineScope, LifecycleObserver {
     override fun onDestroy() {
         super.onDestroy()
         ProcessLifecycleOwner.get().lifecycle.removeObserver(this)
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(onMoneyChange)
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(onDeadPlant)
         job.cancel()
     }
 
@@ -93,21 +79,21 @@ class StoreActivity : AppCompatActivity(), CoroutineScope, LifecycleObserver {
         this.mainConnection = Connection()
 
         //register receiver
-        LocalBroadcastManager.getInstance(this).registerReceiver(onMoneyChange, IntentFilter("Timer"))
-        LocalBroadcastManager.getInstance(this).registerReceiver(onDeadPlant, IntentFilter("Dead"))
+        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, IntentFilter("Timer"))
 
 
         prefs = getSharedPreferences(PREF_ID, 0)
         this.user = prefs!!.getString(PREF_NAME, "")
 
-        textSeeds = findViewById(R.id.textGoldenSeeds)
+        val textSeeds: TextView = findViewById(R.id.textGoldenSeeds) as TextView
 
         recyclerView = findViewById(R.id.recyclerViewStore)
-        gridLayoutManager = GridLayoutManager(applicationContext, 3, LinearLayoutManager.VERTICAL, false)
+        gridLayoutManager =
+            GridLayoutManager(applicationContext, 3, LinearLayoutManager.VERTICAL, false)
         recyclerView?.layoutManager = gridLayoutManager
         recyclerView?.setHasFixedSize(true)
 
-        launch {
+        launch{
             var auxUser: User = mainConnection!!.getUser(user!!)!!
             textSeeds.text = auxUser.getRainyCoins().toString()
         }
@@ -194,7 +180,6 @@ class StoreActivity : AppCompatActivity(), CoroutineScope, LifecycleObserver {
             recyclerView?.adapter = recyclerViewStoreAdapter
         }
     }
-
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     fun onAppBackgrounded() {
         //App in background
@@ -211,9 +196,9 @@ class StoreActivity : AppCompatActivity(), CoroutineScope, LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onAppForegrounded() {
-        if (!this.firstNav) {
+        if (!this.firstNav){
             this.firstNav = true
-        } else {
+        }else{
             Log.e("MUSIC", "************* foregrounded store")
             // App in foreground
             //Se crea el intent para iniciarlo

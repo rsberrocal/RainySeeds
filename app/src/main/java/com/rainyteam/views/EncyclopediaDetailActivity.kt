@@ -1,6 +1,8 @@
 package com.rainyteam.views
 
-import android.content.*
+import android.content.Intent
+import android.content.IntentFilter
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -47,16 +49,9 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope, Lifecycl
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
 
-    val onDeadPlant: BroadcastReceiver = object : BroadcastReceiver() {
-        override fun onReceive(p0: Context?, p1: Intent?) {
-            //todo hacer aqui lo de los botones
-        }
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         ProcessLifecycleOwner.get().lifecycle.removeObserver(this)
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(onDeadPlant)
         job.cancel()
     }
 
@@ -65,8 +60,6 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope, Lifecycl
         setContentView(R.layout.encyclopedia_detail_layout)
 
         ProcessLifecycleOwner.get().lifecycle.addObserver(this)
-
-        LocalBroadcastManager.getInstance(this).registerReceiver(onDeadPlant, IntentFilter("Dead"))
 
         this.mainConnection = Connection()
 

@@ -53,22 +53,15 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope, LifecycleObserve
     private var job: Job = Job()
 
     //reciver
-    val onMoneyChange: BroadcastReceiver = object : BroadcastReceiver() {
-        override fun onReceive(p0: Context?, p1: Intent?) {
-            //actualizar datos
-            Log.d("Timer", "Update en greenhouse")
-            launch {
-                var auxUser: User = mainConnection!!.getUser(user!!)!!
-                textSeeds.text = auxUser.getRainyCoins().toString()
-            }
-        }
-    }
-
-    val onDeadPlant: BroadcastReceiver = object : BroadcastReceiver() {
+    val broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(p0: Context?, p1: Intent?) {
             //actualizar datos
             Log.d("Timer", "Update en greenhouse")
             boughtPlants()
+            launch {
+                var auxUser: User = mainConnection!!.getUser(user!!)!!
+                textSeeds.text = auxUser.getRainyCoins().toString()
+            }
         }
     }
 
@@ -78,8 +71,6 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope, LifecycleObserve
     override fun onDestroy() {
         super.onDestroy()
         ProcessLifecycleOwner.get().lifecycle.removeObserver(this)
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(onMoneyChange)
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(onDeadPlant)
         job.cancel()
     }
 
@@ -97,8 +88,7 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope, LifecycleObserve
         val timerService = Intent(this, TimerService::class.java)
 
         //register receiver
-        LocalBroadcastManager.getInstance(this).registerReceiver(onMoneyChange, IntentFilter("Timer"))
-        LocalBroadcastManager.getInstance(this).registerReceiver(onDeadPlant, IntentFilter("Dead"))
+        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, IntentFilter("Timer"))
 
         val swMusic = findViewById<View>(R.id.swMusic) as SwitchCompat
 
