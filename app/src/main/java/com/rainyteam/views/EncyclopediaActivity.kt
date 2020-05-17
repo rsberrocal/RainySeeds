@@ -49,7 +49,7 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope, LifecycleObser
         override fun onReceive(p0: Context?, p1: Intent?) {
             //actualizar datos
             Log.d("Timer", "Update en diccionary")
-            when(actualStatus){
+            when (actualStatus) {
                 0 -> allPlants()
                 1 -> boughtPlants()
                 2 -> buyPlants()
@@ -93,8 +93,7 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope, LifecycleObser
         this.user = prefs!!.getString(PREF_NAME, "")
         //prefs!!.edit().putBoolean("NAV",false).apply()
         recyclerView = findViewById(R.id.recyclerViewPlants)
-        gridLayoutManager =
-            GridLayoutManager(applicationContext, 3, LinearLayoutManager.VERTICAL, false)
+        gridLayoutManager = GridLayoutManager(applicationContext, 3, LinearLayoutManager.VERTICAL, false)
         recyclerView?.layoutManager = gridLayoutManager
         scrollListener = object : EndlessRecyclerViewScrollListener(gridLayoutManager) {
             override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
@@ -134,7 +133,7 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope, LifecycleObser
         launch {
             /** Delay para definir que no es navegacion al crear vista **/
             delay(1000)
-            prefs!!.edit().putBoolean("NAV",false).apply()
+            prefs!!.edit().putBoolean("NAV", false).apply()
             Log.d("Timer", "Set nav false on delay")
         }
 
@@ -297,6 +296,7 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope, LifecycleObser
             recyclerView?.adapter = recyclerViewAdapter
         }
     }
+
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     fun onAppBackgrounded() {
         //App in background
@@ -313,9 +313,9 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope, LifecycleObser
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onAppForegrounded() {
-        if (!this.firstNav){
+        if (!this.firstNav) {
             this.firstNav = true
-        }else{
+        } else {
             Log.e("MUSIC", "************* foregrounded Enciclopedia")
             // App in foreground
             //Se crea el intent para iniciarlo

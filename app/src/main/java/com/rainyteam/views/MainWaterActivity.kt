@@ -27,6 +27,7 @@ import com.rainyteam.services.MusicService
 import com.rainyteam.services.TimerService
 import kotlinx.android.synthetic.main.main_water_layout.*
 import kotlinx.coroutines.*
+import kotlinx.coroutines.tasks.await
 import java.text.SimpleDateFormat
 import java.time.Instant
 import java.time.LocalDateTime
@@ -146,17 +147,19 @@ class MainWaterActivity : AppCompatActivity(), CoroutineScope, LifecycleObserver
     fun getWater(user: String?) {
 
         launch {
-            var lastTime = prefs!!.getLong("ACTUAL", 0)
+            var lastTime = prefs!!.getLong(getDay(), 0)
             if (lastTime != 0L) {
-                val sdf = SimpleDateFormat("MM/dd/yyyy")
-                val netDate = Date(lastTime)
-                val timeSaved = sdf.format(netDate)
                 val now = Date()
-                val test = sdf.format(now)
-                val l1 = LocalDateTime.ofInstant(Instant.ofEpochMilli(lastTime*1000), ZoneId.systemDefault())
+                val l1 = LocalDateTime.ofInstant(Instant.ofEpochMilli(lastTime), ZoneId.systemDefault())
                 val l2 = LocalDateTime.ofInstant(now.toInstant(), ZoneId.systemDefault())
                 val num = ChronoUnit.WEEKS.between(l1,l2)
-                println(test)
+                if (num > 0 ){
+                    mainConnection!!.BDD
+                        .collection("History")
+                        .document(userName!!)
+                        .update(getDay(),0)
+                        .await()
+                }
             }
 
             var actualHistory: History? = mainConnection!!.getHistory(user!!)
@@ -175,6 +178,22 @@ class MainWaterActivity : AppCompatActivity(), CoroutineScope, LifecycleObserver
             setWaterImage(actualUserWater)
         }
 
+    }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    fun getDay(): String{
+        var cal: Calendar = Calendar.getInstance()
+        var day = cal.get(Calendar.DAY_OF_WEEK)
+        when (day) {
+            Calendar.SUNDAY -> return "sunday"
+            Calendar.MONDAY -> return "monday"
+            Calendar.TUESDAY -> return "tuesday"
+            Calendar.WEDNESDAY ->return "wednesday"
+            Calendar.THURSDAY -> return "thursday"
+            Calendar.FRIDAY -> return "friday"
+            Calendar.SATURDAY -> return "saturday"
+        }
+        return ""
     }
 
     fun setWaterImage(actualUserWater: Float) {

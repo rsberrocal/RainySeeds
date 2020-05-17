@@ -166,7 +166,7 @@ class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope, LifecycleObs
                 R.anim.slide_down_to_up,
                 R.anim.slide_stop
             )
-            prefs!!.edit().putBoolean("NAV", true).apply()
+            prefs!!.edit().putLong(getDay(), Calendar.getInstance().timeInMillis).apply()
         }
     }
 
@@ -223,6 +223,22 @@ class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope, LifecycleObs
                 startService(timerService)
             }
         }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    fun getDay(): String{
+        var cal: Calendar = Calendar.getInstance()
+        var day = cal.get(Calendar.DAY_OF_WEEK)
+        when (day) {
+            Calendar.SUNDAY -> return "sunday"
+            Calendar.MONDAY -> return "monday"
+            Calendar.TUESDAY -> return "tuesday"
+            Calendar.WEDNESDAY ->return "wednesday"
+            Calendar.THURSDAY -> return "thursday"
+            Calendar.FRIDAY -> return "friday"
+            Calendar.SATURDAY -> return "saturday"
+        }
+        return ""
     }
 
 }
