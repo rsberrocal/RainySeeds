@@ -140,16 +140,12 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope, LifecycleObser
 
     }
 
-    //Funcion que se ejecuta al tirar atras
     override fun onBackPressed() {
         super.onBackPressed()
-        if (!isTaskRoot) {
-            prefs!!.edit().putBoolean("NAV", true).apply()
-        }
-        prefs!!.edit().putBoolean("NAV", false).apply()
-
+        val returnEncyclopediaActivity = Intent(this, GreenhouseActivity::class.java)
+        startActivity(returnEncyclopediaActivity)
         finish()
-        startActivity(Intent(this, GreenhouseActivity::class.java))
+        overridePendingTransition(R.anim.slide_right_to_left, R.anim.slide_stop)
     }
 
     fun buyPlants() {

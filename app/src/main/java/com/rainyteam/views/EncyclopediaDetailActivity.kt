@@ -102,13 +102,12 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope, Lifecycl
 
     }
 
-    //Funcion que se ejecuta al tirar atras
     override fun onBackPressed() {
         super.onBackPressed()
-        if (!isTaskRoot) {
-            prefs!!.edit().putBoolean("NAV", true).apply()
-        }
-        prefs!!.edit().putBoolean("NAV", false).apply()
+        val returnEncyclopediaDetailActivity = Intent(this, EncyclopediaActivity::class.java)
+        startActivity(returnEncyclopediaDetailActivity)
+        finish()
+        overridePendingTransition(R.anim.slide_left_to_right, R.anim.slide_stop)
     }
 
 
