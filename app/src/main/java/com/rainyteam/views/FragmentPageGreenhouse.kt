@@ -108,6 +108,7 @@ class FragmentPageGreenhouse(
                     intent.putExtra("idPlant", auxPlant1.getName())
                     intent.putExtra("statusPlant", auxPlant1.getStatus())
                     plantR1C1.context.startActivity(intent)
+                    activity!!.finish()
                     prefs!!.edit().putBoolean("NAV", true).apply()
                 }
             }
@@ -127,6 +128,7 @@ class FragmentPageGreenhouse(
                     intent.putExtra("idPlant", auxPlant2.getName())
                     intent.putExtra("statusPlant", auxPlant2.getStatus())
                     plantR1C2.context.startActivity(intent)
+                    activity!!.finish()
                     prefs!!.edit().putBoolean("NAV", true).apply()
                 }
             }
@@ -146,6 +148,7 @@ class FragmentPageGreenhouse(
                     intent.putExtra("idPlant", auxPlant3.getName())
                     intent.putExtra("statusPlant", auxPlant3.getStatus())
                     plantR1C3.context.startActivity(intent)
+                    activity!!.finish()
                     prefs!!.edit().putBoolean("NAV", true).apply()
                 }
             }
@@ -165,6 +168,7 @@ class FragmentPageGreenhouse(
                     intent.putExtra("idPlant", auxPlant4.getName())
                     intent.putExtra("statusPlant", auxPlant4.getStatus())
                     plantR2C1.context.startActivity(intent)
+                    activity!!.finish()
                     prefs!!.edit().putBoolean("NAV", true).apply()
                 }
             }
@@ -184,6 +188,7 @@ class FragmentPageGreenhouse(
                     intent.putExtra("idPlant", auxPlant5.getName())
                     intent.putExtra("statusPlant", auxPlant5.getStatus())
                     plantR2C2.context.startActivity(intent)
+                    activity!!.finish()
                     prefs!!.edit().putBoolean("NAV", true).apply()
                 }
             }
@@ -204,6 +209,7 @@ class FragmentPageGreenhouse(
                     intent.putExtra("idPlant", auxPlant6.getName())
                     intent.putExtra("statusPlant", auxPlant6.getStatus())
                     plantR2C3.context.startActivity(intent)
+                    activity!!.finish()
                 }
             }
             if (mutableList!!.size > pos * 9 + 6) {
@@ -223,6 +229,7 @@ class FragmentPageGreenhouse(
                     intent.putExtra("idPlant", auxPlant7.getName())
                     intent.putExtra("statusPlant", auxPlant7.getStatus())
                     plantR3C1.context.startActivity(intent)
+                    activity!!.finish()
                 }
             }
 
@@ -242,6 +249,7 @@ class FragmentPageGreenhouse(
                     intent.putExtra("idPlant", auxPlant8.getName())
                     intent.putExtra("statusPlant", auxPlant8.getStatus())
                     plantR3C2.context.startActivity(intent)
+                    activity!!.finish()
                     prefs!!.edit().putBoolean("NAV", true).apply()
                 }
             }
@@ -261,6 +269,7 @@ class FragmentPageGreenhouse(
                     intent.putExtra("idPlant", auxPlant9.getName())
                     intent.putExtra("statusPlant", auxPlant9.getStatus())
                     plantR3C3.context.startActivity(intent)
+                    activity!!.finish()
                     prefs!!.edit().putBoolean("NAV", true).apply()
                 }
             }

@@ -108,7 +108,9 @@ class UserInfoActivity() : AppCompatActivity(), CoroutineScope, LifecycleObserve
         logoutBtn.setOnClickListener {
             prefs!!.edit().remove(PREF_NAME).apply()
             var music = Intent(this, MusicService::class.java)
+            var timer = Intent(this, TimerService::class.java)
             stopService(music)
+            stopService(timer)
             mAuth.signOut()
             finish()
             val intent = Intent(this, LoginActivity::class.java)

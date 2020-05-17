@@ -104,6 +104,7 @@ class StoreActivity : AppCompatActivity(), CoroutineScope, LifecycleObserver {
         buttonCloseStore.setOnClickListener {
             val intent = Intent(this, GreenhouseActivity::class.java)
             startActivity(intent)
+            finish()
             overridePendingTransition(R.anim.slide_stop, R.anim.slide_stop)
         }
 

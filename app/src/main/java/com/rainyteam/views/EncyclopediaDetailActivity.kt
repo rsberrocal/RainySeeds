@@ -89,6 +89,7 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope, Lifecycl
         btnBack.setOnClickListener {
             val intent = Intent(this, EncyclopediaActivity::class.java)
             startActivity(intent)
+            finish()
             overridePendingTransition(R.anim.slide_stop, R.anim.slide_stop)
             prefs!!.edit().putBoolean("NAV", true).apply()
         }
