@@ -110,21 +110,17 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
                     Log.d("MUSIC", "STARTING ON CREATE")
                     startService(musicService)
                 }
-                mBDD!!.collection("Users").document(user!!).update("music", true)
             } else {
                 stopService(musicService)
-                mBDD!!.collection("Users").document(user!!).update("music", false)
             }
+            mBDD!!.collection("Users").document(user!!).update("music", swMusic.isChecked)
         }
 
         mPager = findViewById(R.id.pager)
         boughtPlants()
         launch {
             var auxUser: User = mainConnection!!.getUser(user!!)!!
-            if (auxUser.music) {
-                swMusic.isChecked = true
-                startService(musicService)
-            }
+            swMusic.isChecked = auxUser.music
             startService(timerService)
             textSeeds.text = auxUser.getRainyCoins().toString()
             /** Delay para definir que no es navegacion al crear vista **/
