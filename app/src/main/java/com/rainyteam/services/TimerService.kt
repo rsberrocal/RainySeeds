@@ -11,8 +11,6 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.rainyteam.model.Connection
 import com.rainyteam.model.Plants
 import com.rainyteam.model.UserPlants
-import com.rainyteam.patterns.Observable
-import com.rainyteam.patterns.Observer
 import kotlinx.coroutines.*
 import kotlinx.coroutines.tasks.await
 import java.lang.ClassCastException
