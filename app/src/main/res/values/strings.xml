@@ -49,5 +49,6 @@
     <string name="BirthDate">Birth Date</string>
     <string name="ErrorPasswordLength">Password should be at least 6 characters</string>
     <string name="LoginError">Error email or password</string>
+    <string name="IntroduceWater">Introduce water (ml)</string>
 
 </resources>
