@@ -138,7 +138,11 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope, Lifecycl
                     mainConnection!!.buyPlantToUser(actualUser, actualPlant)
                 }
                 shopButton!!.setVisibility(View.INVISIBLE)
-                drawableName = actualPlant.getLiveImagePlant()
+
+                textBenefits!!.text = actualPlant?.getBenefits()!!.replace("\\n", "\n")
+                textUses!!.text = actualPlant?.getUses()!!.replace("\\n", "\n")
+                textWarnings!!.text = actualPlant?.getPrecautions()!!.replace("\\n", "\n")
+                drawableName = actualPlant.getImagePlant()
                 resID = resources.getIdentifier(
                     drawableName,
                     "drawable",
@@ -155,12 +159,15 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope, Lifecycl
             var actualPlant = mainConnection!!.getPlant(plant)
             textNamePlant!!.text = plant.replace("\\n", "\n")
             textScientificName!!.text = actualPlant?.getScientificName()!!.replace("\\n", "\n")
-            textBenefits!!.text = actualPlant?.getBenefits()!!.replace("\\n", "\n")
-            textUses!!.text = actualPlant?.getUses()!!.replace("\\n", "\n")
-            textWarnings!!.text = actualPlant?.getPrecautions()!!.replace("\\n", "\n")
             textMoney!!.text = actualPlant?.getMoney().toString()
+
             if (statusPlant == -2) {
                 Log.d("STATUS", "STATUS == -2 (NO COMPRADA)")
+
+                textBenefits!!.text = "Buy the plant to unlock this information."
+                textUses!!.text = "Buy the plant to unlock this information."
+                textWarnings!!.text = "Buy the plant to unlock this information."
+
                 drawableName = actualPlant.getBawImagePlant()
                 resID = resources.getIdentifier(
                     drawableName,
@@ -168,6 +175,11 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope, Lifecycl
                     applicationContext.packageName
                 )
             } else {
+
+                textBenefits!!.text = actualPlant?.getBenefits()!!.replace("\\n", "\n")
+                textUses!!.text = actualPlant?.getUses()!!.replace("\\n", "\n")
+                textWarnings!!.text = actualPlant?.getPrecautions()!!.replace("\\n", "\n")
+
                 drawableName = actualPlant.getImagePlant()
                 resID = resources.getIdentifier(
                     drawableName,

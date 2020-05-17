@@ -143,7 +143,7 @@ class FragmentPageGreenhouse(
                 val resID3: Int =
                     resources.getIdentifier(drawableName3, "drawable", context?.packageName)
                 plantR1C3!!.setImageResource(resID3)
-                plantR1C1.setOnClickListener { view ->
+                plantR1C3.setOnClickListener { view ->
                     val intent = Intent(plantR1C3.context, EncyclopediaDetailActivity::class.java)
                     intent.putExtra("idPlant", auxPlant3.getName())
                     intent.putExtra("statusPlant", auxPlant3.getStatus())
