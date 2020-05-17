@@ -37,6 +37,13 @@ class TrueWeatherActivity : AppCompatActivity() {
         }
 
     }
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val returnTrueWeatherActivity = Intent(this, GreenhouseActivity::class.java)
+        startActivity(returnTrueWeatherActivity)
+        finish()
+        overridePendingTransition(R.anim.slide_stop, R.anim.slide_stop)
+    }
 
     inner class weatherTask() : AsyncTask<String, Void, String>() {
         override fun onPreExecute() {
