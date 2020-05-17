@@ -47,6 +47,10 @@ class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope {
         falseBackButton.setOnClickListener {
             val intent = Intent(this, MainWaterActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(
+                R.anim.slide_stop,
+                R.anim.slide_stop
+            )
         }
 
         this.mainConnection = Connection()
@@ -178,6 +182,10 @@ class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope {
 
             val intent = Intent(applicationContext, MainWaterActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(
+                R.anim.slide_down_to_up,
+                R.anim.slide_stop
+            )
             prefs!!.edit().putBoolean("NAV", true).apply()
         }
     }
