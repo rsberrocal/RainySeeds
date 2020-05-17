@@ -211,7 +211,7 @@ class MainWaterActivity : AppCompatActivity(), CoroutineScope {
             actualUserWater <= 90 && actualUserWater > 80 -> waterButton.setImageDrawable(
                 ContextCompat.getDrawable(getApplicationContext(), R.drawable.bottle_80)
             )
-            actualUserWater <= 95 && actualUserWater > 90 -> waterButton.setImageDrawable(
+            actualUserWater > 90 -> waterButton.setImageDrawable(
                 ContextCompat.getDrawable(getApplicationContext(), R.drawable.bottle_90)
             )
         }

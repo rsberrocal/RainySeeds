@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.core.view.isEmpty
+import com.androdocs.weatherapp.TrueWeatherActivity
 import com.rainyteam.controller.R
 import com.rainyteam.model.Connection
 import com.rainyteam.model.User
@@ -82,7 +82,7 @@ class SignIn2Activity : AppCompatActivity(), CoroutineScope {
                     //maxWater
                 }
 
-                val intent = Intent(this, GreenhouseActivity::class.java)
+                val intent = Intent(this, TrueWeatherActivity::class.java)
                 startActivity(intent)
                 finish()
                 overridePendingTransition(R.anim.slide_up_to_down, R.anim.slide_stop)

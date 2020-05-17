@@ -13,4 +13,6 @@
     <color name="translucid_white">#B3ffffff</color>
     <color name="green">#99bd78</color>
 
+    <color name="black_overlay">#66000000</color>
+
 </resources>

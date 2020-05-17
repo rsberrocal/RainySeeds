@@ -23,6 +23,18 @@ android {
         }
     }
 
+// To inline the bytecode built with JVM target 1.8 into
+// bytecode that is being built with JVM target 1.6. (e.g. navArgs)
+
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
 }
 apply plugin: 'kotlin-kapt'
 repositories {
@@ -32,7 +44,6 @@ repositories {
 dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }
-
 
 
 dependencies {
@@ -74,3 +85,20 @@ dependencies {
 }
 
 apply plugin: 'com.google.gms.google-services'
+
+dependencies {
+    implementation 'androidx.legacy:legacy-support-v4:+'
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:+'
+    implementation 'com.google.android.material:material:+'
+    implementation 'androidx.constraintlayout:constraintlayout:+'
+    implementation 'androidx.navigation:navigation-fragment-ktx:+'
+    implementation 'androidx.navigation:navigation-ui-ktx:+'
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:+'
+    implementation 'androidx.constraintlayout:constraintlayout:+'
+}

@@ -6,7 +6,8 @@
     <uses-feature android:name="android.hardware.camera"
         android:required="true" />
 
-
+    <uses-feature android:name="android.hardware.camera"
+        android:required="true" />
     <application
         android:allowBackup="true"
         android:icon="@drawable/icon_app"
@@ -15,12 +16,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity android:name="com.rainyteam.views.SignIn2Activity"/>
+        <activity android:name="com.androdocs.weatherapp.TrueWeatherActivity"/>
 
         <service
             android:name="com.rainyteam.services.MusicService"
             android:enabled="true"
-            android:exported="true" />
-        <!-- Timer Service Declaration -->
+            android:exported="true" /> <!-- Timer Service Declaration -->
         <service
             android:name="com.rainyteam.services.TimerService"
             android:enabled="true"

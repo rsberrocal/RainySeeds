@@ -3,11 +3,8 @@ package com.rainyteam.views
 import android.content.*
 import android.os.Bundle
 import android.util.Log
-import android.view.ActionMode
 import android.view.View
-import android.widget.Switch
 import android.widget.TextView
-import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.*
@@ -20,8 +17,6 @@ import com.rainyteam.model.Connection
 import com.rainyteam.model.Plants
 import com.rainyteam.model.User
 import com.rainyteam.model.UserPlants
-import com.rainyteam.patterns.Observable
-import com.rainyteam.patterns.Observer
 import com.rainyteam.services.MusicService
 import com.rainyteam.services.TimerService
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
@@ -71,6 +66,7 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.greenhouse_layout)
 
