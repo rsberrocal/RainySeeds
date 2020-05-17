@@ -19,6 +19,7 @@ import java.lang.ClassCastException
 import java.lang.Runnable
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.concurrent.timer
 import kotlin.concurrent.timerTask
 import kotlin.coroutines.CoroutineContext
 import kotlin.math.log
@@ -55,6 +56,7 @@ class TimerService : Service(), CoroutineScope {
     override fun onDestroy() {
         logMessage("Destroying")
         //this.mainThread.interrupt()
+        prefs!!.edit().putLong(PREF_ACTUAL, this.actualTime).apply()
         this.mainTimer.cancel()
         this.mainTimer.purge()
 
@@ -106,7 +108,7 @@ class TimerService : Service(), CoroutineScope {
                 //logMessage("Time more than next: " + time)
             }
         }
-        this.mainTimer.schedule(this.timerTask,1000)
+        this.mainTimer.schedule(this.timerTask,0,1000)
         //se crea el thread runnable
         /*val runable = Runnable {
 
