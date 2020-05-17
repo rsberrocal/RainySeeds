@@ -123,6 +123,7 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
             var auxUser: User = mainConnection!!.getUser(user!!)!!
             if (auxUser.music) {
                 swMusic.isChecked = true
+                startService(musicService)
             }
             startService(timerService)
             textSeeds.text = auxUser.getRainyCoins().toString()
