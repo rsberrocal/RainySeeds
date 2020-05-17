@@ -134,10 +134,10 @@ class UserInfoActivity() : AppCompatActivity(), CoroutineScope, LifecycleObserve
     //Funcion que se ejecuta al tirar atras
     override fun onBackPressed() {
         super.onBackPressed()
-        if (!isTaskRoot) {
-            prefs!!.edit().putBoolean("NAV", true).commit()
-        }
-        prefs!!.edit().putBoolean("NAV", false).commit()
+        val returnUserInfoActivity = Intent(this, MainWaterActivity::class.java)
+        startActivity(returnUserInfoActivity)
+        finish()
+        overridePendingTransition(R.anim.slide_stop, R.anim.slide_stop)
     }
 
     fun setUser(user: String?) {

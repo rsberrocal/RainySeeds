@@ -119,10 +119,10 @@ class MainWaterActivity : AppCompatActivity(), CoroutineScope, LifecycleObserver
     //Funcion que se ejecuta al tirar atras
     override fun onBackPressed() {
         super.onBackPressed()
-        if (!isTaskRoot) {
-            prefs!!.edit().putBoolean("NAV", true).apply()
-        }
-        prefs!!.edit().putBoolean("NAV", false).apply()
+        val returnMainWaterActivity = Intent(this, GreenhouseActivity::class.java)
+        startActivity(returnMainWaterActivity)
+        finish()
+        overridePendingTransition(R.anim.slide_left_to_right, R.anim.slide_stop)
     }
 
     fun isActivityVisible(): String {
