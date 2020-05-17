@@ -3,15 +3,19 @@ package com.rainyteam.views
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.SharedPreferences
+import android.graphics.*
 import android.icu.util.Calendar
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.rainyteam.controller.R
 import com.rainyteam.model.Connection
 import com.rainyteam.model.History
@@ -36,6 +40,9 @@ class MainWaterActivity : AppCompatActivity(), CoroutineScope {
     var userName: String? = null
     var textWaterPercent: TextView? = null
 
+    val storage = FirebaseStorage.getInstance().reference
+    lateinit var userRef: StorageReference
+
     private var job: Job = Job()
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
@@ -54,7 +61,7 @@ class MainWaterActivity : AppCompatActivity(), CoroutineScope {
         this.userName = prefs!!.getString(PREF_NAME, "")
 
         this.mainConnection = Connection()
-        async { getWater(userName) }
+        getWater(userName)
         setUser(userName)
 
         this.textWaterPercent = findViewById(R.id.waterPercent)
@@ -71,6 +78,22 @@ class MainWaterActivity : AppCompatActivity(), CoroutineScope {
             val intent = Intent(this, IntroduceWaterActivity::class.java)
             startActivity(intent)
         }
+
+        var imgUser = findViewById(R.id.userIcon) as ImageView
+
+        userRef = storage.child("$userName.jpg")
+        //maxDownload is 1MB
+        userRef.getBytes(1024 * 1024)
+            .addOnSuccessListener {
+                Log.d("Connection", "Has image")
+                val image = BitmapFactory.decodeByteArray(it,0,it.size)
+                imgUser.setImageBitmap(getCroppedBitmap(image))
+                //imgUser.setImageBitmap(image)
+            }
+            .addOnFailureListener {
+                Log.d("Connection", it.message)
+            }
+
 
         launch {
             //textWaterPercent!!.text = mainConnection.getUser(userName)
@@ -195,5 +218,29 @@ class MainWaterActivity : AppCompatActivity(), CoroutineScope {
 
     }
 
+
+    fun getCroppedBitmap(bitmap: Bitmap): Bitmap {
+        val output = Bitmap.createBitmap(
+            bitmap.width,
+            bitmap.height, Bitmap.Config.ARGB_8888
+        )
+        val canvas = Canvas(output)
+        val color = -0xbdbdbe
+        val paint = Paint()
+        val rect = Rect(0, 0, bitmap.width, bitmap.height)
+        paint.setAntiAlias(true)
+        canvas.drawARGB(0, 0, 0, 0)
+        paint.setColor(color)
+        // canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
+        canvas.drawCircle(
+            (bitmap.width / 2).toFloat(), (bitmap.height / 2).toFloat(),
+            (bitmap.width / 2).toFloat(), paint
+        )
+        paint.setXfermode(PorterDuffXfermode(PorterDuff.Mode.SRC_IN))
+        canvas.drawBitmap(bitmap, rect, rect, paint)
+        //Bitmap _bmp = Bitmap.createScaledBitmap(output, 60, 60, false);
+//return _bmp;
+        return output
+    }
 
 }

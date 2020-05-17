@@ -3,6 +3,9 @@
     package="com.rainyteam.controller">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-feature android:name="android.hardware.camera"
+        android:required="true" />
+
 
     <application
         android:allowBackup="true"
@@ -11,7 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name="com.rainyteam.views.SignIn2Activity"></activity>
+        <activity android:name="com.rainyteam.views.SignIn2Activity"/>
 
         <service
             android:name="com.rainyteam.services.MusicService"

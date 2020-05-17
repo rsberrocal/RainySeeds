@@ -61,6 +61,7 @@ dependencies {
     implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:4.1.2'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'com.google.firebase:firebase-firestore:18.0.0'
+    implementation 'com.google.firebase:firebase-storage:19.1.1'
     /* coroutines support for firebase operations */
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.1.1'
     /* MAS CORUTINAS */
