@@ -1,7 +1,6 @@
 package com.rainyteam.views
 
 import android.content.Intent
-import android.content.IntentFilter
 import android.content.SharedPreferences
 import android.graphics.*
 import android.icu.util.Calendar
@@ -13,7 +12,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.ProcessLifecycleOwner
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.rainyteam.controller.R
@@ -24,11 +26,10 @@ import com.rainyteam.services.MusicService
 import com.rainyteam.services.TimerService
 import kotlinx.android.synthetic.main.main_water_layout.*
 import kotlinx.coroutines.*
-import java.nio.channels.Channel
 import kotlin.coroutines.CoroutineContext
 
 
-class MainWaterActivity : AppCompatActivity(), CoroutineScope {
+class MainWaterActivity : AppCompatActivity(), CoroutineScope, LifecycleObserver {
 
     var mainConnection: Connection? = null
 
@@ -36,6 +37,8 @@ class MainWaterActivity : AppCompatActivity(), CoroutineScope {
     val PREF_ID = "USER"
     val PREF_NAME = "USER_ID"
     var prefs: SharedPreferences? = null
+
+    var firstNav = false
 
     var userName: String? = null
     var textWaterPercent: TextView? = null
@@ -49,12 +52,16 @@ class MainWaterActivity : AppCompatActivity(), CoroutineScope {
 
     override fun onDestroy() {
         super.onDestroy()
+        ProcessLifecycleOwner.get().lifecycle.removeObserver(this)
         job.cancel()
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        ProcessLifecycleOwner.get().lifecycle.addObserver(this)
+
         setContentView(R.layout.main_water_layout)
 
         prefs = getSharedPreferences(PREF_ID, 0)
@@ -68,17 +75,16 @@ class MainWaterActivity : AppCompatActivity(), CoroutineScope {
 
 
         banner.setOnClickListener {
-            prefs!!.edit().putBoolean("NAV", true).apply()
             val intent = Intent(this, UserInfoActivity::class.java)
             startActivity(intent)
-            //overridePendingTransition(R.anim.slide_up_to_down, R.anim.slide_stop)
             overridePendingTransition(R.anim.slide_stop, R.anim.slide_stop)
+            finish()
         }
         waterButton.setOnClickListener {
-            prefs!!.edit().putBoolean("NAV", true).apply()
             val intent = Intent(this, IntroduceWaterActivity::class.java)
             startActivity(intent)
-            overridePendingTransition(R.anim.slide_stop, R.anim.slide_stop)
+            finish()
+            overridePendingTransition(R.anim.slide_stop, R.anim.slide_stop)            
         }
 
         var imgUser = findViewById(R.id.userIcon) as ImageView
@@ -88,7 +94,7 @@ class MainWaterActivity : AppCompatActivity(), CoroutineScope {
         userRef.getBytes(1024 * 1024)
             .addOnSuccessListener {
                 Log.d("Connection", "Has image")
-                val image = BitmapFactory.decodeByteArray(it,0,it.size)
+                val image = BitmapFactory.decodeByteArray(it, 0, it.size)
                 imgUser.setImageBitmap(getCroppedBitmap(image))
                 //imgUser.setImageBitmap(image)
             }
@@ -96,26 +102,12 @@ class MainWaterActivity : AppCompatActivity(), CoroutineScope {
                 Log.d("Connection", it.message)
             }
 
-
+        //prefs!!.edit().putBoolean("NAV", false).commit()
         launch {
             //textWaterPercent!!.text = mainConnection.getUser(userName)
             /** Delay para definir que no es navegacion al crear vista **/
-            delay(1000)
-            prefs!!.edit().putBoolean("NAV", false).apply()
-        }
-    }
-
-    override fun onStop() {
-        super.onStop()
-        //Se crea el intent para pararlo
-        val musicService = Intent(this, MusicService::class.java)
-        val timerService = Intent(this, TimerService::class.java)
-        val isNav = prefs!!.getBoolean("NAV", false);
-        //Se mira si es una navegacion, de no serla es un destroy de app, se apaga la musica
-        if (!isNav) {
-            //De ser un destroy se detiene
-            stopService(musicService)
-            stopService(timerService)
+            //delay(1000)
+            //prefs!!.edit().putBoolean("NAV", false).apply()
         }
     }
 
@@ -128,32 +120,16 @@ class MainWaterActivity : AppCompatActivity(), CoroutineScope {
         prefs!!.edit().putBoolean("NAV", false).apply()
     }
 
-    //Viene de un destroy
-    override fun onRestart() {
-        super.onRestart()
-        Log.d("MUSIC", "ON RESTART GREENHOUSE")
-        //Se crea el intent para iniciarlo
-        val musicService = Intent(this, MusicService::class.java)
-        val timerService = Intent(this, TimerService::class.java)
-
-        var musicPlay = prefs!!.getBoolean("PLAY", false)
-        //Solo se inicia si la musica ha parado y si el usuario tiene habilitado el check
-        launch {
-            var auxUser: User = mainConnection!!.getUser(userName!!)!!
-            if (auxUser.music && !musicPlay) {
-                Log.d("MUSIC", "STARTING ON RESTART")
-                startService(musicService)
-            }
-            startService(timerService)
-        }
+    fun isActivityVisible(): String {
+        return ProcessLifecycleOwner.get().lifecycle.currentState.name
     }
 
     fun setUser(user: String?) {
         launch {
             var actualUser = mainConnection!!.getUser(user!!)
             userNameText!!.text = actualUser?.getUsername()
-            userAge!!.text =  actualUser?.getAge().toString() + " years"
-            userWeight!!.text =  actualUser?.getWeight().toString() + " kg"
+            userAge!!.text = actualUser?.getAge().toString() + " years"
+            userWeight!!.text = actualUser?.getWeight().toString() + " kg"
             emailText!!.text = actualUser?.getEmail().toString()
         }
     }
@@ -216,7 +192,7 @@ class MainWaterActivity : AppCompatActivity(), CoroutineScope {
                 ContextCompat.getDrawable(getApplicationContext(), R.drawable.bottle_90)
             )
         }
-        textWaterPercent!!.text = actualUserWater.toInt() .toString() + "%"
+        textWaterPercent!!.text = actualUserWater.toInt().toString() + "%"
 
     }
 
@@ -245,4 +221,47 @@ class MainWaterActivity : AppCompatActivity(), CoroutineScope {
         return output
     }
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    fun onAppBackgrounded() {
+        //App in background
+
+        Log.e("MUSIC", "************* backgrounded main water")
+        Log.e("MUSIC", "************* ${isActivityVisible()}")
+
+        val musicService = Intent(this, MusicService::class.java)
+        val timerService = Intent(this, TimerService::class.java)
+
+        stopService(musicService)
+        stopService(timerService)
+
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    fun onAppForegrounded() {
+        if (!this.firstNav){
+            this.firstNav = true
+        }else{
+            Log.e("MUSIC", "************* foregrounded main water")
+            Log.e("MUSIC", "************* ${isActivityVisible()}")
+            // App in foreground
+            Log.d("MUSIC", "ON RESTART MainWaterActivity")
+            //Se crea el intent para iniciarlo
+            val musicService = Intent(this, MusicService::class.java)
+            val timerService = Intent(this, TimerService::class.java)
+            //var musicPlay = prefs!!.getBoolean("PLAY", false)
+            //val isNav = prefs!!.getBoolean("NAV", false);
+            //Solo se inicia si la musica ha parado y si el usuario tiene habilitado el check
+            launch {
+                var auxUser: User = mainConnection!!.getUser(userName!!)!!
+                if (auxUser.music) {
+                    Log.d("MUSIC", "STARTING ON RESTART")
+                    startService(musicService)
+                }
+                startService(timerService)
+            }
+        }
+    }
+
 }
+
+
