@@ -230,20 +230,20 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope, LifecycleObser
                         val userPlant = auxList!!.firstOrNull { it.plantId == document.id }
                         if (userPlant != null) {
                             actualPlant.setName(document.id)
-                            actualPlant.setImageName(
-                                "plant_" + actualPlant.getScientificName().toLowerCase().replace(
-                                    " ",
-                                    "_"
-                                )
-                            )
-                            actualPlant.setStatus(userPlant.status)
-                            mutableList!!.add(actualPlant)
-                        }
-                    }
-                }.await()
-            recyclerViewAdapter = RecyclerViewAdapter(applicationContext, mutableList!!)
-            recyclerView?.adapter = recyclerViewAdapter
-        }
+        actualPlant.setImageName(
+            "plant_" + actualPlant.getScientificName().toLowerCase().replace(
+                " ",
+                "_"
+            )
+        )
+        actualPlant.setStatus(userPlant.status)
+        mutableList!!.add(actualPlant)
+    }
+}
+}.await()
+recyclerViewAdapter = RecyclerViewAdapter(applicationContext, mutableList!!)
+recyclerView?.adapter = recyclerViewAdapter
+}
     }
 
     fun allPlants() {
