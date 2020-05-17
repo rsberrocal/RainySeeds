@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
@@ -21,7 +22,9 @@ import com.rainyteam.model.User
 import com.rainyteam.model.UserPlants
 import com.rainyteam.services.MusicService
 import com.rainyteam.services.TimerService
+import kotlinx.android.synthetic.main.encyclopedia_layout.*
 import kotlinx.android.synthetic.main.store_layout.*
+import kotlinx.android.synthetic.main.store_layout.inputStoreSearch
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -107,6 +110,9 @@ class StoreActivity : AppCompatActivity(), CoroutineScope, LifecycleObserver {
             finish()
             overridePendingTransition(R.anim.slide_stop, R.anim.slide_stop)
         }
+        inputStoreSearch.addTextChangedListener{
+            search()
+        }
 
     }
 
@@ -179,6 +185,25 @@ class StoreActivity : AppCompatActivity(), CoroutineScope, LifecycleObserver {
             recyclerViewStoreAdapter = RecyclerViewStoreAdapter(applicationContext, mutableList!!)
             recyclerView?.adapter = recyclerViewStoreAdapter
         }
+    }
+    fun search() {
+        var strToFind = inputStoreSearch.text.toString()
+        var lenToFind: Int = strToFind.length
+        Log.d("Search", "Length " + lenToFind)
+        var aux: MutableList<Plants>? = mutableListOf()
+        for (plant in mutableList!!) {
+            Log.d("Search", "Plant name " + plant.getName())
+            Log.d("Search", "Plant name len" + plant.getName().length)
+            if (plant.getName().length > lenToFind - 1) {
+                var compareStr = plant.getName().substring(0, lenToFind)
+                if (compareStr == strToFind) {
+                    aux!!.add(plant)
+                }
+            }
+        }
+        recyclerViewStoreAdapter = RecyclerViewStoreAdapter(applicationContext, aux!!)
+        recyclerView?.adapter = recyclerViewStoreAdapter
+
     }
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     fun onAppBackgrounded() {
