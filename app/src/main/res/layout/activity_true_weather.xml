@@ -22,7 +22,6 @@
             android:layout_gravity="center"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:text="Hola pues hoy esta lloviendo no se que bebe agua es importante"
             android:textSize="18sp">
         </TextView>
 
