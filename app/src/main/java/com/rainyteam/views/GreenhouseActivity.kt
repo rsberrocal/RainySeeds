@@ -94,6 +94,7 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope {
         layoutSeeds.setOnClickListener {
             val intent = Intent(this, StoreActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_stop, R.anim.slide_stop)
             prefs!!.edit().putBoolean("NAV", true).apply()
         }
 
