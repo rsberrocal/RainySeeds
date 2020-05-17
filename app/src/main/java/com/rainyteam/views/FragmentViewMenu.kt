@@ -27,10 +27,11 @@ class FragmentViewMenu : androidx.fragment.app.Fragment() {
         val viewActual = inflater.inflate(R.layout.fragment_viewmenu, container, false)
 
         viewActual.buttonDictionary.setOnClickListener { view ->
-            requireActivity().finish()
+            //requireActivity().finish()
             if (activity?.javaClass?.simpleName != EncyclopediaActivity::class.simpleName) {
                 val principal = Intent(activity, EncyclopediaActivity::class.java)
                 prefs!!.edit().putBoolean("NAV",true).apply()
+                activity!!.finish()
                 startActivity(principal)
                 activity?.overridePendingTransition(R.anim.slide_left_to_right, R.anim.slide_stop)
             }
@@ -40,6 +41,7 @@ class FragmentViewMenu : androidx.fragment.app.Fragment() {
             if (activity?.javaClass?.simpleName != MainWaterActivity::class.simpleName) {
                 val principal = Intent(activity, MainWaterActivity::class.java)
                 prefs!!.edit().putBoolean("NAV",true).apply()
+                activity!!.finish()
                 startActivity(principal)
                 activity?.overridePendingTransition(R.anim.slide_right_to_left, R.anim.slide_stop)
             }
