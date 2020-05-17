@@ -19,6 +19,7 @@ import java.lang.ClassCastException
 import java.lang.Runnable
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.concurrent.timerTask
 import kotlin.coroutines.CoroutineContext
 import kotlin.math.log
 
@@ -31,7 +32,8 @@ class TimerService : Service(), CoroutineScope {
     var prefs: SharedPreferences? = null
     var actualTime: Long = 0
     var nextTime: Long = 0
-    lateinit var mainThread: Thread
+    lateinit var mainTimer: Timer
+    lateinit var timerTask: TimerTask
     //in seconds
     //val WAIT_TIME = 3600
     val WAIT_TIME = 60
@@ -51,8 +53,11 @@ class TimerService : Service(), CoroutineScope {
     }
 
     override fun onDestroy() {
-        logMessage("Destoying")
-        this.mainThread.interrupt()
+        logMessage("Destroying")
+        //this.mainThread.interrupt()
+        this.mainTimer.cancel()
+        this.mainTimer.purge()
+
         super.onDestroy()
     }
 
@@ -70,52 +75,60 @@ class TimerService : Service(), CoroutineScope {
             //De no existir lo creo poniendo un 0
             prefs!!.edit().putInt(PREF_NEXT, 0).apply()
         }
-        //se crea el thread runnable
-        val runable = Runnable {
-            //Consigo el tiempo actual en segundos (Epoch time)
-            actualTime = Calendar.getInstance().timeInMillis / 1000;
+        //Consigo el tiempo actual en segundos (Epoch time)
+        actualTime = Calendar.getInstance().timeInMillis / 1000;
 
-            //El tiempo a actualizar sera el tiempo actual mas lo que hay que esperar (1 hora)
-            nextTime = actualTime + WAIT_TIME;
-            //Si el next guardado es 0, pongo como next el nuevo
-            if (savedNextTime == 0) {
-                logMessage("Saved next time was not set")
-                prefs!!.edit().putInt(PREF_NEXT, nextTime.toInt()).apply()
-            } else if (actualTime > savedNextTime) {//miramos si el next guardado ha sido superado, por lo tanto actualizamos
-                // todo calcular cuanto tiempo ha pasado desde la ultima vez. mirar cuantas horas y cuantos updates hay que hacer
-                //update
-                prefs!!.edit().putInt(PREF_NEXT, nextTime.toInt()).apply()
+        //El tiempo a actualizar sera el tiempo actual mas lo que hay que esperar (1 hora)
+        nextTime = actualTime + WAIT_TIME;
+        //Si el next guardado es 0, pongo como next el nuevo
+        if (savedNextTime == 0) {
+            logMessage("Saved next time was not set")
+            prefs!!.edit().putInt(PREF_NEXT, nextTime.toInt()).apply()
+        } else if (actualTime > savedNextTime) {//miramos si el next guardado ha sido superado, por lo tanto actualizamos
+            // todo calcular cuanto tiempo ha pasado desde la ultima vez. mirar cuantas horas y cuantos updates hay que hacer
+            //update
+            prefs!!.edit().putInt(PREF_NEXT, nextTime.toInt()).apply()
+            updatePlants()
+            logMessage("Update plants with saved nexttime")
+        }
+        // todo matar a las plantas de forma progresiva,
+        this.mainTimer = Timer()
+        this.timerTask = timerTask {
+            actualTime = Calendar.getInstance().timeInMillis / 1000;
+            if (actualTime > nextTime) {
+                logMessage("Updating")
+                nextTime = actualTime + WAIT_TIME;
+                prefs!!.edit().putInt("NEXT", nextTime.toInt()).apply();
+                //Matamos plantas
+                //update plantas y dinero usuario
                 updatePlants()
-                logMessage("Update plants with saved nexttime")
+                logMessage("update plants")
+                //logMessage("Time more than next: " + time)
             }
-            // todo matar a las plantas de forma progresiva,
+        }
+        this.mainTimer.schedule(this.timerTask,1000)
+        //se crea el thread runnable
+        /*val runable = Runnable {
+
             while (true) {
-                actualTime = Calendar.getInstance().timeInMillis / 1000;
-                if (actualTime > nextTime) {
-                    logMessage("Updating")
-                    nextTime = actualTime + WAIT_TIME;
-                    prefs!!.edit().putInt("NEXT", nextTime.toInt()).apply();
-                    //Matamos plantas
-                    //update plantas y dinero usuario
-                    updatePlants()
-                    logMessage("update plants")
-                    //logMessage("Time more than next: " + time)
-                }
+
                 //logMessage("Time less than next: " + time)
                 //paramos el hilo cada segundo
                 try {
-                    Thread.sleep(1000)
+                    launch {
+                        delay(1,)
+                    }
                 }catch (e:InterruptedException){
-                    println("Intrrumping")
+                    println("Interrumping")
                     logMessage(e.message!!)
                 }
 
             }
-        }
+        }*/
         //Guardamos el hilo para detenerlo
-        this.mainThread = Thread(runable)
+        //this.mainThread = Thread(runable)
         //iniciamos el timer
-        mainThread.start()
+        //mainThread.start()
         return super.onStartCommand(intent, flags, startId)
     }
 
@@ -153,10 +166,10 @@ class TimerService : Service(), CoroutineScope {
                                 var aux = detail.toObject(Plants::class.java)!!
                                 //dinero que recibe el usuario
 
-                                if (detail.id == "Cactus"){
+                                if (detail.id == "Cactus") {
                                     moneyToAdd += 5
-                                }else{
-                                    moneyToAdd += (aux.getMoney() * 10)/100
+                                } else {
+                                    moneyToAdd += (aux.getMoney() * 10) / 100
                                 }
 
                                 it.reference.update(
