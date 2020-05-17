@@ -95,6 +95,10 @@ class SignIn2Activity : AppCompatActivity(), CoroutineScope {
     //Funcion que se ejecuta al tirar atras
     override fun onBackPressed() {
         super.onBackPressed()
+        val returnLogin = Intent(this, LoginActivity::class.java)
+        startActivity(returnLogin)
+        finish()
+        overridePendingTransition(R.anim.slide_left_to_right, R.anim.slide_stop)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
