@@ -13,7 +13,7 @@ class User {
     private var sex: String = ""
     private var exercise: Int = 0
     private var maxWater: Float = 0.0f
-    private var rainycoins: Int
+    private var rainycoins: Long
     var music: Boolean = true
     var hasInfo: Boolean = false
 
@@ -56,11 +56,11 @@ class User {
         return this.exercise
     }
 
-    fun getRainyCoins(): Int {
+    fun getRainyCoins(): Long {
         return this.rainycoins;
     }
 
-    fun setRainyCoins(coins: Int) {
+    fun setRainyCoins(coins: Long) {
         this.rainycoins = coins;
     }
 

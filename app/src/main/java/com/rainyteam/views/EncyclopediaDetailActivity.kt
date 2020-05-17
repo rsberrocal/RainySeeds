@@ -6,10 +6,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.rainyteam.controller.R
@@ -32,7 +29,7 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
     var textWarnings: TextView? = null
     var textMoney: TextView? = null
     var imagePlant: ImageView? = null
-    var shopButton : FrameLayout? = null
+    var shopButton : LinearLayout? = null
 
     var drawableName: String? = null
     var resID: Int? = null
