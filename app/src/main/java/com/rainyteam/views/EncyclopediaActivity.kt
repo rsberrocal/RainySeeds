@@ -76,6 +76,7 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope, LifecycleObser
     override fun onDestroy() {
         super.onDestroy()
         ProcessLifecycleOwner.get().lifecycle.removeObserver(this)
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver)
         job.cancel()
     }
 
@@ -87,7 +88,7 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope, LifecycleObser
         this.mainConnection = Connection()
 
         //register receiver
-        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, IntentFilter("Timer"))
+        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, IntentFilter("Dead"))
 
         prefs = getSharedPreferences(PREF_ID, 0)
         this.user = prefs!!.getString(PREF_NAME, "")
