@@ -28,8 +28,11 @@ import com.rainyteam.services.TimerService
 import kotlinx.android.synthetic.main.main_water_layout.*
 import kotlinx.coroutines.*
 import java.text.SimpleDateFormat
+import java.time.Instant
 import java.time.LocalDateTime
+import java.time.ZoneId
 import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
 import java.util.*
 import kotlin.coroutines.CoroutineContext
 
@@ -61,7 +64,7 @@ class MainWaterActivity : AppCompatActivity(), CoroutineScope, LifecycleObserver
         job.cancel()
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -139,7 +142,7 @@ class MainWaterActivity : AppCompatActivity(), CoroutineScope, LifecycleObserver
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
+    @RequiresApi(Build.VERSION_CODES.O)
     fun getWater(user: String?) {
 
         launch {
@@ -147,8 +150,13 @@ class MainWaterActivity : AppCompatActivity(), CoroutineScope, LifecycleObserver
             if (lastTime != 0L) {
                 val sdf = SimpleDateFormat("MM/dd/yyyy")
                 val netDate = Date(lastTime)
-                val time = sdf.format(netDate)
-                println(time)
+                val timeSaved = sdf.format(netDate)
+                val now = Date()
+                val test = sdf.format(now)
+                val l1 = LocalDateTime.ofInstant(Instant.ofEpochMilli(lastTime*1000), ZoneId.systemDefault())
+                val l2 = LocalDateTime.ofInstant(now.toInstant(), ZoneId.systemDefault())
+                val num = ChronoUnit.WEEKS.between(l1,l2)
+                println(test)
             }
 
             var actualHistory: History? = mainConnection!!.getHistory(user!!)
