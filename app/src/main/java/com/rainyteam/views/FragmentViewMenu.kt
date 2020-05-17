@@ -37,8 +37,6 @@ class FragmentViewMenu : androidx.fragment.app.Fragment() {
         }
 
         viewActual.buttonGlass.setOnClickListener { view ->
-                requireActivity().finish()
-            println(activity?.javaClass?.simpleName)
             if (activity?.javaClass?.simpleName != MainWaterActivity::class.simpleName) {
                 val principal = Intent(activity, MainWaterActivity::class.java)
                 prefs!!.edit().putBoolean("NAV",true).apply()
@@ -47,10 +45,11 @@ class FragmentViewMenu : androidx.fragment.app.Fragment() {
             }
         }
         viewActual.buttonGreenhouse.setOnClickListener { view ->
-            println(activity?.javaClass?.simpleName)
-                requireActivity().finish()
             if (activity?.javaClass?.simpleName != GreenhouseActivity::class.simpleName) {
                 val principal = Intent(activity, GreenhouseActivity::class.java)
+                if (!activity!!.isTaskRoot){
+                    activity!!.finish()
+                }
                 prefs!!.edit().putBoolean("NAV",true).apply()
                 startActivity(principal)
                 activity?.overridePendingTransition(R.anim.slide_down_to_up, R.anim.slide_stop)

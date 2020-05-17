@@ -93,16 +93,14 @@ class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope, LifecycleObs
         btnManual.setOnClickListener {
             val text = findViewById(R.id.manualWaterTxt) as EditText
             if (!text.text.isBlank()) {
-                addWater(text.text.toString().toInt())
+                if (text.text.toString().toLong() < MAX_WATER) {
+                    addWater(text.text.toString().toInt())
+                } else {
+                    Toast.makeText(this, "You can not drink too much :(", Toast.LENGTH_SHORT).show()
+                }
             } else {
                 Toast.makeText(this, "Need water to continue", Toast.LENGTH_LONG).show()
             }
-        }
-
-        launch {
-            /** Delay para definir que no es navegacion al crear vista **/
-            delay(1000)
-            prefs!!.edit().putBoolean("NAV", false).apply()
         }
     }
 
