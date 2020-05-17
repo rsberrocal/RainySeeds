@@ -8,8 +8,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.FrameLayout
+import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.rainyteam.controller.R
@@ -58,30 +57,33 @@ class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope {
         val btnGota = findViewById(R.id.btnGota) as FrameLayout
         btnGota.setOnClickListener {
             addWater(100)
-            val intent = Intent(this, MainWaterActivity::class.java)
-            startActivity(intent)
         }
 
         val btnVaso = findViewById(R.id.btnVaso) as FrameLayout
         btnVaso.setOnClickListener {
             addWater(200)
-            val intent = Intent(this, MainWaterActivity::class.java)
-            startActivity(intent)
         }
 
         val btnBotella = findViewById(R.id.btnBotella) as FrameLayout
         btnBotella.setOnClickListener {
             addWater(500)
-            val intent = Intent(this, MainWaterActivity::class.java)
-            startActivity(intent)
         }
 
         val btnRegadera = findViewById(R.id.btnRegadera) as FrameLayout
         btnRegadera.setOnClickListener {
             addWater(1000)
-            val intent = Intent(this, MainWaterActivity::class.java)
-            startActivity(intent)
         }
+
+        val btnManual = findViewById(R.id.manualWaterBtn) as TextView
+        btnManual.setOnClickListener {
+            val text = findViewById(R.id.manualWaterTxt) as EditText
+            if (!text.text.isBlank()) {
+                addWater(text.text.toString().toInt())
+            } else {
+                Toast.makeText(this, "Need water to continue", Toast.LENGTH_LONG).show()
+            }
+        }
+
         launch {
             /** Delay para definir que no es navegacion al crear vista **/
             delay(1000)
@@ -160,14 +162,22 @@ class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope {
                             .get()
                             .addOnSuccessListener { detail ->
                                 val aux = detail.toObject(Plants::class.java)!!
-                                it.reference.update(
-                                    "status",
-                                    plant.status + aux.getMoney() * 0.3 + quantity
-                                )
+                                var statusToadd = 0
+                                if (quantity > actualUser.getMaxWater()) {
+                                    statusToadd = (plant.status - aux.getMoney() * 0.2 + quantity).toInt()
+                                    Toast.makeText(applicationContext, "You're drowning your plants!!", Toast.LENGTH_LONG).show()
+                                } else {
+                                    statusToadd = (plant.status + aux.getMoney() * 0.3 + quantity).toInt()
+                                }
+                                it.reference.update("status", statusToadd)
                             }
                     }
                     Log.d("Connection", "Regando plantas")
                 }
+
+
+            val intent = Intent(applicationContext, MainWaterActivity::class.java)
+            startActivity(intent)
         }
     }
 }
