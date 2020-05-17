@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.RadioButton
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
@@ -22,6 +23,7 @@ import com.rainyteam.model.UserPlants
 import com.rainyteam.patterns.EndlessRecyclerViewScrollListener
 import com.rainyteam.services.MusicService
 import com.rainyteam.services.TimerService
+import kotlinx.android.synthetic.main.encyclopedia_layout.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.tasks.await
 import java.lang.Exception
@@ -129,7 +131,9 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope, LifecycleObser
             buyPlants()
             actualStatus = 2;
         }
-
+        inputStoreSearch.addTextChangedListener{
+            search()
+        }
         launch {
             /** Delay para definir que no es navegacion al crear vista **/
             delay(1000)
@@ -333,5 +337,10 @@ recyclerView?.adapter = recyclerViewAdapter
                 startService(timerService)
             }
         }
+    }
+    fun search() {
+        var strToFind = inputStoreSearch.text.toString()
+        var aux: MutableList<Plants>? = null
+
     }
 }
