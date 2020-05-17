@@ -28,6 +28,7 @@ import kotlinx.android.synthetic.main.greenhouse_layout.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.tasks.await
 import kotlin.coroutines.CoroutineContext
+import kotlin.system.exitProcess
 
 
 private val NUM_PLANTS_PAGE = 9
@@ -144,10 +145,10 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope, LifecycleObserve
 
     override fun onBackPressed() {
         super.onBackPressed()
-        if (!isTaskRoot) {
-            prefs!!.edit().putBoolean("NAV", true).apply()
-        }
-        prefs!!.edit().putBoolean("NAV", false).apply()
+        Log.d("MAIN", "Finish app");
+        //exitProcess(0)
+        moveTaskToBack(true)
+        exitProcess(-1)
     }
 
 

@@ -117,13 +117,12 @@ class StoreActivity : AppCompatActivity(), CoroutineScope {
         }
     }
 
-    //Funcion que se ejecuta al tirar atras
     override fun onBackPressed() {
         super.onBackPressed()
-        if (!isTaskRoot) {
-            prefs!!.edit().putBoolean("NAV", true).apply()
-        }
-        prefs!!.edit().putBoolean("NAV", false).apply()
+        val returnStore = Intent(this, GreenhouseActivity::class.java)
+        startActivity(returnStore)
+        finish()
+        overridePendingTransition(R.anim.slide_left_to_right, R.anim.slide_stop)
     }
 
     //Viene de un destroy
