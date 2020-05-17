@@ -115,7 +115,7 @@ class StoreActivity : AppCompatActivity(), CoroutineScope, LifecycleObserver {
         val returnStore = Intent(this, GreenhouseActivity::class.java)
         startActivity(returnStore)
         finish()
-        overridePendingTransition(R.anim.slide_left_to_right, R.anim.slide_stop)
+        overridePendingTransition(R.anim.slide_stop, R.anim.slide_stop)
     }
 
     fun buyPlants() {
