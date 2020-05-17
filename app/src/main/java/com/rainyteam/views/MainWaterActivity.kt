@@ -77,6 +77,7 @@ class MainWaterActivity : AppCompatActivity(), CoroutineScope {
             prefs!!.edit().putBoolean("NAV", true).apply()
             val intent = Intent(this, IntroduceWaterActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_stop, R.anim.slide_stop)
         }
 
         var imgUser = findViewById(R.id.userIcon) as ImageView
