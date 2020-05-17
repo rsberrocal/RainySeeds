@@ -8,21 +8,43 @@
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="300dp"
-        android:layout_height="150dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@drawable/rounded_button">
+        android:paddingTop="20dp"
+        android:paddingBottom="15dp"
+        android:paddingHorizontal="5dp"
+        android:background="@drawable/bckg_message_weather"
+        android:orientation="vertical">
         <TextView
             android:id="@+id/weatherText"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="18dp">
-
+            android:text="Hola pues hoy esta lloviendo no se que bebe agua es importante"
+            android:textSize="18sp">
         </TextView>
+
+        <FrameLayout
+            android:layout_width="60dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/water_btn_bckg">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:text="OK"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                >
+            </TextView>
+        </FrameLayout>
+
     </LinearLayout>
 
 
