@@ -101,7 +101,6 @@
                     </FrameLayout>
 
 
-
                     <TextView
                         android:id="@+id/textName"
                         android:layout_width="wrap_content"
@@ -110,8 +109,9 @@
                         android:layout_marginLeft="10dp"
                         android:textColor="@color/black"
                         android:textSize="18dp">
-
                     </TextView>
+
+
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -165,6 +165,18 @@
                         android:layout_marginLeft="10dp"
                         android:textColor="@color/black"
                         android:textSize="15sp" />
+
+                    <EditText
+                        android:id="@+id/weightEdit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:layout_marginTop="-25dp"
+                        android:visibility="invisible" />
+
+
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -189,6 +201,16 @@
                         android:layout_marginLeft="10dp"
                         android:textColor="@color/black"
                         android:textSize="15dp" />
+
+                    <EditText
+                        android:id="@+id/ageEdit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:layout_marginTop="-25dp"
+                        android:visibility="invisible" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -223,6 +245,16 @@
                         android:layout_marginLeft="10dp"
                         android:textColor="@color/black"
                         android:textSize="15dp" />
+
+                    <EditText
+                        android:id="@+id/heightEdit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:layout_marginTop="-25dp"
+                        android:visibility="invisible" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -248,6 +280,16 @@
                         android:layout_marginLeft="10dp"
                         android:textColor="@color/black"
                         android:textSize="15dp" />
+
+                    <EditText
+                        android:id="@+id/sexEdit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:layout_marginTop="-25dp"
+                        android:visibility="invisible" />
 
                 </LinearLayout>
 
@@ -287,6 +329,16 @@
                             android:layout_marginLeft="10dp"
                             android:textColor="@color/black"
                             android:textSize="15dp" />
+
+                        <EditText
+                            android:id="@+id/exerciseEdit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:layout_marginTop="-25dp"
+                            android:visibility="invisible" />
                     </LinearLayout>
 
                     <ImageView

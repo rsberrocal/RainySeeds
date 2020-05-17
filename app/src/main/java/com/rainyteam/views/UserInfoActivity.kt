@@ -6,8 +6,11 @@ import android.graphics.*
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.Editable
 import android.util.Log
+import android.view.View
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
@@ -41,7 +44,7 @@ class UserInfoActivity() : AppCompatActivity(), CoroutineScope, LifecycleObserve
     val PREF_ID = "USER"
     val PREF_NAME = "USER_ID"
     var prefs: SharedPreferences? = null
-
+    var enableModify: Boolean = false
     var firstNav = false
 
     //Camara
@@ -104,7 +107,16 @@ class UserInfoActivity() : AppCompatActivity(), CoroutineScope, LifecycleObserve
             overridePendingTransition(R.anim.slide_stop, R.anim.slide_stop)
             finish()
         }
-
+        btnModify.setOnClickListener{
+            if(enableModify){
+                acceptValues()
+                enableModify=false
+            }
+            else{
+                modifyView()
+                enableModify=true
+            }
+        }
         logoutBtn.setOnClickListener {
             prefs!!.edit().remove(PREF_NAME).apply()
             var music = Intent(this, MusicService::class.java)
@@ -150,6 +162,11 @@ class UserInfoActivity() : AppCompatActivity(), CoroutineScope, LifecycleObserve
             textHeight!!.text = actualUser?.getHeight().toString() + " cm"
             textSex!!.text = actualUser?.getSex()
             textExercise!!.text = actualUser?.getExercise().toString() + " hours"
+            ageEdit!!.text = Editable.Factory.getInstance().newEditable(actualUser?.getAge().toString())
+            weightEdit!!.text = Editable.Factory.getInstance().newEditable(actualUser?.getWeight().toString())
+            heightEdit!!.text = Editable.Factory.getInstance().newEditable(actualUser?.getHeight().toString())
+            exerciseEdit!!.text = Editable.Factory.getInstance().newEditable(actualUser?.getExercise().toString())
+            sexEdit!!.text = Editable.Factory.getInstance().newEditable(actualUser?.getSex().toString())
         }
     }
 
@@ -263,7 +280,54 @@ class UserInfoActivity() : AppCompatActivity(), CoroutineScope, LifecycleObserve
         stopService(timerService)
 
     }
+    fun acceptValues(){
+        if(!ageEdit.text.toString().isEmpty() &&
+            !weightEdit.text.toString().isEmpty() &&
+            !heightEdit.text.toString().isEmpty() &&
+            !sexEdit.text.toString().isEmpty() &&
+            !exerciseEdit.text.toString().isEmpty() ) {
 
+            ageEdit.visibility = View.INVISIBLE
+            exerciseEdit.visibility = View.INVISIBLE
+            heightEdit.visibility = View.INVISIBLE
+            sexEdit.visibility = View.INVISIBLE
+            weightEdit.visibility = View.INVISIBLE
+            textAge!!.visibility = View.VISIBLE
+            textWeight!!.visibility = View.VISIBLE
+            textHeight!!.visibility = View.VISIBLE
+            textSex!!.visibility = View.VISIBLE
+            textExercise!!.visibility = View.VISIBLE
+            btnModify.setImageResource(R.drawable.icon_pencil)
+            launch {
+                var actualUser = mainConnection!!.getUser(userName!!)
+                actualUser!!.setAge(ageEdit.text.toString().toLong())
+                actualUser!!.setSex(ageEdit.text.toString())
+                actualUser!!.setWeight(ageEdit.text.toString().toInt())
+                actualUser!!.setHeight(ageEdit.text.toString().toFloat())
+                actualUser!!.setExercise(ageEdit.text.toString().toInt())
+                actualUser!!.setMaxWater(17.0f)
+                mainConnection!!.setUser(actualUser)
+                setUser(userName)
+            }
+        }
+        else{
+            Toast.makeText(this, "Introduce all values", Toast.LENGTH_LONG).show()
+        }
+    }
+    fun modifyView(){
+        ageEdit.visibility = View.VISIBLE
+        exerciseEdit.visibility = View.VISIBLE
+        heightEdit.visibility = View.VISIBLE
+        sexEdit.visibility = View.VISIBLE
+        weightEdit.visibility = View.VISIBLE
+        textAge!!.visibility = View.INVISIBLE
+        textWeight!!.visibility = View.INVISIBLE
+        textHeight!!.visibility = View.INVISIBLE
+        textSex!!.visibility = View.INVISIBLE
+        textExercise!!.visibility = View.INVISIBLE
+        btnModify.setImageResource(R.drawable.tick_icon)
+
+    }
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onAppForegrounded() {
         if (!this.firstNav){
