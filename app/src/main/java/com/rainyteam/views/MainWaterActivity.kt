@@ -71,7 +71,8 @@ class MainWaterActivity : AppCompatActivity(), CoroutineScope {
             prefs!!.edit().putBoolean("NAV", true).apply()
             val intent = Intent(this, UserInfoActivity::class.java)
             startActivity(intent)
-            overridePendingTransition(R.anim.slide_up_to_down, R.anim.slide_stop)
+            //overridePendingTransition(R.anim.slide_up_to_down, R.anim.slide_stop)
+            overridePendingTransition(R.anim.slide_stop, R.anim.slide_stop)
         }
         waterButton.setOnClickListener {
             prefs!!.edit().putBoolean("NAV", true).apply()

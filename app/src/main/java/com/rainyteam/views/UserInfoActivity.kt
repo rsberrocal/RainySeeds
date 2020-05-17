@@ -84,7 +84,8 @@ class UserInfoActivity() : AppCompatActivity(), CoroutineScope {
             val intent = Intent(this, MainWaterActivity::class.java)
             startActivity(intent)
             prefs!!.edit().putBoolean("NAV", true).apply()
-            overridePendingTransition(R.anim.slide_down_to_up, R.anim.slide_stop)
+            //overridePendingTransition(R.anim.slide_down_to_up, R.anim.slide_stop)
+            overridePendingTransition(R.anim.slide_stop, R.anim.slide_stop)
         }
 
         logoutBtn.setOnClickListener {
