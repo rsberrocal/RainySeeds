@@ -89,13 +89,15 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope, LifecycleObser
         this.mainConnection = Connection()
 
         //register receiver
-        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, IntentFilter("Timer"))
+        LocalBroadcastManager.getInstance(this)
+            .registerReceiver(broadcastReceiver, IntentFilter("Timer"))
 
         prefs = getSharedPreferences(PREF_ID, 0)
         this.user = prefs!!.getString(PREF_NAME, "")
         //prefs!!.edit().putBoolean("NAV",false).apply()
         recyclerView = findViewById(R.id.recyclerViewPlants)
-        gridLayoutManager = GridLayoutManager(applicationContext, 3, LinearLayoutManager.VERTICAL, false)
+        gridLayoutManager =
+            GridLayoutManager(applicationContext, 3, LinearLayoutManager.VERTICAL, false)
         recyclerView?.layoutManager = gridLayoutManager
         scrollListener = object : EndlessRecyclerViewScrollListener(gridLayoutManager) {
             override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
@@ -131,7 +133,7 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope, LifecycleObser
             buyPlants()
             actualStatus = 2;
         }
-        inputStoreSearch.addTextChangedListener{
+        inputStoreSearch.addTextChangedListener {
             search()
         }
         launch {
@@ -234,20 +236,20 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope, LifecycleObser
                         val userPlant = auxList!!.firstOrNull { it.plantId == document.id }
                         if (userPlant != null) {
                             actualPlant.setName(document.id)
-        actualPlant.setImageName(
-            "plant_" + actualPlant.getScientificName().toLowerCase().replace(
-                " ",
-                "_"
-            )
-        )
-        actualPlant.setStatus(userPlant.status)
-        mutableList!!.add(actualPlant)
-    }
-}
-}.await()
-recyclerViewAdapter = RecyclerViewAdapter(applicationContext, mutableList!!)
-recyclerView?.adapter = recyclerViewAdapter
-}
+                            actualPlant.setImageName(
+                                "plant_" + actualPlant.getScientificName().toLowerCase().replace(
+                                    " ",
+                                    "_"
+                                )
+                            )
+                            actualPlant.setStatus(userPlant.status)
+                            mutableList!!.add(actualPlant)
+                        }
+                    }
+                }.await()
+            recyclerViewAdapter = RecyclerViewAdapter(applicationContext, mutableList!!)
+            recyclerView?.adapter = recyclerViewAdapter
+        }
     }
 
     fun allPlants() {
@@ -301,6 +303,26 @@ recyclerView?.adapter = recyclerViewAdapter
         }
     }
 
+    fun search() {
+        var strToFind = inputStoreSearch.text.toString()
+        var lenToFind: Int = strToFind.length
+        Log.d("Search", "Length " + lenToFind)
+        var aux: MutableList<Plants>? = mutableListOf()
+        for (plant in mutableList!!) {
+            Log.d("Search", "Plant name " + plant.getName())
+            Log.d("Search", "Plant name len" + plant.getName().length)
+            if (plant.getName().length > lenToFind - 1) {
+                var compareStr = plant.getName().substring(0, lenToFind)
+                if (compareStr == strToFind) {
+                    aux!!.add(plant)
+                }
+            }
+        }
+        recyclerViewAdapter = RecyclerViewAdapter(this@EncyclopediaActivity, aux!!)
+        recyclerView?.adapter = recyclerViewAdapter
+
+    }
+
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     fun onAppBackgrounded() {
         //App in background
@@ -337,19 +359,5 @@ recyclerView?.adapter = recyclerViewAdapter
                 startService(timerService)
             }
         }
-    }
-    fun search() {
-        var strToFind = inputStoreSearch.text.toString()
-        var lenToFind: Int = strToFind.length
-        var aux: MutableList<Plants>? = null
-        for (plant in mutableList!!){
-            var compareStr= plant.getName().substring(0, lenToFind+1)
-            if (compareStr == strToFind){
-                aux?.add(plant)
-            }
-        }
-        recyclerViewAdapter = RecyclerViewAdapter(this@EncyclopediaActivity, aux!!)
-        recyclerView?.adapter = recyclerViewAdapter
-
     }
 }
