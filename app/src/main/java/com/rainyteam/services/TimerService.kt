@@ -1,8 +1,6 @@
 package com.rainyteam.services
 
-import android.app.IntentService
 import android.app.Service
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build
@@ -13,22 +11,15 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.rainyteam.model.Connection
 import com.rainyteam.model.Plants
 import com.rainyteam.model.UserPlants
-import com.rainyteam.patterns.Observable
-import com.rainyteam.patterns.Observer
 import kotlinx.coroutines.*
-import kotlinx.coroutines.tasks.await
 import java.lang.ClassCastException
-import java.lang.Runnable
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.temporal.ChronoUnit
 import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.concurrent.timer
 import kotlin.concurrent.timerTask
 import kotlin.coroutines.CoroutineContext
-import kotlin.math.log
 
 class TimerService : Service(), CoroutineScope {
     val TAG = "Timer"
