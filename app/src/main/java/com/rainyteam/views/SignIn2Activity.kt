@@ -76,7 +76,7 @@ class SignIn2Activity : AppCompatActivity(), CoroutineScope {
                     actualUser.setSex(sexString)
                     actualUser.setHasInf(true)
                     actualUser.setAge(age)
-                    actualUser.setMaxWater()
+                    actualUser.setMaxWater(17.0f)
                     mainConnection!!.setUser(actualUser)
                     //age
                     //maxWater

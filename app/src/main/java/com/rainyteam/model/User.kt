@@ -23,7 +23,7 @@ class User {
 
     init {
         this.rainycoins = 0
-        this.setMaxWater()
+        this.setMaxWater(17.0f)
     }
 
 
@@ -88,13 +88,16 @@ class User {
     fun setAge(age: Long){
         this.age = age
     }
-    fun setMaxWater() {
+    fun setMaxWater(temp: Float) {
         var temp: Float
         temp = this.weight * 0.035f
         if (this.sex == "Male") {
-            temp *= 1.20f;
+            temp *= 1.1f;
         }
-        temp *= (this.exercise / 10) * 1.2f + 1;
+        temp *= (this.exercise / 10) * 1.1f + 1;
+        if (temp>=27){
+            temp+=0.5f;
+        }
         this.maxWater = temp*1000;
     }
 
