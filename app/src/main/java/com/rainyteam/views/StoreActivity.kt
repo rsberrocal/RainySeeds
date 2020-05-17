@@ -125,6 +125,7 @@ class StoreActivity : AppCompatActivity(), CoroutineScope, LifecycleObserver {
             /** GETTING ALIVE AND WITHER PLANTS TO EXCLUDE **/
             var excludeList = mutableListOf<UserPlants>()
             database.collection("User-Plants")
+                .whereEqualTo("userId", user)
                 .whereGreaterThanOrEqualTo("status", 0)
                 .get()
                 .addOnSuccessListener { result ->
@@ -136,6 +137,7 @@ class StoreActivity : AppCompatActivity(), CoroutineScope, LifecycleObserver {
             var deadList = mutableListOf<UserPlants>()
             database.collection("User-Plants")
                 .whereEqualTo("status", -1)
+                .whereEqualTo("userId", user)
                 .get()
                 .addOnSuccessListener { result ->
                     for (document in result) {
