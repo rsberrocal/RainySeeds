@@ -10,6 +10,10 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.*
 import androidx.annotation.RequiresApi
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.rainyteam.controller.R
 import com.rainyteam.model.*
@@ -20,7 +24,7 @@ import kotlinx.coroutines.*
 import java.util.*
 import kotlin.coroutines.CoroutineContext
 
-class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope {
+class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope, LifecycleObserver {
 
     var mainConnection: Connection? = null
     //shared
@@ -30,6 +34,8 @@ class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope {
 
     var user: String? = ""
 
+    var firstNav = false
+
     private var job: Job = Job()
 
     override val coroutineContext: CoroutineContext
@@ -37,12 +43,16 @@ class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope {
 
     override fun onDestroy() {
         super.onDestroy()
+        ProcessLifecycleOwner.get().lifecycle.removeObserver(this)
         job.cancel()
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        ProcessLifecycleOwner.get().lifecycle.addObserver(this)
+
         setContentView(R.layout.introduce_water_layout)
         falseBackButton.setOnClickListener {
             val intent = Intent(this, MainWaterActivity::class.java)
@@ -95,18 +105,6 @@ class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope {
         }
     }
 
-    override fun onStop() {
-        super.onStop()
-        //Se crea el intent para pararlo
-        val musicService = Intent(this, MusicService::class.java)
-        val isNav = prefs!!.getBoolean("NAV", false);
-        //Se mira si es una navegacion, de no serla es un destroy de app, se apaga la musica
-        if (!isNav) {
-            //De ser un destroy se detiene
-            stopService(musicService)
-        }
-    }
-
     //Funcion que se ejecuta al tirar atras
     override fun onBackPressed() {
         super.onBackPressed()
@@ -114,26 +112,6 @@ class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope {
             prefs!!.edit().putBoolean("NAV", true).apply()
         }
         prefs!!.edit().putBoolean("NAV", false).apply()
-    }
-
-    //Viene de un destroy
-    override fun onRestart() {
-        super.onRestart()
-        Log.d("MUSIC", "ON RESTART GREENHOUSE")
-        //Se crea el intent para iniciarlo
-        val musicService = Intent(this, MusicService::class.java)
-        val timerService = Intent(this, TimerService::class.java)
-
-        var musicPlay = prefs!!.getBoolean("PLAY", false)
-        //Solo se inicia si la musica ha parado y si el usuario tiene habilitado el check
-        launch {
-            var auxUser: User = mainConnection!!.getUser(user!!)!!
-            if (auxUser.music && !musicPlay) {
-                Log.d("MUSIC", "STARTING ON RESTART")
-                startService(musicService)
-            }
-            startService(timerService)
-        }
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -205,4 +183,44 @@ class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope {
         }
         return 0f
     }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    fun onAppBackgrounded() {
+        //App in background
+
+        Log.e("MUSIC", "************* backgrounded main water")
+
+        val musicService = Intent(this, MusicService::class.java)
+        val timerService = Intent(this, TimerService::class.java)
+
+        stopService(musicService)
+        stopService(timerService)
+
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    fun onAppForegrounded() {
+        if (!this.firstNav){
+            this.firstNav = true
+        }else{
+            Log.e("MUSIC", "************* foregrounded main water")
+            // App in foreground
+            Log.d("MUSIC", "ON RESTART MainWaterActivity")
+            //Se crea el intent para iniciarlo
+            val musicService = Intent(this, MusicService::class.java)
+            val timerService = Intent(this, TimerService::class.java)
+            //var musicPlay = prefs!!.getBoolean("PLAY", false)
+            //val isNav = prefs!!.getBoolean("NAV", false);
+            //Solo se inicia si la musica ha parado y si el usuario tiene habilitado el check
+            launch {
+                var auxUser: User = mainConnection!!.getUser(user!!)!!
+                if (auxUser.music) {
+                    Log.d("MUSIC", "STARTING ON RESTART")
+                    startService(musicService)
+                }
+                startService(timerService)
+            }
+        }
+    }
+
 }

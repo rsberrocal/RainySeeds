@@ -5,6 +5,10 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,7 +29,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlin.coroutines.CoroutineContext
 
-class StoreActivity : AppCompatActivity(), CoroutineScope {
+class StoreActivity : AppCompatActivity(), CoroutineScope, LifecycleObserver {
 
     var mainConnection: Connection? = null
 
@@ -38,6 +42,8 @@ class StoreActivity : AppCompatActivity(), CoroutineScope {
     var prefs: SharedPreferences? = null
 
     var user: String? = ""
+
+    var firstNav = false
 
     private var recyclerView: RecyclerView? = null
     private var gridLayoutManager: GridLayoutManager? = null
@@ -60,12 +66,15 @@ class StoreActivity : AppCompatActivity(), CoroutineScope {
 
     override fun onDestroy() {
         super.onDestroy()
+        ProcessLifecycleOwner.get().lifecycle.removeObserver(this)
         job.cancel()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.store_layout)
+
+        ProcessLifecycleOwner.get().lifecycle.addObserver(this)
 
         this.mainConnection = Connection()
 
@@ -100,50 +109,13 @@ class StoreActivity : AppCompatActivity(), CoroutineScope {
 
     }
 
-    override fun onStop() {
-        super.onStop()
-        //Se crea el intent para pararlo
-        val musicService = Intent(this, MusicService::class.java)
-
-        val timerService = Intent(this, TimerService::class.java)
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver)
-
-        val isNav = prefs!!.getBoolean("NAV", false);
-        //Se mira si es una navegacion, de no serla es un destroy de app, se apaga la musica
-        if (!isNav) {
-            //De ser un destroy se detiene
-            stopService(musicService)
-            stopService(timerService)
-        }
-    }
-
+    //Funcion que se ejecuta al tirar atras
     override fun onBackPressed() {
         super.onBackPressed()
         val returnStore = Intent(this, GreenhouseActivity::class.java)
         startActivity(returnStore)
         finish()
         overridePendingTransition(R.anim.slide_left_to_right, R.anim.slide_stop)
-    }
-
-    //Viene de un destroy
-    override fun onRestart() {
-        super.onRestart()
-        Log.d("MUSIC", "ON RESTART GREENHOUSE")
-        //Se crea el intent para iniciarlo
-        val musicService = Intent(this, MusicService::class.java)
-        val timerService = Intent(this, TimerService::class.java)
-        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, IntentFilter("Timer"))
-
-        var musicPlay = prefs!!.getBoolean("PLAY", false)
-        //Solo se inicia si la musica ha parado y si el usuario tiene habilitado el check
-        launch {
-            var auxUser: User = mainConnection!!.getUser(user!!)!!
-            if (auxUser.music && !musicPlay) {
-                Log.d("MUSIC", "STARTING ON RESTART")
-                startService(musicService)
-            }
-            startService(timerService)
-        }
     }
 
     fun buyPlants() {
@@ -203,6 +175,43 @@ class StoreActivity : AppCompatActivity(), CoroutineScope {
                 }.await()
             recyclerViewStoreAdapter = RecyclerViewStoreAdapter(applicationContext, mutableList!!)
             recyclerView?.adapter = recyclerViewStoreAdapter
+        }
+    }
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    fun onAppBackgrounded() {
+        //App in background
+
+        Log.e("MUSIC", "************* backgrounded store")
+
+        val musicService = Intent(this, MusicService::class.java)
+        val timerService = Intent(this, TimerService::class.java)
+
+        stopService(musicService)
+        stopService(timerService)
+
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    fun onAppForegrounded() {
+        if (!this.firstNav){
+            this.firstNav = true
+        }else{
+            Log.e("MUSIC", "************* foregrounded store")
+            // App in foreground
+            //Se crea el intent para iniciarlo
+            val musicService = Intent(this, MusicService::class.java)
+            val timerService = Intent(this, TimerService::class.java)
+            //var musicPlay = prefs!!.getBoolean("PLAY", false)
+            //val isNav = prefs!!.getBoolean("NAV", false);
+            //Solo se inicia si la musica ha parado y si el usuario tiene habilitado el check
+            launch {
+                var auxUser: User = mainConnection!!.getUser(user!!)!!
+                if (auxUser.music) {
+                    Log.d("MUSIC", "STARTING ON RESTART")
+                    startService(musicService)
+                }
+                startService(timerService)
+            }
         }
     }
 }

@@ -8,6 +8,10 @@ import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.rainyteam.controller.R
 import com.rainyteam.model.Connection
@@ -18,7 +22,7 @@ import kotlinx.android.synthetic.main.encyclopedia_detail_layout.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
-class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
+class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope, LifecycleObserver {
 
     var userName: String? = ""
     var mainConnection: Connection? = null
@@ -38,6 +42,8 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
     val PREF_NAME = "USER_ID"
     var prefs: SharedPreferences? = null
 
+    var firstNav = false
+
     private var job: Job = Job()
 
     override val coroutineContext: CoroutineContext
@@ -45,12 +51,15 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
 
     override fun onDestroy() {
         super.onDestroy()
+        ProcessLifecycleOwner.get().lifecycle.removeObserver(this)
         job.cancel()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.encyclopedia_detail_layout)
+
+        ProcessLifecycleOwner.get().lifecycle.addObserver(this)
 
         this.mainConnection = Connection()
 
@@ -92,22 +101,6 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
 
     }
 
-    override fun onStop() {
-        //Se crea el intent para pararlo
-        val musicService = Intent(this, MusicService::class.java)
-
-        val timerService = Intent(this, TimerService::class.java)
-
-        val isNav = prefs!!.getBoolean("NAV", false);
-        //Se mira si es una navegacion, de no serla es un destroy de app, se apaga la musica
-        if (!isNav) {
-            //De ser un destroy se detiene
-            stopService(musicService)
-            stopService(timerService)
-        }
-        super.onStop()
-    }
-
     //Funcion que se ejecuta al tirar atras
     override fun onBackPressed() {
         super.onBackPressed()
@@ -117,25 +110,6 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
         prefs!!.edit().putBoolean("NAV", false).apply()
     }
 
-    //Viene de un destroy
-    override fun onRestart() {
-        super.onRestart()
-        Log.d("MUSIC", "ON RESTART GREENHOUSE")
-        //Se crea el intent para iniciarlo
-        val musicService = Intent(this, MusicService::class.java)
-        val timerService = Intent(this, TimerService::class.java)
-
-        var musicPlay = prefs!!.getBoolean("PLAY", false)
-        //Solo se inicia si la musica ha parado y si el usuario tiene habilitado el check
-        launch {
-            var auxUser: User = mainConnection!!.getUser(userName!!)!!
-            if (auxUser.music && !musicPlay) {
-                Log.d("MUSIC", "STARTING ON RESTART")
-                startService(musicService)
-            }
-            startService(timerService)
-        }
-    }
 
     fun buyPlant(plantName: String) {
         launch {
@@ -203,6 +177,44 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
             }
 
             imagePlant!!.setImageResource(resID!!)
+        }
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    fun onAppBackgrounded() {
+        //App in background
+
+        Log.e("MUSIC", "************* backgrounded Enciclopedia detail")
+
+        val musicService = Intent(this, MusicService::class.java)
+        val timerService = Intent(this, TimerService::class.java)
+
+        stopService(musicService)
+        stopService(timerService)
+
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    fun onAppForegrounded() {
+        if (!this.firstNav){
+            this.firstNav = true
+        }else{
+            Log.e("MUSIC", "************* foregrounded Enciclopedia detail")
+            // App in foreground
+            //Se crea el intent para iniciarlo
+            val musicService = Intent(this, MusicService::class.java)
+            val timerService = Intent(this, TimerService::class.java)
+            //var musicPlay = prefs!!.getBoolean("PLAY", false)
+            //val isNav = prefs!!.getBoolean("NAV", false);
+            //Solo se inicia si la musica ha parado y si el usuario tiene habilitado el check
+            launch {
+                var auxUser: User = mainConnection!!.getUser(userName!!)!!
+                if (auxUser.music) {
+                    Log.d("MUSIC", "STARTING ON RESTART")
+                    startService(musicService)
+                }
+                startService(timerService)
+            }
         }
     }
 
