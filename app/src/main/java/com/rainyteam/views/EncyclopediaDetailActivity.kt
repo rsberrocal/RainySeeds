@@ -34,6 +34,9 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
     var imagePlant: ImageView? = null
     var shopButton : FrameLayout? = null
 
+    var drawableName: String? = null
+    var resID: Int? = null
+
     val PREF_ID = "USER"
     val PREF_NAME = "USER_ID"
     var prefs: SharedPreferences? = null
@@ -163,6 +166,13 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
                     mainConnection!!.buyPlantToUser(actualUser, actualPlant)
                 }
                 shopButton!!.setVisibility(View.INVISIBLE)
+                drawableName = actualPlant.getLiveImagePlant()
+                resID = resources.getIdentifier(
+                    drawableName,
+                    "drawable",
+                    applicationContext.packageName
+                )
+                imagePlant!!.setImageResource(resID!!)
             }
         }
 
@@ -177,8 +187,6 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
             textUses!!.text = actualPlant?.getUses()!!.replace("\\n", "\n")
             textWarnings!!.text = actualPlant?.getPrecautions()!!.replace("\\n", "\n")
             textMoney!!.text = actualPlant?.getMoney().toString()
-            val drawableName: String?
-            val resID: Int
             if (statusPlant == -2) {
                 Log.d("STATUS", "STATUS == -2 (NO COMPRADA)")
                 drawableName = actualPlant.getBawImagePlant()
@@ -196,7 +204,7 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope {
                 )
             }
 
-            imagePlant!!.setImageResource(resID)
+            imagePlant!!.setImageResource(resID!!)
         }
     }
 
