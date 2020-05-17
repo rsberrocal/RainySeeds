@@ -163,7 +163,7 @@ class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope {
                             .addOnSuccessListener { detail ->
                                 val aux = detail.toObject(Plants::class.java)!!
                                 var statusToadd = 0
-                                if (quantity > actualUser.getMaxWater()) {
+                                if (getStatusHistory(actualHistory) > actualUser.getMaxWater()) {
                                     statusToadd = (plant.status - aux.getMoney() * 0.2 + quantity).toInt()
                                     Toast.makeText(applicationContext, "You're drowning your plants!!", Toast.LENGTH_LONG).show()
                                 } else {
@@ -178,6 +178,23 @@ class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope {
 
             val intent = Intent(applicationContext, MainWaterActivity::class.java)
             startActivity(intent)
+            prefs!!.edit().putBoolean("NAV", true).apply()
         }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    fun getStatusHistory(history:History): Float{
+        val cal: Calendar = Calendar.getInstance()
+        val day = cal.get(Calendar.DAY_OF_WEEK)
+        when (day) {
+            Calendar.SUNDAY ->return history.sunday
+            Calendar.MONDAY ->return history.monday
+            Calendar.TUESDAY ->return history.tuesday
+            Calendar.WEDNESDAY ->return history.wednesday
+            Calendar.THURSDAY -> return history.thursday
+            Calendar.FRIDAY -> return history.friday
+            Calendar.SATURDAY -> return history.saturday
+        }
+        return 0f
     }
 }
