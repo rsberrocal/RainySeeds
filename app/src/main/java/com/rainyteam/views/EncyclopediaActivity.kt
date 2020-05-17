@@ -348,7 +348,7 @@ recyclerView?.adapter = recyclerViewAdapter
                 aux?.add(plant)
             }
         }
-        recyclerViewAdapter = RecyclerViewAdapter(applicationContext, aux!!)
+        recyclerViewAdapter = RecyclerViewAdapter(this@EncyclopediaActivity, aux!!)
         recyclerView?.adapter = recyclerViewAdapter
 
     }
