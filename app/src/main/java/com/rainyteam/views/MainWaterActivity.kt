@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.*
 import android.icu.util.Calendar
+import android.icu.util.LocaleData
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -26,6 +27,10 @@ import com.rainyteam.services.MusicService
 import com.rainyteam.services.TimerService
 import kotlinx.android.synthetic.main.main_water_layout.*
 import kotlinx.coroutines.*
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 import kotlin.coroutines.CoroutineContext
 
 
@@ -84,7 +89,7 @@ class MainWaterActivity : AppCompatActivity(), CoroutineScope, LifecycleObserver
             val intent = Intent(this, IntroduceWaterActivity::class.java)
             startActivity(intent)
             finish()
-            overridePendingTransition(R.anim.slide_stop, R.anim.slide_stop)            
+            overridePendingTransition(R.anim.slide_stop, R.anim.slide_stop)
         }
 
         var imgUser = findViewById(R.id.userIcon) as ImageView
@@ -138,6 +143,14 @@ class MainWaterActivity : AppCompatActivity(), CoroutineScope, LifecycleObserver
     fun getWater(user: String?) {
 
         launch {
+            var lastTime = prefs!!.getLong("ACTUAL", 0)
+            if (lastTime != 0L) {
+                val sdf = SimpleDateFormat("MM/dd/yyyy")
+                val netDate = Date(lastTime * 1000)
+                val time = sdf.format(netDate)
+                println(time)
+            }
+
             var actualHistory: History? = mainConnection!!.getHistory(user!!)
             var cal: Calendar = Calendar.getInstance()
             var day = cal.get(Calendar.DAY_OF_WEEK)
@@ -238,9 +251,9 @@ class MainWaterActivity : AppCompatActivity(), CoroutineScope, LifecycleObserver
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onAppForegrounded() {
-        if (!this.firstNav){
+        if (!this.firstNav) {
             this.firstNav = true
-        }else{
+        } else {
             Log.e("MUSIC", "************* foregrounded main water")
             Log.e("MUSIC", "************* ${isActivityVisible()}")
             // App in foreground
