@@ -42,8 +42,7 @@ class TimerService : Service(), CoroutineScope {
     lateinit var mainTimer: Timer
     lateinit var timerTask: TimerTask
     //in seconds
-    //val WAIT_TIME = 3600
-    val WAIT_TIME = 60
+    val WAIT_TIME = 3600
     lateinit var connection: Connection
 
     private var job: Job = Job()
