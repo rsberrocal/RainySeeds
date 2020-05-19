@@ -101,7 +101,6 @@ class SigninActivity : AppCompatActivity() {
             if (password == confirmPassword) {
                 if (password.length >= 6) {
                     if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-
                         mAuth!!.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener(this, OnCompleteListener { task ->
                                 if (task.isSuccessful) {
@@ -124,11 +123,9 @@ class SigninActivity : AppCompatActivity() {
                                         R.anim.slide_stop
                                     )
                                     finish()
-
                                 } else {
                                     Log.d("Connection", task.exception?.message!!)
                                     Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
-
                                 }
                             })/*
                     //Sincronizacion de varias cuentas

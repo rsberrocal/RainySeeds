@@ -66,7 +66,6 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
     val PREF_NAME = "USER"
     var prefs: SharedPreferences? = null
 
-
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,7 +82,7 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
         if (hasUser != null) {
             launch {
                 val userData = mainConnection!!.getUser(hasUser)
-                if (userData!!.hasInfo){
+                if (userData!!.hasInfo) {
                     var lastTime = prefs!!.getLong(getDay(), 0)
                     if (lastTime != 0L) {
                         val now = Date()
@@ -94,17 +93,17 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
                         val l2 = LocalDateTime.ofInstant(now.toInstant(), ZoneId.systemDefault())
                         val num = ChronoUnit.HALF_DAYS.between(l1, l2)
                         if (num > 0) {
-                            val principal = Intent(this@LoginActivity, TrueWeatherActivity::class.java)
+                            val principal =
+                                Intent(this@LoginActivity, TrueWeatherActivity::class.java)
+                            finish()
+                            startActivity(principal)
+                        } else {
+                            val principal =
+                                Intent(this@LoginActivity, GreenhouseActivity::class.java)
                             finish()
                             startActivity(principal)
                         }
-                        else{
-                            val principal = Intent(this@LoginActivity, GreenhouseActivity::class.java)
-                            finish()
-                            startActivity(principal)
-                        }
-                    }
-                    else{
+                    } else {
                         val principal = Intent(this@LoginActivity, GreenhouseActivity::class.java)
                         finish()
                         startActivity(principal)
@@ -118,13 +117,11 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
         val forgotPass = findViewById<View>(R.id.tV_PasswordRecovery) as TextView
         val btnLoginGoogle = findViewById<View>(R.id.btnGoogle) as SignInButton
 
-
         mGoogleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
         mGoogleSignInClient = GoogleSignIn.getClient(this, mGoogleSignInOptions)
-
 
         btnLogin.setOnClickListener(View.OnClickListener {
             login()
@@ -163,7 +160,6 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
     }
 
     private fun forgot(email: EditText) {
-
         mAuth!!.sendPasswordResetEmail(email.text.toString()).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 Toast.makeText(
@@ -226,18 +222,25 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
                                         )
                                         val num = ChronoUnit.HALF_DAYS.between(l1, l2)
                                         if (num > 0) {
-                                            val principal =Intent(applicationContext, TrueWeatherActivity::class.java)
+                                            val principal = Intent(
+                                                applicationContext,
+                                                TrueWeatherActivity::class.java
+                                            )
                                             startActivity(principal)
-                                        }
-                                        else{
+                                        } else {
                                             val principal =
-                                                Intent(applicationContext, GreenhouseActivity::class.java)
+                                                Intent(
+                                                    applicationContext,
+                                                    GreenhouseActivity::class.java
+                                                )
                                             startActivity(principal)
                                         }
-                                    }
-                                    else{
+                                    } else {
                                         val principal =
-                                            Intent(applicationContext, GreenhouseActivity::class.java)
+                                            Intent(
+                                                applicationContext,
+                                                GreenhouseActivity::class.java
+                                            )
                                         startActivity(principal)
                                     }
                                     finish()
@@ -268,21 +271,23 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
             ).show()
         }
     }
+
     @RequiresApi(Build.VERSION_CODES.N)
-    fun getDay(): String{
+    fun getDay(): String {
         var cal: Calendar = Calendar.getInstance()
         var day = cal.get(Calendar.DAY_OF_WEEK)
         when (day) {
             Calendar.SUNDAY -> return "sunday"
             Calendar.MONDAY -> return "monday"
             Calendar.TUESDAY -> return "tuesday"
-            Calendar.WEDNESDAY ->return "wednesday"
+            Calendar.WEDNESDAY -> return "wednesday"
             Calendar.THURSDAY -> return "thursday"
             Calendar.FRIDAY -> return "friday"
             Calendar.SATURDAY -> return "saturday"
         }
         return ""
     }
+
     private fun loginGoogle() {
         val signinIntent: Intent = mGoogleSignInClient.signInIntent
         startActivityForResult(signinIntent, RC_SIGN_IN)
@@ -380,16 +385,20 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
                                     val num = ChronoUnit.HALF_DAYS.between(l1, l2)
                                     if (num > 0) {
                                         val principal =
-                                            Intent(applicationContext, TrueWeatherActivity::class.java)
+                                            Intent(
+                                                applicationContext,
+                                                TrueWeatherActivity::class.java
+                                            )
                                         startActivity(principal)
-                                    }
-                                    else{
+                                    } else {
                                         val principal =
-                                            Intent(applicationContext, GreenhouseActivity::class.java)
+                                            Intent(
+                                                applicationContext,
+                                                GreenhouseActivity::class.java
+                                            )
                                         startActivity(principal)
                                     }
-                                }
-                                else {
+                                } else {
                                     val principal =
                                         Intent(applicationContext, GreenhouseActivity::class.java)
                                     startActivity(principal)
@@ -406,7 +415,6 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
                         this,
                         R.string.ExitLogin, Toast.LENGTH_LONG
                     ).show()
-
                 }
             }
         } catch (e: Exception) {
