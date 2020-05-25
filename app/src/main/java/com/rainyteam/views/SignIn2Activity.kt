@@ -81,12 +81,12 @@ class SignIn2Activity : AppCompatActivity(), CoroutineScope {
                     mainConnection!!.setUser(actualUser)
                     //age
                     //maxWater
+                    val principal = Intent(this@SignIn2Activity, TrueWeatherActivity::class.java)
+                    finish()
+                    startActivity(principal)
+                    overridePendingTransition(R.anim.slide_up_to_down, R.anim.slide_stop)
                 }
 
-                val intent = Intent(this, TrueWeatherActivity::class.java)
-                startActivity(intent)
-                finish()
-                overridePendingTransition(R.anim.slide_up_to_down, R.anim.slide_stop)
             } else {
                 Toast.makeText(this, "Introduce all values", Toast.LENGTH_LONG).show()
                 btnSignin.isClickable=true
