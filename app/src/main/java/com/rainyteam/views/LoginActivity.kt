@@ -30,6 +30,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.rainyteam.controller.R
 import com.rainyteam.model.Connection
 import com.rainyteam.model.User
+import kotlinx.android.synthetic.main.login_layout.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -124,6 +125,7 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
         mGoogleSignInClient = GoogleSignIn.getClient(this, mGoogleSignInOptions)
 
         btnLogin.setOnClickListener(View.OnClickListener {
+            btnLogin.isClickable=false
             login()
         })
 
@@ -255,6 +257,7 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
                                 this,
                                 R.string.LoginError, Toast.LENGTH_LONG
                             ).show()
+                            btnLogin.isClickable=true
                         }
                     })
             } catch (e: Exception) {
@@ -263,12 +266,14 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
                     this,
                     "Error", Toast.LENGTH_LONG
                 ).show()
+                btnLogin.isClickable=true
             }
         } else {
             Toast.makeText(
                 this,
                 R.string.ErrorLogin, Toast.LENGTH_LONG
             ).show()
+            btnLogin.isClickable=true
         }
     }
 

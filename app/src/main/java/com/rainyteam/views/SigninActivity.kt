@@ -17,6 +17,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.rainyteam.controller.R
 import com.rainyteam.model.Connection
+import kotlinx.android.synthetic.main.signin_layout.*
 
 class SigninActivity : AppCompatActivity() {
 
@@ -43,6 +44,7 @@ class SigninActivity : AppCompatActivity() {
         val btnReturnLogin = findViewById<View>(R.id.btnReturnLogin) as Button
 
         btnSignin.setOnClickListener { view ->
+            btnSignin.isClickable=false
             register()
         }
 
@@ -126,6 +128,7 @@ class SigninActivity : AppCompatActivity() {
                                 } else {
                                     Log.d("Connection", task.exception?.message!!)
                                     Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
+                                    btnSignin.isClickable=true
                                 }
                             })/*
                     //Sincronizacion de varias cuentas
@@ -153,24 +156,28 @@ class SigninActivity : AppCompatActivity() {
                             this,
                             R.string.WrongEmail, Toast.LENGTH_LONG
                         ).show()
+                        btnSignin.isClickable=true
                     }
                 } else {
                     Toast.makeText(
                         this,
                         R.string.ErrorPasswordLength, Toast.LENGTH_LONG
                     ).show()
+                    btnSignin.isClickable=true
                 }
             } else {
                 Toast.makeText(
                     this,
                     R.string.ErrorPassword, Toast.LENGTH_LONG
                 ).show()
+                btnSignin.isClickable=true
             }
         } else {
             Toast.makeText(
                 this,
                 R.string.ErrorLogin, Toast.LENGTH_LONG
             ).show()
+            btnSignin.isClickable=true
         }
     }
 

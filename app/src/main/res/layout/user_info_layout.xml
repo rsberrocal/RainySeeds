@@ -173,7 +173,8 @@
                         android:textColor="@color/black"
                         android:textSize="15sp"
                         android:layout_marginTop="-25dp"
-                        android:visibility="invisible" />
+                        android:visibility="invisible"
+                        android:inputType="number"/>
 
 
 
@@ -254,7 +255,8 @@
                         android:textColor="@color/black"
                         android:textSize="15sp"
                         android:layout_marginTop="-25dp"
-                        android:visibility="invisible" />
+                        android:visibility="invisible"
+                        android:inputType="numberDecimal"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -319,7 +321,8 @@
                             android:text="Exercise per week:"
                             android:textColor="@color/gray"
                             android:textSize="13dp"
-                            android:textStyle="italic|bold" />
+                            android:textStyle="italic|bold"
+                            android:inputType="number"/>
 
                         <TextView
                             android:id="@+id/textExercise"
