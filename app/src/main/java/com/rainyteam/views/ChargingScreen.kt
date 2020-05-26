@@ -12,10 +12,7 @@ import com.androdocs.weatherapp.TrueWeatherActivity
 import com.google.firebase.firestore.FirebaseFirestore
 import com.rainyteam.controller.R
 import com.rainyteam.model.Connection
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -109,10 +106,12 @@ class ChargingScreen : AppCompatActivity(), CoroutineScope {
                 }
             }
         } else {
-            val principal = Intent(this, LoginActivity::class.java)
-            startActivity(principal)
-            finish()
+            launch {
+                delay(700)
+                val principal = Intent(this@ChargingScreen, LoginActivity::class.java)
+                startActivity(principal)
+                finish()
+            }
         }
-
     }
 }
