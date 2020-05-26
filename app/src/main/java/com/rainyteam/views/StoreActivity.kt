@@ -22,7 +22,6 @@ import com.rainyteam.model.User
 import com.rainyteam.model.UserPlants
 import com.rainyteam.services.MusicService
 import com.rainyteam.services.TimerService
-import kotlinx.android.synthetic.main.encyclopedia_layout.*
 import kotlinx.android.synthetic.main.store_layout.*
 import kotlinx.android.synthetic.main.store_layout.inputStoreSearch
 import kotlinx.coroutines.CoroutineScope

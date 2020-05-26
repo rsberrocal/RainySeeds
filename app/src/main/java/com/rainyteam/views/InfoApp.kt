@@ -1,7 +1,9 @@
 package com.rainyteam.views
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ProcessLifecycleOwner
@@ -27,5 +29,12 @@ class InfoApp : AppCompatActivity(), CoroutineScope, LifecycleObserver {
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         super.onCreate(savedInstanceState, persistentState)
         setContentView(R.layout.info_app)
+
+        val buttonOK : FrameLayout = findViewById(R.id.buttonOK)
+        buttonOK.setOnClickListener{
+            val intent = Intent(this, GreenhouseActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(R.anim.slide_stop, R.anim.slide_stop)
+        }
     }
 }

@@ -51,6 +51,13 @@
     <string name="LoginError">Error email or password</string>
     <string name="IntroduceWater">Introduce water (ml)</string>
     <string name="Loading">Loading...</string>
+    <string name="DevelopedBy">"Developed by\n\t\tSergi Fernández\n\t\tKatia Garcia\n\t\tRuben Pellicero\n\t\tRichard Sudario"</string>
+    <string name="info1">Your ideal daily water consumption is based on your registration data, that can be modified at your profile.</string>
+    <string name="info2">You will receive every day a message advising on water consumption depending on the weather of your location.</string>
+    <string name="info3">All the plants alive in your greenhouse are generating money while time pass. Keep them alive drinking enough water to earn more money. But be careful if you drink too much!</string>
+    <string name="info4">The more expensive is the plant the more money it generates and the more time they take to wither.</string>
+    <string name="info5">When you bought a plant you unlock the information about it. If this plant dies, you will still have this information, but you won\'t get money from the plant. To do that you need to rebuy it.</string>
+
 
     <string name="title_activity_fullscreen">FullscreenActivity</string>
     <string name="dummy_button">Dummy Button</string>

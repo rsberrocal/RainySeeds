@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.rainyteam.controller.R
 import kotlinx.android.synthetic.main.fragment_viewmenu.view.*
-import kotlinx.coroutines.delay
 
 class FragmentViewMenu : androidx.fragment.app.Fragment() {
 
