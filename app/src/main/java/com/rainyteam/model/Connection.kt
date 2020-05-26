@@ -1,16 +1,12 @@
 package com.rainyteam.model
 
 import android.util.Log
-import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.model.mutation.MutationBatch
 import kotlinx.coroutines.*
 import kotlinx.coroutines.tasks.await
 import java.lang.Exception
-import java.lang.RuntimeException
 import kotlin.coroutines.CoroutineContext
 
 class Connection : CoroutineScope {
@@ -27,8 +23,6 @@ class Connection : CoroutineScope {
         super.onDestroy()
         job.cancel()
     }*/
-
-    //Singleton, creem una nova instància si no hi ha cap creada anteriorment.
 
     fun mAuth(): FirebaseAuth {
         return mAuth
@@ -176,7 +170,7 @@ class Connection : CoroutineScope {
         var buyPlants: MutableList<Plants>? = mutableListOf()
         try {
             launch(coroutineContext) {
-               // userPlants = async { getUserPlantsId(user) }.await()
+                // userPlants = async { getUserPlantsId(user) }.await()
             }
             this.BDD.collection("Plants")
                 .get()
@@ -331,7 +325,7 @@ class Connection : CoroutineScope {
             .await()
     }
 
-    suspend fun setUser(user: User){
+    suspend fun setUser(user: User) {
         val dataUser = hashMapOf(
             "age" to user.getAge(),
             "exercise" to user.getExercise(),
@@ -348,8 +342,10 @@ class Connection : CoroutineScope {
             .document(user.getEmail())
             .set(dataUser)
     }
+
     suspend fun buyPlantToUser(user: User, plantToAdd: Plants) {
-        var userPlant: UserPlants = UserPlants(plantToAdd.getName(), plantToAdd.getMoney(), user.getEmail())
+        var userPlant: UserPlants =
+            UserPlants(plantToAdd.getName(), plantToAdd.getMoney(), user.getEmail())
         var documentName: String = user.getEmail() + "-" + plantToAdd.getName()
         val dataUser = hashMapOf(
             "age" to user.getAge(),
