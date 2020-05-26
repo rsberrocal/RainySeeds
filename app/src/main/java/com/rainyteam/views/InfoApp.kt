@@ -1,6 +1,7 @@
 package com.rainyteam.views
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.widget.FrameLayout
@@ -14,6 +15,10 @@ import kotlinx.coroutines.Job
 import kotlin.coroutines.CoroutineContext
 
 class InfoApp : AppCompatActivity(), CoroutineScope, LifecycleObserver {
+
+    val PREF_ID = "USER"
+    val PREF_NAME = "USER_ID"
+    var prefs: SharedPreferences? = null
 
     private var job: Job = Job()
 
@@ -35,6 +40,7 @@ class InfoApp : AppCompatActivity(), CoroutineScope, LifecycleObserver {
             val intent = Intent(this, GreenhouseActivity::class.java)
             startActivity(intent)
             overridePendingTransition(R.anim.slide_stop, R.anim.slide_stop)
+
         }
     }
 }
