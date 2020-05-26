@@ -109,6 +109,13 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope, LifecycleObserve
             prefs!!.edit().putBoolean("NAV", true).apply()
         }
 
+        buttonInfo.setOnClickListener {
+            val intent = Intent(this, InfoApp::class.java)
+            startActivity(intent)
+            overridePendingTransition(R.anim.slide_stop, R.anim.slide_stop)
+            prefs!!.edit().putBoolean("NAV", true).apply()
+        }
+
         textSeeds = findViewById(R.id.textGoldenSeeds) as TextView
 
         swMusic.setOnCheckedChangeListener { compoundButton, isChecked ->
