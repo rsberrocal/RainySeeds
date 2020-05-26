@@ -75,7 +75,7 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
         this.mainConnection = Connection()
         mAuth = mainConnection!!.mAuth()
         mBDD = mainConnection!!.mBDD()
-
+/*
         prefs = getSharedPreferences(PREF_NAME, 0)
         //Setting default play
         prefs!!.edit().putBoolean("PLAY", false).apply()
@@ -111,7 +111,7 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
                     }
                 }
             }
-        }
+        }*/
 
         val btnLogin = findViewById<View>(R.id.btnLogin) as Button
         val signup = findViewById<View>(R.id.tV_Signup) as TextView

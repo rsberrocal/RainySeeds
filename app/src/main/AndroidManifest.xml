@@ -2,12 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.rainyteam.controller">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-feature android:name="android.hardware.camera"
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.camera"
         android:required="true" />
 
-    <uses-feature android:name="android.hardware.camera"
-        android:required="true" />
     <application
         android:allowBackup="true"
         android:icon="@drawable/icon_app"
@@ -15,10 +18,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name="com.rainyteam.views.SignIn2Activity"
-            android:screenOrientation="portrait"/>
-        <activity android:name="com.androdocs.weatherapp.TrueWeatherActivity"
-            android:screenOrientation="portrait"/>
+        <activity android:name="com.rainyteam.views.ChargingScreen"></activity>
+        <activity
+            android:name="com.rainyteam.views.SignIn2Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.androdocs.weatherapp.TrueWeatherActivity"
+            android:screenOrientation="portrait" />
 
         <service
             android:name="com.rainyteam.services.MusicService"
@@ -29,11 +35,14 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name="com.rainyteam.views.IntroduceWaterActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name="com.rainyteam.views.SigninActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name="com.rainyteam.views.LoginActivity"
+        <activity
+            android:name="com.rainyteam.views.IntroduceWaterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.rainyteam.views.SigninActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.rainyteam.views.LoginActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,18 +50,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.rainyteam.views.EncyclopediaActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name="com.rainyteam.views.EncyclopediaDetailActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name="com.rainyteam.views.GreenhouseActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name="com.rainyteam.views.StoreActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name="com.rainyteam.views.MainWaterActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name="com.rainyteam.views.UserInfoActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.rainyteam.views.EncyclopediaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.rainyteam.views.EncyclopediaDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.rainyteam.views.GreenhouseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.rainyteam.views.StoreActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.rainyteam.views.MainWaterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.rainyteam.views.UserInfoActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
