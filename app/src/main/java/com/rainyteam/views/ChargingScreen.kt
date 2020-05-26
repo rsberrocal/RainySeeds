@@ -93,21 +93,26 @@ class ChargingScreen : AppCompatActivity(), CoroutineScope {
                         if (num > 0) {
                             val principal =
                                 Intent(this@ChargingScreen, TrueWeatherActivity::class.java)
-                            finish()
                             startActivity(principal)
+                            finish()
                         } else {
                             val principal =
                                 Intent(this@ChargingScreen, GreenhouseActivity::class.java)
-                            finish()
                             startActivity(principal)
+                            finish()
                         }
                     } else {
                         val principal = Intent(this@ChargingScreen, GreenhouseActivity::class.java)
-                        finish()
                         startActivity(principal)
+                        finish()
                     }
                 }
             }
+        } else {
+            val principal = Intent(this, LoginActivity::class.java)
+            startActivity(principal)
+            finish()
         }
+
     }
 }

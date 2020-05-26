@@ -75,43 +75,10 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
         this.mainConnection = Connection()
         mAuth = mainConnection!!.mAuth()
         mBDD = mainConnection!!.mBDD()
-/*
+
         prefs = getSharedPreferences(PREF_NAME, 0)
         //Setting default play
         prefs!!.edit().putBoolean("PLAY", false).apply()
-        val hasUser = prefs!!.getString("USER_ID", null)
-        if (hasUser != null) {
-            launch {
-                val userData = mainConnection!!.getUser(hasUser)
-                if (userData!!.hasInfo) {
-                    var lastTime = prefs!!.getLong(getDay(), 0)
-                    if (lastTime != 0L) {
-                        val now = Date()
-                        val l1 = LocalDateTime.ofInstant(
-                            Instant.ofEpochMilli(lastTime),
-                            ZoneId.systemDefault()
-                        )
-                        val l2 = LocalDateTime.ofInstant(now.toInstant(), ZoneId.systemDefault())
-                        val num = ChronoUnit.HALF_DAYS.between(l1, l2)
-                        if (num > 0) {
-                            val principal =
-                                Intent(this@LoginActivity, TrueWeatherActivity::class.java)
-                            finish()
-                            startActivity(principal)
-                        } else {
-                            val principal =
-                                Intent(this@LoginActivity, GreenhouseActivity::class.java)
-                            finish()
-                            startActivity(principal)
-                        }
-                    } else {
-                        val principal = Intent(this@LoginActivity, GreenhouseActivity::class.java)
-                        finish()
-                        startActivity(principal)
-                    }
-                }
-            }
-        }*/
 
         val btnLogin = findViewById<View>(R.id.btnLogin) as Button
         val signup = findViewById<View>(R.id.tV_Signup) as TextView
