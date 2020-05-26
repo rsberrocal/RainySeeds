@@ -29,7 +29,7 @@ class MusicService : Service() {
         mplayer = MediaPlayer.create(this, R.raw.rainysong)
         mplayer?.isLooping = true
         mplayer?.start()
-        var audio:AudioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        var audio: AudioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
         audio.setStreamVolume(AudioManager.STREAM_MUSIC, 10, 0)
         prefs = getSharedPreferences(PREF_ID, 0)
         //Guardamos el estado global del play a true

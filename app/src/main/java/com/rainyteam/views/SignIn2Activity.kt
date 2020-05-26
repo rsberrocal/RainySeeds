@@ -55,7 +55,7 @@ class SignIn2Activity : AppCompatActivity(), CoroutineScope {
             showDatePickerDialog();
         }
         btnSignin.setOnClickListener {
-            btnSignin.isClickable=false
+            btnSignin.isClickable = false
             if (!inputUsername.text.toString().isEmpty() && !inputHeight.text.toString().isEmpty()
                 && !inputWeight.text.toString().isEmpty() && !inputHoursExercise.text.toString().isEmpty()
                 && !inputBirthDate.text.toString().isEmpty()
@@ -86,10 +86,9 @@ class SignIn2Activity : AppCompatActivity(), CoroutineScope {
                     startActivity(principal)
                     overridePendingTransition(R.anim.slide_up_to_down, R.anim.slide_stop)
                 }
-
             } else {
                 Toast.makeText(this, "Introduce all values", Toast.LENGTH_LONG).show()
-                btnSignin.isClickable=true
+                btnSignin.isClickable = true
             }
         }
     }

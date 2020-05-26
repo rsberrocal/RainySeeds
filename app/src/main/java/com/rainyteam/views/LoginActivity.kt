@@ -123,7 +123,6 @@ class LoginActivity : AppCompatActivity(), CoroutineScope {
     override fun onBackPressed() {
         super.onBackPressed()
         Log.d("MAIN", "Finish app");
-        //exitProcess(0)
         moveTaskToBack(true)
         exitProcess(-1)
     }
