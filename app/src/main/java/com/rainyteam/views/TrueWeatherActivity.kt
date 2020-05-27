@@ -56,6 +56,8 @@ class TrueWeatherActivity : AppCompatActivity(), CoroutineScope {
         falseGreenHouseLayout.setOnClickListener{
             setContentView(R.layout.greenhouse_layout)
             val intent = Intent(this, GreenhouseActivity::class.java)
+            startActivity(intent)
+            finish()
         }
 
     }
