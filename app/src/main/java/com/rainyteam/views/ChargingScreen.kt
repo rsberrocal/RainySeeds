@@ -102,6 +102,10 @@ class ChargingScreen : AppCompatActivity(), CoroutineScope {
                         startActivity(principal)
                         finish()
                     }
+                } else {
+                    val principal = Intent(this@ChargingScreen, SignIn2Activity::class.java)
+                    startActivity(principal)
+                    finish()
                 }
             }
         } else {
