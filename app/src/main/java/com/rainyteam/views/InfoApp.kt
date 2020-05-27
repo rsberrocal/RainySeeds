@@ -62,7 +62,7 @@ class InfoApp : AppCompatActivity(), CoroutineScope, LifecycleObserver{
             val intent = Intent(this, GreenhouseActivity::class.java)
             startActivity(intent)
             overridePendingTransition(R.anim.slide_stop, R.anim.slide_stop)
-
+            finish()
         }
     }
 
