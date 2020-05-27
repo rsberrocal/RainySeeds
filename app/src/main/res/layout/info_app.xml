@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/blue"
-    android:paddingHorizontal="45dp"
-    android:paddingVertical="35dp">
+    android:orientation="vertical">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -13,14 +12,15 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_gravity="center"
-            android:gravity="center">
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="45dp"
+                android:layout_marginTop="35dp"
                 android:background="@drawable/rounded_button"
                 android:gravity="center"
                 android:paddingHorizontal="10dp"
@@ -35,6 +35,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="45dp"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/rounded_button"
                 android:gravity="center"
@@ -50,6 +51,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="45dp"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/rounded_button"
                 android:gravity="center"
@@ -65,6 +67,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="45dp"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/rounded_button"
                 android:gravity="center"
@@ -76,9 +79,11 @@
                 android:textSize="15sp">
 
             </TextView>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="45dp"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/rounded_button"
                 android:gravity="center"
@@ -90,6 +95,7 @@
                 android:textSize="15sp">
 
             </TextView>
+
             <FrameLayout
                 android:id="@+id/buttonOK"
                 android:layout_width="60dp"
@@ -97,17 +103,16 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/water_btn_bckg">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:text="OK"
                     android:textAlignment="center"
                     android:textColor="@color/white"
-                    android:text="OK"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    >
-                </TextView>
+                    android:textStyle="bold"></TextView>
             </FrameLayout>
 
             <TextView
