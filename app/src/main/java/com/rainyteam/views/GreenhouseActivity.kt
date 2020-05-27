@@ -105,15 +105,16 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope, LifecycleObserve
         layoutSeeds.setOnClickListener {
             val intent = Intent(this, StoreActivity::class.java)
             startActivity(intent)
+            finish()
             overridePendingTransition(R.anim.slide_stop, R.anim.slide_stop)
-            prefs!!.edit().putBoolean("NAV", true).apply()
         }
 
         buttonInfo.setOnClickListener {
+            Log.d("Connection", "TEST INFO GREENHOUSE")
             val intent = Intent(this, InfoApp::class.java)
             startActivity(intent)
+            finish()
             overridePendingTransition(R.anim.slide_stop, R.anim.slide_stop)
-            prefs!!.edit().putBoolean("NAV", true).apply()
         }
 
         textSeeds = findViewById(R.id.textGoldenSeeds) as TextView
