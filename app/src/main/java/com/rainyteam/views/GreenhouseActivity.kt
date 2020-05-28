@@ -53,7 +53,7 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope, LifecycleObserve
     private var job: Job = Job()
 
     //reciver
-    val broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+    val onMoneyChange: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(p0: Context?, p1: Intent?) {
             //actualizar datos
             Log.d("Timer", "Update en greenhouse")
@@ -65,12 +65,22 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope, LifecycleObserve
         }
     }
 
+    val onDeadPlant: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(p0: Context?, p1: Intent?) {
+            //actualizar datos
+            Log.d("Timer", "Update en greenhouse")
+            boughtPlants()
+        }
+    }
+
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
 
     override fun onDestroy() {
         super.onDestroy()
         ProcessLifecycleOwner.get().lifecycle.removeObserver(this)
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(onMoneyChange)
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(onDeadPlant)
         job.cancel()
     }
 
@@ -88,7 +98,8 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope, LifecycleObserve
         val timerService = Intent(this, TimerService::class.java)
 
         //register receiver
-        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, IntentFilter("Timer"))
+        LocalBroadcastManager.getInstance(this).registerReceiver(onMoneyChange, IntentFilter("Timer"))
+        LocalBroadcastManager.getInstance(this).registerReceiver(onDeadPlant, IntentFilter("Dead"))
 
         val swMusic = findViewById<View>(R.id.swMusic) as SwitchCompat
 
