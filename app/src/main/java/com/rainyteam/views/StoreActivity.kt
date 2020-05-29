@@ -167,6 +167,7 @@ class StoreActivity : AppCompatActivity(), CoroutineScope, LifecycleObserver {
 
 
             database.collection("Plants")
+                .orderBy("money")
                 .get()
                 .addOnSuccessListener { result ->
                     for (document in result) {

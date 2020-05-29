@@ -182,6 +182,7 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope, LifecycleObser
 
 
             database.collection("Plants")
+                .orderBy("money")
                 .get()
                 .addOnSuccessListener { result ->
                     for (document in result) {
@@ -230,6 +231,7 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope, LifecycleObser
                     }
                 }.await()
             database.collection("Plants")
+                .orderBy("money")
                 .get()
                 .addOnSuccessListener { result ->
                     for (document in result) {
@@ -267,6 +269,7 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope, LifecycleObser
             var buyPlants: MutableList<Plants>? = mutableListOf()
 
             database.collection("Plants")
+                .orderBy("money")
                 .get()
                 .addOnSuccessListener { result ->
                     for (document in result) {

@@ -60,7 +60,7 @@ class TimerService : Service(), CoroutineScope {
     override fun onDestroy() {
         logMessage("Destroying")
         //this.mainThread.interrupt()
-        prefs!!.edit().putLong(PREF_ACTUAL, this.actualTime * 1000).apply()
+        prefs!!.edit().putLong(PREF_ACTUAL, this.actualTime).apply()
         this.mainTimer.cancel()
         this.mainTimer.purge()
 
@@ -83,32 +83,38 @@ class TimerService : Service(), CoroutineScope {
             prefs!!.edit().putInt(PREF_NEXT, 0).apply()
         }
         //Consigo el tiempo actual en segundos (Epoch time)
-        actualTime = Calendar.getInstance().timeInMillis / 1000;
+        actualTime = Instant.now().epochSecond
+
 
         //El tiempo a actualizar sera el tiempo actual mas lo que hay que esperar (1 hora)
         nextTime = actualTime + WAIT_TIME;
         //Si el next guardado es 0, pongo como next el nuevo
+
         if (savedNextTime == 0) {
             logMessage("Saved next time was not set")
             prefs!!.edit().putInt(PREF_NEXT, nextTime.toInt()).apply()
-        } else if (actualTime > savedNextTime) {//miramos si el next guardado ha sido superado, por lo tanto actualizamos
-            // todo calcular cuanto tiempo ha pasado desde la ultima vez. mirar cuantas horas y cuantos updates hay que hacer
+        } else if (actualTime  > savedNextTime ) {//miramos si el next guardado ha sido superado, por lo tanto actualizamos
             //update
             //now
-            val l1 = LocalDateTime.ofInstant(Instant.ofEpochMilli(actualTime * 1000), ZoneId.systemDefault())
+            val l1 = LocalDateTime.ofInstant(Instant.ofEpochSecond(actualTime), ZoneId.systemDefault())
             //last session
+            logMessage("Passing hours")
             var lastSession = prefs!!.getLong(PREF_ACTUAL, 0L)
             if (lastSession != 0L) {
-                val l2 = LocalDateTime.ofInstant(Instant.ofEpochMilli(lastSession), ZoneId.systemDefault())
-                var numHours = ChronoUnit.HOURS.between(l1, l2)
-                updatePlants(numHours.toInt())
+                val l2 = LocalDateTime.ofInstant(Instant.ofEpochSecond(lastSession), ZoneId.systemDefault())
+                var numHours = ChronoUnit.HOURS.between(l2, l1)
+                logMessage("hours " + numHours);
+                if (numHours > 1) {
+                    updatePlants(numHours.toInt())
+                }
             }
             prefs!!.edit().putInt(PREF_NEXT, nextTime.toInt()).apply()
             logMessage("Update plants with saved nexttime")
         }
+        prefs!!.edit().putInt("NEXT", nextTime.toInt()).apply();
         this.mainTimer = Timer()
         this.timerTask = timerTask {
-            actualTime = Calendar.getInstance().timeInMillis / 1000;
+            actualTime = Instant.now().epochSecond
             if (actualTime > nextTime) {
                 logMessage("Updating")
                 nextTime = actualTime + WAIT_TIME;

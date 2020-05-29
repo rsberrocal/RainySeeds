@@ -73,6 +73,7 @@ class FragmentPageGreenhouse(
                     }
                 }.await()
             mBDD!!.collection("Plants")
+                .orderBy("money")
                 .get()
                 .addOnSuccessListener { result ->
                     for (document in result) {
