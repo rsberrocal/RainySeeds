@@ -21,6 +21,7 @@ import com.rainyteam.services.MusicService
 import com.rainyteam.services.TimerService
 import kotlinx.android.synthetic.main.introduce_water_layout.*
 import kotlinx.coroutines.*
+import java.time.Instant
 import java.util.*
 import kotlin.coroutines.CoroutineContext
 
@@ -47,7 +48,7 @@ class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope, LifecycleObs
         job.cancel()
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -113,7 +114,7 @@ class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope, LifecycleObs
         overridePendingTransition(R.anim.slide_stop, R.anim.slide_stop)
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
+    @RequiresApi(Build.VERSION_CODES.O)
     fun addWater(water: Int) {
         launch {
             val actualHistory: History? = mainConnection!!.getHistory(user!!)
@@ -199,7 +200,7 @@ class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope, LifecycleObs
                                 .addOnSuccessListener { detail ->
                                     val aux = detail.toObject(Plants::class.java)!!
                                     var statusToadd = 0
-                                    if (getStatusHistory(actualHistory) > actualUser.getMaxWater()) {
+                                    if (getStatusHistory(actualHistory) >= 100) {
                                         statusToadd = (plant.status - aux.getMoney() * 0.2 + quantity).toInt()
                                         Toast.makeText(applicationContext, "You're drowning your plants!!", Toast.LENGTH_LONG).show()
                                     } else {
@@ -219,7 +220,7 @@ class IntroduceWaterActivity : AppCompatActivity(), CoroutineScope, LifecycleObs
                 R.anim.slide_down_to_up,
                 R.anim.slide_stop
             )
-            prefs!!.edit().putLong(getDay(), Calendar.getInstance().timeInMillis).apply()
+            prefs!!.edit().putLong(getDay(), Instant.now().epochSecond).apply()
         }
     }
 

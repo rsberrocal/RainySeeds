@@ -149,9 +149,8 @@ class MainWaterActivity : AppCompatActivity(), CoroutineScope, LifecycleObserver
         launch {
             var lastTime = prefs!!.getLong(getDay(), 0)
             if (lastTime != 0L) {
-                val now = Date()
-                val l1 = LocalDateTime.ofInstant(Instant.ofEpochMilli(lastTime), ZoneId.systemDefault())
-                val l2 = LocalDateTime.ofInstant(now.toInstant(), ZoneId.systemDefault())
+                val l1 = LocalDateTime.ofInstant(Instant.ofEpochSecond(lastTime), ZoneId.systemDefault())
+                val l2 = LocalDateTime.ofInstant(Instant.now(), ZoneId.systemDefault())
                 val num = ChronoUnit.WEEKS.between(l1,l2)
                 if (num > 0 ){
                     mainConnection!!.BDD
