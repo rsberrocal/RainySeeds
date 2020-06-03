@@ -32,6 +32,8 @@ import com.rainyteam.services.TimerService
 import kotlinx.android.synthetic.main.user_info_layout.*
 import kotlinx.coroutines.*
 import java.io.ByteArrayOutputStream
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.coroutines.CoroutineContext
 
 
@@ -174,13 +176,76 @@ class UserInfoActivity() : AppCompatActivity(), CoroutineScope, LifecycleObserve
         launch {
             var userHistory = mainConnection?.getHistory(user!!)
             if (userHistory != null) {
-                entries.add(Entry(1f, userHistory.monday))
-                entries.add(Entry(2f, userHistory.tuesday))
-                entries.add(Entry(3f, userHistory.wednesday))
-                entries.add(Entry(4f, userHistory.thursday))
-                entries.add(Entry(5f, userHistory.friday))
-                entries.add(Entry(6f, userHistory.saturday))
-                entries.add(Entry(7f, userHistory.sunday))
+                var calendar = Calendar.getInstance()
+                var day = calendar.get(Calendar.DAY_OF_WEEK)
+                when (day) {
+                    android.icu.util.Calendar.SUNDAY -> {
+                        entries.add(Entry(1f, userHistory.monday))
+                        entries.add(Entry(2f, userHistory.tuesday))
+                        entries.add(Entry(3f, userHistory.wednesday))
+                        entries.add(Entry(4f, userHistory.thursday))
+                        entries.add(Entry(5f, userHistory.friday))
+                        entries.add(Entry(6f, userHistory.saturday))
+                        entries.add(Entry(7f, userHistory.sunday))
+                    }
+                    android.icu.util.Calendar.MONDAY -> {
+                        entries.add(Entry(1f, userHistory.tuesday))
+                        entries.add(Entry(2f, userHistory.wednesday))
+                        entries.add(Entry(3f, userHistory.thursday))
+                        entries.add(Entry(4f, userHistory.friday))
+                        entries.add(Entry(5f, userHistory.saturday))
+                        entries.add(Entry(6f, userHistory.sunday))
+                        entries.add(Entry(7f, userHistory.monday))
+                    }
+                    android.icu.util.Calendar.TUESDAY -> {
+                        entries.add(Entry(1f, userHistory.wednesday))
+                        entries.add(Entry(2f, userHistory.thursday))
+                        entries.add(Entry(3f, userHistory.friday))
+                        entries.add(Entry(4f, userHistory.saturday))
+                        entries.add(Entry(5f, userHistory.sunday))
+                        entries.add(Entry(6f, userHistory.monday))
+                        entries.add(Entry(7f, userHistory.tuesday))
+                    }
+                    android.icu.util.Calendar.WEDNESDAY -> {
+                        entries.add(Entry(1f, userHistory.thursday))
+                        entries.add(Entry(2f, userHistory.friday))
+                        entries.add(Entry(3f, userHistory.saturday))
+                        entries.add(Entry(4f, userHistory.sunday))
+                        entries.add(Entry(5f, userHistory.monday))
+                        entries.add(Entry(6f, userHistory.thursday))
+                        entries.add(Entry(7f, userHistory.wednesday))
+                    }
+                    android.icu.util.Calendar.THURSDAY -> {
+                        entries.add(Entry(1f, userHistory.friday))
+                        entries.add(Entry(2f, userHistory.tuesday))
+                        entries.add(Entry(3f, userHistory.wednesday))
+                        entries.add(Entry(4f, userHistory.thursday))
+                        entries.add(Entry(5f, userHistory.friday))
+                        entries.add(Entry(6f, userHistory.saturday))
+                        entries.add(Entry(7f, userHistory.thursday))
+                    }
+                    android.icu.util.Calendar.FRIDAY -> {
+                        entries.add(Entry(1f, userHistory.saturday))
+                        entries.add(Entry(2f, userHistory.sunday))
+                        entries.add(Entry(3f, userHistory.monday))
+                        entries.add(Entry(4f, userHistory.tuesday))
+                        entries.add(Entry(5f, userHistory.wednesday))
+                        entries.add(Entry(6f, userHistory.thursday))
+                        entries.add(Entry(7f, userHistory.friday))
+                    }
+
+
+                    android.icu.util.Calendar.SATURDAY  -> {
+                    entries.add(Entry(1f, userHistory.sunday))
+                    entries.add(Entry(2f, userHistory.monday))
+                    entries.add(Entry(3f, userHistory.tuesday))
+                    entries.add(Entry(4f, userHistory.wednesday))
+                    entries.add(Entry(5f, userHistory.thursday))
+                    entries.add(Entry(6f, userHistory.friday))
+                    entries.add(Entry(7f, userHistory.saturday))
+                }
+                }
+
 
                 val dataSet = LineDataSet(entries, "Water Percentage")
                 dataSet.setDrawValues(false)
