@@ -1,5 +1,6 @@
 package com.rainyteam.views
 
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.*
@@ -29,8 +30,10 @@ import com.rainyteam.model.Connection
 import com.rainyteam.model.User
 import com.rainyteam.services.MusicService
 import com.rainyteam.services.TimerService
+import kotlinx.android.synthetic.main.sign_in_2_layout.*
 import kotlinx.android.synthetic.main.user_info_layout.*
 import kotlinx.coroutines.*
+import java.text.SimpleDateFormat
 import java.io.ByteArrayOutputStream
 import java.util.*
 import kotlin.collections.ArrayList
@@ -48,6 +51,8 @@ class UserInfoActivity() : AppCompatActivity(), CoroutineScope, LifecycleObserve
     var prefs: SharedPreferences? = null
     var enableModify: Boolean = false
     var firstNav = false
+    var age: Long = 50
+    var format = SimpleDateFormat("dd MMM, YYY", Locale.US)
 
     //Camara
     val REQUEST_IMAGE_CAPTURE = 1
@@ -69,6 +74,7 @@ class UserInfoActivity() : AppCompatActivity(), CoroutineScope, LifecycleObserve
         job.cancel()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ProcessLifecycleOwner.get().lifecycle.addObserver(this)
@@ -98,7 +104,9 @@ class UserInfoActivity() : AppCompatActivity(), CoroutineScope, LifecycleObserve
             }
 
 
-
+        ageEdit.setOnClickListener{
+            showDatePickerDialog()
+        }
         setUser(userName)
         setUserStatics(userName)
         userBackArrowButton.setOnClickListener {
@@ -109,6 +117,15 @@ class UserInfoActivity() : AppCompatActivity(), CoroutineScope, LifecycleObserve
             overridePendingTransition(R.anim.slide_stop, R.anim.slide_stop)
             finish()
         }
+        userLayout.setOnClickListener {
+            val intent = Intent(this, MainWaterActivity::class.java)
+            startActivity(intent)
+            prefs!!.edit().putBoolean("NAV", true).apply()
+            //overridePendingTransition(R.anim.slide_down_to_up, R.anim.slide_stop)
+            overridePendingTransition(R.anim.slide_stop, R.anim.slide_stop)
+            finish()
+        }
+
         btnModify.setOnClickListener{
             if(enableModify){
                 acceptValues()
@@ -416,6 +433,26 @@ class UserInfoActivity() : AppCompatActivity(), CoroutineScope, LifecycleObserve
             }
         }
     }
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun showDatePickerDialog() {
+        val selectedDate = Calendar.getInstance()
+        val now = Calendar.getInstance()
+        val datePicker = DatePickerDialog(
+            this, DatePickerDialog.OnDateSetListener() { view, year, month, dayOfMonth ->
+                selectedDate.set(Calendar.YEAR, year)
+                selectedDate.set(Calendar.MONTH, month)
+                selectedDate.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                val selectedDateFormatted = format.format(selectedDate.time)
+                var actualTime = System.currentTimeMillis() / 1000
+                var milisSelectedDate = selectedDate.timeInMillis / 1000;
+                age = (actualTime - milisSelectedDate) / (3600 * 24 * 365)
+                ageEdit!!.text = Editable.Factory.getInstance().newEditable(age.toString())
 
-
+            },
+            now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH)
+        )
+        datePicker.show()
+    }
 }
+
+
