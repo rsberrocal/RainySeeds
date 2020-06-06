@@ -104,7 +104,6 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope, LifecycleObserve
         val swMusic = findViewById<View>(R.id.swMusic) as SwitchCompat
 
         prefs = getSharedPreferences(PREF_ID, 0)
-        //prefs!!.edit().putBoolean("PLAY", false).apply()
         this.user = prefs!!.getString(PREF_NAME, null)
         if (this.user == null) {
             val principal = Intent(this, LoginActivity::class.java)
@@ -155,9 +154,6 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope, LifecycleObserve
             }
             startService(timerService)
             textSeeds.text = auxUser.getRainyCoins().toString()
-            /** Delay para definir que no es navegacion al crear vista **/
-            delay(1000)
-            prefs!!.edit().putBoolean("NAV", false).apply()
         }
 
     }
@@ -165,7 +161,6 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope, LifecycleObserve
     override fun onBackPressed() {
         super.onBackPressed()
         Log.d("MAIN", "Finish app");
-        //exitProcess(0)
         moveTaskToBack(true)
         exitProcess(-1)
     }
@@ -228,8 +223,6 @@ class GreenhouseActivity : AppCompatActivity(), CoroutineScope, LifecycleObserve
             //Se crea el intent para iniciarlo
             val musicService = Intent(this, MusicService::class.java)
             val timerService = Intent(this, TimerService::class.java)
-            //var musicPlay = prefs!!.getBoolean("PLAY", false)
-            //val isNav = prefs!!.getBoolean("NAV", false);
             //Solo se inicia si la musica ha parado y si el usuario tiene habilitado el check
             launch {
                 var auxUser: User = mainConnection!!.getUser(user!!)!!

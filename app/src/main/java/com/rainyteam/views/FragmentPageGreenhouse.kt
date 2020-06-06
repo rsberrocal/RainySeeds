@@ -20,9 +20,7 @@ import kotlinx.coroutines.tasks.await
 import kotlin.coroutines.CoroutineContext
 
 
-class FragmentPageGreenhouse(
-    position: Int
-) : androidx.fragment.app.Fragment(), CoroutineScope {
+class FragmentPageGreenhouse(position: Int) : androidx.fragment.app.Fragment(), CoroutineScope {
 
     var mainConnection: Connection? = null
 
@@ -58,9 +56,6 @@ class FragmentPageGreenhouse(
         this.user = prefs!!.getString("USER_ID", "")
 
         launch {
-            /*mutableList = user?.let {
-                mainConnection!!.getUserPlantsAlive(it)
-            }*/
             mutableList = mutableListOf()
             val auxList = mutableListOf<UserPlants>()
             mBDD!!.collection("User-Plants")
@@ -101,15 +96,15 @@ class FragmentPageGreenhouse(
                 } else {
                     drawableName1 = auxPlant1!!.getPotImagePlant()
                 }
-                val resID1: Int = resources.getIdentifier(drawableName1, "drawable", context?.packageName)
+                val resID1: Int =
+                    resources.getIdentifier(drawableName1, "drawable", context?.packageName)
                 plantR1C1!!.setImageResource(resID1)
                 plantR1C1.setOnClickListener { view ->
                     val intent = Intent(plantR1C1.context, EncyclopediaDetailActivity::class.java)
                     intent.putExtra("idPlant", auxPlant1.getName())
                     intent.putExtra("statusPlant", auxPlant1.getStatus())
                     plantR1C1.context.startActivity(intent)
-                    activity!!.finish()
-                    prefs!!.edit().putBoolean("NAV", true).apply()
+                    requireActivity().finish()
                 }
             }
             if (mutableList!!.size > pos * 9 + 1) {
@@ -128,12 +123,11 @@ class FragmentPageGreenhouse(
                     intent.putExtra("idPlant", auxPlant2.getName())
                     intent.putExtra("statusPlant", auxPlant2.getStatus())
                     plantR1C2.context.startActivity(intent)
-                    activity!!.finish()
-                    prefs!!.edit().putBoolean("NAV", true).apply()
+                    requireActivity().finish()
                 }
             }
             if (mutableList!!.size > pos * 9 + 2) {
-                val auxPlant3: Plants? =mutableList!![pos * 9 + 2]
+                val auxPlant3: Plants? = mutableList!![pos * 9 + 2]
                 val drawableName3: String?
                 if (auxPlant3!!.isWither()) {
                     drawableName3 = auxPlant3!!.getWitheredImagePlant()
@@ -148,12 +142,11 @@ class FragmentPageGreenhouse(
                     intent.putExtra("idPlant", auxPlant3.getName())
                     intent.putExtra("statusPlant", auxPlant3.getStatus())
                     plantR1C3.context.startActivity(intent)
-                    activity!!.finish()
-                    prefs!!.edit().putBoolean("NAV", true).apply()
+                    requireActivity().finish()
                 }
             }
             if (mutableList!!.size > pos * 9 + 3) {
-                val auxPlant4: Plants? =mutableList!![pos * 9 + 3]
+                val auxPlant4: Plants? = mutableList!![pos * 9 + 3]
                 val drawableName4: String?
                 if (auxPlant4!!.isWither()) {
                     drawableName4 = auxPlant4!!.getWitheredImagePlant()
@@ -168,12 +161,11 @@ class FragmentPageGreenhouse(
                     intent.putExtra("idPlant", auxPlant4.getName())
                     intent.putExtra("statusPlant", auxPlant4.getStatus())
                     plantR2C1.context.startActivity(intent)
-                    activity!!.finish()
-                    prefs!!.edit().putBoolean("NAV", true).apply()
+                    requireActivity().finish()
                 }
             }
             if (mutableList!!.size > pos * 9 + 4) {
-                val auxPlant5: Plants? =mutableList!![pos * 9 + 4]
+                val auxPlant5: Plants? = mutableList!![pos * 9 + 4]
                 val drawableName5: String?
                 if (auxPlant5!!.isWither()) {
                     drawableName5 = auxPlant5!!.getWitheredImagePlant()
@@ -188,12 +180,11 @@ class FragmentPageGreenhouse(
                     intent.putExtra("idPlant", auxPlant5.getName())
                     intent.putExtra("statusPlant", auxPlant5.getStatus())
                     plantR2C2.context.startActivity(intent)
-                    activity!!.finish()
-                    prefs!!.edit().putBoolean("NAV", true).apply()
+                    requireActivity().finish()
                 }
             }
             if (mutableList!!.size > pos * 9 + 5) {
-                val auxPlant6: Plants? =mutableList!![pos * 9 + 5]
+                val auxPlant6: Plants? = mutableList!![pos * 9 + 5]
                 val drawableName6: String?
                 if (auxPlant6!!.isWither()) {
                     drawableName6 = auxPlant6!!.getWitheredImagePlant()
@@ -209,11 +200,11 @@ class FragmentPageGreenhouse(
                     intent.putExtra("idPlant", auxPlant6.getName())
                     intent.putExtra("statusPlant", auxPlant6.getStatus())
                     plantR2C3.context.startActivity(intent)
-                    activity!!.finish()
+                    requireActivity().finish()
                 }
             }
             if (mutableList!!.size > pos * 9 + 6) {
-                val auxPlant7: Plants? =mutableList!![pos * 9 + 6]
+                val auxPlant7: Plants? = mutableList!![pos * 9 + 6]
                 val drawableName7: String?
                 if (auxPlant7!!.isWither()) {
                     drawableName7 = auxPlant7!!.getWitheredImagePlant()
@@ -229,12 +220,12 @@ class FragmentPageGreenhouse(
                     intent.putExtra("idPlant", auxPlant7.getName())
                     intent.putExtra("statusPlant", auxPlant7.getStatus())
                     plantR3C1.context.startActivity(intent)
-                    activity!!.finish()
+                    requireActivity().finish()
                 }
             }
 
             if (mutableList!!.size > pos * 9 + 7) {
-                val auxPlant8: Plants? =mutableList!![pos * 9 + 7]
+                val auxPlant8: Plants? = mutableList!![pos * 9 + 7]
                 val drawableName8: String?
                 if (auxPlant8!!.isWither()) {
                     drawableName8 = auxPlant8!!.getWitheredImagePlant()
@@ -249,12 +240,11 @@ class FragmentPageGreenhouse(
                     intent.putExtra("idPlant", auxPlant8.getName())
                     intent.putExtra("statusPlant", auxPlant8.getStatus())
                     plantR3C2.context.startActivity(intent)
-                    activity!!.finish()
-                    prefs!!.edit().putBoolean("NAV", true).apply()
+                    requireActivity().finish()
                 }
             }
             if (mutableList!!.size > pos * 9 + 8) {
-                val auxPlant9: Plants? =mutableList!![pos * 9 + 8]
+                val auxPlant9: Plants? = mutableList!![pos * 9 + 8]
                 val drawableName9: String?
                 if (auxPlant9!!.isWither()) {
                     drawableName9 = auxPlant9!!.getWitheredImagePlant()
@@ -269,8 +259,7 @@ class FragmentPageGreenhouse(
                     intent.putExtra("idPlant", auxPlant9.getName())
                     intent.putExtra("statusPlant", auxPlant9.getStatus())
                     plantR3C3.context.startActivity(intent)
-                    activity!!.finish()
-                    prefs!!.edit().putBoolean("NAV", true).apply()
+                    requireActivity().finish()
                 }
             }
         }

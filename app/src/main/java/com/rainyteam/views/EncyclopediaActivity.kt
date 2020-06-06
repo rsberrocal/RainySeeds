@@ -95,23 +95,11 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope, LifecycleObser
 
         prefs = getSharedPreferences(PREF_ID, 0)
         this.user = prefs!!.getString(PREF_NAME, "")
-        //prefs!!.edit().putBoolean("NAV",false).apply()
+
         recyclerView = findViewById(R.id.recyclerViewPlants)
         gridLayoutManager =
             GridLayoutManager(applicationContext, 3, LinearLayoutManager.VERTICAL, false)
         recyclerView?.layoutManager = gridLayoutManager
-        scrollListener = object : EndlessRecyclerViewScrollListener(gridLayoutManager) {
-            override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
-                launch {
-                    println("Testing")
-                    var aux = mutableListOf<Plants>()
-                    //aux = mainConnection!!.getAllPlants(mutableList!!.last())!!
-                    //recyclerViewAdapter!!.notifyDataSetChanged()
-                    scrollListener!!.resetState()
-                }
-            }
-        }
-        recyclerView!!.addOnScrollListener(scrollListener!!)
         recyclerView?.setHasFixedSize(true)
 
         val btnFilterAll = findViewById(R.id.filterAll) as RadioButton
@@ -136,12 +124,6 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope, LifecycleObser
         }
         inputStoreSearch.addTextChangedListener {
             search()
-        }
-        launch {
-            /** Delay para definir que no es navegacion al crear vista **/
-            delay(1000)
-            prefs!!.edit().putBoolean("NAV", false).apply()
-            Log.d("Timer", "Set nav false on delay")
         }
 
     }
@@ -300,8 +282,6 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope, LifecycleObser
                     mutableList = mutableList?.let { buyPlants!!.plus(it).toMutableList() }
                     mutableList = mutableList?.let { boughtPlants!!.plus(it).toMutableList() }
                 }.await()
-
-            //mutableList = mainConnection?.getAllPlants(null)
             recyclerViewAdapter = RecyclerViewAdapter(applicationContext, mutableList!!)
             recyclerView?.adapter = recyclerViewAdapter
         }
@@ -357,8 +337,6 @@ class EncyclopediaActivity : AppCompatActivity(), CoroutineScope, LifecycleObser
             //Se crea el intent para iniciarlo
             val musicService = Intent(this, MusicService::class.java)
             val timerService = Intent(this, TimerService::class.java)
-            //var musicPlay = prefs!!.getBoolean("PLAY", false)
-            //val isNav = prefs!!.getBoolean("NAV", false);
             //Solo se inicia si la musica ha parado y si el usuario tiene habilitado el check
             launch {
                 var auxUser: User = mainConnection!!.getUser(user!!)!!

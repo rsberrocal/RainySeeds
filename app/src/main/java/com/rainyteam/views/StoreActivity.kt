@@ -115,7 +115,6 @@ class StoreActivity : AppCompatActivity(), CoroutineScope, LifecycleObserver {
             textSeeds.text = auxUser.getRainyCoins().toString()
         }
 
-
         buyPlants()
 
         buttonCloseStore.setOnClickListener {
@@ -250,8 +249,6 @@ class StoreActivity : AppCompatActivity(), CoroutineScope, LifecycleObserver {
             //Se crea el intent para iniciarlo
             val musicService = Intent(this, MusicService::class.java)
             val timerService = Intent(this, TimerService::class.java)
-            //var musicPlay = prefs!!.getBoolean("PLAY", false)
-            //val isNav = prefs!!.getBoolean("NAV", false);
             //Solo se inicia si la musica ha parado y si el usuario tiene habilitado el check
             launch {
                 var auxUser: User = mainConnection!!.getUser(user!!)!!

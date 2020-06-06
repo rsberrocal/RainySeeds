@@ -97,7 +97,6 @@ class SigninActivity : AppCompatActivity() {
             "userId" to email,
             "plantId" to "Cactus"
         )
-        //val credential = EmailAuthProvider.getCredential(email, password)
 
         if (!email.isEmpty() && !password.isEmpty() && !confirmPassword.isEmpty()) {
             if (password == confirmPassword) {
@@ -130,27 +129,7 @@ class SigninActivity : AppCompatActivity() {
                                     Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
                                     btnSignin.isClickable=true
                                 }
-                            })/*
-                    //Sincronizacion de varias cuentas
-                    val prevUser = mAuth!!.currentUser
-                    mAuth!!.signInWithCredential(credential)
-                        .addOnSuccessListener { result ->
-                            val currentUser = result.user
-                            // Merge prevUser and currentUser accounts and data
-                            // ...
-                        }
-                        .addOnFailureListener {
-                            // ...
-                        }
-
-                    mAuth!!.currentUser?.linkWithCredential(credential)
-                        ?.addOnCompleteListener(this) { task ->
-                            if (task.isSuccessful) {
-                                val btnSignin = Intent(this, UserInfoActivity::class.java)
-                                startActivity(btnSignin)
-                                finish()
-                            }
-                        } */
+                            })
                     } else {
                         Toast.makeText(
                             this,
