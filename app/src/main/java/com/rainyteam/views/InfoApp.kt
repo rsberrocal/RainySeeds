@@ -61,9 +61,18 @@ class InfoApp : AppCompatActivity(), CoroutineScope, LifecycleObserver{
         buttonOK.setOnClickListener{
             val intent = Intent(this, GreenhouseActivity::class.java)
             startActivity(intent)
-            overridePendingTransition(R.anim.slide_stop, R.anim.slide_stop)
             finish()
+            overridePendingTransition(R.anim.slide_stop, R.anim.slide_stop)
         }
+    }
+
+    //Funcion que se ejecuta al tirar atras
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val returnGreenhouseActivity = Intent(this, GreenhouseActivity::class.java)
+        startActivity(returnGreenhouseActivity)
+        finish()
+        overridePendingTransition(R.anim.slide_stop, R.anim.slide_stop)
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
