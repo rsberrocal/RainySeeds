@@ -50,6 +50,7 @@ dependencies {
 
     kapt "com.google.dagger:dagger-compiler:2.9"
     annotationProcessor "com.google.dagger:dagger-compiler:2.9"
+
     implementation "com.google.dagger:dagger:2.9"
     implementation "org.glassfish:javax.annotation:10.0-b28"
     implementation "com.squareup.retrofit2:retrofit:2.3.0"
@@ -68,6 +69,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.google.firebase:firebase-auth:19.3.0'
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
     implementation 'com.google.firebase:firebase-database:19.2.1'
     implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:4.1.2'
     implementation 'androidx.cardview:cardview:1.0.0'
