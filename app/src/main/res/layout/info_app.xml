@@ -1,133 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/blue"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="30">
 
-    <ScrollView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="20dp">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        >
 
-        <LinearLayout
+    </FrameLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="28"
+        >
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="45dp"
-                android:layout_marginTop="35dp"
-                android:background="@drawable/rounded_button"
                 android:gravity="center"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="6dp"
-                android:text="@string/info1"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="15sp">
-
-            </TextView>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="45dp"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/rounded_button"
-                android:gravity="center"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="6dp"
-                android:text="@string/info2"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="15sp">
-
-            </TextView>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="45dp"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/rounded_button"
-                android:gravity="center"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="6dp"
-                android:text="@string/info3"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="15sp">
-
-            </TextView>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="45dp"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/rounded_button"
-                android:gravity="center"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="6dp"
-                android:text="@string/info4"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="15sp">
-
-            </TextView>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="45dp"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/rounded_button"
-                android:gravity="center"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="6dp"
-                android:text="@string/info5"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="15sp">
-
-            </TextView>
-
-            <FrameLayout
-                android:id="@+id/buttonOK"
-                android:layout_width="60dp"
-                android:layout_height="35dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/water_btn_bckg">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="OK"
+                    android:layout_marginHorizontal="45dp"
+                    android:layout_marginTop="35dp"
+                    android:background="@drawable/rounded_button"
+                    android:gravity="center"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="6dp"
+                    android:text="@string/info1"
                     android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:textStyle="bold"></TextView>
-            </FrameLayout>
+                    android:textColor="@color/black"
+                    android:textSize="15sp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="25dp"
-                android:text="@string/DevelopedBy"
-                android:textColor="@color/dark_gray"
-                android:textSize="13sp">
+                </TextView>
 
-            </TextView>
-        </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="45dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/rounded_button"
+                    android:gravity="center"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="6dp"
+                    android:text="@string/info2"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="15sp">
 
+                </TextView>
 
-    </ScrollView>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="45dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/rounded_button"
+                    android:gravity="center"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="6dp"
+                    android:text="@string/info3"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="15sp">
 
-</FrameLayout>
+                </TextView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="45dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/rounded_button"
+                    android:gravity="center"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="6dp"
+                    android:text="@string/info4"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="15sp">
+
+                </TextView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="45dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/rounded_button"
+                    android:gravity="center"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="6dp"
+                    android:text="@string/info5"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="15sp">
+
+                </TextView>
+
+                <FrameLayout
+                    android:id="@+id/buttonOK"
+                    android:layout_width="60dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/water_btn_bckg">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="OK"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold"></TextView>
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="25dp"
+                    android:text="@string/DevelopedBy"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="13sp">
+
+                </TextView>
+            </LinearLayout>
+        </ScrollView>
+    </FrameLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        >
+    </FrameLayout>
+
+</LinearLayout>
