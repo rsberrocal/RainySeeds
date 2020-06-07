@@ -36,8 +36,6 @@ class RecyclerViewAdapter (var context: Context, var listOfPlants: MutableList<P
         holder.image.setImageResource(resID)
         holder.name.text = plant.getName()
         holder.image.setOnClickListener{
-            Log.d("Timer", "Nav to true")
-            prefs!!.edit().putBoolean("NAV", true).apply()
             val intent = Intent(holder.image.context, EncyclopediaDetailActivity::class.java)
             intent.putExtra("idPlant", plant.getName())
             intent.putExtra("statusPlant", plant.getStatus())

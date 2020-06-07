@@ -149,17 +149,6 @@ class UserInfoActivity() : AppCompatActivity(), CoroutineScope, LifecycleObserve
             overridePendingTransition(R.anim.slide_left_to_right, R.anim.slide_stop)
 
         }
-
-
-
-        //prefs!!.edit().putBoolean("NAV", false).commit()
-
-        launch {
-            //textWaterPercent!!.text = mainConnection.getUser(userName)
-            /** Delay para definir que no es navegacion al crear vista **/
-            delay(1000)
-            prefs!!.edit().putBoolean("NAV", false).commit()
-        }
     }
 
     //Funcion que se ejecuta al tirar atras
@@ -420,8 +409,6 @@ class UserInfoActivity() : AppCompatActivity(), CoroutineScope, LifecycleObserve
             //Se crea el intent para iniciarlo
             val musicService = Intent(this, MusicService::class.java)
             val timerService = Intent(this, TimerService::class.java)
-            //var musicPlay = prefs!!.getBoolean("PLAY", false)
-            //val isNav = prefs!!.getBoolean("NAV", false);
             //Solo se inicia si la musica ha parado y si el usuario tiene habilitado el check
             launch {
                 var auxUser: User = mainConnection!!.getUser(userName!!)!!

@@ -95,7 +95,7 @@ class Plants {
     }
 
     fun isWither(): Boolean{
-        return this.status < 40
+        return this.status < this.money!! * 0.2
     }
 
     fun isDead(): Boolean{

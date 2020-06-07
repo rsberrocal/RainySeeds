@@ -61,9 +61,18 @@ class InfoApp : AppCompatActivity(), CoroutineScope, LifecycleObserver{
         buttonOK.setOnClickListener{
             val intent = Intent(this, GreenhouseActivity::class.java)
             startActivity(intent)
-            overridePendingTransition(R.anim.slide_stop, R.anim.slide_stop)
             finish()
+            overridePendingTransition(R.anim.slide_stop, R.anim.slide_stop)
         }
+    }
+
+    //Funcion que se ejecuta al tirar atras
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val returnGreenhouseActivity = Intent(this, GreenhouseActivity::class.java)
+        startActivity(returnGreenhouseActivity)
+        finish()
+        overridePendingTransition(R.anim.slide_stop, R.anim.slide_stop)
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
@@ -90,8 +99,6 @@ class InfoApp : AppCompatActivity(), CoroutineScope, LifecycleObserver{
             //Se crea el intent para iniciarlo
             val musicService = Intent(this, MusicService::class.java)
             val timerService = Intent(this, TimerService::class.java)
-            //var musicPlay = prefs!!.getBoolean("PLAY", false)
-            //val isNav = prefs!!.getBoolean("NAV", false);
             //Solo se inicia si la musica ha parado y si el usuario tiene habilitado el check
             launch {
                 var auxUser: User = mainConnection!!.getUser(user!!)!!

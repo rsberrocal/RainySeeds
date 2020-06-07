@@ -91,14 +91,8 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope, Lifecycl
             startActivity(intent)
             finish()
             overridePendingTransition(R.anim.slide_stop, R.anim.slide_stop)
-            prefs!!.edit().putBoolean("NAV", true).apply()
         }
 
-        launch {
-            /** Delay para definir que no es navegacion al crear vista **/
-            delay(1000)
-            prefs!!.edit().putBoolean("NAV", false).apply()
-        }
 
     }
 
@@ -216,8 +210,7 @@ class EncyclopediaDetailActivity : AppCompatActivity(), CoroutineScope, Lifecycl
             //Se crea el intent para iniciarlo
             val musicService = Intent(this, MusicService::class.java)
             val timerService = Intent(this, TimerService::class.java)
-            //var musicPlay = prefs!!.getBoolean("PLAY", false)
-            //val isNav = prefs!!.getBoolean("NAV", false);
+
             //Solo se inicia si la musica ha parado y si el usuario tiene habilitado el check
             launch {
                 var auxUser: User = mainConnection!!.getUser(userName!!)!!
