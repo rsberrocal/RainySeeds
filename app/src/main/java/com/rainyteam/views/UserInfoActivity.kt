@@ -27,6 +27,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.rainyteam.controller.R
 import com.rainyteam.model.Connection
+import com.rainyteam.model.History
 import com.rainyteam.model.User
 import com.rainyteam.services.MusicService
 import com.rainyteam.services.TimerService
@@ -370,14 +371,52 @@ class UserInfoActivity() : AppCompatActivity(), CoroutineScope, LifecycleObserve
             textExercise!!.visibility = View.VISIBLE
             btnModify.setImageResource(R.drawable.icon_pencil)
             launch {
-                var actualUser = mainConnection!!.getUser(userName!!)
-                actualUser!!.setAge(ageEdit.text.toString().toLong())
-                actualUser!!.setSex(sexEdit.text.toString())
-                actualUser!!.setWeight(weightEdit.text.toString().toInt())
-                actualUser!!.setHeight(heightEdit.text.toString().toFloat())
-                actualUser!!.setExercise(exerciseEdit.text.toString().toInt())
-                actualUser!!.setMaxWater(17.0f)
+                val actualUser = mainConnection!!.getUser(userName!!)
+                var auxMaxWater = actualUser!!.getMaxWater()
+                actualUser.setAge(ageEdit.text.toString().toLong())
+                actualUser.setSex(sexEdit.text.toString())
+                actualUser.setWeight(weightEdit.text.toString().toInt())
+                actualUser.setHeight(heightEdit.text.toString().toFloat())
+                actualUser.setExercise(exerciseEdit.text.toString().toInt())
+                actualUser.setMaxWater(17.0f)
+                val actualHistory: History? = mainConnection!!.getHistory(userName!!)
                 mainConnection!!.setUser(actualUser)
+                var aux = (actualHistory!!.monday * auxMaxWater) / 100
+
+                mainConnection!!.BDD.collection("History")
+                    .document(userName!!)
+                    .update("monday", (aux * 100) / actualUser.getMaxWater())
+
+                aux = (actualHistory.tuesday * auxMaxWater) / 100
+                mainConnection!!.BDD.collection("History")
+                    .document(userName!!)
+                    .update("tuesday", (aux * 100) / actualUser.getMaxWater())
+
+                aux = (actualHistory.wednesday * auxMaxWater) / 100
+                mainConnection!!.BDD.collection("History")
+                    .document(userName!!)
+                    .update("wednesday", (aux * 100) / actualUser.getMaxWater())
+
+                aux = (actualHistory.thursday * auxMaxWater) / 100
+                mainConnection!!.BDD.collection("History")
+                    .document(userName!!)
+                    .update("thursday", (aux * 100) / actualUser.getMaxWater())
+
+                aux = (actualHistory.friday * auxMaxWater) / 100
+                mainConnection!!.BDD.collection("History")
+                    .document(userName!!)
+                    .update("friday", (aux * 100) / actualUser.getMaxWater())
+
+                aux = (actualHistory.saturday * auxMaxWater) / 100
+                mainConnection!!.BDD.collection("History")
+                    .document(userName!!)
+                    .update("saturday", (aux * 100) / actualUser.getMaxWater())
+
+                aux = (actualHistory.sunday * auxMaxWater) / 100
+                mainConnection!!.BDD.collection("History")
+                    .document(userName!!)
+                    .update("sunday", (aux * 100) / actualUser.getMaxWater())
+
                 setUser(userName)
             }
         }
