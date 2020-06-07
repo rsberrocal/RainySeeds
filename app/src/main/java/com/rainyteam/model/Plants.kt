@@ -53,9 +53,7 @@ class Plants {
         return this.money!!
     }
 
-    fun getMoneyGenerated(): Int {
-        return this.money!! * this.moneyMultiplier!!
-    }
+
 
     fun getStatus(): Int? {
         return this.status
@@ -74,9 +72,7 @@ class Plants {
         return "pot_withered_" + scientificName!!.toLowerCase().replace(" ", "_")
     }
 
-    fun getLiveImagePlant(): String? {
-        return "plant_" + scientificName!!.toLowerCase().replace(" ", "_")
-    }
+
 
     fun getBawImagePlant(): String? {
         return "baw_" + scientificName!!.toLowerCase().replace(" ", "_")
@@ -106,8 +102,6 @@ class Plants {
         return this.status == -1
     }
 
-    fun isBought(): Boolean{
-        return this.status == -2
-    }
+
 
 }
